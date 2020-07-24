@@ -8,7 +8,7 @@ class Blog extends Model {
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
     constructor({id, title, content, date, viewTimes, owner, tags}) {
-        super({title, content})     // data fields that is requried when save
+        super({title, content, owner})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'blog'  // required

@@ -14,7 +14,7 @@ export async function login(username, password) {
 
 export function logout() {
     axios.defaults.headers['Authorization'] = ''
-    localStorage.setItem("token", '');
+    localStorage.removeItem('token')
 }
 
 export function is_authenticated() {
