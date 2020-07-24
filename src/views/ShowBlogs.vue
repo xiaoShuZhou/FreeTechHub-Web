@@ -16,6 +16,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated } from '@/assets/utils/auth'
+
 export default {
   name: "ShowBlog",
   data() {

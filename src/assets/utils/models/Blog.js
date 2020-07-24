@@ -1,4 +1,5 @@
-import Model from "./Model";
+import Model from "./Model"
+import Tag from "./Tag"
 import marked from 'marked'
 
 class Blog extends Model {
@@ -16,13 +17,14 @@ class Blog extends Model {
         this.pk = id            // required
 
         // this custom data for Tag
-        this._tags = tags
         this.date = date
         this.viewTimes = viewTimes
         this.owner = owner
         this.m_content = marked(this.content)
-    }
 
+        this.tags = []
+        tags.forEach(tag => { this.tags.push(new Tag(tag)) })
+    }
 
     // -*- Just copy paste everything below to every concrete model -*-
 
