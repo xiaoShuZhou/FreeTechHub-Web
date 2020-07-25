@@ -4330,14 +4330,11 @@ highlight.js-async-webpack@^1.0.4:
   resolved "https://registry.npm.taobao.org/highlight.js-async-webpack/download/highlight.js-async-webpack-1.0.4.tgz#c06b67bf99f049045d62b756e5855b0912ec616c"
   integrity sha1-wGtnv5nwSQRdYrdW5YVbCRLsYWw=
 
-<<<<<<< Updated upstream
-=======
 highlight.js@^10.1.1:
   version "10.1.1"
   resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-10.1.1.tgz#691a2148a8d922bf12e52a294566a0d993b94c57"
   integrity sha1-aRohSKjZIr8S5SopRWag2ZO5TFc=
 
->>>>>>> Stashed changes
 highlight.js@^9.11.0, highlight.js@^9.6.0:
   version "9.18.1"
   resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-9.18.1.tgz#ed21aa001fe6252bb10a3d76d47573c6539fe13c"
@@ -8879,11 +8876,7 @@ xmlchars@^2.1.1:
 
 xss@^1.0.6:
   version "1.0.7"
-<<<<<<< Updated upstream
   resolved "https://registry.npm.taobao.org/xss/download/xss-1.0.7.tgz?cache=0&sync_timestamp=1591583930824&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fxss%2Fdownload%2Fxss-1.0.7.tgz#a554cbd5e909324bd6893fb47fff441ad54e2a95"
-=======
-  resolved "https://registry.npm.taobao.org/xss/download/xss-1.0.7.tgz?cache=0&sync_timestamp=1591583487867&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fxss%2Fdownload%2Fxss-1.0.7.tgz#a554cbd5e909324bd6893fb47fff441ad54e2a95"
->>>>>>> Stashed changes
   integrity sha1-pVTL1ekJMkvWiT+0f/9EGtVOKpU=
   dependencies:
     commander "^2.20.3"
