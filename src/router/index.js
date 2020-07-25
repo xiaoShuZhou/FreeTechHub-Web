@@ -8,6 +8,7 @@ import Login from '@/views/Login.vue'
 import EditQuestion from '@/views/EditQuestion'
 import ShowQuestions from '@/views/ShowQuestions'
 import ShowQuestion from '@/views/ShowQuestion'
+import Profile from '@/views/Profile'
 
 Vue.use(VueRouter)
 
@@ -22,7 +23,8 @@ const routes = [
   { path: '/show/questions',    name: 'ShowQuestions',component: ShowQuestions},
   { path: '/edit/question/:id', name: 'EditQuestion', component: EditQuestion},
   { path: '/show/question/:id', name: 'ShowQuestion', component: ShowQuestion},
-  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') }
+  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') },
+  { path: '/profile/:id',       name: 'Profile',      component: Profile},
 ]
 
 const router = new VueRouter({
