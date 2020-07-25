@@ -4,7 +4,10 @@
     <hr>
     <nav>
       <ul>
-        <li><a href="#">Profile</a></li>
+        <li>
+          <v-icon  icon-class="profile"></v-icon>
+          <a href="#">Profile</a>
+          </li>
         <li><a href="#">Blogs</a></li>
         <li><a href="#">Questions</a></li>
         <li><a href="#">Following</a></li>
