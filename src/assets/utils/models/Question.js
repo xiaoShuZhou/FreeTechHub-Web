@@ -2,7 +2,7 @@ import Model from "./Model";
 import marked from 'marked'
 
 class Question extends Model {
-    static app_name = 'question'    // required
+    static app_name = 'question'     // required
     static model_name = 'question'   // required
 
     // the input argument must be something like:
@@ -12,8 +12,8 @@ class Question extends Model {
 
         // required data fields
         this.app_name = 'question'  // required
-        this.model = "question"      // required
-        this.pk = id            // required
+        this.model = "question"     // required
+        this.pk = id                // required
 
         // this custom data for Tag
         this._tags = tags

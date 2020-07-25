@@ -5,7 +5,7 @@ import store from './store'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
+import 'highlight.js/styles/atom-one-light.css'
 
 Vue.config.productionTip = false
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="questionDetail">
+  <div class="ShowQuestion">
     <h4 class="title">{{ question.title }}</h4>
     <p class="content" v-html='question.content'></p>
     <p class="bounty">{{ question.bounty }}</p>
@@ -14,7 +14,7 @@
 import Question from '@/assets/utils/models/Question'
 
 export default {
-  name: "QuestionDetail",
+  name: "ShowQuestion",
   data() {
     return {
       question: ''
@@ -23,11 +23,11 @@ export default {
   methods: {
     deleteQuestion() {
         this.question.delete().then(() => {
-            this.$router.push({name: 'showQuestions'})
+            this.$router.push({name: 'ShowQuestions'})
         })
     },
     editQuestion() {
-        this.$router.push({name: 'editQuestion', params:{ id:this.$route.params.id }})
+        this.$router.push({name: 'EditQuestion', params:{ id:this.$route.params.id }})
     }
   },
   created() {
@@ -43,7 +43,7 @@ export default {
   box-sizing: border-box;
 }
 
-.blogDetail {
+.ShowQuestion {
   padding: 0 10vw;
   display: flex;
   flex-direction: column;

@@ -1,5 +1,5 @@
 import axios from "axios"
-import BASE_URL from '../consts';
+import BASE_URL from '../consts'
 
 class Model {
     static base_URL = BASE_URL

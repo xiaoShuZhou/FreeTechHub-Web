@@ -11,8 +11,7 @@
         Bounty:<input type="number" v-model = "bounty">
       </div>
       <div class="form-group">
-        <router-link
-          to='/show/questions'>
+        <router-link to='/show/questions'>
           <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
         </router-link>
       </div>

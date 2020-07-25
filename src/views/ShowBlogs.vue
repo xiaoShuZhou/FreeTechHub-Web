@@ -1,11 +1,15 @@
 <template>
-  <div class="showBlogs">
+  <div class="ShowBlogs">
+    <Navbar/>
     <h1>Blogs</h1>
     <ul>
       <li v-for="blog in blogs" :key="blog.pk">
         <div class="card">
-          <h4 class="title"><router-link :to="{name: 'showBlog', params: {id: blog.pk}}" >{{ blog.title }}</router-link></h4>
-          <p class="content">{{ blog.content }}</p>
+          <h3 class="title"><router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >{{ blog.title }}</router-link></h3>
+          <h4>Tags: </h4>
+          <ul class="tag-list">
+            <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
+          </ul>
         </div>
       </li>
     </ul>
@@ -16,8 +20,13 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated } from '@/assets/utils/auth'
+import Navbar from '@/components/Navbar.vue'
+
 export default {
   name: "ShowBlog",
+  components: {
+    Navbar
+  },
   data() {
     return {
       blogs: ''
@@ -26,9 +35,9 @@ export default {
   methods: {
     newBlog() {
       if( !is_authenticated() ){
-        this.$router.push({name: 'login'})
+        this.$router.push({name: 'Login'})
       } else {
-        this.$router.push({name: 'newBlog'})
+        this.$router.push({name: 'NewBlog'})
       }
     }
   },
@@ -57,7 +66,7 @@ button {
   color: #311f1f;
 }
 
-.showBlogs {
+.ShowBlogs {
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
@@ -80,6 +89,10 @@ ul {
   flex-direction: column;
 }
 
+.card > h4 {
+  margin: 0 3vw;
+}
+
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
 }
@@ -89,7 +102,7 @@ ul {
   margin: 3vh 0;
 }
 
-.content {
+.tag-list {
   margin: 0 3vw;
 }
 

@@ -1,10 +1,11 @@
 <template>
-    <div class="showQuestions">
+    <div class="ShowQuestions">
+      <Navbar/>
       <h1>Questions</h1>
       <ul>
-        <li v-for="question in questions" :key="question.id">
+        <li v-for="question in questions" :key="question.pk">
           <div class="card">
-            <h4 class="title"><router-link :to="{name: 'showQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h4>
+            <h4 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h4>
             <p class="content" v-html="question.content"></p>
             <p class="bounty">{{ question.bounty }}</p>
           </div>
@@ -17,21 +18,24 @@
 <script>
 import Question from "../assets/utils/models/Question"
 import { is_authenticated } from '@/assets/utils/auth'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'ShowQuestions',
+  components: {
+    Navbar
+  },
   data() {
     return {
         questions:'',
     }
   },
-
   methods: {
     newQuestion(){
       if( !is_authenticated() ){
-        this.$router.push({name: 'login'})
+        this.$router.push({name: 'Login'})
       }else{
-        this.$router.push({name: 'newQuestion'})
+        this.$router.push({name: 'NewQuestion'})
       }
     },
   },
@@ -43,66 +47,63 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #f1f1f1;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.header {
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
+button {
+  border: 0;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 5px;
+  min-width: 8vw;
+  min-height: 7vh;
+  font-size: 1.5rem;
+  color: #311f1f;
 }
-
-/* Create two unequal columns that floats next to each other */
-/* Left column */
-.leftcolumn {
-  float: left;
-  width: 75%;
+.ShowQuestions {
+  padding: 0 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-/* Right column */
-.rightcolumn {
-  float: left;
-  width: 25%;
-  padding-left: 20px;
-}
-
-/* Fake image */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
+ul {
+  list-style: none;
 }
 
-/* Add a card effect for articles */
 .card {
-  background-color: white;
-  padding: 20px;
-  margin-top: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 5px;
+  min-width: 70vw;
+  min-height: 20vh;
+  margin: 5vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.v-enter,
-.v-leave-to {
-  opacity: 0;
-  transform: translateX(5rem);
-}
-.v-enter-active,
-.v-leave-active {
-  transition: all 1s ease; 
-}
-.v-move {
-  transition: all 1s ease;
+.card:hover {
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
 }
 
-.v-leave-active {
-  position: absolute;
+.title {
+  align-self: center;
+  margin: 3vh 0;
+}
+
+.content {
+  margin: 0 3vw;
+}
+
+.bounty {
+  margin: 0 3vw;
+}
+
+
+a {
+  text-decoration: none;
 }
 </style>
