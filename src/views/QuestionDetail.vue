@@ -27,7 +27,7 @@ export default {
         })
     },
     editQuestion() {
-        this.$router.push({name: 'editQuestion'})
+        this.$router.push({name: 'editQuestion', params:{ id:this.$route.params.id }})
     }
   },
   created() {

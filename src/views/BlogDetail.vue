@@ -26,7 +26,7 @@ export default {
         })
     },
     editBlog() {
-        this.$$router.push({name: 'editBlog', params: { id:this.blog.id }})
+        this.$router.push({name: 'editBlog', params: { id:this.blog.id }})
     }
   },
   created() {

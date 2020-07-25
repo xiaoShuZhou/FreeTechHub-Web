@@ -13,7 +13,7 @@
       <div class="form-group">
         <router-link
           to='/show/questions'>
-          <button class="btn btn-outline btn-success" @click="saveQuestion()">保存</button>
+          <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
         </router-link>
       </div>
     </div>
@@ -31,6 +31,7 @@ export default {
   
   data(){
     return {
+      id:'',
       title:'',
       content:'',
       bounty:'',
@@ -59,7 +60,7 @@ export default {
         })
       }else{
         question.update().then(()=>{
-          this.$router.push({name:'showQuestion', params:{id: this.id}})
+          this.$router.push({name:'showQuestion', params: {id: this.id }})
         })
       }
     },
@@ -70,7 +71,7 @@ export default {
         this.title = question.title
         this.content = question.content
         this.bounty = question.bounty
-        this.id = question.id
+        this.id = question.pk
         this.owner = question.owner
       })
     }

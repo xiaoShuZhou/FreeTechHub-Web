@@ -8,7 +8,7 @@ class Question extends Model {
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
     constructor({id, title, content, date, bounty, viewTimes, status, owner, tags}) {
-        super({title, content, bounty})     // data fields that is requried when save
+        super({title, content, bounty, owner})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'question'  // required
@@ -20,7 +20,6 @@ class Question extends Model {
         this.date = date
         this.viewTimes = viewTimes
         this.status = status
-        this.owner = owner
         this.m_content = marked(this.content)
     }
 
