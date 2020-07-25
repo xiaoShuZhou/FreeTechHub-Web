@@ -5,8 +5,8 @@
     <router-link to="/show/blogs">blogs</router-link> |
     <router-link to="/show/questions">questions</router-link> |
     <router-link to="/login">Login</router-link> |
-    <input type="text" name="search" v-model="search"/>
-    <button>search</button>
+    <input type="text" name="search" v-model="search_tag_name"/>
+    <button @click="search">search</button>
   </div>
 </template>
 
@@ -15,7 +15,14 @@ export default {
   name: "Navbar",
   data() {
     return {
-      search: ''
+      search_tag_name: ''
+    }
+  },
+  methods: {
+    search() {
+			if (this.search != ''){
+				this.$router.push({name: "Search", query: {tag_name: this.search_tag_name} })
+			}
     }
   }
 }
