@@ -1,6 +1,7 @@
 <template>
   <div class="Search">
     <Navbar/>
+    
     <div class="result" v-if="this.blogs.length != 0">
       <div class="blogs">
         <h2>Related blogs:</h2>
@@ -16,21 +17,25 @@
           </li>
         </ul>
       </div>
-      <div class="questions" v-if="this.questions.length != 0">
-        <h2>Related questions:</h2>
-        <ul>
-          <li v-for="question in questions" :key="question.pk">
-            <div class="card">
-              <h3 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}" >{{ question.title }}</router-link></h3>
-              <h4>Tags: </h4>
-              <ul class="tag-list">
-                <li v-for="tag in question.tags" :key="tag.pk">{{tag.tag_name}}</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
     </div>
+    <h2 v-else>No related blogs</h2>
+
+    <div class="questions" v-if="this.questions.length != 0">
+      <h2>Related questions:</h2>
+      <ul>
+        <li v-for="question in questions" :key="question.pk">
+          <div class="card">
+            <h3 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}" >{{ question.title }}</router-link></h3>
+            <h4>Tags: </h4>
+            <ul class="tag-list">
+              <li v-for="tag in question.tags" :key="tag.pk">{{tag.tag_name}}</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <h2 v-else>No related questions</h2>
+    
   </div>
 </template>
 
@@ -55,7 +60,6 @@ export default {
   created() {
     let tag = new Tag({tag_name: this.$route.query['tag_name']})
     tag.get_tagged_items().then(res => {
-      console.log(res)
       this.blogs = res.blogs
       this.questions = res.questions
     })
