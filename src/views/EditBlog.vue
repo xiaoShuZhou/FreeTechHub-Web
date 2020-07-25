@@ -1,17 +1,24 @@
 <template>
-  <div class="editBlog">
-    <span class="title"><h4>Title: </h4> <input type="text" v-model="title"/></span>
-    <h2>content</h2>
-    <mavon-editor v-model="content"/>
-    <button class="submit" @click="save">submit</button>
+  <div class="EditBlog">
+    <Navbar/>
+    <form class="blog-form">
+      <span class="title"><h4>Title: </h4> <input type="text" v-model="title" required="required"/></span>
+      <h2>content</h2>
+      <mavon-editor v-model="content"/>
+      <button class="submit" @click="save">submit</button>
+    </form>
   </div>
 </template>
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'EditBlog',
+  components: {
+    Navbar
+  },
   data() {
     return {
       title: '',
@@ -31,16 +38,20 @@ export default {
     },
     save() {
       let blog = this._getblog()
-      console.log(blog)
-      if(this.$route.name == "newBlog") {
-        blog.save().then(() => {
-          this.$router.push({name: "showblogs"})
-        })
-      } else {
-        blog.update().then(() => {
-          this.$router.push({name: "showBlog", params: {id: this.id}})
-        })
+      try{
+        if(this.$route.name == "NewBlog") {
+          blog.save().then(() => {
+            this.$router.push({name: "ShowBlogs"})
+          })
+        } else {
+          blog.update().then(() => {
+            this.$router.push({name: "ShowBlog", params: {id: this.id}})
+          })
+        }
+      } catch(err) {
+        console.log(err)
       }
+
     }
   },
   created() {
@@ -64,9 +75,16 @@ export default {
   box-sizing: border-box;
 }
 
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .title{
   display: flex;
   margin: 5vh 5vw;
+  justify-content: center;
 }
 
 .title input {
@@ -74,7 +92,7 @@ export default {
 }
 
 
-.editBlog {
+.EditBlog {
   padding: 0 10vw;
   display: flex;
   flex-direction: column;

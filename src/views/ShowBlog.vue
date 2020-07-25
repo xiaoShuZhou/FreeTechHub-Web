@@ -1,19 +1,23 @@
 <template>
-  <div class="blogDetail">
+  <div class="ShowBlog">
+    <Navbar/>
     <h4 class="title">{{ blog.title }}</h4>
     <p class="content">{{ blog.content }}</p>
     <div class="buttons">
-        <button @click="editBlog">Edit</button>
-        <button @click="deleteBlog">Delete</button>
+      <button @click="editBlog">Edit</button>
+      <button @click="deleteBlog">Delete</button>
     </div>
   </div>
 </template>
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
-
+import Navbar from '@/components/Navbar.vue'
 export default {
-  name: "BlogDetail",
+  name: "ShowBlog",
+  components: {
+    Navbar
+  },
   data() {
     return {
       blog: ''
@@ -21,12 +25,12 @@ export default {
   },
   methods: {
     deleteBlog() {
-        this.blog.delete().then(() => {
-            this.$router.push({name: 'showBlogs'})
-        })
+      this.blog.delete().then(() => {
+          this.$router.push({name: 'ShowBlogs'})
+      })
     },
     editBlog() {
-        this.$router.push({name: 'editBlog', params: { id:this.blog.id }})
+      this.$router.push({name: 'EditBlog'})
     }
   },
   created() {
@@ -42,7 +46,7 @@ export default {
   box-sizing: border-box;
 }
 
-.blogDetail {
+.ShowBlog {
   padding: 0 10vw;
   display: flex;
   flex-direction: column;

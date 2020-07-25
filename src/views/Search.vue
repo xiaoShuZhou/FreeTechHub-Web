@@ -1,16 +1,20 @@
 <template>
-  <div class="About">
+  <div class="Search">
     <Navbar/>
-    <h1>This is an about page</h1>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+
 export default {
-  Name: "About",
+  name: "Search",
   components: {
     Navbar
   }
 }
 </script>
+
+<style>
+
+</style>

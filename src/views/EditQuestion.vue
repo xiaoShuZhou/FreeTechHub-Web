@@ -11,8 +11,7 @@
         Bounty:<input type="number" v-model = "bounty">
       </div>
       <div class="form-group">
-        <router-link
-          to='/show/questions'>
+        <router-link to='/show/questions'>
           <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
         </router-link>
       </div>
@@ -43,24 +42,23 @@ export default {
   methods:{
     _getQuestion(){
       return new Question({
-        id:this.id,
-        title:this.title,
-        content:marked(this.content),
-        bounty:this.bounty,
-        owner:this.owner,
+        id: this.id,
+        title: this.title,
+        content: marked(this.content),
+        bounty: this.bounty,
+        owner: this.owner,
       })
     },
 
     saveQuestion(){
       let question = this._getQuestion()
-      console.log(question)
-      if(this.$route.name == "newQuestion"){
+      if(this.$route.name == "NewQuestion"){
         question.save().then(()=>{
-          this.$router.push({name:'showQuestions'})
+          this.$router.push({name:'ShowQuestions'})
         })
       }else{
         question.update().then(()=>{
-          this.$router.push({name:'showQuestion', params: {id: this.id }})
+          this.$router.push({name:'ShowQuestion', params: {id: this.id }})
         })
       }
     },

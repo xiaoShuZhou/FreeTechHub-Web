@@ -22,8 +22,10 @@ class Blog extends Model {
         this.owner = owner
         this.m_content = marked(this.content)
 
-        this.tags = []
-        tags.forEach(tag => { this.tags.push(new Tag(tag)) })
+        if (tags != undefined) {
+            this.tags = []
+            tags.forEach(tag => { this.tags.push(new Tag(tag)) })
+        }
     }
 
     // -*- Just copy paste everything below to every concrete model -*-

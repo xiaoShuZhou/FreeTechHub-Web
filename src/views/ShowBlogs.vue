@@ -1,10 +1,11 @@
 <template>
-  <div class="showBlogs">
+  <div class="ShowBlogs">
+    <Navbar/>
     <h1>Blogs</h1>
     <ul>
       <li v-for="blog in blogs" :key="blog.pk">
         <div class="card">
-          <h4 class="title"><router-link :to="{name: 'showBlog', params: {id: blog.pk}}" >{{ blog.title }}</router-link></h4>
+          <h4 class="title"><router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >{{ blog.title }}</router-link></h4>
           <p class="content">{{ blog.content }}</p>
         </div>
       </li>
@@ -16,9 +17,13 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated } from '@/assets/utils/auth'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: "ShowBlog",
+  components: {
+    Navbar
+  },
   data() {
     return {
       blogs: ''
@@ -27,9 +32,9 @@ export default {
   methods: {
     newBlog() {
       if( !is_authenticated() ){
-        this.$router.push({name: 'login'})
+        this.$router.push({name: 'Login'})
       } else {
-        this.$router.push({name: 'newBlog'})
+        this.$router.push({name: 'NewBlog'})
       }
     }
   },
@@ -58,7 +63,7 @@ button {
   color: #311f1f;
 }
 
-.showBlogs {
+.ShowBlogs {
   padding: 0 10vw;
   display: flex;
   flex-direction: column;

@@ -2,27 +2,27 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ShowBlogs from '@/views/ShowBlogs.vue'
-import BlogDetail from '@/views/BlogDetail.vue'
+import ShowBlog from '@/views/ShowBlog.vue'
 import EditBlog from '@/views/EditBlog.vue'
 import Login from '@/views/Login.vue'
-import PostQuestion from '@/views/PostQuestion'
+import EditQuestion from '@/views/EditQuestion'
 import ShowQuestions from '@/views/ShowQuestions'
-import QuestionDetail from '@/views/QuestionDetail'
+import ShowQuestion from '@/views/ShowQuestion'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   { path: '/',                  name: 'Home',         component: Home },
-  { path: '/show/blogs',        name: 'showBlogs',    component: ShowBlogs },
-  { path: '/show/blog/:id',     name: 'showBlog',     component: BlogDetail },
-  { path: '/edit/blog',         name: 'newBlog',      component: EditBlog },
-  { path: '/edit/blog/:id',     name: 'editBlog',     component: EditBlog },
-  { path: '/login',             name: 'login',        component: Login },
-  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') },
-  { path: '/edit/question',     name:'newQuestion',   component: PostQuestion},
-  { path: '/show/questions',    name:'showQuestions', component: ShowQuestions},
-  { path: '/edit/question/:id', name:'editQuestion',  component: PostQuestion},
-  { path: '/show/question/:id', name:'showQuestion',  component: QuestionDetail},
+  { path: '/login',             name: 'Login',        component: Login },
+  { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
+  { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
+  { path: '/edit/blog',         name: 'NewBlog',      component: EditBlog },
+  { path: '/edit/blog/:id',     name: 'EditBlog',     component: EditBlog },
+  { path: '/edit/question',     name: 'NewQuestion',  component: EditQuestion},
+  { path: '/show/questions',    name: 'ShowQuestions',component: ShowQuestions},
+  { path: '/edit/question/:id', name: 'EditQuestion', component: EditQuestion},
+  { path: '/show/question/:id', name: 'ShowQuestion', component: ShowQuestion},
+  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') }
 ]
 
 const router = new VueRouter({
