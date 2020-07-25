@@ -5,8 +5,8 @@
     <router-link to="/show/blogs">blogs</router-link> |
     <router-link to="/show/questions">questions</router-link> |
     <router-link to="/login">Login</router-link> |
-    <label>Search</label>
     <input type="text" name="search" v-model="search"/>
+    <button>search</button>
   </div>
 </template>
 

@@ -1,11 +1,13 @@
 <template>
   <div class="ShowBlog">
     <Navbar/>
-    <h4 class="title">{{ blog.title }}</h4>
-    <p class="content">{{ blog.content }}</p>
-    <div class="buttons">
+    <div class="blog">
+      <h1 class="title">{{ blog.title }}</h1>
+      <div class="content" v-html="blog.m_content" v-highlight></div>
+      <div class="buttons">
       <button @click="editBlog">Edit</button>
       <button @click="deleteBlog">Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -53,8 +55,25 @@ export default {
   align-items: center;
 }
 
+.blog {
+  padding: 3vh 2vw;
+  background-color: #fafcff;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  text-align: center;
+  margin: 7vh 2vw;
+}
+
 .buttons {
-    display: flex;
+  display: flex;
+  margin: 2vh 2vw;
+  justify-content: center;
 }
 
 button {
