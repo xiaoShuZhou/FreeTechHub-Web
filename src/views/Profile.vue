@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Profile">
     <ProfileLeftNavbar/>
   </div>
 </template>
@@ -19,6 +19,13 @@ export default {
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.Profile {
+  display: flex;
+  position: relative;
 }
 
 

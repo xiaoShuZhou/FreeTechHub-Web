@@ -23,7 +23,8 @@ export default {
 
 <style>
 .svg-icon {
-  width: 1.5em;
-  height: 1.5em;
+  display: inline;
+  width: 25px;
+  height: 25px;
 }
 </style>
