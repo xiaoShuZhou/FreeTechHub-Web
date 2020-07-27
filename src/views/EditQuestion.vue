@@ -52,13 +52,14 @@ export default {
 
     saveQuestion(){
       let question = this._getQuestion()
-      if(this.$route.name == "newQuestion"){
+      console.log(this.$route.name)
+      if(this.$route.name == "NewQuestion"){
         question.save().then(()=>{
-          this.$router.push({name:'showQuestions'})
+          this.$router.push({name:'ShowQuestions'})
         })
       }else{
         question.update().then(()=>{
-          this.$router.push({name:'showQuestion', params: {id: this.id }})
+          this.$router.push({name:'ShowQuestion', params: {id: this.id }})
         })
       }
     },
