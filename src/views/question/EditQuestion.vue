@@ -52,7 +52,6 @@ export default {
 
     saveQuestion(){
       let question = this._getQuestion()
-      console.log(this.$route.name)
       if(this.$route.name == "NewQuestion"){
         question.save().then(()=>{
           this.$router.push({name:'ShowQuestions'})
