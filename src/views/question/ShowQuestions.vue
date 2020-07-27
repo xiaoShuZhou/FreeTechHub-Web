@@ -7,7 +7,7 @@
           <div class="card">
             <h4 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h4>
             <p class="content" v-html="question.content"></p>
-            <p class="bounty">{{ question.bounty }}</p>
+            <p class="bounty">Bounty:{{ question.bounty }}</p>
           </div>
         </li>
       </ul>

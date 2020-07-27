@@ -24,7 +24,7 @@ import Question from '../assets/utils/models/Question'
 import marked from 'marked'
 
 export default {
-  name: 'PostQuestion',
+  name: 'EditQuestion',
   props: {
   },
   

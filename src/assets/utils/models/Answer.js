@@ -8,7 +8,7 @@ class Answer extends Model {
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
     constructor({id, content, time, status, owner, question}) {
-        super({content})     // data fields that is requried when save
+        super({content, owner,question})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'question'  // required
@@ -19,8 +19,9 @@ class Answer extends Model {
         this.time = time
         this.status = status
         this.owner = owner
-        this.question = question
         this.m_content = marked(this.content)
+
+
     }
 
 
@@ -29,7 +30,6 @@ class Answer extends Model {
     // They can not be defined inside of Model super class because
     // I can't get the constructors of these concrete models from 
     // the Model super class. If you know how, plase let me know.
-
     // get model by id
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)
