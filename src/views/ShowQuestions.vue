@@ -1,5 +1,6 @@
 <template>
     <div class="ShowQuestions">
+      <Navbar/>
       <h1>Questions</h1>
       <ul>
         <li v-for="question in questions" :key="question.pk">
@@ -17,10 +18,12 @@
 <script>
 import Question from "../assets/utils/models/Question"
 import { is_authenticated } from '@/assets/utils/auth'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'ShowQuestions',
   components: {
+    Navbar
   },
   data() {
     return {

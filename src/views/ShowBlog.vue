@@ -15,6 +15,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
+
 export default {
   name: "ShowBlog",
   components: {

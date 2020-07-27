@@ -1,5 +1,6 @@
 <template>
   <div class="ShowQuestion">
+    <Navbar/>
     <div class="question">
       <h1 class="title">{{ question.title }}</h1>
       <p class="Publisher">Publisher:{{ question.owner }}</p>
@@ -33,9 +34,13 @@
 <script>
 import Question from '@/assets/utils/models/Question'
 import Answer from '@/assets/utils/models/Answer'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: "ShowQuestion",
+  components: {
+    Navbar
+  },
   data() {
     return {
       owner:'',
