@@ -1,4 +1,6 @@
 import Model from "./Model"
+import Blog from "./Blog"
+import Question from "./Question"
 import axios from "axios"
 import BASE_URL from '../consts'
 
@@ -31,11 +33,19 @@ class Tag extends Model {
         let items
         if (this.tagged_items === null) {
             items = await Tag._query_tagged_items({tag_name: this.tag_name})
-            this.tagged_items = items
-        } else {
-            items = this.tagged_items
-        }
-        return items
+            
+            let blog_list = []
+            items['blogs'].forEach(blog => {
+                blog_list.push(new Blog(blog))
+            })
+
+            let question_list = []
+            items['questions'].forEach(question => {
+                question_list.push(new Question(question))
+            })
+            this.tagged_items = {blogs: blog_list, questions: question_list}
+        } 
+        return this.tagged_items
     }
 
     // get model by id
