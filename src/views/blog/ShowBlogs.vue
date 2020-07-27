@@ -5,11 +5,18 @@
     <ul>
       <li v-for="blog in blogs" :key="blog.pk">
         <div class="card">
-          <h3 class="title"><router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >{{ blog.title }}</router-link></h3>
+
+          <h3 class="title">
+            <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
+              {{ blog.title }}
+            </router-link>
+          </h3>
+
           <h4>Tags: </h4>
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
+          
         </div>
       </li>
     </ul>
