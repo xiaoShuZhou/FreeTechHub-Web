@@ -1,5 +1,6 @@
 import Model from "./Model";
 import marked from 'marked'
+import Tag from "./Tag"
 
 class Question extends Model {
     static app_name = 'question'     // required
@@ -16,11 +17,15 @@ class Question extends Model {
         this.pk = id                // required
 
         // this custom data for Tag
-        this._tags = tags
         this.date = date
         this.viewTimes = viewTimes
         this.status = status
         this.m_content = marked(this.content)
+
+        if (tags != undefined) {
+            this.tags = []
+            tags.forEach(tag => { this.tags.push(new Tag(tag)) })
+        }
     }
 
 

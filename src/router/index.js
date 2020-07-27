@@ -5,9 +5,10 @@ import ShowBlogs from '@/views/ShowBlogs.vue'
 import ShowBlog from '@/views/ShowBlog.vue'
 import EditBlog from '@/views/EditBlog.vue'
 import Login from '@/views/Login.vue'
-import EditQuestion from '@/views/EditQuestion'
-import ShowQuestions from '@/views/ShowQuestions'
-import ShowQuestion from '@/views/ShowQuestion'
+import EditQuestion from '@/views/EditQuestion.vue'
+import ShowQuestions from '@/views/ShowQuestions.vue'
+import ShowQuestion from '@/views/ShowQuestion.vue'
+import Search from '@/views/Search.vue'
 import Profile from '@/views/Profile'
 
 Vue.use(VueRouter)
@@ -15,6 +16,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/',                  name: 'Home',         component: Home },
   { path: '/login',             name: 'Login',        component: Login },
+  { path: '/search',            name: 'Search',       component: Search },
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
   { path: '/edit/blog',         name: 'NewBlog',      component: EditBlog },

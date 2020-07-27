@@ -1,15 +1,18 @@
 <template>
   <div class="Profile">
-    <ProfileLeftNavbar/>
+    <ProfileLeftNavbar class="sidebar"/>
+    <ProfileFollow class="content"/>
   </div>
 </template>
 
 <script>
 import ProfileLeftNavbar from '../components/Profile/ProfileLeftNavbar'
+import ProfileFollow from '../components/Profile/ProfileFollow'
 export default {
   name: 'Profile',
   components:{
     ProfileLeftNavbar,
+    ProfileFollow
   }
   
 }
@@ -23,10 +26,19 @@ export default {
   text-decoration: none;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.Profile {
-  display: flex;
-  position: relative;
+html body{
+  height: 100%;
 }
+.Profile {
+  display: grid;
+  grid-template-areas: "sidebar content";
+  justify-items: space-between;
 
-
+}
+.sidebar{
+  grid-area: sidebar;
+}
+.content{
+  grid-area: content;
+}
 </style>

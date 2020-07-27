@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="ProfileFollow">
+    <h2>ProfileFollow</h2>
   </div>
 </template>
 
@@ -9,6 +10,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+*{
+  width: 100%;
+  height: 100%;
+  background: #ffeef3;
+  text-align: center;
+}
+html body{
+  height: 100%;
+}
 </style>
+
