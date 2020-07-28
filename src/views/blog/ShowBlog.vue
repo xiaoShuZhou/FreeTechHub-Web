@@ -7,6 +7,7 @@
       <div class="buttons">
       <button @click="editBlog">Edit</button>
       <button @click="deleteBlog">Delete</button>
+      <button @click="followingship">{{content}}</button>
       </div>
     </div>
   </div>
@@ -15,6 +16,9 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
+import User from '@/assets/utils/models/User'
+import Followership from '@/assets/utils/models/Followership'
+import axios from 'axios'
 
 export default {
   name: "ShowBlog",
@@ -23,10 +27,38 @@ export default {
   },
   data() {
     return {
-      blog: ''
+      blog: '',
+      followinguser:'',
+      followeruser:'',
+      followerlists:'',
+      deleteid:'',
+      content: 'follow',
+      liked: true,
+
     }
   },
   methods: {
+    init(){
+      let follower_id = []
+      if(!this.followerlists)
+      {
+        return;
+      }
+      this.followerlists.forEach(followerlist => {
+        follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
+      })
+      follower_id.forEach(item=>{
+      if(item.following_id==this.followinguser.pk){
+          this.deleteid = item.id
+          this.liked = false
+          this.content = "unfollow"
+        }
+      else{
+        this.liked = true;
+        this.content = "Follow"
+        }
+      })
+   },
     deleteBlog() {
       this.blog.delete().then(() => {
           this.$router.push({name: 'ShowBlogs'})
@@ -34,10 +66,59 @@ export default {
     },
     editBlog() {
       this.$router.push({name: 'EditBlog'})
-    }
+    },
+    followingship() {
+      if (this.liked) {
+        this.content = "unfollow"
+        this.liked = !this.liked
+        Blog.get(this.$route.params.id).then(blog => {
+          this.blog = blog}),
+          User.get(this.blog.owner).then( user => {
+            this.user = user,
+            axios.post(`http://127.0.0.1:8000/user/followership/`, {
+              following:this.followinguser.pk,
+              follower:this.followeruser.pk,
+            })
+          })
+      } else {
+          this.content = "follow"
+          User.getSelf().then(user =>{
+            this.followeruser = user,
+            this.followerlists = this.followeruser.follower_users
+            let follower_id = [];
+            if(!this.followerlists)
+             {
+               return;
+             }
+             this.followerlists.forEach(followerlist => {
+               follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
+             })
+             follower_id.forEach(item=>{
+             if(item.following_id==this.followinguser.pk){
+                 this.deleteid = item.id
+             }
+             else{
+               console.log('ERR')
+             }
+           })
+           Followership.get(this.deleteid).then(followership => {followership.delete()})
+         })
+         this.liked = !this.liked
+      }
+    },
   },
   created() {
-    Blog.get(this.$route.params.id).then(blog => this.blog = blog)
+    Blog.get(this.$route.params.id).then(blog => {
+      this.blog = blog,
+      User.getSelf().then(user =>{
+        this.followeruser = user,
+        this.followerlists = this.followeruser.follower_users,
+        this.init();}),
+      User.get(this.blog.owner).then(user =>{
+        this.followinguser = user,
+        this.init()
+      })
+      })
   }
 }
 </script>
