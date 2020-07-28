@@ -6,7 +6,7 @@ class User extends Model {
 
     constructor({ id, last_login, is_superuser,date_joined,username,email,date_of_birth,is_authorized,balance,major,grade,
                 bio,avatar,groups,user_permissions,follower_users}) {
-        super({username, email,grade,bio})
+        super({username, email,grade,bio,major})
 
         // required data fields
         this.app_name = 'user'
@@ -33,6 +33,8 @@ class User extends Model {
     }
 
     // custom methods
+
+
     static async getSelf() {
         let res = await axios.get('http://127.0.0.1:8000/user/getself/')
         return new User(res.data)

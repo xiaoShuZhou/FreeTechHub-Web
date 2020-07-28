@@ -14,6 +14,11 @@ import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
 import ShowSeries from "@/views/ShowSeries.vue"
 import ShowOneSeries from "@/views/ShowOneSeries.vue"
+//Profile
+import Profile from '@/views/Profile/Profile.vue'
+import ShowProfile from '@/views/Profile/ShowProfile.vue'
+import EditProfile from '@/views/Profile/EditProfile.vue'
+import ShowFollowing from '@/views/Profile/ShowFollowing.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +26,13 @@ const routes = [
   { path: '/',                  name: 'Home',         component: Home },
   { path: '/login',             name: 'Login',        component: Login },
   { path: '/search',            name: 'Search',       component: Search },
+  //profile
+  { path: '/profile',           name: 'Profile',      component: Profile,
+  children: [
+    { path: 'showprofile/:id',   name: 'ShowProfile',        component: ShowProfile },
+    { path: 'edit/profile/:id',    name: 'EditProfile',        component: EditProfile },
+    { path: 'showfollowing/:id',    name: 'ShowFollowing',        component: ShowFollowing },
+  ] },
   // blogs
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
