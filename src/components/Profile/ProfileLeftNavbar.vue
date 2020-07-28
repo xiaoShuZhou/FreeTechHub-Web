@@ -60,12 +60,17 @@ div h2 {
   text-align: center;
   margin-bottom: 30px;
 }
+div nav{
+  text-align: center;
+
+  
+}
 div nav ul{
   position: absolute;
   top: 100px;
 }
 div nav ul li {
-  width: 100px;
+  width: 300px;
   padding: 10px;
 }
 div nav ul li a {

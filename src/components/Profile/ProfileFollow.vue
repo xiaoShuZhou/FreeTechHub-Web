@@ -1,24 +1,36 @@
 <template>
   <div class="ProfileFollow">
-    <h2>ProfileFollow</h2>
+    <div class="Follower">
+      <h2>Follower</h2>
+      <ul></ul>
+    </div>
+    <div class="Following">
+      <h2>Following</h2>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
-}
+  name:"ProfileFollow",
+};
 </script>
 
 <style scoped>
-*{
-  width: 100%;
-  height: 100%;
+* {
+  width: 50vh;
+  height: 100vh;
   background: #ffeef3;
-  text-align: center;
 }
-html body{
-  height: 100%;
+.ProfileFollow {
+  display: grid;
+  grid-template-areas: "Follower Following";
+  text-align: center;
+  justify-items: center;
+}
+div div h2{
+  position: fixed;
+  top: 100px;
 }
 </style>
 
