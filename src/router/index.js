@@ -5,15 +5,16 @@ import Home from '../views/Home.vue'
 import ShowBlogs from '@/views/blog/ShowBlogs.vue'
 import ShowBlog from '@/views/blog/ShowBlog.vue'
 import EditBlog from '@/views/blog/EditBlog.vue'
-// question
+// series
+import ShowSeries from "@/views/series/ShowSeries.vue"
+import ShowOneSeries from "@/views/series/ShowOneSeries.vue"
+// questions
 import EditQuestion from '@/views/question/EditQuestion.vue'
 import ShowQuestions from '@/views/question/ShowQuestions.vue'
 import ShowQuestion from '@/views/question/ShowQuestion.vue'
 
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
-import ShowSeries from "@/views/ShowSeries.vue"
-import ShowOneSeries from "@/views/ShowOneSeries.vue"
 
 Vue.use(VueRouter)
 

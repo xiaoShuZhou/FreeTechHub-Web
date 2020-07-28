@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Question from '../assets/utils/models/Question'
+import Question from '@/assets/utils/models/Question'
 import marked from 'marked'
 
 export default {

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import BASE_URL from './consts';
+import User from '@/assets/utils/models/User'
 
 axios.defaults.headers['Authorization'] = localStorage.getItem('token')
 
@@ -26,7 +27,7 @@ export async function is_authenticated(vm) {
         try {
             let self = await axios.get('http://127.0.0.1:8000/user/getself/')
             // if the token is not expired, set the globle user to the returned data
-            vm.$user = self.data
+            vm.$user = new User(self.data)
             return true
         } catch(err) {
             // the token is expired

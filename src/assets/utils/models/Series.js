@@ -33,8 +33,12 @@ class Series extends Model {
 
     // custom methods
     async get_series() {
+        if (this.sub_series_ids.length == 0) {
+            return null
+        }
         for (let id in this.sub_series_ids) {
-            let res = await axios.get(BASE_URL + `${this.app_name}/`+`series/${id}`)
+            let res = await axios.get(BASE_URL +
+                 `${this.app_name}/`+`series/${this.sub_series_ids[id]}`)
             let one_series = new Series(res.data)
             this.sub_series.push(one_series)
         }

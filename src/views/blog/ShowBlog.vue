@@ -5,8 +5,8 @@
       <h1 class="title">{{ blog.title }}</h1>
       <div class="content" v-html="blog.m_content" v-highlight></div>
       <div class="buttons">
-      <button @click="editBlog">Edit</button>
-      <button @click="deleteBlog">Delete</button>
+        <button @click="editBlog">Edit</button>
+        <button @click="deleteBlog">Delete</button>
       </div>
     </div>
   </div>
