@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Question from "../assets/utils/models/Question"
+import Question from "@/assets/utils/models/Question"
 import { is_authenticated } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 
