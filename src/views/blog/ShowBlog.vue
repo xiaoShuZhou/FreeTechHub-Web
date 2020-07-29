@@ -15,6 +15,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
+import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: "ShowBlog",
@@ -37,8 +38,11 @@ export default {
     }
   },
   created() {
-    Blog.get(this.$route.params.id).then(blog => this.blog = blog)
-  }
+    login_required(this, () => {
+        Blog.get(this.$route.params.id)
+        .then(blog => this.blog = blog)
+    })
+  },
 }
 </script>
 

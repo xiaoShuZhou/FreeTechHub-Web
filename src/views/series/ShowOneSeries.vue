@@ -50,7 +50,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Series from '@/assets/utils/models/Series'
-import { is_authenticated } from '@/assets/utils/auth'
+import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: "ShowOneSeries",
@@ -65,17 +65,10 @@ export default {
   },
   methods: {
     reload(id) {
-      is_authenticated(this)
-      .then(res => {
-        if(res == true) {
-          Series.get(id).then(series => {
-            this.series = series
-            this.series.get_series()
-            .then(sub_series => this.sub_series = sub_series)
-          })
-        } else {
-          this.$router.push({name: 'Login'})
-        }
+      Series.get(id).then(series => {
+        this.series = series
+        this.series.get_series()
+        .then(sub_series => this.sub_series = sub_series)
       })
     },
 
@@ -83,13 +76,14 @@ export default {
       this.series.delete()
       .then(() => this.$router.push({name: 'ShowSeries'}))
     },
-    
+
     editSeries() {
       this.$router.push({name: 'EditSeries', params: {id: this.series.pk}})
     }
+    
   },
   created() {
-    this.reload(this.$route.params.id)
+    login_required(this, () => this.reload(this.$route.params.id))
   },
   watch: {
     $route: {

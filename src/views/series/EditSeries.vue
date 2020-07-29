@@ -104,6 +104,7 @@ export default {
             }
           }
         }
+        this.$router.push({name: "ShowSeries"})
       })
     },
 
@@ -111,7 +112,7 @@ export default {
       this.series.name = this.name
       this.series.description = this.description
       this.series.update().then(() => {
-        
+
         // exclude items that are not selected but used to be in this series
         for (let item of this.choice_list['blog']) {
           if (item.blog.series == this.series.pk &&
@@ -145,6 +146,7 @@ export default {
           }
         }
       })
+      this.$router.push({name: "ShowOneSeries", params: {id: this.series.pk}})
     },
 
     save() {
