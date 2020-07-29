@@ -27,7 +27,7 @@ export default {
   name: 'EditQuestion',
   props: {
   },
-  
+
   data(){
     return {
       id:'',
@@ -131,7 +131,7 @@ body {
 }
 .v-enter-active,
 .v-leave-active {
-  transition: all 1s ease; 
+  transition: all 1s ease;
 }
 .v-move {
   transition: all 1s ease;
