@@ -57,7 +57,7 @@ export default {};
 li {
   list-style: none;
   float: left;
-  padding-left: 30px;
+  padding-left: 20px;
   padding-top: 40px;
 }
 img {

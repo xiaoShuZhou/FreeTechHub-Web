@@ -1,57 +1,66 @@
 <template>
-    <div class="ShowQuestions">
-      <Navbar/>
-      <h1>Questions</h1>
-      <ul>
-        <li v-for="question in questions" :key="question.pk">
-          <div class="card">
-            <h4 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h4>
-            <p class="content" v-html="question.content"></p>
-            <p class="bounty">{{ question.bounty }}</p>
-          </div>
-        </li>
-      </ul>
-      <button @click="newQuestion">create new question</button>
-    </div>
+  <div class="ShowBlogs">
+    <Navbar/>
+    <h1>Blogs</h1>
+    <ul>
+      <li v-for="blog in blogs" :key="blog.pk">
+        <div class="card">
+
+          <h3 class="title">
+            <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
+              {{ blog.title }}
+            </router-link>
+          </h3>
+
+          <h4>Tags: </h4>
+          <ul class="tag-list">
+            <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
+          </ul>
+          
+        </div>
+      </li>
+    </ul>
+    <button @click="newBlog">create new blog</button>
+  </div>
 </template>
 
 <script>
-import Question from "../assets/utils/models/Question"
+import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 
 export default {
-  name: 'ShowQuestions',
+  name: "ShowBlog",
   components: {
     Navbar
   },
   data() {
     return {
-        questions:'',
+      blogs: ''
     }
   },
   methods: {
-    newQuestion(){
+    newBlog() {
       if( !is_authenticated() ){
         this.$router.push({name: 'Login'})
-      }else{
-        this.$router.push({name: 'NewQuestion'})
+      } else {
+        this.$router.push({name: 'NewBlog'})
       }
-    },
+    }
   },
   created() {
-    Question.all().then(questions => this.questions = questions)
+    Blog.all().then(blogs => this.blogs = blogs)
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -63,12 +72,14 @@ button {
   font-size: 1.5rem;
   color: #311f1f;
 }
-.ShowQuestions {
+
+.ShowBlogs {
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 ul {
   list-style: none;
 }
@@ -85,6 +96,10 @@ ul {
   flex-direction: column;
 }
 
+.card > h4 {
+  margin: 0 3vw;
+}
+
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
 }
@@ -94,11 +109,7 @@ ul {
   margin: 3vh 0;
 }
 
-.content {
-  margin: 0 3vw;
-}
-
-.bounty {
+.tag-list {
   margin: 0 3vw;
 }
 
@@ -106,4 +117,5 @@ ul {
 a {
   text-decoration: none;
 }
+
 </style>

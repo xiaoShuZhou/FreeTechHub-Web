@@ -44,7 +44,7 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   justify-items: stretch;
   background: #fbfbff;
@@ -61,24 +61,17 @@ li{
   text-align: center;
   padding-left: 200px;
   line-height: 350px;
+
 }
 input{
   position: relative;
-  margin-left: 60px;
+  margin-right: 100px;
   margin-top: 40px;
   width: 180px;
   height: 40px;
   border-radius: 10px;
   background-color: #f4f3f7;
   border-width: 0;
-}
-#Search::before{
-  content: "";
-  background: url("~@/assets/icons/svg/放大镜.svg");
-  position: absolute;
-  width: 20px;
-  height: 30px;
-  left: 0px;
 }
 </style>
 

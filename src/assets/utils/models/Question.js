@@ -8,7 +8,7 @@ class Question extends Model {
 
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
-    constructor({id, title, content, date, bounty, viewTimes, status, owner, tags}) {
+    constructor({id, title, content, date, bounty, viewTimes, status, owner, tags, answers}) {
         super({title, content, bounty, owner})     // data fields that is requried when save
 
         // required data fields
@@ -20,7 +20,9 @@ class Question extends Model {
         this.date = date
         this.viewTimes = viewTimes
         this.status = status
+        this.owner = owner
         this.m_content = marked(this.content)
+        this.answers = answers
 
         if (tags != undefined) {
             this.tags = []

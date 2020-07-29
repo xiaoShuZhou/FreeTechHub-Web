@@ -19,6 +19,9 @@ Vue.directive('highlight',function (el) {
   })
 })
 
+
+Vue.prototype.$user = null
+
 new Vue({
   router,
   store,

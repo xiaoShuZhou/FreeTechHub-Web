@@ -28,11 +28,12 @@
           <a href="#">Settings</a>
         </li>
       </ul>
-    </nav>
-    <div class="logout">
+      <div class="logout">
       <v-icon icon-class="登出" class="logouticon"></v-icon>
       <a href="#">Logout</a>
     </div>
+    </nav>
+    
   </div>
 </template>
 
@@ -62,15 +63,19 @@ div h2 {
 }
 div nav{
   text-align: center;
+  width: 200px;
+  height: 100vh;
 
-  
 }
 div nav ul{
   position: absolute;
   top: 100px;
+  width: 100%;
 }
 div nav ul li {
-  width: 300px;
+  display: block;
+  width: 100% !important; 
+  /* width: 280px; */
   padding: 10px;
 }
 div nav ul li a {
@@ -79,7 +84,7 @@ div nav ul li a {
 div nav ul li:hover {
   background: rgb(189, 215, 240);
   box-shadow: 5px 5px 2px #888888;
-  border-radius: 25px;
+  border-radius: 20px;
 }
 div nav ul li:hover a {
   color: rgb(89, 241, 152);

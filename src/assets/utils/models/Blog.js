@@ -10,7 +10,6 @@ class Blog extends Model {
     // {id: xxx, ....(other data fields)}
     constructor({id, title, content, date, viewTimes, owner, tags}) {
         super({title, content, owner})     // data fields that is requried when save
-
         // required data fields
         this.app_name = 'blog'  // required
         this.model = "blog"      // required

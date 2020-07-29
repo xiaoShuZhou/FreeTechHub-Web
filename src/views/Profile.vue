@@ -1,21 +1,21 @@
 <template>
   <div class="Profile">
     <ProfileLeftNavbar class="sidebar"/>
-    <!-- <ProfileFollow class="content"/> -->
-    <ProfileBlogs class="content"/>
+    <ProfileFollow class="content"/>
+    <!-- <ProfileBlogs class="content"/> -->
   </div>
 </template>
 
 <script>
 import ProfileLeftNavbar from '../components/Profile/ProfileLeftNavbar'
-// import ProfileFollow from '../components/Profile/ProfileFollow'
-import ProfileBlogs from '../components/Profile/ProfileBlogs'
+import ProfileFollow from '../components/Profile/ProfileFollow'
+// import ProfileBlogs from '../components/Profile/ProfileBlogs'
 export default {
   name: 'Profile',
   components:{
     ProfileLeftNavbar,
-    // ProfileFollow,
-    ProfileBlogs,
+    ProfileFollow,
+    // ProfileBlogs,
   }
   
 }

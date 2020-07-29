@@ -17,7 +17,22 @@ export function logout() {
     localStorage.removeItem('token')
 }
 
-export function is_authenticated() {
-    return !(localStorage.getItem('token') == null ||
-             localStorage.getItem('token') == '')
+export async function is_authenticated(vm) {
+    // if there is no token, user is not loggd in
+    if (localStorage.getItem('token') == null) {
+        return false
+    } else {
+        // if there is a token, check if it's expired.
+        try {
+            let self = await axios.get('http://127.0.0.1:8000/user/getself/')
+            // if the token is not expired, set the globle user to the returned data
+            vm.$user = self.data
+            return true
+        } catch(err) {
+            // the token is expired
+            localStorage.removeItem('token')
+            return false
+        }
+    }
+
 }
