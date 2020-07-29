@@ -4,7 +4,6 @@ class User extends Model {
     static app_name = 'user'
     static model_name = 'user'
 
-<<<<<<< HEAD
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
     constructor({ id, last_login, is_superuser, date_joined,
@@ -13,11 +12,6 @@ class User extends Model {
                   user_permissions, follower_users }) {
         
         super({username, email, grade, bio})     // data fields that is requried when save
-=======
-    constructor({ id, last_login, is_superuser,date_joined,username,email,date_of_birth,is_authorized,balance,major,grade,
-                bio,avatar,groups,user_permissions,follower_users}) {
-        super({username, email,grade,bio})
->>>>>>> 93c06857a55f3ab03d61d233f4cd944f316262b5
 
         // required data fields
         this.app_name = 'user'
