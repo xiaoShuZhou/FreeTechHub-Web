@@ -38,17 +38,17 @@ class Model {
     async save() {
         let response = await axios.post(this._getModelURL(), this._getData())
         this.pk = response.data.id
+        return response
     }
 
     // delete this instance from the database
     async delete() {
-        await axios.delete(this._getInstanceURL())
+        return await axios.delete(this._getInstanceURL())
     }
 
     // update this instance in the database
     async update() {
-        let response = await axios.put(this._getInstanceURL(), this._getData())
-        this.pk = response.data.id
+        return await axios.put(this._getInstanceURL(), this._getData())
     }
 
     // request one record

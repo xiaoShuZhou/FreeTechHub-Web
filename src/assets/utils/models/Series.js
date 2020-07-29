@@ -9,7 +9,7 @@ class Series extends Model {
 
     constructor({id, name, description, date, viewTimes,
                  owner, sub_series_of, sub_series, blogs}) {
-        super({name, description, date, viewTimes,
+        super({name, description, viewTimes,
                owner, sub_series_of,})
 
         // required data fields
@@ -17,7 +17,8 @@ class Series extends Model {
         this.model = "series"
         this.pk = id
 
-        // this custom data for Tag
+        // this custom data for Series
+        this.date = date
         this.sub_series_ids = sub_series
         this.sub_series = []
         this.blogs = []
@@ -37,12 +38,33 @@ class Series extends Model {
             return null
         }
         for (let id in this.sub_series_ids) {
-            let res = await axios.get(BASE_URL +
-                 `${this.app_name}/`+`series/${this.sub_series_ids[id]}`)
+            let res = await axios.get(BASE_URL + `${this.app_name}/`+`series/${this.sub_series_ids[id]}`)
             let one_series = new Series(res.data)
             this.sub_series.push(one_series)
         }
         return this.sub_series
+    }
+
+    static async get_related_content() {
+        let related_date = {}
+        let res = await axios.get(
+            BASE_URL + `${this.app_name}/query-related-content/`)
+        
+        let constructors = {
+            blog: Blog,
+            series: Series
+        }
+
+        // res.data contains two types of lists: blog and series
+        for (let type in res.data) {
+            let list = []
+            for (let item of res.data[type]) {
+                list.push(new constructors[type](item))
+            }
+            related_date[type] = list
+        }
+
+        return related_date
     }
 
     // get model by id

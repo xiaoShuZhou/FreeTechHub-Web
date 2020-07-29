@@ -6,9 +6,12 @@ class User extends Model {
 
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
-    constructor({ id, last_login, is_superuser,date_joined,username,email,date_of_birth,is_authorized,balance,major,grade,
-                bio,avatar,groups,user_permissions,follower_users}) {
-        super({username, email,grade,bio})     // data fields that is requried when save
+    constructor({ id, last_login, is_superuser, date_joined,
+                  username, email, date_of_birth, is_authorized,
+                  balance, major, grade, bio,avatar, groups,
+                  user_permissions, follower_users }) {
+        
+        super({username, email, grade, bio})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'user'  // required
@@ -30,8 +33,6 @@ class User extends Model {
         this.groups = groups
         this.user_permissions = user_permissions
         this.follower_users = follower_users
-
-
     }
 
     static async getSelf() {

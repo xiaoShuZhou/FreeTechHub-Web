@@ -26,7 +26,7 @@
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
-import { is_authenticated } from '@/assets/utils/auth'
+import { is_authenticated, login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 
 export default {
@@ -41,15 +41,14 @@ export default {
   },
   methods: {
     newBlog() {
-      if( !is_authenticated() ){
-        this.$router.push({name: 'Login'})
-      } else {
-        this.$router.push({name: 'NewBlog'})
-      }
+      login_required()
+      .then(() => this.$router.push({name: 'NewBlog'}))
     }
   },
   created() {
-    Blog.all().then(blogs => this.blogs = blogs)
+    is_authenticated().then(() => {
+      Blog.all().then(blogs => this.blogs = blogs)
+    })
   }
 }
 </script>

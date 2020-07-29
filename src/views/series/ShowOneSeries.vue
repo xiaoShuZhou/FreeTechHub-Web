@@ -41,7 +41,7 @@
       </li>
     </ul>
     <div class="buttons">
-      <button >Edit</button>
+      <button @click="editSeries">Edit</button>
       <button @click="deleteSeries">Delete</button>
     </div>
   </div>
@@ -78,9 +78,14 @@ export default {
         }
       })
     },
+
     deleteSeries() {
-        this.series.delete()
-        .then(() => this.$router.push({name: 'ShowSeries'}))
+      this.series.delete()
+      .then(() => this.$router.push({name: 'ShowSeries'}))
+    },
+    
+    editSeries() {
+      this.$router.push({name: 'EditSeries', params: {id: this.series.pk}})
     }
   },
   created() {

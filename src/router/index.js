@@ -8,6 +8,7 @@ import EditBlog from '@/views/blog/EditBlog.vue'
 // series
 import ShowSeries from "@/views/series/ShowSeries.vue"
 import ShowOneSeries from "@/views/series/ShowOneSeries.vue"
+import EditSeries from "@/views/series/EditSeries.vue"
 // questions
 import EditQuestion from '@/views/question/EditQuestion.vue'
 import ShowQuestions from '@/views/question/ShowQuestions.vue'
@@ -30,6 +31,8 @@ const routes = [
   // series
   { path: '/show/series',       name: 'ShowSeries',   component: ShowSeries },
   { path: '/show/series/:id',   name: 'ShowOneSeries',component: ShowOneSeries },
+  { path: '/edit/series/',      name: 'NewSeries',    component: EditSeries },
+  { path: '/edit/series/:id',   name: 'EditSeries',   component: EditSeries },
   // questions
   { path: '/edit/question',     name: 'NewQuestion',  component: EditQuestion},
   { path: '/show/questions',    name: 'ShowQuestions',component: ShowQuestions},
