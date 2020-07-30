@@ -23,18 +23,24 @@ export default {
   components: {
     Navbar
   },
+  props: {
+    id: {
+      type: [String, Number],
+      required: false
+    }
+  },
   data() {
     return {
+      blog_id: this.id,
       title: '',
       content: '',
-      blog: '',
-      owner: ''
+      owner: '',
     }
   },
   methods: {
     _getblog(user) {
       return new Blog({
-        id: this.id,
+        id: this.blog_id,
         title: this.title,
         content: this.content,
         owner : this.owner == '' ? user.pk : this.owner
@@ -50,24 +56,29 @@ export default {
           })
         } else {
           blog.update().then(() => {
-            this.$router.push({name: "ShowBlog", params: {id: this.id}})
+            this.$router.push({name: "ShowBlog", params: {id: this.blog_id}})
           })
         }
       })
-    }
-  },
-  
-  created() {
-    if(this.$route.params.id != undefined) {
-      Blog.get(this.$route.params.id)
+    },
+
+    load(id) {
+      Blog.get(id)
       .then(blog => {
+        this.blog_id = blog.pk
         this.title = blog.title
         this.content = blog.content
-        this.id = blog.pk
         this.owner = blog.owner
       })
     }
-  }
+  },
+
+  created() {
+    if(this.id != undefined) {
+      this.load(this.blog_id)
+    }
+  },
+
 }
 </script>
 

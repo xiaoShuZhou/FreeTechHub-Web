@@ -38,8 +38,15 @@ export default {
   components: {
     Navbar
   },
+  props: {
+    id: {
+      type: [String, Number],
+      required: false
+    }
+  },
   data() {
     return {
+      series_id: this.id,
       series: '',
       choice_list: '',
       name: '',
@@ -167,7 +174,7 @@ export default {
 
         // if the page is edit old series, preload data
         if (this.$route.name == "EditSeries") {
-          Series.get(this.$route.params.id)
+          Series.get(this.series_id)
           .then(series => {
 
             // preload data
