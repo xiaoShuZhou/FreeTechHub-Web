@@ -2,7 +2,10 @@
   <div class="EditBlog">
     <Navbar/>
     <form class="blog-form">
-      <span class="title"><h4>Title: </h4> <input type="text" v-model="title" required="required"/></span>
+      <span class="title">
+        <h4>Title: </h4>
+        <input type="text" v-model="title" required="required"/>
+      </span>
       <h2>content</h2>
       <mavon-editor v-model="content"/>
       <button class="submit" @click="save">submit</button>
@@ -13,6 +16,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
+import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: 'EditBlog',
@@ -28,18 +32,19 @@ export default {
     }
   },
   methods: {
-    _getblog() {
+    _getblog(user) {
       return new Blog({
         id: this.id,
         title: this.title,
         content: this.content,
-        owner : this.owner
+        owner : this.owner == '' ? user.pk : this.owner
       })
     },
+
     save() {
-      let blog = this._getblog()
-      try{
-        if(this.$route.name == "NewBlog") {
+      login_required(this, user => {
+        let blog = this._getblog(user)
+        if (this.$route.name == "NewBlog") {
           blog.save().then(() => {
             this.$router.push({name: "ShowBlogs"})
           })
@@ -48,12 +53,10 @@ export default {
             this.$router.push({name: "ShowBlog", params: {id: this.id}})
           })
         }
-      } catch(err) {
-        console.log(err)
-      }
-
+      })
     }
   },
+  
   created() {
     if(this.$route.params.id != undefined) {
       Blog.get(this.$route.params.id)
