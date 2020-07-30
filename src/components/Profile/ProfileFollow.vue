@@ -5,43 +5,168 @@
       <div class="FollowerList">
         <ul>
           <li>
-            <div>
-              <a href="#" class="avatar">
-                <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
-              </a>
-              <div class="user-content">
-                <a href="#" class="title">用户名</a>
-                <p class="signature">个性签名</p>
-              </div>
-              <div class="btn">
-                <button>已关注</button>
-              </div>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
             </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
           </li>
           <li>
-            <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
-            <a href="#">用户名</a>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
           </li>
           <li>
-            <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
-            <a href="#">用户名</a>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
           </li>
           <li>
-            <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
-            <a href="#">用户名</a>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="Following">
       <h2>Following</h2>
+      <div class="FollowingList">
+        <ul>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+            </a>
+            <div class="user-content">
+              <a href="#" class="title">用户名</a>
+              <p class="signature">个性签名</p>
+            </div>
+            <a class="btn" v-on:click="follow" href>已关注</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import $ from "jquery";
+$(document).ready(function () {
+  $("div div").scroll();
+});
 export default {
   name: "ProfileFollow",
+  methods: {
+    follow() {},
+  },
 };
 </script>
 
@@ -49,7 +174,6 @@ export default {
 * {
   margin: 0;
   padding: 0;
-  width: 50vh;
   background: #ffeef3;
 }
 .ProfileFollow {
@@ -60,19 +184,13 @@ export default {
   justify-items: center;
 }
 div div h2 {
-  position: static;
+  position: fixed;
   padding-top: 100px;
   padding-bottom: 50px;
 }
 .Follower {
   grid-area: Follower;
-}
-.user-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 0;
+  overflow: scroll;
 }
 .FollowerList {
   width: 100%;
@@ -88,49 +206,93 @@ ul {
   list-style: none;
   font: 1em sans-serif;
   line-height: 2px;
-  /* padding-left: 50px; */
+  padding-top: 50px;
+}
+div div ul li div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  z-index: 0;
+}
+.user-content {
+  width: 300px;
+}
+.user-content a {
+  display: inline-flex;
+  height: 30px;
+  padding-left: 20px;
+}
+.user-content p {
+  display: flexbox;
+  height: 10px;
+  padding-right: 200px;
 }
 li {
   position: relative;
-  padding-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding-top: 200px;
   border: 0;
   word-break: break-all;
   width: 400px;
   border-bottom: 1px solid black;
   text-align: -webkit-match-parent;
 }
-li div{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
 .Following {
   grid-area: Following;
+  overflow: scroll;
 }
 .avatar {
   position: relative;
   width: 70px;
   height: 70px;
-  /* right: 40px;
-  top: 15px; */
   z-index: 20px;
-}
-.signature {
-  display: inline-flex;
 }
 .title {
   font-weight: 500;
   word-break: break-word;
 }
-.btn button {
-  position: absolute;
-  border: 2;
-  display: inline;
+
+.btn {
+  position: relative;
+  border: 0;
+  color: white;
   border-radius: 5px;
-  width: 60px;
-  /* right: 30px; */
+  width: 100px;
+  height: 30px;
+  right: 100px;
+  padding-top: 30px;
   vertical-align: middle;
-  /* bottom: 30px; */
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  overflow: hidden;
+  background-image: repeating-linear-gradient(90deg, #979eff, #55e7fc);
+}
+span {
+  position: absolute;
+  background: white;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: animate 1s linear infinite;
+}
+@keyframes animate {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
 }
 </style>
 

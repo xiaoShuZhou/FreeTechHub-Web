@@ -7,7 +7,6 @@ import 'mavon-editor/dist/css/index.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
 import './assets/icons'
-
 Vue.config.productionTip = false
 
 Vue.use(mavonEditor)

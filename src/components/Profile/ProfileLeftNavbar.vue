@@ -46,7 +46,7 @@ export default {
 <style scoped>
 .ProfileLeftNavbar {
   position: fixed;
-  width: 300px;
+  width: 10%;
   height: 100%;
   padding: 30px 0;
 }
@@ -60,10 +60,11 @@ div h2 {
   position: static;
   text-align: center;
   margin-bottom: 30px;
+  margin-left: 20px;
 }
 div nav{
   text-align: center;
-  width: 200px;
+  width: 100%;
   height: 100vh;
 
 }

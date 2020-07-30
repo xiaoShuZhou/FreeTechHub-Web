@@ -1,21 +1,24 @@
 <template>
   <div class="Profile">
     <ProfileLeftNavbar class="sidebar"/>
-    <ProfileFollow class="content"/>
+    <!-- <ProfileFollow class="content"/> -->
     <!-- <ProfileBlogs class="content"/> -->
+    <ChangeMail class="content"/>
   </div>
 </template>
 
 <script>
-import ProfileLeftNavbar from '../components/Profile/ProfileLeftNavbar'
-import ProfileFollow from '../components/Profile/ProfileFollow'
-// import ProfileBlogs from '../components/Profile/ProfileBlogs'
+import ProfileLeftNavbar from '@/components/Profile/ProfileLeftNavbar'
+// import ProfileFollow from '@/components/Profile/ProfileFollow'
+// import ProfileBlogs from '@/components/Profile/ProfileBlogs'
+import ChangeMail from '@/components/Profile/ChangeMail'
 export default {
   name: 'Profile',
   components:{
     ProfileLeftNavbar,
-    ProfileFollow,
+    // ProfileFollow,
     // ProfileBlogs,
+    ChangeMail
   }
   
 }
@@ -38,7 +41,7 @@ export default {
   justify-items: center;
   align-items: center;
   grid-gap: 10px;
-
+  height: 100vh;
 }
 .sidebar{
   grid-area: left;
