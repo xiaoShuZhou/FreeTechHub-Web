@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import Blog from "@/assets/utils/models/Blog";
-import Navbar from "@/components/Navbar.vue";
+import Blog from '@/assets/utils/models/Blog'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
-  name: "EditBlog",
+  name: 'EditBlog',
   components: {
-    Navbar,
+    Navbar
   },
   data() {
     return {
-      title: "",
-      content: "",
-      blog: "",
-      owner: "",
-    };
+      title: '',
+      content: '',
+      blog: '',
+      owner: ''
+    }
   },
   methods: {
     _getblog() {
@@ -36,37 +36,37 @@ export default {
         id: this.id,
         title: this.title,
         content: this.content,
-        owner: this.owner,
-      });
+        owner: this.owner
+      })
     },
     save() {
       let blog = this._getblog();
       try {
-        if (this.$route.name == "NewBlog") {
+        if (this.$route.name == 'NewBlog') {
           blog.save().then(() => {
-            this.$router.push({ name: "ShowBlogs" });
-          });
+            this.$router.push({ name: 'ShowBlogs' })
+          })
         } else {
           blog.update().then(() => {
-            this.$router.push({ name: "ShowBlog", params: { id: this.id } });
-          });
+            this.$router.push({ name: 'ShowBlog', params: { id: this.id } })
+          })
         }
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
   },
   created() {
     if (this.$route.params.id != undefined) {
       Blog.get(this.$route.params.id).then((blog) => {
-        this.title = blog.title;
-        this.content = blog.content;
-        this.id = blog.pk;
-        this.owner = blog.owner;
-      });
+        this.title = blog.title
+        this.content = blog.content
+        this.id = blog.pk
+        this.owner = blog.owner
+      })
     }
-  },
-};
+  }
+}
 </script>
 
 <style scoped>

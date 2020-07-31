@@ -16,23 +16,23 @@ export default {
   name: "Navbar",
   data() {
     return {
-      search_tag_name: "",
-    };
+      search_tag_name: '',
+    }
   },
   methods: {
     search() {
       if (
-        this.search != "" &&
+        this.search != '' &&
         this.$route.query.tag_name != this.search_tag_name
       ) {
         this.$router.push({
           name: "Search",
           query: { tag_name: this.search_tag_name },
-        });
+        })
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style  scoped>

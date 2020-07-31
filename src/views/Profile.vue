@@ -1,27 +1,31 @@
 <template>
   <div class="Profile">
     <ProfileLeftNavbar class="sidebar"/>
-    <!-- <ProfileFollow class="content"/> -->
+    <ProfileFollow class="content"/>
     <!-- <ProfileBlogs class="content"/> -->
     <!-- <ChangeMail class="content"/> -->
-    <ChangePassword class="content" />
+    <!-- <ChangePassword class="content"/> -->
+    <!-- <Information class="content"/> -->
+
   </div>
 </template>
 
 <script>
 import ProfileLeftNavbar from '@/components/Profile/ProfileLeftNavbar'
-// import ProfileFollow from '@/components/Profile/ProfileFollow'
+import ProfileFollow from '@/components/Profile/ProfileFollow'
 // import ProfileBlogs from '@/components/Profile/ProfileBlogs'
 // import ChangeMail from '@/components/Profile/ChangeMail'
-import ChangePassword from '@/components/Profile/ChangePassword'
+// import ChangePassword from '@/components/Profile/ChangePassword'
+// import Information from '@/components/Profile/Information'
 export default {
   name: 'Profile',
   components:{
     ProfileLeftNavbar,
-    // ProfileFollow,
+    ProfileFollow,
     // ProfileBlogs,
     // ChangeMail,
-    ChangePassword,
+    // ChangePassword,
+    // Information,
   }
   
 }
