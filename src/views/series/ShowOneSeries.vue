@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       series: '',
-      sub_series: ''
+      sub_series: '',
     }
   },
   methods: {
@@ -85,9 +85,14 @@ export default {
   created() {
     login_required(this, () => this.reload(this.$route.params.id))
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.reload(vm.$route.params.id)
+    })
+  },
   watch: {
     $route: {
-      handler: function(newVal){
+      handler: function(newVal) {
         this.reload(newVal.params.id)
       },
       // 深度深入对象内部变化

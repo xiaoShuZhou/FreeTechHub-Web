@@ -38,8 +38,15 @@ export default {
   components: {
     Navbar
   },
+  props: {
+    id: {
+      type: [String, Number],
+      required: false
+    }
+  },
   data() {
     return {
+      series_id: this.id,
       series: '',
       choice_list: '',
       name: '',
@@ -48,6 +55,7 @@ export default {
     }
   },
   methods: {
+    // build the list data structure
     make_choice_list(related_content) {
       let list = {}
       // related_content contains two types of lists: blog and series
@@ -63,6 +71,7 @@ export default {
       this.choice_list = list
     },
 
+    // get the selected items' ids
     get_selected_items() {
       let selected_items = {}
       // related_content contains two types of lists: blog and series
@@ -71,86 +80,57 @@ export default {
         // item example: {blog: {xxx}, choice: false}
         for (let item of this.choice_list[type]) {
           if (item.choice == true) {
-            selected_items[type].push(item[type])
+            selected_items[type].push(item[type].pk)
           }
         }
       }
-      this.selected_items = selected_items
+      return selected_items
     },
 
-    newSeries(user) {
-      // gather the form data
-      let series = new Series({
-        name: this.name,
-        description: this.description,
-        owner: user.pk,
-      })
-      this.get_selected_items()
-      series.save().then(() => {
-        // create new series then set the foreign keys
-        // related_content contains two types of lists: blog and series
-        for (let type in this.selected_items) {
-          for (let item of this.selected_items[type]) {
-            // point the foreign key of the items to the series
-            switch(type) {
-              case "blog": {
-                item.series = series.pk
-                item.update()
-              } break
-              case "series": {
-                item.sub_series_of = series.pk
-                item.update()
-              } break
-            }
-          }
-        }
-        this.$router.push({name: "ShowSeries"})
+    // asign this.series the latest series object
+    getSeries(user) {
+      if (this.series == '') {
+        this.series =  new Series({
+          name: this.name,
+          description: this.description,
+          owner: user.pk,
+        })
+      } else {
+        this.series.name = this.name
+        this.series.name = this.description
+      }
+    },
+
+    newSeries() {
+      this.series.save().then(() => {
+        Series.update_selected_items({
+          series: this.series.pk,
+          selected_items: this.get_selected_items()
+        }).then(() => {
+          // only after the backend respond can the route change
+          this.$router.push({name: "ShowSeries"})
+        })
       })
     },
 
     editSeries() {
-      this.series.name = this.name
-      this.series.description = this.description
       this.series.update().then(() => {
-
-        // exclude items that are not selected but used to be in this series
-        for (let item of this.choice_list['blog']) {
-          if (item.blog.series == this.series.pk &&
-              item.choice == false) {
-            item.blog.series = null
-            item.blog.update()
-          }
-        }
-        for (let item of this.choice_list['series']) {
-          if (item.series.sub_series_of == this.series.pk &&
-              item.choice == false) {
-            item.series.sub_series_of = null
-            item.series.update()
-          }
-        }
-        this.get_selected_items()
-        // related_content contains two types of lists: blog and series
-        for (let type in this.selected_items) {
-          for (let item of this.selected_items[type]) {
-            // point the foreign key of the items to the series
-            switch(type) {
-              case "blog": {
-                item.series = this.series.pk
-                item.update()
-              } break
-              case "series": {
-                item.sub_series_of = this.series.pk
-                item.update()
-              } break
-            }
-          }
-        }
+        Series.update_selected_items({
+          series: this.series.pk,
+          selected_items: this.get_selected_items()
+        }).then(() => {
+          // only after the backend respond can the route change
+          this.$router.push({name: "ShowOneSeries", params: {id: this.series.pk}})
+        })
       })
-      this.$router.push({name: "ShowOneSeries", params: {id: this.series.pk}})
     },
 
     save() {
       login_required(this, user => {
+        // gather the series' data
+        this.getSeries(user)
+        this.get_selected_items()
+
         if (this.$route.name == "NewSeries") {
           this.newSeries(user)
         } else {
@@ -167,7 +147,7 @@ export default {
 
         // if the page is edit old series, preload data
         if (this.$route.name == "EditSeries") {
-          Series.get(this.$route.params.id)
+          Series.get(this.series_id)
           .then(series => {
 
             // preload data
@@ -181,10 +161,12 @@ export default {
               for (let item of this.choice_list[type]) {
                 switch(type) {
                   case "blog":
-                    item.choice = item.blog.series == this.series.pk ? true : false
+                    item.choice = item.blog.series == this.series.pk ?
+                     true : false
                     break
                   case "series":
-                    item.choice = item.series.sub_series_of == this.series.pk ? true : false
+                    item.choice = item.series.sub_series_of == this.series.pk ?
+                     true : false
                     break
                 }
               }
