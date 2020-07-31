@@ -1,22 +1,17 @@
 <template>
   <div>
     <div id class="box">
-      <div>
-        <a href>修改密码</a> 
-        <a href>修改邮箱</a> 
-        <a href>忘记密码</a>
-      </div>
       <form>
         <div id class="inputbox">
-          <label>密码:</label>
+          <label>旧密码:</label>
           <input type="email" required />
         </div>
         <div id class="inputbox">
-          <label>新邮箱:</label>
+          <label>新密码:</label>
           <input type="password" required />
         </div>
         <div id class="inputbox">
-          <label>确认邮箱:</label>
+          <label>确认密码:</label>
           <input type="password" required />
         </div>
         <button type="submit" value="submit">确认修改</button>
@@ -26,7 +21,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'ChangePassword'
+}
 </script>
 
 <style scoped>
@@ -43,8 +40,8 @@ export default {};
   height: 100%;
   padding: 40px;
   box-sizing: border-box;
-  /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5); */
   background: #d2e9f3;
+  bottom: 15%;
 }
 .box div{
   display: flex;

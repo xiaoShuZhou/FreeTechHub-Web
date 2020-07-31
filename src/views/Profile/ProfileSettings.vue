@@ -2,31 +2,19 @@
   <div>
     <div id class="box">
       <div>
-        <a href>修改密码</a> 
-        <a href>修改邮箱</a> 
-        <a href>忘记密码</a>
+        <router-link :to="{name:'ChangePassword'}">修改密码</router-link>
+        <router-link :to="{name:'ChangeMail'}">修改邮箱</router-link>
+        <router-link :to="{name:'ForgetPassword'}">忘记密码</router-link>
       </div>
-      <form>
-        <div id class="inputbox">
-          <label>旧密码:</label>
-          <input type="email" required />
-        </div>
-        <div id class="inputbox">
-          <label>新密码:</label>
-          <input type="password" required />
-        </div>
-        <div id class="inputbox">
-          <label>确认密码:</label>
-          <input type="password" required />
-        </div>
-        <button type="submit" value="submit">确认修改</button>
-      </form>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'ChangePassword'
+}
 </script>
 
 <style scoped>
@@ -43,7 +31,6 @@ export default {};
   height: 100%;
   padding: 40px;
   box-sizing: border-box;
-  /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5); */
   background: #d2e9f3;
 }
 .box div{
@@ -87,11 +74,11 @@ form{
 }
 .box .inputbox label{
   position: relative;
-	top: 0;
-	left: -2%;
-	padding: 10px 0;
-	letter-spacing: 1px;
-	color: black;
+  top: 0;
+  left: -2%;
+  padding: 10px 0;
+  letter-spacing: 1px;
+  color: black;
   font-size: 25px;
 }
 .box button[type="submit"] {
@@ -102,6 +89,5 @@ form{
   padding: 10px 20px;
   border-radius: 30px;
   left: 50%;
-
 }
 </style>

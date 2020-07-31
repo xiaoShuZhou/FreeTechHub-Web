@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'Svg',
+  name: 'Icon',
   props: {
     iconClass: {
       type: String,
@@ -23,7 +23,7 @@ export default {
 
 <style>
 .svg-icon {
-  display: inline;
+  display: inline-block;
   width: 25px;
   height: 25px;
 }

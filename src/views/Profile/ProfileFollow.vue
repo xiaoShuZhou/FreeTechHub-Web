@@ -12,7 +12,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -22,7 +22,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -32,7 +32,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -42,7 +42,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -52,7 +52,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -62,7 +62,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -72,7 +72,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -82,7 +82,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
         </ul>
       </div>
@@ -99,7 +99,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -109,7 +109,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -119,7 +119,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -129,7 +129,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -139,7 +139,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
@@ -149,7 +149,7 @@
               <a href="#" class="title">用户名</a>
               <p class="signature">个性签名</p>
             </div>
-            <a class="btn" v-on:click="follow" href>已关注</a>
+            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
         </ul>
       </div>
@@ -161,11 +161,12 @@
 import $ from "jquery";
 $(document).ready(function () {
   $("div div").scroll();
-});
+})
 export default {
   name: "ProfileFollow",
   methods: {
-    follow() {},
+    follow(){
+    }
   },
 };
 </script>
@@ -295,4 +296,3 @@ span {
   }
 }
 </style>
-

@@ -1,31 +1,31 @@
 <template>
   <div class="ProfileLeftNavbar">
-    <h2>FreeTechHub</h2>
+    <h2><router-link :to="{name:'Home'}">FreeTechHub</router-link></h2>
     <nav>
       <ul>
         <li>
           <v-icon icon-class="个人信息" class="profileicon"></v-icon>
-          <a href="#">Profile</a>
+          <router-link :to="{name:'ProfileInformation'}">Profile</router-link>
         </li>
         <li>
           <v-icon icon-class="博客园"></v-icon>
-          <a href="#">Blogs</a>
+          <router-link :to="{name:'ProfileBlog'}">Blogs</router-link>
         </li>
         <li>
           <v-icon icon-class="问题"></v-icon>
-          <a href="#">Questions</a>
+          <router-link :to="{name:'ProfileQuestions'}">Questions</router-link>
         </li>
         <li>
           <v-icon icon-class="关注"></v-icon>
-          <a href="#">Following</a>
+          <router-link :to="{name:'ProfileFollow'}">Follow</router-link>
         </li>
         <li>
           <v-icon icon-class="好友"></v-icon>
-          <a href="#">Friends</a>
+          <router-link :to="{name:'ProfileFriends'}">Friends</router-link>
         </li>
         <li>
           <v-icon icon-class="设置"></v-icon>
-          <a href="#">Settings</a>
+          <router-link :to="{name:'ProfileSettings'}">Settings</router-link>
         </li>
       </ul>
       <div class="logout">
@@ -54,13 +54,14 @@ ul {
   list-style: none;
 }
 
-div h2 {
+div h2 a{
   color: #b83dba;
   text-transform: uppercase;
   position: static;
   text-align: center;
   margin-bottom: 30px;
   margin-left: 20px;
+  border: none;
 }
 div nav{
   text-align: center;
@@ -76,7 +77,6 @@ div nav ul{
 div nav ul li {
   display: block;
   width: 100% !important; 
-  /* width: 280px; */
   padding: 10px;
 }
 div nav ul li a {

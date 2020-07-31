@@ -1,6 +1,6 @@
 <template>
   <div class="ProfileFriends">
-
+    <p>ProfileFriends</p>
   </div>
 </template>
 
@@ -12,4 +12,3 @@ export default {
 
 <style scoped>
 </style>
-

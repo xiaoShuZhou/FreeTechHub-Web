@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <h2>ForgetPassword</h2>
+  </div>
 </template>
 
 <script>

@@ -14,7 +14,7 @@
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
-import BlogDetail from './ProfileBlogDetail'
+import BlogDetail from '@/views/Profile/ProfileBlogDetail'
 export default {
   components:{
     BlogDetail
@@ -32,7 +32,6 @@ export default {
 
 <style  scoped>
 * {
-  /* box-sizing: border-box; */
   width: auto;
 }
 .ProfileBlogs{
@@ -40,17 +39,15 @@ export default {
   grid-template-columns: 1fr 3fr;
 }
 .BlogList{
-  /* width: 50vh; */
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   justify-items: stretch;
   background: #fbfbff;
 }
 .BlogDetail{
-  /* width: 50vh; */
   height: 100vh;
 }
 li{
@@ -74,4 +71,3 @@ input{
   border-width: 0;
 }
 </style>
-

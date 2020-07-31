@@ -1,33 +1,17 @@
 <template>
   <div class="Profile">
     <ProfileLeftNavbar class="sidebar"/>
-    <ProfileFollow class="content"/>
-    <!-- <ProfileBlogs class="content"/> -->
-    <!-- <ChangeMail class="content"/> -->
-    <!-- <ChangePassword class="content"/> -->
-    <!-- <Information class="content"/> -->
-
+    <router-view class="content"></router-view>
   </div>
 </template>
 
 <script>
-import ProfileLeftNavbar from '@/components/Profile/ProfileLeftNavbar'
-import ProfileFollow from '@/components/Profile/ProfileFollow'
-// import ProfileBlogs from '@/components/Profile/ProfileBlogs'
-// import ChangeMail from '@/components/Profile/ChangeMail'
-// import ChangePassword from '@/components/Profile/ChangePassword'
-// import Information from '@/components/Profile/Information'
+import ProfileLeftNavbar from '@/views/Profile/ProfileLeftNavbar'
 export default {
   name: 'Profile',
   components:{
-    ProfileLeftNavbar,
-    ProfileFollow,
-    // ProfileBlogs,
-    // ChangeMail,
-    // ChangePassword,
-    // Information,
+    ProfileLeftNavbar
   }
-  
 }
 </script>
 
@@ -41,7 +25,6 @@ export default {
 }
 
 .Profile {
-  /* box-sizing: border-box; */
   display: grid;
   grid-template-columns: 15% 85%;
   grid-template-areas: "left content content";

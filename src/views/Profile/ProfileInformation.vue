@@ -2,7 +2,7 @@
   <div class="box">
     <div class="box1">
       <div id="image">
-        <img src="1.jpg" />
+        <img src="@/assets/img/landing.jpg" />
       </div>
       <div>
         <p>Major SE</p>
@@ -24,12 +24,12 @@
         <p>Accept rate: 99%</p>
       </div>
       <div id>
-        <img src="@/assets/logo.png" />
-        <img src="@/assets/logo.png" />
+        <img src="@/assets/img/landing.jpg" />
+        <img src="@/assets/img/landing.jpg" />
       </div>
     </div>
     <div class="box3">
-      <img src="github活动表.jpg" />
+      <img src="@/assets/img/landing.jpg" />
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .box {
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@ export default {};
   align-items: flex;
 }
 div {
-  background: #0162c8;
+  background: #f9f6ff;
   padding: 10px;
   margin: 10px;
 }
@@ -58,7 +58,7 @@ img {
 }
 .box1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: row;
   align-items: baseline;
   flex-grow: unset;
@@ -74,14 +74,14 @@ img {
 .box2 {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .box2 div p {
   display: inline;
   padding-right: 30px;
 }
 .box2 div img {
-  display: inline;
+  display: inline-block;
   width: 90px;
   height: 90px;
   position: relative;
