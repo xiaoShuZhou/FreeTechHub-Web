@@ -3,21 +3,19 @@ import Tag from "./Tag"
 import marked from 'marked'
 
 class Blog extends Model {
-    static app_name = 'blog'    // required
-    static model_name = 'blog'   // required
+    static app_name = 'blog'
+    static model_name = 'blog'
 
     // the input argument must be something like:
-    // {id: xxx, ....(other data fields)}
-    constructor({id, title, content, date, viewTimes, owner, tags}) {
-        super({title, content, owner})     // data fields that is requried when save
+    constructor({id, title, content, date, viewTimes, owner, tags, series}) {
+        super({title, content, owner, viewTimes, series})  // data fields that is requried when save
         // required data fields
-        this.app_name = 'blog'  // required
-        this.model = "blog"      // required
-        this.pk = id            // required
+        this.app_name = 'blog'
+        this.model = "blog"
+        this.pk = id
 
-        // this custom data for Tag
+        // this custom data for Blog
         this.date = date
-        this.viewTimes = viewTimes
         this.owner = owner
         this.m_content = marked(this.content)
 
@@ -26,12 +24,6 @@ class Blog extends Model {
             tags.forEach(tag => { this.tags.push(new Tag(tag)) })
         }
     }
-
-    // -*- Just copy paste everything below to every concrete model -*-
-
-    // They can not be defined inside of Model super class because
-    // I can't get the constructors of these concrete models from 
-    // the Model super class. If you know how, plase let me know.
 
     // get model by id
     static async get(id) {

@@ -33,7 +33,10 @@ export default {
         alert('Wrong passowrd or username!')
       }
     },
-    logout: function() { logout() },
+    logout: function() { 
+      logout()
+      this.$router.push({name: "ShowBlogs"})
+    },
   }
 }
 </script>
