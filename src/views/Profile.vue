@@ -3,7 +3,8 @@
     <ProfileLeftNavbar class="sidebar"/>
     <!-- <ProfileFollow class="content"/> -->
     <!-- <ProfileBlogs class="content"/> -->
-    <ChangeMail class="content"/>
+    <!-- <ChangeMail class="content"/> -->
+    <ChangePassword class="content" />
   </div>
 </template>
 
@@ -11,14 +12,16 @@
 import ProfileLeftNavbar from '@/components/Profile/ProfileLeftNavbar'
 // import ProfileFollow from '@/components/Profile/ProfileFollow'
 // import ProfileBlogs from '@/components/Profile/ProfileBlogs'
-import ChangeMail from '@/components/Profile/ChangeMail'
+// import ChangeMail from '@/components/Profile/ChangeMail'
+import ChangePassword from '@/components/Profile/ChangePassword'
 export default {
   name: 'Profile',
   components:{
     ProfileLeftNavbar,
     // ProfileFollow,
     // ProfileBlogs,
-    ChangeMail
+    // ChangeMail,
+    ChangePassword,
   }
   
 }
@@ -48,8 +51,10 @@ export default {
   widows: 100vh;
   justify-items: center;
   justify-content: center;
+
 }
 .content{
   grid-area: content;
+  position: relative;
 }
 </style>
