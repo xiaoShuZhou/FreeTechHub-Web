@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="discussion">
     <div>
       <h1>PUT OUR HEADS TOGETHER</h1>
       <p>We are easily fulling into our own logic trap and often not worthwhile spending our entire wonderful sunday
