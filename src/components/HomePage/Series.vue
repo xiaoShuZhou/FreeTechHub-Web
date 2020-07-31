@@ -14,16 +14,16 @@
       <div class="picture">
         <div>
           <div class="shadow"><p>View</p></div>
-          <v-icon iconClass="undraw_ideation_2a64" class="icon"></v-icon></div>
+          <img src="@/assets/img/undraw_ideation_2a64.svg"></div>
         <div>
           <div class="shadow"><p>View</p></div>
-          <v-icon iconClass="undraw_good_team_m7uu" class="icon"></v-icon></div>
+          <img src="@/assets/img/undraw_good_team_m7uu.svg"></div>
         <div>
           <div class="shadow"><p>View</p></div>
-          <v-icon iconClass="undraw_experience_design_eq3j" class="icon"></v-icon></div>
+          <img src="@/assets/img/undraw_experience_design_eq3j.svg"></div>
         <div>
           <div class="shadow"><p>View</p></div>
-          <v-icon iconClass="undraw_master_plan_95wa" class="icon"></v-icon></div>
+          <img src="@/assets/img/undraw_master_plan_95wa.svg"></div>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
     text-align: center;
   }
 
-  .icon {
+  .picture img {
     width: 100%;
     height: 100%;
   }
@@ -168,5 +168,6 @@
   .search-box:hover > .search-btn {
     background: white;
   }
+
 
 </style>

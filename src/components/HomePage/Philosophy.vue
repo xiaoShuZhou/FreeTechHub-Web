@@ -1,6 +1,6 @@
 <template>
   <div class="philosophy">
-    <div class="left"><v-icon iconClass="warm"></v-icon></div>
+    <div class="left"><img src="@/assets/img/warm.jpg"></div>
     <div class="right"><h1>Our philosophy</h1>
       <p><span></span><strong>LESS IS MORE</strong></p>
       <p><span></span><strong>HIGH BAND WIDTH BEATS LOW BAND WIDTH</strong></p>

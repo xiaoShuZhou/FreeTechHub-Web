@@ -4,32 +4,32 @@
     <nav>
       <ul>
         <li>
-          <v-icon icon-class="个人信息" class="profileicon"></v-icon>
+          <img src="@/assets/img/个人信息.svg" alt="">
           <router-link :to="{name:'ProfileInformation'}">Profile</router-link>
         </li>
         <li>
-          <v-icon icon-class="博客园"></v-icon>
+          <img src="@/assets/img/博客园.svg" alt="">
           <router-link :to="{name:'ProfileBlog'}">Blogs</router-link>
         </li>
         <li>
-          <v-icon icon-class="问题"></v-icon>
+          <img src="@/assets/img/问题.svg" alt="">
           <router-link :to="{name:'ProfileQuestions'}">Questions</router-link>
         </li>
         <li>
-          <v-icon icon-class="关注"></v-icon>
+          <img src="@/assets/img/关注.svg" alt="">
           <router-link :to="{name:'ProfileFollow'}">Follow</router-link>
         </li>
         <li>
-          <v-icon icon-class="好友"></v-icon>
+          <img src="@/assets/img/好友.svg" alt="">
           <router-link :to="{name:'ProfileFriends'}">Friends</router-link>
         </li>
         <li>
-          <v-icon icon-class="设置"></v-icon>
+          <img src="@/assets/img/设置.svg" alt="">
           <router-link :to="{name:'ProfileSettings'}">Settings</router-link>
         </li>
       </ul>
       <div class="logout">
-      <v-icon icon-class="登出" class="logouticon"></v-icon>
+      <img src="@/assets/img/登出.svg" alt="">
       <a href="#">Logout</a>
     </div>
     </nav>
@@ -62,6 +62,10 @@ div h2 a{
   margin-bottom: 30px;
   margin-left: 20px;
   border: none;
+}
+img{
+  width: 30px;
+  height: 30px;
 }
 div nav{
   text-align: center;

@@ -2,14 +2,14 @@
   <div class="about" id="about">
     <div class="center"><h1>----ABOUT US----</h1></div>
     <div class="about-under">
-      <div><v-icon iconClass="undraw_annotation_7das" class="icon"></v-icon></div>
+      <div><img src="@/assets/img/undraw_annotation_7das.svg"></div>
       <div><p><strong>WE ARE</strong> software engineering students and trying our best to make the best of our
         free time. We love to share knowledge with everyone and hopefully contribute our work to a better
         society</p></div>
       <div><p><strong>WE WANT</strong> to share our knowledge and experiences with anyone who is enthusiastic
         about technology, to learn from the experienced, to make friends with people that are willing to share.
       </p></div>
-      <div><v-icon iconClass="undraw_hang_out_h9ud" class="icon"></v-icon></div>
+      <div><img src="@/assets/img/undraw_hang_out_h9ud.svg"></div>
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@
     padding: 10px;
   }
 
-  .icon {
+  .about img {
     width: 100%;
     height: 100%;
   }

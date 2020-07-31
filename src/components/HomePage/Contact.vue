@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h1>We <v-icon iconClass="love" class="love"></v-icon> new friends!</h1>
+      <h1>We <span class="love"></span> new friends!</h1>
       <p>We are really looking forward to seeing more creative people in our project and make this project useful
         for as many people as possible. If you already have some programming experience inPython and know how to
         use Git and Github to participate in open source projects you can simply visit our Github repository and
@@ -41,6 +41,7 @@
     height: 50px;
     display: inline-block;
     vertical-align: middle;
+    background: url("~@/assets/img/love.svg");
     background-size: 50px 50px;
   }
 

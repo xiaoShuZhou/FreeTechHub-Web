@@ -12,7 +12,6 @@
       <h2 class="title">Blog Title</h2>
       <p>This is the content of blog...</p>
       <button>View More</button>
-      <v-icon iconClass></v-icon>
     </div>
     <div class="sidebar">
       <div class="box">

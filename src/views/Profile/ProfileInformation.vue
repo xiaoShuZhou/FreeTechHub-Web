@@ -13,14 +13,14 @@
     </div>
     <div class="box2">
       <div id>
-        <v-icon iconClass="游览量"></v-icon>
+        <img src="@/assets/img/浏览量.svg" alt="">
         <p>Total views: 666</p>
-        <v-icon iconClass="粉丝趴"></v-icon>
+        <img src="@/assets/img/粉丝趴.svg" alt="">
         <p>Follows: 0438</p>
         <br>
-        <v-icon iconClass="点赞"></v-icon>
+        <img src="@/assets/img/点赞.svg" alt="">
         <p>Total likes: 2233</p>
-        <v-icon iconClass="概率"></v-icon>
+        <img src="@/assets/img/概率.svg" alt="">
         <p>Accept rate: 99%</p>
       </div>
       <div id>

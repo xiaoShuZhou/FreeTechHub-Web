@@ -6,7 +6,7 @@
         <ul>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -16,7 +16,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -26,7 +26,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -36,7 +36,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -46,7 +46,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -56,7 +56,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -66,7 +66,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -76,7 +76,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -93,7 +93,7 @@
         <ul>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+             <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -103,7 +103,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -113,7 +113,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -123,7 +123,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -133,7 +133,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -143,7 +143,7 @@
           </li>
           <li>
             <a href="#" class="avatar">
-              <v-icon iconClass="头像 女孩" class="avatar"></v-icon>
+              <img src="@/assets/img/头像 女孩.svg" alt="">
             </a>
             <div class="user-content">
               <a href="#" class="title">用户名</a>
@@ -183,6 +183,10 @@ export default {
   grid-template-areas: "Follower Following";
   text-align: center;
   justify-items: center;
+}
+img{
+  width: 60px;
+  height: 60px;
 }
 div div h2 {
   position: fixed;
@@ -243,12 +247,6 @@ li {
 .Following {
   grid-area: Following;
   overflow: scroll;
-}
-.avatar {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  z-index: 20px;
 }
 .title {
   font-weight: 500;
