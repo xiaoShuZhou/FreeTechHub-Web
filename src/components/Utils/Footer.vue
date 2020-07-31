@@ -5,8 +5,8 @@
       <p class="site">FreeTechHub - 2020</p>
     </div>
     <div class="social">
-      <img src="@/assets/img/qq.svg" alt="qq">
-      <img src="@/assets/img/github.svg" alt="github">
+      <v-icon iconClass="qq" alt="qq" class="icon"></v-icon>
+      <v-icon iconClass="github" alt="github" class="icon"></v-icon>
     </div>
   </div>
 </template>
@@ -50,11 +50,10 @@ export default {
     justify-content: space-around;
   }
 
-  img {
+  .icon {
     height: 80%;
     padding-top: 5%;
     padding-bottom: 5%;
     align-self: center;
   }
-
 </style>

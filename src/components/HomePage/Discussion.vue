@@ -6,7 +6,7 @@
         afternoon tp spot it.Having a fresh point of view can make a big difference.</p>
       <button>Join the discussion</button>
     </div>
-    <div><img src="@/assets/img/undraw_true_love_cy8x.svg"></div>
+    <div><v-icon iconClass="undraw_true_love_cy8x" class="icon"></v-icon></div>
   </div>
 </template>
 
@@ -49,7 +49,7 @@
     font-size: 1.5em;
   }
 
-  img {
+  .icon {
     width: 100%;
     height: 100%;
   }

@@ -11,14 +11,14 @@ export default {
     iconClass: {
       type: String,
       required: true,
-    },
+    }
   },
   computed: {
     iconName() {
       return `#icon-${this.iconClass}`;
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>

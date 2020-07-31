@@ -1,7 +1,7 @@
 <template>
 	<div class="starbar">
 		<div class="bar"></div>
-		<img class="star" src="@/assets/img/star.svg">
+		<v-icon iconClass="star" id="star"></v-icon>
 		<div class="bar"></div>
 	</div>
 </template>
@@ -20,7 +20,7 @@
 		height: 10%;
 		background-color: white;
 	}
-	.star {
+	#star {
 		height: 90%;
 	}
 </style>
