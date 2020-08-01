@@ -5,7 +5,7 @@
         <div class="list">
           <ul>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -16,7 +16,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div>
@@ -27,7 +27,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -38,7 +38,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -49,7 +49,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -60,7 +60,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -71,7 +71,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -82,7 +82,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -93,7 +93,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -104,7 +104,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -115,7 +115,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -126,7 +126,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -137,7 +137,7 @@
               </a>
             </li>
             <li>
-              <a href="">
+              <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -147,7 +147,7 @@
                 </div>
               </a>
             </li>
-            <li><a href="">
+            <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -156,7 +156,7 @@
                   </div>
                 </div>
               </a> </li>
-            <li><a href="">
+            <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -165,7 +165,7 @@
                   </div>
                 </div>
               </a> </li>
-            <li><a href="">
+            <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -174,7 +174,7 @@
                   </div>
                 </div>
               </a> </li>
-            <li><a href="">
+            <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -183,7 +183,7 @@
                   </div>
                 </div>
               </a> </li>
-            <li><a href="">
+            <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div id="">
@@ -204,7 +204,7 @@
           <div class="icon">
             <img src="@/assets/img/代码.svg" alt="">
             <img src="@/assets/img/img.svg" alt="">
-            <a class="history-message" href="">消息记录</a>
+            <a class="history-message" href="#">消息记录</a>
           </div>
           <textarea></textarea>
           <button type="button" class="send">发送</button>
@@ -288,7 +288,8 @@ input{
   line-height: normal;
   text-align:center;
   vertical-align:middle;
-  font-size: 30px
+  font-size: 30px;
+  margin: 10px 0 0 50px;
 }
 
 ::-webkit-input-placeholder{
@@ -305,10 +306,10 @@ input::-moz-placeholder{
 }
 textarea{
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 img{
-  width: 100%;
+  width: 50%;
   height: 100%;
 }
 .avatar{
@@ -328,6 +329,7 @@ li a div div{
   margin-left: 30px;
 }
 .history-message{
+  width: 80px;
   float: right;
   border: 2px solid black;
   border-radius: 10px;
@@ -356,6 +358,7 @@ li a div div{
   background-position: right;
   background-repeat: no-repeat;
   font-size: 18px;
+  margin: 0 0 10px 50px;
 }
 .icon img{
   width: 30px;

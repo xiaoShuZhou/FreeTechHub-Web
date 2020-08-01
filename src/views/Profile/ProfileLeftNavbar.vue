@@ -24,6 +24,10 @@
           <router-link :to="{name:'ProfileFriends'}">Friends</router-link>
         </li>
         <li>
+          <img src="@/assets/img/树叶.svg" alt="">
+          <router-link :to="{name:'ProfileSkillTrees'}">Settings</router-link>
+        </li>
+        <li>
           <img src="@/assets/img/设置.svg" alt="">
           <router-link :to="{name:'ProfileSettings'}">Settings</router-link>
         </li>
