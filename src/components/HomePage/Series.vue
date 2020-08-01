@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="series">
     <div class="search">
       <h1>SEARCH</h1>
       <div class="search-box">

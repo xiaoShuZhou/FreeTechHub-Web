@@ -36,9 +36,6 @@ import ChangeMail from '@/views/Profile/ChangeMail'
 import ChangePassword from '@/views/Profile/ChangePassword'
 import ProfileSettings from '@/views/Profile/ProfileSettings'
 import ForgetPassword from '@/views/Profile/ForgetPassword'
-
-
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -80,18 +77,35 @@ const routes = [
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
   { path: '/edit/blog',         name: 'NewBlog',      component: EditBlog },
-  { path: '/edit/blog/:id',     name: 'EditBlog',     component: EditBlog },
+  { path: '/edit/blog/:id',     name: 'EditBlog',     component: EditBlog,      props: true },
   // series
   { path: '/show/series',       name: 'ShowSeries',   component: ShowSeries },
   { path: '/show/series/:id',   name: 'ShowOneSeries',component: ShowOneSeries },
   { path: '/edit/series/',      name: 'NewSeries',    component: EditSeries },
-  { path: '/edit/series/:id',   name: 'EditSeries',   component: EditSeries },
+  { path: '/edit/series/:id',   name: 'EditSeries',   component: EditSeries,    props: true },
   // questions
   { path: '/edit/question',     name: 'NewQuestion',  component: EditQuestion},
   { path: '/show/questions',    name: 'ShowQuestions',component: ShowQuestions},
   { path: '/edit/question/:id', name: 'EditQuestion', component: EditQuestion},
   { path: '/show/question/:id', name: 'ShowQuestion', component: ShowQuestion},
-  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') }
+  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') },
+  // profile
+  { path: '/profile',           name: 'Profile',      component: Profile,
+    children:[
+      { path: 'information',      name: 'ProfileInformation', component: ProfileInformation},
+      { path: '',                 redirect: 'information'},
+      { path: 'blogs',            name: 'ProfileBlog',        component: ProfileBlogs},
+      { path: 'questions',        name: 'ProfileQuestions',   component: ProfileQuestions},
+      { path: 'follow',           name: 'ProfileFollow',      component: ProfileFollow},
+      { path: 'friends',          name: 'ProfileFriends',     component: ProfileFriends},
+      { path: 'settings',         name: 'ProfileSettings',    component: ProfileSettings,
+        redirect: 'settings/changepassword',
+        children:[
+          { path: 'changepassword', name: 'ChangePassword',     component: ChangePassword},
+          { path: 'changemail',     name: 'ChangeMail',         component: ChangeMail},
+          { path: 'forgetpassword', name: 'ForgetPassword',     component: ForgetPassword},
+        ]},
+    ]},
 ]
 
 const router = new VueRouter({

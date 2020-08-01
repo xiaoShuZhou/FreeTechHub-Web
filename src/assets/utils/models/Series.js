@@ -38,18 +38,25 @@ class Series extends Model {
             return null
         }
         for (let id in this.sub_series_ids) {
-            let res = await axios.get(BASE_URL + `${this.app_name}/`+`series/${this.sub_series_ids[id]}`)
+            let res = await axios.get(BASE_URL + `${this.app_name}/series/${this.sub_series_ids[id]}`)
             let one_series = new Series(res.data)
             this.sub_series.push(one_series)
         }
         return this.sub_series
     }
 
+    static async update_selected_items(selected_content) {
+        let res = await axios.post(
+            BASE_URL + `${this.app_name}/update_selected_items/`,
+            selected_content)
+        return res.data
+    }
+
     static async get_related_content() {
         let related_date = {}
         let res = await axios.get(
             BASE_URL + `${this.app_name}/query-related-content/`)
-        
+
         let constructors = {
             blog: Blog,
             series: Series

@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="about" id="about">
     <div class="center"><h1>----ABOUT US----</h1></div>
     <div class="about-under">
       <div><img src="@/assets/img/undraw_annotation_7das.svg"></div>

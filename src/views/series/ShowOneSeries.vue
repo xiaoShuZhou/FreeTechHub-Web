@@ -36,7 +36,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-          
+
         </div>
       </li>
     </ul>
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       series: '',
-      sub_series: ''
+      sub_series: '',
     }
   },
   methods: {
@@ -80,14 +80,25 @@ export default {
     editSeries() {
       this.$router.push({name: 'EditSeries', params: {id: this.series.pk}})
     }
-    
+
   },
   created() {
     login_required(this, () => this.reload(this.$route.params.id))
   },
+<<<<<<< HEAD
   watch: {
     $route: {
       handler: function(newVal){
+=======
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.reload(vm.$route.params.id)
+    })
+  },
+  watch: {
+    $route: {
+      handler: function(newVal) {
+>>>>>>> fecc0242c03cd670af59cb354bd270ca69dadce9
         this.reload(newVal.params.id)
       },
       // 深度深入对象内部变化

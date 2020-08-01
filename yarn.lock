@@ -5024,6 +5024,11 @@ jest-worker@^25.4.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
+jqeury@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.npm.taobao.org/jqeury/download/jqeury-0.0.1-security.tgz#7e979a5073507fb098c7d4a5ed544e5d3a678887"
+  integrity sha1-fpeaUHNQf7CYx9Sl7VROXTpniIc=
+
 jquery@^3.5.1:
   version "3.5.1"
   resolved "https://registry.npm.taobao.org/jquery/download/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
@@ -8533,6 +8538,11 @@ vue-router@^3.2.0:
   version "3.3.4"
   resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.3.4.tgz#4e38abc34a11c41b6c3d8244449a2e363ba6250b"
   integrity sha1-Tjirw0oRxBtsPYJERJouNjumJQs=
+
+vue-scroll-lock@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npm.taobao.org/vue-scroll-lock/download/vue-scroll-lock-0.0.6.tgz#3529a1ed0e01a56415baf574d4794e6042b173ee"
+  integrity sha1-NSmh7Q4BpWQVuvV01HlOYEKxc+4=
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
