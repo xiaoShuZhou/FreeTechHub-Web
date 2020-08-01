@@ -39,3 +39,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+*{
+  scroll-behavior: smooth;
+	text-decoration: none;
+}
+</style>

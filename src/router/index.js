@@ -16,7 +16,17 @@ import ShowQuestion from '@/views/question/ShowQuestion.vue'
 
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
-
+// profile
+import Profile from '@/views/Profile'
+import ProfileInformation from '@/views/Profile/ProfileInformation'
+import ProfileBlogs from '@/views/Profile/ProfileBlogs'
+import ProfileFollow from '@/views/Profile/ProfileFollow'
+import ProfileFriends from '@/views/Profile/ProfileFriends'
+import ProfileQuestions from '@/views/Profile/ProfileQuestions'
+import ChangeMail from '@/views/Profile/ChangeMail'
+import ChangePassword from '@/views/Profile/ChangePassword'
+import ProfileSettings from '@/views/Profile/ProfileSettings'
+import ForgetPassword from '@/views/Profile/ForgetPassword'
 Vue.use(VueRouter)
 
 const routes = [
@@ -38,7 +48,24 @@ const routes = [
   { path: '/show/questions',    name: 'ShowQuestions',component: ShowQuestions},
   { path: '/edit/question/:id', name: 'EditQuestion', component: EditQuestion},
   { path: '/show/question/:id', name: 'ShowQuestion', component: ShowQuestion},
-  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') }
+  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') },
+  // profile
+  { path: '/profile',           name: 'Profile',      component: Profile, 
+    children:[
+      { path: 'information',      name: 'ProfileInformation', component: ProfileInformation},
+      { path: '',                 redirect: 'information'},
+      { path: 'blogs',            name: 'ProfileBlog',        component: ProfileBlogs},
+      { path: 'questions',        name: 'ProfileQuestions',   component: ProfileQuestions},
+      { path: 'follow',           name: 'ProfileFollow',      component: ProfileFollow},
+      { path: 'friends',          name: 'ProfileFriends',     component: ProfileFriends},
+      { path: 'settings',         name: 'ProfileSettings',    component: ProfileSettings,
+        redirect: 'settings/changepassword',
+        children:[
+          { path: 'changepassword', name: 'ChangePassword',     component: ChangePassword},
+          { path: 'changemail',     name: 'ChangeMail',         component: ChangeMail},
+          { path: 'forgetpassword', name: 'ForgetPassword',     component: ForgetPassword},
+        ]},
+    ]},
 ]
 
 const router = new VueRouter({

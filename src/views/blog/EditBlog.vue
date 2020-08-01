@@ -1,13 +1,13 @@
 <template>
   <div class="EditBlog">
-    <Navbar/>
+    <Navbar />
     <form class="blog-form">
       <span class="title">
         <h4>Title: </h4>
         <input type="text" v-model="title" required="required"/>
       </span>
       <h2>content</h2>
-      <mavon-editor v-model="content"/>
+      <mavon-editor v-model="content" />
       <button class="submit" @click="save">submit</button>
     </form>
   </div>
@@ -52,7 +52,7 @@ export default {
         let blog = this._getblog(user)
         if (this.$route.name == "NewBlog") {
           blog.save().then(() => {
-            this.$router.push({name: "ShowBlogs"})
+            this.$router.push({ name: 'ShowBlogs' })
           })
         } else {
           blog.update().then(() => {
@@ -95,7 +95,7 @@ export default {
   align-items: center;
 }
 
-.title{
+.title {
   display: flex;
   margin: 5vh 5vw;
   justify-content: center;
@@ -104,7 +104,6 @@ export default {
 .title input {
   width: 30vw;
 }
-
 
 .EditBlog {
   padding: 0 10vw;
@@ -115,7 +114,7 @@ export default {
 
 .submit {
   border: 0;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 40%;
   border-radius: 5px;
