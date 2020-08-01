@@ -36,7 +36,7 @@ export default {
 }
 .ProfileBlogs{
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 2fr;
 }
 .BlogList{
   height: 100vh;
@@ -44,7 +44,6 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  justify-items: stretch;
   background: #fbfbff;
 }
 .BlogDetail{
