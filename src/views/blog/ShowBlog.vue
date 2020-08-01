@@ -5,6 +5,12 @@
       <h1 class="title">{{ blog.title }}</h1>
       <div class="content" v-html="blog.m_content" v-highlight></div>
       <div class="buttons">
+      
+      <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon">
+      <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon">
+      <img src="@/assets/img/dislike.svg" @click="dislike" v-if="history=='disliked'" alt="dislike-icon">
+      <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon">
+
       <button @click="editBlog">Edit</button>
       <button @click="deleteBlog">Delete</button>
       <button @click="followingship">{{content}}</button>
@@ -35,39 +41,56 @@ export default {
       deleteid:'',
       content: 'follow',
       liked: true,
-
+      history: ''
     }
   },
   methods: {
     init(){
       let follower_id = []
-      if(!this.followerlists)
-      {
-        return;
-      }
+      if(!this.followerlists) return
+
       this.followerlists.forEach(followerlist => {
         follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
       })
-      follower_id.forEach(item=>{
-      if(item.following_id==this.followinguser.pk){
+
+      follower_id.forEach(item => {
+        if (item.following_id == this.followinguser.pk) {
           this.deleteid = item.id
           this.liked = false
           this.content = "unfollow"
-        }
-      else{
-        this.liked = true;
-        this.content = "Follow"
+        } else {
+          this.liked = true;
+          this.content = "Follow"
         }
       })
    },
     deleteBlog() {
       this.blog.delete().then(() => {
-          this.$router.push({name: 'ShowBlogs'})
+        this.$router.push({name: 'ShowBlogs'})
       })
     },
     editBlog() {
       this.$router.push({name: 'EditBlog'})
     },
+
+    like() {
+      login_required(this, () => {
+        this.blog.like().then(() => {
+          this.blog.getLikeHistory()
+          .then(history => this.history=history)
+        })
+      })
+    },
+
+    dislike() {
+      login_required(this, () => {
+        this.blog.dislike().then(() => {
+          this.blog.getLikeHistory()
+          .then(history => this.history=history)
+        })
+      })
+    },
+
     followingship() {
       if (this.liked) {
         this.content = "unfollow"
@@ -122,6 +145,7 @@ export default {
             this.followinguser = user
             this.init()
           })
+          blog.getLikeHistory().then(history => this.history=history)
         })
     })
   },
