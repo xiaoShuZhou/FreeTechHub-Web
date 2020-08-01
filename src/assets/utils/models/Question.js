@@ -16,7 +16,7 @@ class Question extends Model {
         this.model = "question"     // required
         this.pk = id                // required
 
-        // this custom data for Tag
+        // this custom data for Question
         this.date = date
         this.viewTimes = viewTimes
         this.status = status

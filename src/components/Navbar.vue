@@ -14,6 +14,7 @@
 
 <script>
 import User from '@/assets/utils/models/User'
+
 export default {
   name: "Navbar",
   data() {
@@ -22,6 +23,7 @@ export default {
     }
   },
   methods: {
+
     goProfile() {
       User.getSelf().then(user =>{
         this.$router.push({name:"ShowProfile", params:{id: user.pk}})

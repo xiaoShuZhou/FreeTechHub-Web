@@ -1,5 +1,5 @@
 <template>
-<div class="Profile_show">
+<div class="ShowProfile">
   <h1>Profile</h1>
   <button @click="editProfile">Edit</button>
   <ul>
@@ -13,13 +13,14 @@
       </div>
     </li>
   </ul>
-
 </div>
 </template>
 
 <script>
 import User from '@/assets/utils/models/User'
-import {is_authenticated} from '@/assets/utils/auth'
+import {
+  is_authenticated
+} from '@/assets/utils/auth'
 
 export default {
   name: 'ShowProfile',
@@ -28,8 +29,8 @@ export default {
   },
   data() {
     return {
-      user:'',
-      follow:'',
+      user: '',
+      follow: '',
 
     }
   },

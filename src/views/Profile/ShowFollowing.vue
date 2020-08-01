@@ -26,8 +26,6 @@
 
 
 <script>
-import axios from 'axios'
-// import User from '@/assets/utils/models/User'
 import Followership from '@/assets/utils/models/Followership'
 
 export default {
@@ -37,31 +35,25 @@ export default {
     return {
       user: '',
       followings: '',
-      followers:'',
-      totalfollower:'',
-      totalfollowing:'',
+      followers: '',
+      totalfollower: '',
+      totalfollowing: '',
     }
   },
   methods: {
     getFollowinglist() {
-      axios.get('http://127.0.0.1:8000/user/getfollowing/')
-        .then(res => {
-          this.followings = res.data.data,
-          this.totalfollowing = this.followings.length
-        })
+      Followership.getFollowinglist().then(followings=>{this.followings =followings , this.totalfollowing = this.followings.length  })
     },
     getFollowerlist() {
-      axios.get('http://127.0.0.1:8000/user/getfollower/')
-        .then(res => {
-          this.followers = res.data.data,
-          this.totalfollower = this.followers.length
-        })
+      Followership.getFollowerlist().then(followers=>{this.followers =followers ,   this.totalfollower = this.followers.length  })
     },
     deleteFollowing(following) {
       Followership.get(following.following_id).then(followership => {
-        followership.delete(),
-          this.getFollowinglist(),
+        followership.delete().then(() => {
+          this.getFollowinglist()
           this.getFollowerlist()
+        })
+
       })
 
     },

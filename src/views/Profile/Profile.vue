@@ -5,7 +5,7 @@
     <router-link to="#">Questions</router-link> |
     <button @click='goFollowing'>Following</button> |
     <router-link to="#">Friends</router-link> |
-    <router-link to="#">settings</router-link> |
+    <button @click='goSetting'>settings</button> |
     <router-view></router-view>
   </div>
 </template>
@@ -24,6 +24,9 @@ export default {
         this.$router.push({name:"ShowFollowing", params:{id: user.pk}})
         })
     },
+    goSetting() {
+        this.$router.push({path:'/profile/setting/'})
+    }
   }
 }
 </script>

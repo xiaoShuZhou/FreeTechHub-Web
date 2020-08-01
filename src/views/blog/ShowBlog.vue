@@ -7,7 +7,7 @@
       <div class="buttons">
       <button @click="editBlog">Edit</button>
       <button @click="deleteBlog">Delete</button>
-      <button @click="followingship">{{content}}</button>
+      <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
       </div>
     </div>
   </div>
@@ -16,9 +16,9 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
+import { login_required } from '@/assets/utils/auth'
 import User from '@/assets/utils/models/User'
 import Followership from '@/assets/utils/models/Followership'
-import axios from 'axios'
 
 export default {
   name: "ShowBlog",
@@ -28,6 +28,7 @@ export default {
   data() {
     return {
       blog: '',
+      followership:'',
       followinguser:'',
       followeruser:'',
       followerlists:'',
@@ -38,6 +39,12 @@ export default {
     }
   },
   methods: {
+    _getFollowership() {
+      return new Followership({
+        following:this.followinguser.pk,
+        follower:this.followeruser.pk,
+      })
+    },
     init(){
       let follower_id = []
       if(!this.followerlists)
@@ -68,6 +75,7 @@ export default {
       this.$router.push({name: 'EditBlog'})
     },
     followingship() {
+      let followership = this._getFollowership()
       if (this.liked) {
         this.content = "unfollow"
         this.liked = !this.liked
@@ -75,10 +83,7 @@ export default {
           this.blog = blog}),
           User.get(this.blog.owner).then( user => {
             this.user = user,
-            axios.post(`http://127.0.0.1:8000/user/followership/`, {
-              following:this.followinguser.pk,
-              follower:this.followeruser.pk,
-            })
+            followership.save()
           })
       } else {
           this.content = "follow"
@@ -108,18 +113,22 @@ export default {
     },
   },
   created() {
-    Blog.get(this.$route.params.id).then(blog => {
-      this.blog = blog,
-      User.getSelf().then(user =>{
-        this.followeruser = user,
-        this.followerlists = this.followeruser.follower_users,
-        this.init();}),
-      User.get(this.blog.owner).then(user =>{
-        this.followinguser = user,
-        this.init()
-      })
-      })
-  }
+    login_required(this, (user) => {
+        Blog.get(this.$route.params.id)
+        .then(blog => {
+          this.blog = blog
+
+          this.followeruser = user
+          this.followerlists = this.followeruser.follower_users
+          this.init();
+
+          User.get(this.blog.owner).then(user =>{
+            this.followinguser = user
+            this.init()
+          })
+        })
+    })
+  },
 }
 </script>
 
