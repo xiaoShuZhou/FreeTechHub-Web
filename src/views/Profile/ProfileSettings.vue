@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id class="box">
+    <div class="box">
       <div>
         <router-link :to="{name:'ChangePassword'}">修改密码</router-link>
         <router-link :to="{name:'ChangeMail'}">修改邮箱</router-link>
@@ -28,23 +28,23 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 40px;
   box-sizing: border-box;
   background: #d2e9f3;
+  
 }
 .box div{
   display: flex;
   justify-content: center;
 }
 .box div a {
-  margin: 0 0 30px 0;
+  text-decoration: none;
   padding-right: 10px;
   padding-left: 10px;
   color: black;
   text-align: center;
   font-size: 30px;
-  border: border;
   border-right: 1px solid black;
 }
 .box div a:nth-child(3){

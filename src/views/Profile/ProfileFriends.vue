@@ -244,6 +244,7 @@ export default {
   height: 40px;
   border: 2px solid black;
   border-radius: 20px;
+  outline: none;
 }
 .list{
   list-style: none;
@@ -279,6 +280,7 @@ li:nth-child(1){
 input{
   border-radius: 20px;
   border: 2px solid black;
+  outline: none;
   width: 150px;
   height: 40px;
   background: url(~@/assets/img/放大镜.svg);
@@ -289,10 +291,12 @@ input{
   text-align:center;
   vertical-align:middle;
   font-size: 30px;
-  margin: 10px 0 0 50px;
+  margin: 10px 0 0 30%;
 }
-
-::-webkit-input-placeholder{
+input:focus::-webkit-input-placeholder{
+  color: transparent;
+}
+input::-webkit-input-placeholder{
   color: #000000;
   font-size: 20px;
   text-align: center;
@@ -307,6 +311,9 @@ input::-moz-placeholder{
 textarea{
   width: 100%;
   height: 80%;
+  font-size: 30px;
+  outline: none;
+  border: none;
 }
 img{
   width: 50%;
@@ -358,7 +365,7 @@ li a div div{
   background-position: right;
   background-repeat: no-repeat;
   font-size: 18px;
-  margin: 0 0 10px 50px;
+  margin: 0 0 10px 30%;
 }
 .icon img{
   width: 30px;
