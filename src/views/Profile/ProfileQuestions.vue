@@ -87,6 +87,7 @@ export default {
 input{
   border-radius: 20px;
   border: 2px solid black;
+  outline: none;
   width: 150px;
   height: 40px;
   background: url(~@/assets/img/放大镜.svg);
@@ -97,9 +98,12 @@ input{
   text-align:center;
   vertical-align:middle;
   font-size: 30px;
-  margin: 10px 0 10px 100px;
+  margin: 10px 0 10px 30%;
 }
-::-webkit-input-placeholder{
+input:focus::-webkit-input-placeholder{
+  color: transparent;
+}
+input::-webkit-input-placeholder{
   color: #000000;
   font-size: 30px;
   text-align: center;
@@ -165,6 +169,7 @@ li:nth-child(1){
 }
 .buttongroup button{
   margin: 10px;
+  outline: none;
 }
 .view{
   width: 60px;
