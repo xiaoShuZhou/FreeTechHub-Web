@@ -12,6 +12,7 @@
       <h2 class="title">Blog Title</h2>
       <p>This is the content of blog...</p>
       <button>View More</button>
+      <button class="delete">Delete</button>
     </div>
     <div class="sidebar">
       <div class="box">
@@ -72,6 +73,10 @@ button {
   width: 80px;
   height: 40px;
   margin-top: 30px;
+}
+.delete{
+  background-color: rgb(236, 58, 58);
+  margin-left: 30px;
 }
 .sidebar {
   display: flex;

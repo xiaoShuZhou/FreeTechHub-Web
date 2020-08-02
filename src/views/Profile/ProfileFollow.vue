@@ -158,10 +158,6 @@
 </template>
 
 <script>
-import $ from "jquery";
-$(document).ready(function () {
-  $("div div").scroll();
-})
 export default {
   name: "ProfileFollow",
   methods: {
@@ -197,6 +193,7 @@ div div h2 {
   grid-area: Follower;
   overflow: scroll;
 }
+.Follower::-webkit-scrollbar {display:none}
 .FollowerList {
   width: 100%;
   height: 100%;
@@ -248,6 +245,7 @@ li {
   grid-area: Following;
   overflow: scroll;
 }
+.Following::-webkit-scrollbar {display:none}
 .title {
   font-weight: 500;
   word-break: break-word;

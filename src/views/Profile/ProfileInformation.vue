@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="ProfileInformation">
     <div class="box1">
       <div id="image">
         <img src="@/assets/img/landing.jpg" />
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="box2">
-      <div id>
+      <div>
         <img src="@/assets/img/浏览量.svg" alt="">
         <p>Total views: 666</p>
         <img src="@/assets/img/粉丝趴.svg" alt="">
@@ -23,13 +23,13 @@
         <img src="@/assets/img/概率.svg" alt="">
         <p>Accept rate: 99%</p>
       </div>
-      <div id>
+      <div>
         <img src="@/assets/img/landing.jpg" />
         <img src="@/assets/img/landing.jpg" />
       </div>
     </div>
     <div class="box3">
-      <img src="@/assets/img/landing.jpg" />
+      <img src="@/assets/img/github活动表.jpg" />
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {};
 </script>
 
 <style scoped>
-.box {
+.ProfileInformation {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -82,14 +82,17 @@ img {
 }
 .box2 div img {
   display: inline-block;
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   position: relative;
+  top: 28px;
+  right: 5px;
   bottom: 20px;
 }
 .box3 img {
   border: none;
   border-radius: 0;
   width: 100%;
+  height: 100%;
 }
 </style>

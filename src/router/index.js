@@ -27,6 +27,7 @@ import ChangeMail from '@/views/Profile/ChangeMail'
 import ChangePassword from '@/views/Profile/ChangePassword'
 import ProfileSettings from '@/views/Profile/ProfileSettings'
 import ForgetPassword from '@/views/Profile/ForgetPassword'
+import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
 Vue.use(VueRouter)
 
 const routes = [
@@ -58,6 +59,7 @@ const routes = [
       { path: 'questions',        name: 'ProfileQuestions',   component: ProfileQuestions},
       { path: 'follow',           name: 'ProfileFollow',      component: ProfileFollow},
       { path: 'friends',          name: 'ProfileFriends',     component: ProfileFriends},
+      { path: 'skilltrees',       name: 'ProfileSkillTrees',  component: ProfileSkillTrees},
       { path: 'settings',         name: 'ProfileSettings',    component: ProfileSettings,
         redirect: 'settings/changepassword',
         children:[
