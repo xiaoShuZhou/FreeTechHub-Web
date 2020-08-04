@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="col-md-12">
+      <h2>Title:{{title}}</h2>
       <div class="form-group">
         <input type="text" v-model="title" class="form-control" placeholder="Title">
       </div>
@@ -83,6 +84,10 @@ body {
   padding: 20px;
   background: #f1f1f1;
 }
+h2{
+  text-align: center;
+  word-break: break-all;
+}
 .header {
   padding: 30px;
   font-size: 40px;
@@ -124,6 +129,14 @@ body {
   display: table;
   clear: both;
 }
+input{
+  width: 180px;
+  height: 30px;
+  margin: 20px 0 20px 0;
+  border-radius: 20px;
+  border: 2px solid black;
+  outline: none;
+}
 .v-enter,
 .v-leave-to {
   opacity: 0;
@@ -140,4 +153,16 @@ body {
 .v-leave-active {
   position: absolute;
 }
+.form-group{
+  text-align: center;
+}
+.btn{
+  border-radius: 20px;
+  border: 2px solid #ffcec1;
+  width: 60px;
+  height: 30px;
+  background: #ffcec1;
+  outline: none;
+}
+
 </style>
