@@ -6,6 +6,7 @@
     <router-link to="/show/series">series</router-link> 
     <router-link to="/show/questions">questions</router-link> 
     <router-link to="/login">Login</router-link> 
+    <router-link to="/profile">Profile</router-link>
     <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
   </div>
