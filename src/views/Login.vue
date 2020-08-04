@@ -64,12 +64,14 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 10%;
+  overflow: hidden;
+  margin-top: 8%;
 	margin-left: 35%;
 	width: 500px;
   height: 400px;
 	padding: 40px;
 	box-sizing: border-box;
+  border-radius: 20px;
 	box-shadow: 0 15px 25px rgba(19, 18, 18, 0.5);
   background: rgba(199, 148, 148, 0.8);
 }
