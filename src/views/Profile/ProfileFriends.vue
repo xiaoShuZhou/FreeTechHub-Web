@@ -8,7 +8,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -30,7 +30,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -41,7 +41,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div>
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -52,7 +52,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div>
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -63,7 +63,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -74,7 +74,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -85,7 +85,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div>
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -96,7 +96,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -107,7 +107,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -118,7 +118,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -129,7 +129,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -140,7 +140,7 @@
               <a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -150,7 +150,7 @@
             <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -159,7 +159,7 @@
             <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -168,7 +168,7 @@
             <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -177,7 +177,7 @@
             <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>
@@ -186,7 +186,7 @@
             <li><a href="#">
                 <div class="flex">
                   <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div id="">
+                  <div >
                     <p>用户名</p>
                     <p>信息</p>
                   </div>

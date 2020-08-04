@@ -112,9 +112,7 @@ ul {
   margin: 0 3vw;
 }
 
-
 a {
   text-decoration: none;
 }
-
 </style>

@@ -81,4 +81,7 @@ li:nth-child(1){
 li:nth-last-child(1){
 	margin-top: 60%;
 }
+.router-link-exact-active{
+	background: #fe6b40;
+}
 </style>

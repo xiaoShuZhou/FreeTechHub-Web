@@ -1,155 +1,185 @@
 <template>
   <div class="ProfileFollow">
     <div class="Follower">
-      <h2>Follower</h2>
+      <h2>Follower<small>关注数：2233</small></h2>
       <div class="FollowerList">
         <ul>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="avatar">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
+            </a>
           </li>
         </ul>
       </div>
     </div>
     <div class="Following">
-      <h2>Following</h2>
+      <h2>Following<small>粉丝数：2233</small></h2>
       <div class="FollowingList">
         <ul>
           <li>
             <a href="#" class="avatar">
-             <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
           <li>
             <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt="">
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <p>用户名</p>
+                <p>个性签名</p>
+              </div>
+              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
-            <div class="user-content">
-              <a href="#" class="title">用户名</a>
-              <p class="signature">个性签名</p>
-            </div>
-            <a class="btn" v-on:click="follow" href="#">已关注</a>
           </li>
         </ul>
       </div>
@@ -161,9 +191,8 @@
 export default {
   name: "ProfileFollow",
   methods: {
-    follow(){
-    }
-  },
+    follow() {}
+  }
 };
 </script>
 
@@ -174,92 +203,60 @@ export default {
   background: #ffeef3;
 }
 .ProfileFollow {
-  height: 100vh;
   display: grid;
   grid-template-areas: "Follower Following";
-  text-align: center;
+  grid-template-columns: 50% 50%;
   justify-items: center;
 }
-img{
-  width: 60px;
-  height: 60px;
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 div div h2 {
-  position: fixed;
-  padding-top: 100px;
-  padding-bottom: 50px;
+  width: 300px;
+  margin: 20px 0 10px 30%;
+}
+small{
+  font-size: 15px;
+  padding: 0 0 0 20px;
 }
 .Follower {
   grid-area: Follower;
+}
+ul{
   overflow: scroll;
 }
-.Follower::-webkit-scrollbar {display:none}
-.FollowerList {
-  width: 100%;
-  height: 100%;
+ul::-webkit-scrollbar {
+  display: none;
 }
-ul {
+li a {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
-  text-overflow: ellipsis;
-  height: 100%;
-  list-style: none;
-  font: 1em sans-serif;
-  line-height: 2px;
-  padding-top: 50px;
-}
-div div ul li div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
-  z-index: 0;
-}
-.user-content {
-  width: 300px;
-}
-.user-content a {
-  display: inline-flex;
-  height: 30px;
-  padding-left: 20px;
-}
-.user-content p {
-  display: flexbox;
-  height: 10px;
-  padding-right: 200px;
+  text-decoration: none;
+  align-items: center;
 }
 li {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  padding-top: 200px;
-  border: 0;
-  word-break: break-all;
-  width: 400px;
-  border-bottom: 1px solid black;
-  text-align: -webkit-match-parent;
+  list-style: none;
+  margin: 20px 0 20px 0;
+}
+li:nth-child(1) {
+  border-top: 1px solid #e4dfdf;
+  padding-top: 30px;
 }
 .Following {
   grid-area: Following;
-  overflow: scroll;
 }
-.Following::-webkit-scrollbar {display:none}
-.title {
-  font-weight: 500;
-  word-break: break-word;
+.Following::-webkit-scrollbar {
+  display: none;
 }
-
 .btn {
-  position: relative;
-  border: 0;
+  border: none;
   color: white;
-  border-radius: 5px;
   width: 100px;
-  height: 30px;
-  right: 100px;
-  padding-top: 30px;
+  height: 40px;
   vertical-align: middle;
   display: inline-block;
   color: white;
@@ -267,9 +264,11 @@ li {
   text-transform: uppercase;
   font-size: 22px;
   letter-spacing: 2px;
-  border-radius: 40px;
-  overflow: hidden;
+  border-radius: 20px;
   background-image: repeating-linear-gradient(90deg, #979eff, #55e7fc);
+}
+.FollowingList .btn{
+  background-image: repeating-linear-gradient(90deg, #755bea,#ff72c0);
 }
 span {
   position: absolute;

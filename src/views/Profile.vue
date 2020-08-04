@@ -1,7 +1,9 @@
 <template>
   <div class="Profile">
     <ProfileLeftNavbar class="sidebar"/>
-    <router-view class="content"></router-view>
+    <transition>
+      <router-view class="content" mode="out-in"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -34,5 +36,15 @@ export default {
 }
 .content{
   grid-area: content;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(10%);
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
 }
 </style>
