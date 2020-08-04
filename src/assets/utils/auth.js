@@ -25,7 +25,7 @@ export async function is_authenticated() {
   } else {
     // if there is a token, check if it's expired.
     try {
-      await axios.get('http://127.0.0.1:8000/user/getself/')
+      await axios.get('http://127.0.0.1:8001/user/getself/')
       return true
     } catch(err) {
         // the token is expired
