@@ -6,7 +6,9 @@
         <router-link :to="{name:'ChangeMail'}">修改邮箱</router-link>
         <router-link :to="{name:'ForgetPassword'}">忘记密码</router-link>
       </div>
-      <router-view></router-view>
+      <transition mode="out-in">
+        <router-view></router-view>
+      </transition>
     </div>
   </div>
 </template>
@@ -89,5 +91,15 @@ form{
   padding: 10px 20px;
   border-radius: 30px;
   left: 50%;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
 }
 </style>
