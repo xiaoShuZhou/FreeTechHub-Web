@@ -37,7 +37,7 @@ class User extends Model {
 
     // custom methods
     static async getSelf() {
-        let res = await axios.get('http://127.0.0.1:8001/user/getself/')
+        let res = await axios.get('http://127.0.0.1:8000/user/getself/')
         return new User(res.data)
     }
 
