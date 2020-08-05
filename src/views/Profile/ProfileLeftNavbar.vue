@@ -20,7 +20,7 @@
         </li>
         <li>
           <img src="@/assets/img/好友.svg" alt="">
-          <router-link :to="{name:'ProfileFriends'}">Friends</router-link>
+          <router-link :to="{name:'ProfileMessageCenter'}">MessageCenter</router-link>
         </li>
         <li>
           <img src="@/assets/img/树叶.svg" alt="">
@@ -69,6 +69,9 @@ h2{
   font-size: 30px;
   word-break: break-all;
 }
+h2 a{
+  background: none !important;
+}
 li{
   padding-top: 20px;
   font-size: 22px;
@@ -83,5 +86,9 @@ li:nth-last-child(1){
 }
 .router-link-exact-active{
 	background: #fe6b40;
+}
+.router-link-active{
+	background: #fe6b40;
+
 }
 </style>

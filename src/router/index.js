@@ -28,6 +28,9 @@ import ChangePassword from '@/views/Profile/ChangePassword'
 import ProfileSettings from '@/views/Profile/ProfileSettings'
 import ForgetPassword from '@/views/Profile/ForgetPassword'
 import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
+import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
+import ProfileReply from '@/views/Profile/ProfileReply'
+import RequestFriend from '@/views/Profile/RequestFriend'
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,14 +56,21 @@ const routes = [
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile, 
     children:[
-      { path: 'information',      name: 'ProfileInformation', component: ProfileInformation},
+      { path: 'information',      name: 'ProfileInformation',   component: ProfileInformation},
       { path: '',                 redirect: 'information'},
-      { path: 'blogs',            name: 'ProfileBlog',        component: ProfileBlogs},
-      { path: 'questions',        name: 'ProfileQuestions',   component: ProfileQuestions},
-      { path: 'follow',           name: 'ProfileFollow',      component: ProfileFollow},
-      { path: 'friends',          name: 'ProfileFriends',     component: ProfileFriends},
-      { path: 'skilltrees',       name: 'ProfileSkillTrees',  component: ProfileSkillTrees},
-      { path: 'settings',         name: 'ProfileSettings',    component: ProfileSettings,
+      { path: 'blogs',            name: 'ProfileBlog',          component: ProfileBlogs},
+      { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions},
+      { path: 'follow',           name: 'ProfileFollow',        component: ProfileFollow},
+      { path: 'skilltrees',       name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
+      { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,
+        redirect: 'messagecenter/friends',
+        children:[
+          { path: 'friends',        name: 'Friends',            component: ProfileFriends},
+          { path: 'reply',          name: 'Reply',              component: ProfileReply},
+          { path: 'requestfriend',  name: 'RequestFriend',      component: RequestFriend},
+        ]
+      },
+      { path: 'settings',         name: 'ProfileSettings',      component: ProfileSettings,
         redirect: 'settings/changepassword',
         children:[
           { path: 'changepassword', name: 'ChangePassword',     component: ChangePassword},
