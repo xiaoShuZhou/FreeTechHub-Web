@@ -235,10 +235,14 @@ export default {
 .friendlist{
   height: 100vh;
   width: 100%;
-  overflow: scroll;
   border: 2px solid black;
+  
 }
-.friendlist::-webkit-scrollbar {display:none}
+ul{
+  overflow: scroll;
+  height: 85vh;
+}
+ul::-webkit-scrollbar {display:none}
 .friendlist button{
   width: 150px;
   height: 40px;
@@ -276,6 +280,7 @@ li:nth-child(1){
   justify-items: center;
   align-items: stretch;
   border: 2px solid black;
+  height: 107%;
 }
 input{
   border-radius: 20px;
