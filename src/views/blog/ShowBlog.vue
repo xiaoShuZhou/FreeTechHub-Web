@@ -85,7 +85,7 @@ export default {
           this.liked = true;
           this.content = "Follow";
         }
-      });
+      })
     },
     deleteBlog() {
       this.blog.delete().then(() => {
@@ -118,18 +118,17 @@ export default {
 
     followingship() {
       if (this.liked) {
-        this.content = "unfollow";
-        this.liked = !this.liked;
-        Blog.get(this.$route.params.id).then((blog) => {
-          this.blog = blog;
-        }),
-          User.get(this.blog.owner).then((user) => {
-            (this.user = user),
-              axios.post(`http://127.0.0.1:8000/user/followership/`, {
-                following: this.followinguser.pk,
-                follower: this.followeruser.pk,
-              });
-          });
+        this.content = "unfollow"
+        this.liked = !this.liked
+        Blog.get(this.$route.params.id).then(blog => {
+          this.blog = blog}),
+          User.get(this.blog.owner).then( user => {
+            this.user = user,
+            axios.post(`http://127.0.0.1:8000/user/followership/`, {
+              following: this.followinguser.pk,
+              follower: this.followeruser.pk,
+            })
+          })
       } else {
         this.content = "follow";
         User.getSelf().then((user) => {
