@@ -13,7 +13,7 @@
           <a href="#discussion">Questions</a>
         </li>
         <li>
-          <a href>Login</a>
+          <router-link to="/login">Login</router-link>
         </li>
       </ul>
     </div>

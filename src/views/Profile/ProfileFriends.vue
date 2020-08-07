@@ -1,14 +1,222 @@
 <template>
-  <div class="ProfileFriends">
-    <p>ProfileFriends</p>
-  </div>
+    <div class="ProfileFriends">
+      <div class="friendlist">
+          <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''"/>
+        <div class="list">
+          <ul>
+            <li>
+              <a href="#">
+                <div class="flex" v-for="friendlist in friendlists" :key='friendlist.url'>
+                  <img src="@/assets/img/landing.jpg" class="avatar">
+                  <div >
+                    <p>username : {{friendlist.related_user.username}}</p>
+                    <p>MESSAGE</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <button class="add">Add Friend</button>
+      </div>
+      <div class="chat">
+        <div class="message">
+          <img src="@/assets/img/landing.jpg">
+        </div>
+        <div class="edit">
+          <div class="icon">
+            <img src="@/assets/img/代码.svg" alt="">
+            <img src="@/assets/img/img.svg" alt="">
+            <a class="history-message" href="#">消息记录</a>
+          </div>
+          <textarea></textarea>
+          <button type="button" class="send">发送</button>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
+import Friendship from '@/assets/utils/models/Friendship'
+import { login_required } from '@/assets/utils/auth'
 export default {
+  data() {
+    return {
+      friendlists: '',
+    }
+  },
+  methods: {
+    getAllfriends() {
+      Friendship.getFriendlist()
+        .then(friendlists => {
+          this.friendlists = friendlists
+        })
+    },
+  },
+  created() {
+    login_required(this, () => {
+      this.getAllfriends()
+    })
 
+  },
 }
 </script>
 
 <style scoped>
+*{
+  margin: 0;
+  padding: 0;
+  background-color: #f5d772;
+}
+.ProfileFriends{
+  display: grid;
+  grid-template-areas: 'list message'
+                       'list edit';
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 100%;
+}
+.friendlist{
+  height: 100vh;
+  width: 100%;
+  border: 2px solid black;
+
+}
+ul{
+  overflow: scroll;
+  height: 85vh;
+}
+ul::-webkit-scrollbar {display:none}
+.friendlist button{
+  width: 150px;
+  height: 40px;
+  border: 2px solid black;
+  border-radius: 20px;
+  outline: none;
+}
+.list{
+  list-style: none;
+  grid-area: list;
+  padding: 20px 10px 20px 10px;
+}
+li{
+  text-align: center;
+}
+li:nth-last-child(1){
+  border-bottom: 2px solid #c3c3c3;
+  padding-bottom: 30px;
+}
+li:nth-child(1){
+  border-top: 2px solid #c3c3c3;
+  padding-top: 30px;
+}
+.message{
+  grid-area: message;
+}
+.edit{
+  border: 2px solid black;
+  grid-area: edit;
+  height: 100%;
+}
+.chat{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: stretch;
+  border: 2px solid black;
+  height: 107%;
+}
+input{
+  border-radius: 20px;
+  border: 2px solid black;
+  outline: none;
+  width: 150px;
+  height: 40px;
+  background: url(~@/assets/img/放大镜.svg);
+  background-size: 20%;
+  background-position: right;
+  background-repeat: no-repeat;
+  line-height: normal;
+  text-align:center;
+  vertical-align:middle;
+  font-size: 30px;
+  margin: 10px 0 0 30%;
+}
+input:focus::-webkit-input-placeholder{
+  color: transparent;
+}
+input::-webkit-input-placeholder{
+  color: #000000;
+  font-size: 20px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+}
+input::-moz-placeholder{
+  color: #000000;
+  font-size: 30px;
+  text-align: center;
+}
+textarea{
+  width: 100%;
+  height: 80%;
+  font-size: 30px;
+  outline: none;
+  border: none;
+}
+img{
+  width: 50%;
+  height: 100%;
+}
+.avatar{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.flex{
+  display: flex;
+  flex-direction: row;
+  justify-items: baseline;
+  justify-content: center;
+  align-items: center;
+}
+li a div div{
+  margin-left: 30px;
+}
+.history-message{
+  width: 80px;
+  float: right;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  background: url(~@/assets/img/向下.svg);
+  background-size: 20%;
+  background-position: right;
+  background-repeat: no-repeat;
+}
+.send{
+  border: 2px solid #ff7f27;
+  width: 80px;
+  height: 40px;
+  text-align: start;
+  font-size: 20px;
+  border-radius: 10px;
+  background: url(~@/assets/img/发送.svg);
+  background-size: 40%;
+  background-position: right;
+  background-repeat: no-repeat;
+  float: right;
+}
+.add{
+  background: url(~@/assets/img/添加好友.svg);
+  background-size: 20%;
+  background-position: right;
+  background-repeat: no-repeat;
+  font-size: 18px;
+  margin: 0 0 10px 30%;
+}
+.icon img{
+  width: 30px;
+  height: 30px;
+}
 </style>

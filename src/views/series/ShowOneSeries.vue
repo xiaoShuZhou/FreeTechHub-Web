@@ -85,11 +85,6 @@ export default {
   created() {
     login_required(this, () => this.reload(this.$route.params.id))
   },
-<<<<<<< HEAD
-  watch: {
-    $route: {
-      handler: function(newVal){
-=======
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.reload(vm.$route.params.id)
@@ -98,7 +93,6 @@ export default {
   watch: {
     $route: {
       handler: function(newVal) {
->>>>>>> fecc0242c03cd670af59cb354bd270ca69dadce9
         this.reload(newVal.params.id)
       },
       // 深度深入对象内部变化

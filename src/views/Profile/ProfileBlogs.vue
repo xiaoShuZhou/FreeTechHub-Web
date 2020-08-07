@@ -1,8 +1,7 @@
 <template>
   <div class="ProfileBlogs">
     <div class="BlogList">
-      <span id="Search"></span>
-      <input type="text" placeholder="Search">
+      <input type="text" placeholder="Search"/>
       <h2>BlogList</h2>
       <li v-for="blog in blogs" :key="blog.id">
         {{blog.title}}
@@ -14,7 +13,7 @@
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
-import BlogDetail from '@/views/Profile/ProfileBlogDetail'
+import BlogDetail from '@/views/Profile/ProfileBlogDetail.vue'
 export default {
   components:{
     BlogDetail
@@ -36,7 +35,8 @@ export default {
 }
 .ProfileBlogs{
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-areas: 'BlogList BlogDetail';
+  grid-template-columns: 20% 80%;
 }
 .BlogList{
   height: 100vh;
@@ -44,7 +44,6 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  justify-items: stretch;
   background: #fbfbff;
 }
 .BlogDetail{
@@ -61,13 +60,33 @@ li{
 
 }
 input{
-  position: relative;
-  margin-right: 100px;
-  margin-top: 40px;
   width: 180px;
   height: 40px;
   border-radius: 10px;
   background-color: #f4f3f7;
-  border-width: 0;
+  background: url(~@/assets/img/放大镜.svg);
+  background-size: 20%;
+	background-position: right;
+	background-repeat: no-repeat;
+  line-height: normal;
+	text-align:center;
+	vertical-align:middle;
+	font-size: 30px;
+  outline: none;
+}
+input::-webkit-input-placeholder{
+	color: #000000;
+	font-size: 30px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+input::-moz-placeholder{
+	color: #000000;
+	font-size: 30px;
+	text-align: center;
+}
+input:focus::-webkit-input-placeholder{
+  color: transparent;
 }
 </style>

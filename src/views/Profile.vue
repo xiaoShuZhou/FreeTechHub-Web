@@ -1,7 +1,9 @@
 <template>
   <div class="Profile">
     <ProfileLeftNavbar class="sidebar"/>
-    <router-view class="content"></router-view>
+    <transition>
+      <router-view class="content" mode="out-in"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -17,9 +19,8 @@ export default {
 
 <style scoped>
 *{
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   text-decoration: none;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -27,21 +28,23 @@ export default {
 .Profile {
   display: grid;
   grid-template-columns: 15% 85%;
-  grid-template-areas: "left content content";
-  justify-items: center;
-  align-items: center;
-  grid-gap: 10px;
-  height: 100vh;
+  grid-template-areas: "left content";
+  grid-template-rows: 100%;
 }
 .sidebar{
   grid-area: left;
-  widows: 100vh;
-  justify-items: center;
-  justify-content: center;
-
 }
 .content{
   grid-area: content;
-  position: relative;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(10%);
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
 }
 </style>

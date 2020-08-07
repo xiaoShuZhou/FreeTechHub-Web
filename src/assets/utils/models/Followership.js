@@ -19,7 +19,7 @@ class Followership extends Model {
         this.followers = []
     }
 
-    // custom methods
+    //Followership custom methods
     static async getFollowinglist() {
         let res = await axios.get('http://127.0.0.1:8000/user/getfollowing/')
         this.followings = res.data.data
@@ -31,8 +31,6 @@ class Followership extends Model {
         this.followers = res.data.data
         return this.followers
     }
-
-
 
     // get model by id
     static async get(id) {

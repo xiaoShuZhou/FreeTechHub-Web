@@ -18,14 +18,6 @@ import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
 
 //Profile
-// import Profile from '@/views/Profile/Profile.vue'
-// import ShowProfile from '@/views/Profile/ShowProfile.vue'
-// import EditProfile from '@/views/Profile/EditProfile.vue'
-// import ShowFollowing from '@/views/Profile/ShowFollowing.vue'
-// import Setting from '@/views/Profile/Setting.vue'
-// import ChangePassword from '@/views/Profile/setting/ChangePassword.vue'
-// import ChangeEmail from '@/views/Profile/setting/ChangeEmail.vue'
-// import ForgetPassword from '@/views/Profile/setting/ForgetPassword.vue'
 import Profile from '@/views/Profile'
 import ProfileInformation from '@/views/Profile/ProfileInformation'
 import ProfileBlogs from '@/views/Profile/ProfileBlogs'
@@ -36,43 +28,19 @@ import ChangeMail from '@/views/Profile/ChangeMail'
 import ChangePassword from '@/views/Profile/ChangePassword'
 import ProfileSettings from '@/views/Profile/ProfileSettings'
 import ForgetPassword from '@/views/Profile/ForgetPassword'
+import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
+import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
+import ProfileReply from '@/views/Profile/ProfileReply'
+import RequestFriend from '@/views/Profile/RequestFriend'
+//
+import EditProfile from '@/views/Profile/EditProfile.vue'
+import SendRequest from '@/views/Profile/SendRequest.vue'
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/',                  name: 'Home',         component: Home },
   { path: '/login',             name: 'Login',        component: Login },
   { path: '/search',            name: 'Search',       component: Search },
-  //profile
-  // { path: '/profile',           name: 'Profile',      component: Profile,
-  // children: [
-  //   { path: 'showprofile/:id',   name: 'ShowProfile',        component: ShowProfile },
-  //   { path: 'edit/profile/:id',  name: 'EditProfile',        component: EditProfile },
-  //   { path: 'showfollowing/:id', name: 'ShowFollowing',      component: ShowFollowing },
-  //   { path: 'setting/',          name: 'Setting',            component: Setting,
-  //   children: [
-  //     { path: 'changepassword/:id',   name: 'ChangePassword',        component: ChangePassword },
-  //     { path: 'changeemail/:id',      name: 'ChangeEmail',           component: ChangeEmail },
-  //     { path: 'forgetpassword/:id',   name: 'ForgetPassword',        component: ForgetPassword },
-  //   ]
-  // },
-  // ] },
-  { path: '/profile',           name: 'Profile',      component: Profile,
-    children:[
-      { path: 'information',      name: 'ProfileInformation', component: ProfileInformation},
-      { path: '',                 redirect: 'information'},
-      { path: 'blogs',            name: 'ProfileBlog',        component: ProfileBlogs},
-      { path: 'questions',        name: 'ProfileQuestions',   component: ProfileQuestions},
-      { path: 'follow',           name: 'ProfileFollow',      component: ProfileFollow},
-      { path: 'friends',          name: 'ProfileFriends',     component: ProfileFriends},
-      { path: 'settings',         name: 'ProfileSettings',    component: ProfileSettings,
-        redirect: 'settings/changepassword',
-        children:[
-          { path: 'changepassword', name: 'ChangePassword',     component: ChangePassword},
-          { path: 'changemail',     name: 'ChangeMail',         component: ChangeMail},
-          { path: 'forgetpassword', name: 'ForgetPassword',     component: ForgetPassword},
-        ]},
-    ]},
-
   // blogs
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
@@ -92,18 +60,28 @@ const routes = [
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
-      { path: 'information',      name: 'ProfileInformation', component: ProfileInformation},
-      { path: '',                 redirect: 'information'},
-      { path: 'blogs',            name: 'ProfileBlog',        component: ProfileBlogs},
-      { path: 'questions',        name: 'ProfileQuestions',   component: ProfileQuestions},
-      { path: 'follow',           name: 'ProfileFollow',      component: ProfileFollow},
-      { path: 'friends',          name: 'ProfileFriends',     component: ProfileFriends},
-      { path: 'settings',         name: 'ProfileSettings',    component: ProfileSettings,
-        redirect: 'settings/changepassword',
+      { path: 'information/:id',  name: 'ProfileInformation',   component: ProfileInformation},
+      // { path: '',                 redirect: 'information'},
+      { path: 'blogs',            name: 'ProfileBlog',          component: ProfileBlogs},
+      { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions},
+      { path: 'edit/profile/:id', name: 'EditProfile',          component: EditProfile },
+      { path: 'follow/:id',       name: 'ProfileFollow',        component: ProfileFollow},
+      { path: 'sendrequest/:id',   name: 'SendRequest',        component: SendRequest },
+      { path: 'skilltrees',       name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
+      { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,
+        redirect: 'messagecenter/friends/:id',
         children:[
-          { path: 'changepassword', name: 'ChangePassword',     component: ChangePassword},
-          { path: 'changemail',     name: 'ChangeMail',         component: ChangeMail},
-          { path: 'forgetpassword', name: 'ForgetPassword',     component: ForgetPassword},
+          { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},
+          { path: 'reply',              name: 'Reply',          component: ProfileReply},
+          { path: 'requestfriend/:id',  name: 'RequestFriend',  component: RequestFriend},
+        ]
+      },
+      { path: 'settings',               name: 'ProfileSettings',      component: ProfileSettings,
+        redirect: 'settings/changepassword/:id',
+        children:[
+          { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
+          { path: 'changemail',         name: 'ChangeMail',     component: ChangeMail},
+          { path: 'forgetpassword',     name: 'ForgetPassword', component: ForgetPassword},
         ]},
     ]},
 ]
