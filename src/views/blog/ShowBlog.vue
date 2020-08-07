@@ -1,8 +1,6 @@
 <template>
   <div class="ShowBlog">
     <Navbar />
-    <img src="@/assets/img/landing.jpg" id="img"/>
-
     <div class="blog">
       <h1 class="title">{{ blog.title }}</h1>
       <div class="user">
@@ -191,23 +189,31 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  background-image: linear-gradient(to right top, rgb(70, 70, 230) 50%, #eee 50%);
+  background-size: 100% calc(100% - 100vh + 5px);
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+.ShowBlog::after {
+  content: "";
+  position: fixed;
+  top: 5px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  z-index: -1;
 }
 
 .blog {
   padding: 3vh 2vw;
-  background-color: #fafcff;
+  background-color: rgb(207, 192, 192)fff;
   justify-content: center;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 40%;
-}
-img {
-  padding-top: 40px;
-  margin-bottom: -150px;
-  position: absolute;
-  z-index: -1;
 }
 .title {
   text-align: center;

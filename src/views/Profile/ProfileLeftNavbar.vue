@@ -76,6 +76,8 @@ li{
   padding-top: 20px;
   font-size: 22px;
   word-break: break-all;
+  transition: 0.3s;
+  cursor: pointer;
 }
 li:nth-child(1){
 	padding-top: 10px;
@@ -86,9 +88,11 @@ li:nth-last-child(1){
 }
 .router-link-exact-active{
 	background: #fe6b40;
+  transition: 0.5s;
 }
 .router-link-active{
 	background: #fe6b40;
+  transition: 0.5s;
 
 }
 </style>
