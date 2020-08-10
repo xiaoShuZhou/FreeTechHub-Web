@@ -53,9 +53,6 @@ export default {
   grid-template-columns: 100%;
   grid-template-areas: "content";
   grid-template-rows: 100%;
-}
-  .sidebar{
-    display: none;
   }
 }
 </style>

@@ -1,100 +1,162 @@
 <template>
   <div class="ProfileLeftNavbar">
-    <h2><router-link :to="{name:'Home'}">FreeTechHub</router-link></h2>
-      <ul class="list">
-        <li>
-          <img src="@/assets/img/个人信息.svg" alt="">
-          <router-link :to="{name:'ProfileInformation'}">Profile</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/博客园.svg" alt="">
-          <router-link :to="{name:'ProfileBlog'}">Blogs</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/问题.svg" alt="">
-          <router-link :to="{name:'ProfileQuestions'}">Questions</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/关注.svg" alt="">
-          <router-link :to="{name:'ProfileFollow'}">Follow</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/好友.svg" alt="">
-          <router-link :to="{name:'ProfileMessageCenter'}">MessageCenter</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/树叶.svg" alt="">
-          <router-link :to="{name:'ProfileSkillTrees'}">SkillTress</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/设置.svg" alt="">
-          <router-link :to="{name:'ProfileSettings'}">Settings</router-link>
-        </li>
-        <li>
-          <img src="@/assets/img/登出.svg" alt="">
-          <a href="#">Logout</a>
-        </li>
-      </ul>  
+    <h2>
+      <router-link :to="{name:'Home'}">
+        <img src="@/assets/img/home.svg" class="home" />
+        <span>FreeTechHub</span>
+      </router-link>
+    </h2>
+    <ul class="list">
+      <li>
+        <router-link :to="{name:'ProfileInformation'}">
+          <img src="@/assets/img/个人信息.svg" alt />
+          <span>Profile</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'ProfileBlog'}">
+          <img src="@/assets/img/博客园.svg" alt />
+          <span>Blogs</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'ProfileQuestions'}">
+          <img src="@/assets/img/问题.svg" alt />
+          <span>Questions</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'ProfileFollow'}">
+          <img src="@/assets/img/关注.svg" alt />
+          <span>Follow</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'ProfileMessageCenter'}">
+          <img src="@/assets/img/好友.svg" alt />
+          <span>MessageCenter</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'ProfileSkillTrees'}">
+          <img src="@/assets/img/树叶.svg" alt />
+          <span>SkillTress</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'ProfileSettings'}">
+          <img src="@/assets/img/设置.svg" alt />
+          <span>Settings</span>
+        </router-link>
+      </li>
+      <li>
+        <a href="#">
+          <img src="@/assets/img/登出.svg" alt />
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
   name: "ProfileLeftNavbar",
-};
+}
 </script>
 
 <style scoped>
-*{
-	margin: 0;
-	padding: 0;
+* {
+  margin: 0;
+  padding: 0;
   text-decoration: none;
 }
-.list{
-	display: flex;
-	flex-direction: column;
+.list {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-	list-style: none;
-	padding: 20px 10% 0 10%;
+  list-style: none;
+  padding: 20px 10% 0 10%;
 }
-img{
-	width: 20px;
-	height: 20px;
+img {
+  width: 20px;
+  height: 20px;
 }
-h2 a{
-	color: #b83dba;
+h2 a span {
+  color: #b83dba;
   font-family: "arial narrow";
-	margin: 10px 0 0 10%;
+  margin: 10px 0 0 15%;
   font-size: 30px;
   word-break: break-all;
 }
-h2 a{
+h2 a {
   background: none !important;
 }
-li{
+li {
   padding-top: 20px;
   font-size: 22px;
   word-break: break-all;
   transition: 0.3s;
   cursor: pointer;
 }
-li:nth-child(1){
-	padding-top: 10px;
-	border-top: 1px solid #e4dfdf;
+li:nth-child(1) {
+  padding-top: 10px;
+  border-top: 1px solid #e4dfdf;
 }
-li:nth-last-child(1){
-	margin-top: 60%;
+li:nth-last-child(1) {
+  margin-top: 60%;
 }
-.router-link-exact-active{
-	background: #fe6b40;
+.router-link-exact-active {
+  background: #fe6b40;
   transition: 0.5s;
 }
-.router-link-active{
-	background: #fe6b40;
+.router-link-active {
+  background: #fe6b40;
   transition: 0.5s;
 }
-a:-webkit-any-link{
-  color:black;
+a:-webkit-any-link {
+  color: black;
+}
+.menu {
+  display: none;
+}
+.home {
+  display: none;
+}
+@media screen and (max-width: 1025px) {
+  .ProfileLeftNavbar {
+    position: absolute;
+    width: 40px;
+    height: 100vh;
+    overflow: scroll;
+    transition: all 0.5s ease-in-out;
+    opacity: 0.9;
+    z-index: 2;
+  }
+  .ProfileLeftNavbar::-webkit-scrollbar {
+    display: none;
+  }
+  .menu {
+    display: block;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  .home {
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  .expanded {
+    width: 200px;
+    transition: all 0.5s ease-in-out;
+  }
+  span {
+    display: none;
+  }
 }
 </style>
