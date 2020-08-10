@@ -97,7 +97,7 @@ export default {
 
 .title {
   display: flex;
-  margin: 5vh 5vw;
+  margin: 10vh 5vw;
   justify-content: center;
 }
 
