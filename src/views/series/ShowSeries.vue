@@ -20,18 +20,21 @@
       </li>
     </ul>
     <button @click="newSeries">create new series</button>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: "ShowSeries",
   components: {
-    Navbar
+    Navbar,
+    Footer,
   },
   data() {
     return {
@@ -114,6 +117,7 @@ button {
   min-height: 7vh;
   font-size: 1.5rem;
   color: #311f1f;
+  margin-bottom: 10%;
 }
 .seriescontent{
   margin: 0 20px 0 20px;

@@ -170,5 +170,14 @@ a:-webkit-any-link {
   span {
     display: none;
   }
+  img{
+    width: 100%;
+    color: white;
+  }
+  ul li:hover{
+	text-decoration: none;
+	transition: all 0.5s ease-in-out;
+	color: #031a61;
+  }
 }
 </style>

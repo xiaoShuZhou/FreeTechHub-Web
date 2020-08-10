@@ -52,7 +52,7 @@ import Followership from "@/assets/utils/models/Followership";
 export default {
   name: "ShowBlog",
   components: {
-    Navbar
+    Navbar,
   },
   data() {
     return {

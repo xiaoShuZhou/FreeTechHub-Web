@@ -5,7 +5,6 @@
     <router-link class="list" to="/show/blogs">blogs</router-link> 
     <router-link class="list" to="/show/series">series</router-link> 
     <router-link class="list" to="/show/questions">questions</router-link> 
-    <router-link class="list" to="/profile">Profile</router-link>
     <router-link class="list" :to="{name:'ProfileInformation', params:{id: user.pk}}">Profile</router-link>
     <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
@@ -62,7 +61,7 @@ export default {
   left: 0;
   align-items: center;
   font-size: 24px;
-  height: 64px;
+  height: 10vh;
   z-index: 5;
   top: 0;
 }
@@ -105,7 +104,7 @@ a{
 }
 a:nth-child(1) {
   color: rgb(32, 78, 207) !important;
-  font-size: 24px;
+  font-size: 32px;
 }
 a:nth-last-child(1){
   background-color: rgb(0, 204, 131);

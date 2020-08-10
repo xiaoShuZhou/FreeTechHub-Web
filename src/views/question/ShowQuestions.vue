@@ -13,6 +13,7 @@
         </li>
       </ul>
       <button @click="newQuestion">create new question</button>
+      <Footer/>
     </div>
 </template>
 
@@ -20,11 +21,13 @@
 import Question from "@/assets/utils/models/Question"
 import { is_authenticated } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'ShowQuestions',
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   data() {
     return {
@@ -63,6 +66,7 @@ button {
   min-height: 7vh;
   font-size: 1.5rem;
   color: #311f1f;
+  margin-bottom: 10%;
 }
 .ShowQuestions {
   height: 200vh;

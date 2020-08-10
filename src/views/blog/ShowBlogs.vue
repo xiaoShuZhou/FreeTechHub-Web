@@ -21,6 +21,7 @@
       </li>
     </ul>
     <button @click="newBlog">create new blog</button>
+    <Footer/>
   </div>
 </template>
 
@@ -28,11 +29,13 @@
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: "ShowBlog",
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   data() {
     return {
