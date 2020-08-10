@@ -62,10 +62,10 @@ img{
 	width: 20px;
 	height: 20px;
 }
-h2{
+h2 a{
 	color: #b83dba;
   font-family: "arial narrow";
-	margin: 10px 0 0 20%;
+	margin: 10px 0 0 10%;
   font-size: 30px;
   word-break: break-all;
 }
@@ -93,6 +93,8 @@ li:nth-last-child(1){
 .router-link-active{
 	background: #fe6b40;
   transition: 0.5s;
-
+}
+a:-webkit-any-link{
+  color:black;
 }
 </style>

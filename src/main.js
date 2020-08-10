@@ -6,9 +6,14 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
+import filters from './filters/index'
 Vue.config.productionTip = false
 
 Vue.use(mavonEditor)
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.directive('highlight',function (el) {
   let highlight = el.querySelectorAll('pre code');

@@ -16,7 +16,7 @@
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
           <p>{{blog.content | stringfilter}}</p>
-          <p>CONTINUE READING<img src="@/assets/img/向右.svg" alt=""></p>
+          <p>CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
@@ -56,14 +56,6 @@ export default {
     })
     
   },
-  filters:{
-    stringfilter:function(value){
-      if(value && value.length > 100){
-        value = value.substring(0,100) + '...'
-      }
-      return value
-    }
-  }
 }
 </script>
 
@@ -87,6 +79,7 @@ button {
 }
 
 .ShowBlogs {
+  width: 100%;
   height: 200vh;
   padding: 0 10vw;
   display: flex;
@@ -132,7 +125,7 @@ button {
   color: blue;
   transition: all 0.5s ease;
 }
-.card:hover p img{
+.card:hover .icon{
   width: 30%;
 }
 .card:hover p:nth-last-child(1){
@@ -169,6 +162,11 @@ img{
   height: 40%;
 }
 @media screen and (max-width: 1025px){
+  .ShowBlogs{
+    width: 100%;
+    height: 100%;
+    padding: 0 10vw;
+  }
   .cardlist {
   list-style: none;
   display: grid;
@@ -187,17 +185,25 @@ img{
   width: 100%;
   height: 100%;
   padding: 0 10vw;
-}
+  }
   .cardlist {
   list-style: none;
   display: flex;
   width: 100%;
+  height: 100%;
   margin-top: 10%;
   flex-direction: column;
   justify-content: center;
   }
   .cardlist li{
-    height: 100%;
+    height: 120%;
+  }
+  .card:hover .icon{
+    width: 5%;
+  }
+  img{
+  width: 100%;
+  height: 40%;
   }
 }
 </style>
