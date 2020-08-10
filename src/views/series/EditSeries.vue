@@ -36,7 +36,7 @@ import Series from '@/assets/utils/models/Series'
 export default {
   name: "EditSeries",
   components: {
-    Navbar
+    Navbar,
   },
   props: {
     id: {

@@ -47,4 +47,12 @@ export default {
 .v-leave-active {
   transition: all 1s ease;
 }
+@media screen and (max-width: 1025px){
+  .Profile {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: "content";
+  grid-template-rows: 100%;
+  }
+}
 </style>

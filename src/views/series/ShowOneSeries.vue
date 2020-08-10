@@ -44,6 +44,7 @@
       <button @click="editSeries">Edit</button>
       <button @click="deleteSeries">Delete</button>
     </div>
+    <Footer/>
   </div>
 </template>
 
@@ -51,11 +52,13 @@
 import Navbar from '@/components/Navbar.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: "ShowOneSeries",
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   data() {
     return {
@@ -141,5 +144,6 @@ button {
   font-size: 1.5rem;
   color: #311f1f;
   margin: 3vh 2vw;
+  margin-bottom: 10%;
 }
 </style>

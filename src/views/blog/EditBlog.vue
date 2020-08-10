@@ -10,18 +10,21 @@
       <mavon-editor v-model="content" />
       <button class="submit" @click="save">submit</button>
     </form>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: 'EditBlog',
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   props: {
     id: {
@@ -97,7 +100,7 @@ export default {
 
 .title {
   display: flex;
-  margin: 5vh 5vw;
+  margin: 10vh 5vw;
   justify-content: center;
 }
 

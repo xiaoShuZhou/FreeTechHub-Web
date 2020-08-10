@@ -1,5 +1,5 @@
 <template>
-  <div>
+
     <div class="box">
       <div>
         <router-link :to="{name:'ChangePassword'}">修改密码</router-link>
@@ -10,7 +10,7 @@
         <router-view></router-view>
       </transition>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -34,7 +34,6 @@ export default {
   padding: 40px;
   box-sizing: border-box;
   background: #d2e9f3;
-  
 }
 .box div{
   display: flex;

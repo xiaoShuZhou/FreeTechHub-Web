@@ -61,7 +61,6 @@ const routes = [
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
       { path: 'information/:id',  name: 'ProfileInformation',   component: ProfileInformation},
-      // { path: '',                 redirect: 'information'},
       { path: 'blogs',            name: 'ProfileBlog',          component: ProfileBlogs},
       { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions},
       { path: 'edit/profile/:id', name: 'EditProfile',          component: EditProfile },
