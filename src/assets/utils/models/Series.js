@@ -56,7 +56,7 @@ class Series extends Model {
         let related_date = {}
         let res = await axios.get(
             BASE_URL + `${this.app_name}/query-related-content/`)
-        
+
         let constructors = {
             blog: Blog,
             series: Series

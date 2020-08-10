@@ -6,192 +6,15 @@
           <ul>
             <li>
               <a href="#">
-                <div class="flex">
+                <div class="flex" v-for="friendlist in friendlists" :key='friendlist.url'>
                   <img src="@/assets/img/landing.jpg" class="avatar">
                   <div >
-                    <p>用户名</p>
-                    <p>信息</p>
+                    <p>username : {{friendlist.related_user.username}}</p>
+                    <p>MESSAGE</p>
                   </div>
                 </div>
               </a>
             </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div>
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div>
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div>
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div>
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li><a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a> </li>
-            <li><a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a> </li>
-            <li><a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a> </li>
-            <li><a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a> </li>
-            <li><a href="#">
-                <div class="flex">
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>用户名</p>
-                    <p>信息</p>
-                  </div>
-                </div>
-              </a> </li>
           </ul>
         </div>
         <button class="add">Add Friend</button>
@@ -214,8 +37,28 @@
 </template>
 
 <script>
+import Friendship from '@/assets/utils/models/Friendship'
+import { login_required } from '@/assets/utils/auth'
 export default {
+  data() {
+    return {
+      friendlists: '',
+    }
+  },
+  methods: {
+    getAllfriends() {
+      Friendship.getFriendlist()
+        .then(friendlists => {
+          this.friendlists = friendlists
+        })
+    },
+  },
+  created() {
+    login_required(this, () => {
+      this.getAllfriends()
+    })
 
+  },
 }
 </script>
 
@@ -227,7 +70,7 @@ export default {
 }
 .ProfileFriends{
   display: grid;
-  grid-template-areas: 'list message' 
+  grid-template-areas: 'list message'
                        'list edit';
   grid-template-columns: 25% 75%;
   grid-template-rows: 100%;
@@ -236,7 +79,7 @@ export default {
   height: 100vh;
   width: 100%;
   border: 2px solid black;
-  
+
 }
 ul{
   overflow: scroll;

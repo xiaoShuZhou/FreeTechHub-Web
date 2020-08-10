@@ -4,7 +4,7 @@
       <ul class="list">
         <li>
           <img src="@/assets/img/个人信息.svg" alt="">
-          <router-link :to="{name:'ProfileInformation'}">Profile</router-link>
+          <router-link :to="{name:'ProfileInformation', params:{id: user.pk}}">Profile</router-link>
         </li>
         <li>
           <img src="@/assets/img/博客园.svg" alt="">
@@ -20,7 +20,7 @@
         </li>
         <li>
           <img src="@/assets/img/好友.svg" alt="">
-          <router-link :to="{name:'ProfileMessageCenter'}">MessageCenter</router-link>
+          <router-link :to="{name:'ProfileMessageCenter', params:{id: user.pk}}">MessageCenter</router-link>
         </li>
         <li>
           <img src="@/assets/img/树叶.svg" alt="">
@@ -28,20 +28,32 @@
         </li>
         <li>
           <img src="@/assets/img/设置.svg" alt="">
-          <router-link :to="{name:'ProfileSettings'}">Settings</router-link>
+          <router-link :to="{name:'ProfileSettings', params:{id: user.pk}}">Settings</router-link>
         </li>
         <li>
           <img src="@/assets/img/登出.svg" alt="">
           <a href="#">Logout</a>
         </li>
-      </ul>  
+      </ul>
   </div>
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
 export default {
   name: "ProfileLeftNavbar",
-};
+  data() {
+    return {
+      user: '',
+
+    }
+  },
+  mounted() {
+    User.getSelf().then(user =>{
+    this.user= user
+    })
+  },
+}
 </script>
 
 <style scoped>

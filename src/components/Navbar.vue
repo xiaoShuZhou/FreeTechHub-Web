@@ -1,23 +1,26 @@
 <template>
   <div class="navbar">
-    <router-link to="/">Home</router-link> 
-    <router-link to="/about">About</router-link> 
-    <router-link to="/show/blogs">blogs</router-link> 
-    <router-link to="/show/series">series</router-link> 
-    <router-link to="/show/questions">questions</router-link> 
-    <router-link to="/login">Login</router-link> 
-    <router-link to="/profile">Profile</router-link>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/show/blogs">blogs</router-link> |
+    <router-link to="/show/series">series</router-link> |
+    <router-link to="/show/questions">questions</router-link> |
+    <router-link to="/login">Login</router-link> |
+    <router-link :to="{name:'ProfileInformation', params:{id: user.pk}}">Profile</router-link>
     <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
   </div>
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
+
 export default {
   name: "Navbar",
   data() {
     return {
       search_tag_name: '',
+      user: '',
     }
   },
   methods: {
@@ -32,7 +35,12 @@ export default {
         })
       }
     }
-  }
+  },
+  mounted() {
+    User.getSelf().then(user =>{
+    this.user= user
+    })
+  },
 }
 </script>
 
@@ -94,4 +102,3 @@ a{
 	background: #fe6b40;
 }
 </style>
-

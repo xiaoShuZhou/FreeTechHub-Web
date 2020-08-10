@@ -2,34 +2,16 @@
   <div class="RequestFriend">
     <div>
       <ul>
-        <li>
+        <li v-for="requestlist in requestlists" :key='requestlist.url'>
           <a href="#" class="avatar">
             <img src="@/assets/img/头像 女孩.svg" alt />
             <div>
-              <p>时间：昨天</p>
-              <p>用户名</p>
+              <p v-for="fromuser in requestlist.fromuser" :key='fromuser.url'>username:{{fromuser.username}}</p>
+              <p>MESSAGE:{{requestlist.request_message}}</p>
+              <p>TIME:{{requestlist.timestamp}}</P>
             </div>
-            <button class="btn" href="#">已同意</button>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="avatar">
-            <img src="@/assets/img/头像 女孩.svg" alt />
-            <div>
-              <p>时间：昨天</p>
-              <p>用户名</p>
-            </div>
-            <button class="btn" href="#">已同意</button>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="avatar">
-            <img src="@/assets/img/头像 女孩.svg" alt />
-            <div>
-              <p>时间：昨天</p>
-              <p>用户名</p>
-            </div>
-            <button class="btn" href="#">未同意</button>
+            <button class="btn"  @click="accept(requestlist)">accept</button>
+            <button class="btn"  @click='cancel(requestlist)'>cancel</button>
           </a>
         </li>
       </ul>
@@ -38,7 +20,69 @@
 </template>
 
 <script>
-export default {};
+import FriendRequest from '@/assets/utils/models/FriendRequest'
+import Friendship from '@/assets/utils/models/Friendship'
+import { is_authenticated } from '@/assets/utils/auth'
+export default {
+  data() {
+    return {
+      requestlists: '',
+      is_cancel: '',
+    }
+  },
+  methods: {
+    _getstate(requestlist) {
+      return new FriendRequest({
+        id: requestlist.id,
+        is_cancel: this.is_cancel,
+        to_user: requestlist.to_user,
+        from_user: requestlist.from_user,
+      })
+    },
+    handle(requestlist) {
+      FriendRequest.get(requestlist.id)
+        .then(FriendRequest => {
+          this.is_cancel = FriendRequest.is_cancel
+          this.is_cancel = !this.is_cancel
+          let state = this._getstate(requestlist)
+          state.update()
+            .then(() => {
+              this.getAlllrequestlist()
+            })
+        })
+    },
+    _getfriendship(friend_1, friend_2) {
+      return new Friendship({
+        friend_1: friend_1,
+        friend_2: friend_2,
+      })
+    },
+    getAlllrequestlist() {
+      FriendRequest.getRequestlist()
+        .then(requestlist => {
+          this.requestlists = requestlist.request
+        })
+    },
+    cancel(requestlist) {
+      this.handle(requestlist)
+    },
+    accept(requestlist) {
+      this.handle(requestlist)
+      let friendship = this._getfriendship(requestlist.to_user, requestlist.from_user)
+      friendship.save()
+    }
+  },
+  created() {
+    if (!is_authenticated()) {
+      this.$router.push({
+        name: 'Login'
+      })
+    } else {
+      this.getAlllrequestlist()
+    }
+
+  },
+};
 </script>
 
 <style scoped>

@@ -4,26 +4,44 @@
       <form>
         <div id class="inputbox">
           <label>旧密码:</label>
-          <input type="email" required />
+          <input  type="password" v-model="oldpassword" />
         </div>
         <div id class="inputbox">
           <label>新密码:</label>
-          <input type="password" required />
+          <input type="password" v-model = "newpassword1" />
         </div>
         <div id class="inputbox">
           <label>确认密码:</label>
-          <input type="password" required />
+          <input  type="password" v-model="compass" />
         </div>
-        <button type="submit" value="submit">确认修改</button>
+        <button type="submit"  @click="test">确认修改</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
 export default {
-  name: 'ChangePassword'
+  name: 'ChangePassword',
+  data() {
+    return {
+      oldpassword: '',
+      newpassword1: '',
+      compass: '',
+    }
+  },
+  methods: {
+    test() {
+      User.changepassword(this.oldpassword, this.newpassword1).then(() => {
+        this.$router.push({
+          name: 'Login'
+        })
+      })
+    }
+  },
 }
+
 </script>
 
 <style scoped>
