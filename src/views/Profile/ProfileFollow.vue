@@ -1,182 +1,32 @@
 <template>
   <div class="ProfileFollow">
-    <div class="Follower">
-      <h2>Follower<small>关注数：2233</small></h2>
-      <div class="FollowerList">
+    <div class="Following">
+      <h2>Following<small>粉丝数：{{totalfollowing}}</small></h2>
+      <div class="FollowingList">
         <ul>
-          <li>
-            <a href="#" class="avatar">
+          <li v-for="following in followings" :key='following.following_id'>
+            <a @click='gopersonalprofile(follower)' class="avatar">
               <img src="@/assets/img/头像 女孩.svg" alt />
               <div>
-                <p>用户名</p>
-                <p>个性签名</p>
+                <p>username: {{following.following_name}}</p>
+                <p>bio: {{following.user_bio}}</p>
               </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
+              <button class="btn" v-on:click.stop="deleteFollowing(following)" href="#">已关注</button>
             </a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="Following">
-      <h2>Following<small>粉丝数：2233</small></h2>
-      <div class="FollowingList">
+    <div class="Follower">
+      <h2>Follower<small>关注数：{{totalfollower}}</small></h2>
+      <div class="FollowerList">
         <ul>
-          <li>
-            <a href="#" class="avatar">
+          <li v-for="follower in followers" :key='follower.following_id'>
+            <a @click='gopersonalprofile(follower)' class="avatar">
               <img src="@/assets/img/头像 女孩.svg" alt />
               <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>用户名</p>
-                <p>个性签名</p>
+                <p>username: {{follower.follower_name}}</p>
+                <p>bio: {{follower.user_bio}}</p>
               </div>
               <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
             </a>
@@ -188,10 +38,62 @@
 </template>
 
 <script>
+import Followership from '@/assets/utils/models/Followership'
+import User from '@/assets/utils/models/User'
 export default {
   name: "ProfileFollow",
+  data() {
+    return {
+      user: '',
+      followings: '',
+      followers: '',
+      totalfollower: '',
+      totalfollowing: '',
+    }
+  },
   methods: {
-    follow() {}
+    follow() {},
+    gopersonalprofile(follower) {
+      User.get(follower.id).then(user => {
+        this.$router.push({
+          name: "ProfileInformation",
+          params: {
+            id: user.pk
+          }
+        })
+      })
+
+    },
+    getFollowinglist() {
+      Followership.getFollowinglist().then(followings => {
+        this.followings = followings
+        this.totalfollowing = this.followings.length
+      })
+    },
+    getFollowerlist() {
+      Followership.getFollowerlist().then(followers => {
+        this.followers = followers,
+        this.totalfollower = this.followers.length
+      })
+    },
+    deleteFollowing(following) {
+      Followership.get(following.following_id).then(followership => {
+        followership.delete().then(() => {
+          this.getFollowinglist()
+          this.getFollowerlist()
+        })
+
+      })
+
+    },
+  },
+  created() {
+    this.getFollowinglist()
+    this.getFollowerlist()
+  },
+  mounted() {
+    this.getFollowinglist()
+    this.getFollowerlist()
   }
 };
 </script>

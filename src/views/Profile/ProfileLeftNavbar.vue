@@ -2,56 +2,56 @@
   <div class="ProfileLeftNavbar">
     <h2>
       <router-link :to="{name:'Home'}">
-        <img src="@/assets/img/home.svg" class="home" />
+        <img src="@/assets/img/home.svg" class="home"/>
         <span>FreeTechHub</span>
       </router-link>
     </h2>
     <ul class="list">
       <li>
         <router-link :to="{name:'ProfileInformation'}">
-          <img src="@/assets/img/个人信息.svg" alt />
+          <img src="@/assets/img/个人信息.svg"/>
           <span>Profile</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{name:'ProfileBlog'}">
-          <img src="@/assets/img/博客园.svg" alt />
+          <img src="@/assets/img/博客园.svg"/>
           <span>Blogs</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{name:'ProfileQuestions'}">
-          <img src="@/assets/img/问题.svg" alt />
+          <img src="@/assets/img/问题.svg"/>
           <span>Questions</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{name:'ProfileFollow'}">
-          <img src="@/assets/img/关注.svg" alt />
+          <img src="@/assets/img/关注.svg"/>
           <span>Follow</span>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileMessageCenter'}">
-          <img src="@/assets/img/好友.svg" alt />
+        <router-link :to="{name:'ProfileMessageCenter', params:{id: this.user.pk}}">
+          <img src="@/assets/img/好友.svg"/>
           <span>MessageCenter</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{name:'ProfileSkillTrees'}">
-          <img src="@/assets/img/树叶.svg" alt />
+          <img src="@/assets/img/树叶.svg"/>
           <span>SkillTress</span>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileSettings'}">
-          <img src="@/assets/img/设置.svg" alt />
+        <router-link :to="{name:'ProfileSettings', params:{id: this.user.pk}}">
+          <img src="@/assets/img/设置.svg"/>
           <span>Settings</span>
         </router-link>
       </li>
       <li>
         <a href="#">
-          <img src="@/assets/img/登出.svg" alt />
+          <img src="@/assets/img/登出.svg"/>
           <span>Logout</span>
         </a>
       </li>
@@ -60,8 +60,20 @@
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
 export default {
   name: "ProfileLeftNavbar",
+  data() {
+    return {
+      user: '',
+
+    }
+  },
+  mounted() {
+    User.getSelf().then(user =>{
+    this.user= user
+    })
+  },
 }
 </script>
 

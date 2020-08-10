@@ -36,7 +36,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-          
+
         </div>
       </li>
     </ul>
@@ -80,7 +80,7 @@ export default {
     editSeries() {
       this.$router.push({name: 'EditSeries', params: {id: this.series.pk}})
     }
-    
+
   },
   created() {
     login_required(this, () => this.reload(this.$route.params.id))

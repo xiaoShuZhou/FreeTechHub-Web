@@ -10,8 +10,8 @@ class User extends Model {
                   username, email, date_of_birth, is_authorized,
                   balance, major, grade, bio,avatar, groups,
                   user_permissions, follower_users }) {
-        
-        super({username, email, grade, bio})     // data fields that is requried when save
+
+        super({username, email, grade, bio, major})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'user'
@@ -33,13 +33,23 @@ class User extends Model {
         this.groups = groups
         this.user_permissions = user_permissions
         this.follower_users = follower_users
+        this.context = []
     }
+
 
     // custom methods
     static async getSelf() {
         let res = await axios.get('http://127.0.0.1:8000/user/getself/')
         return new User(res.data)
     }
+
+    static async changepassword(oldpass,newpass) {
+        let res = await axios.post('http://127.0.0.1:8000/user/changepassword/',
+         {oldpassword:oldpass, newpassword1:newpass})
+        this.context = res.data.data
+        return this.context
+    }
+
 
     // get model by id
     static async get(id) {

@@ -5,10 +5,12 @@
         <img src="@/assets/img/landing.jpg" />
       </div>
       <div>
-        <p>Major SE</p>
-        <p>Balance 1000</p>
-        <p>garde 2018</p>
-        <p>Bio Stay hungry, Stay foolish</p>
+        <button  @click="editProfile">Edit</button>
+        <p>major:{{user.major}}</p>
+        <p>Balance: {{user.blance}}</p>
+        <p>grade:{{user.grade}}</p>
+        <p>bio:{{user.bio}}</p>
+        <button @click='goSendrequest'>addfriend</button>
       </div>
     </div>
     <div class="box2">
@@ -35,7 +37,60 @@
 </template>
 
 <script>
-export default {};
+import User from '@/assets/utils/models/User'
+import FriendRequest from '@/assets/utils/models/FriendRequest'
+import { is_authenticated } from '@/assets/utils/auth'
+export default {
+  data() {
+    return {
+      user: '',
+      follow: '',
+      from_user: '',
+    }
+  },
+  methods: {
+    _getFriendRequest() {
+      return new FriendRequest({
+        to_user: this.user.pk,
+        from_user: this.from_user.pk
+      })
+    },
+    addfriend() {
+        let friendRequest = this._getFriendRequest()
+        friendRequest.save()
+    },
+    goSendrequest() {
+      this.$router.push({
+        name: "SendRequest",
+        params: {
+          id: this.$route.params.id
+        }
+      })
+    },
+    editProfile() {
+      this.$router.push({
+        name: 'EditProfile',
+        params: {
+          id: this.user.pk
+        }
+      })
+    },
+  },
+  created() {
+    if (!is_authenticated()) {
+      this.$router.push({
+        name: 'Login'
+      })
+    } else {
+      User.get(this.$route.params.id).then(user => {
+        this.user = user
+        User.getSelf().then(from_user => {
+          this.from_user = from_user
+        })
+      })
+    }
+  },
+}
 </script>
 
 <style scoped>
