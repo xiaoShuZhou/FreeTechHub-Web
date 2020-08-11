@@ -18,9 +18,9 @@
       <div class="content" v-html="blog.m_content" v-highlight></div>
       <div class="sidebar">
         <div class="taggroup">
-        <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">{{blog.tags}}</a>
-        <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">django</a>
-        <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">vue</a>
+          <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">{{blog.tags}}</a>
+          <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">django</a>
+          <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">vue</a>
         </div>
       </div>
       <div class="likegroup">
@@ -35,9 +35,9 @@
         <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
       </div>
       <div class="buttons">
-      <button @click="editBlog">Edit</button>
-      <button @click="deleteBlog">Delete</button>
-      <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
+        <button @click="editBlog">Edit</button>
+        <button @click="deleteBlog">Delete</button>
+        <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
       </div>
     </div>
   </div>

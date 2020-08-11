@@ -8,7 +8,7 @@
     </h2>
     <ul class="list">
       <li>
-        <router-link :to="{name:'ProfileInformation', params:{id: this.user.pk}}">
+        <router-link v-if="user && user.pk" :to="{name:'ProfileInformation', params:{id: this.user.pk}}">
           <img src="@/assets/img/个人信息.svg"/>
           <span>Profile</span>
         </router-link>
@@ -26,13 +26,13 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileFollow'}">
+        <router-link v-if="user && user.pk" :to="{name:'ProfileFollow', params:{id: this.user.pk}}">
           <img src="@/assets/img/关注.svg"/>
           <span>Follow</span>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileMessageCenter', params:{id: this.user.pk}}">
+        <router-link v-if="user && user.pk" :to="{name:'ProfileMessageCenter', params:{id: this.user.pk}}">
           <img src="@/assets/img/好友.svg"/>
           <span>MessageCenter</span>
         </router-link>
@@ -44,7 +44,7 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileSettings', params:{id: this.user.pk}}">
+        <router-link v-if="user && user.pk" :to="{name:'ProfileSettings', params:{id: this.user.pk}}">
           <img src="@/assets/img/设置.svg"/>
           <span>Settings</span>
         </router-link>

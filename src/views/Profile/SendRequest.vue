@@ -5,7 +5,7 @@
       <div class="card">
         <h4>MESSAGE: </h4>
         <input type="text" v-model="request_message"/>
-        <button @click='addfriend'>SEND</button>
+        <button v-if="user && user.pk" @click='addfriend'>SEND</button>
       </div>
     </li>
   </ul>

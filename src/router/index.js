@@ -60,14 +60,14 @@ const routes = [
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
-      { path: 'information/:id',  name: 'ProfileInformation',   component: ProfileInformation},
+      { path: 'information/:id',  name: 'ProfileInformation',   component: ProfileInformation,    props: true},
       { path: 'blogs',            name: 'ProfileBlog',          component: ProfileBlogs},
-      { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions},
+      { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions,      props: true},
       { path: 'edit/profile/:id', name: 'EditProfile',          component: EditProfile },
       { path: 'follow/:id',       name: 'ProfileFollow',        component: ProfileFollow},
       { path: 'sendrequest/:id',   name: 'SendRequest',        component: SendRequest },
       { path: 'skilltrees',       name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
-      { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,
+      { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,  props: true,
         redirect: 'messagecenter/friends/:id',
         children:[
           { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},
@@ -75,7 +75,7 @@ const routes = [
           { path: 'requestfriend/:id',  name: 'RequestFriend',  component: RequestFriend},
         ]
       },
-      { path: 'settings',               name: 'ProfileSettings',      component: ProfileSettings,
+      { path: 'settings',               name: 'ProfileSettings',      component: ProfileSettings, props: true,
         redirect: 'settings/changepassword/:id',
         children:[
           { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},

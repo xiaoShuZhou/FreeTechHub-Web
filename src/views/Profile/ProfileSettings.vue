@@ -2,8 +2,8 @@
 
     <div class="box">
       <div>
-        <router-link :to="{name:'ChangePassword'}">修改密码</router-link>
-        <router-link :to="{name:'ChangeMail'}">修改邮箱</router-link>
+        <router-link v-if="user && user.pk" :to="{name:'ChangePassword', params:{id: this.user.pk}}">修改密码</router-link>
+        <router-link v-if="user && user.pk" :to="{name:'ChangeMail', params:{id: this.user.pk}}">修改邮箱</router-link>
         <router-link :to="{name:'ForgetPassword'}">忘记密码</router-link>
       </div>
       <transition mode="out-in">
@@ -14,8 +14,20 @@
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
 export default {
-  name: 'ChangePassword'
+  name: 'ChangePassword',
+  data() {
+    return {
+      user: '',
+
+    }
+  },
+  mounted() {
+    User.getSelf().then(user =>{
+    this.user= user
+    })
+  },
 }
 </script>
 

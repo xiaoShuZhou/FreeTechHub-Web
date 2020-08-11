@@ -5,7 +5,8 @@
     <router-link class="list" to="/show/blogs">blogs</router-link> 
     <router-link class="list" to="/show/series">series</router-link> 
     <router-link class="list" to="/show/questions">questions</router-link> 
-    <router-link class="list" :to="{name:'ProfileInformation', params:{id: user.pk}}">Profile</router-link>
+    <router-link v-if="this.user && this.user.pk" class="list" 
+    :to="{name:'ProfileInformation', params:{id: this.user.pk}}">Profile</router-link>
     <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
     <img class="expand" src="@/assets/img/Expand.svg" alt="">

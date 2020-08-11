@@ -5,12 +5,12 @@
         <img src="@/assets/img/landing.jpg" />
       </div>
       <div>
-        <button  @click="editProfile">Edit</button>
+        <button v-if="user && user.pk" @click="editProfile">Edit</button>
         <p>major:{{user.major}}</p>
         <p>Balance: {{user.blance}}</p>
         <p>grade:{{user.grade}}</p>
         <p>bio:{{user.bio}}</p>
-        <button @click='goSendrequest'>addfriend</button>
+        <button v-if="user && user.pk" @click='goSendrequest'>addfriend</button>
       </div>
     </div>
     <div class="box2">
