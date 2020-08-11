@@ -8,7 +8,7 @@
     </h2>
     <ul class="list">
       <li>
-        <router-link :to="{name:'ProfileInformation'}">
+        <router-link :to="{name:'ProfileInformation', params:{id: this.user.pk}}">
           <img src="@/assets/img/个人信息.svg"/>
           <span>Profile</span>
         </router-link>

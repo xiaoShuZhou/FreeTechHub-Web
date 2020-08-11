@@ -200,8 +200,8 @@ export default {
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .buttons {
   grid-area: buttons;
@@ -212,7 +212,7 @@ export default {
 .user{
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   width: 80%;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
