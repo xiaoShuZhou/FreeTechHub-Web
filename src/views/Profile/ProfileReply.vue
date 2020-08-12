@@ -17,20 +17,22 @@
           <small>时间：昨天</small>
           <p>内容</p>
         </li>
-                <li>
+        <li>
           <p>用户4回复了你的评论</p>
           <small>时间：昨天</small>
           <p>内容</p>
         </li>
-                <li>
+        <li>
           <p>用户5回复了你的评论</p>
           <small>时间：昨天</small>
           <p>内容</p>
-        </li>        <li>
+        </li>
+        <li>
           <p>用户6回复了你的评论</p>
           <small>时间：昨天</small>
           <p>内容</p>
-        </li>        <li>
+        </li>
+        <li>
           <p>用户7回复了你的评论</p>
           <small>时间：昨天</small>
           <p>内容</p>
@@ -41,38 +43,36 @@
 </template>
 
 <script>
-import $ from 'jquery'
-$(document).ready(function(){
-  $(".replylist").scroll();
-});
 export default {
-
-}
+  name: "ProfileReply",
+};
 </script>
 
 <style scoped>
-.ProfileReply{
+.ProfileReply {
   width: 100%;
   height: 100vh;
   font-size: 24px;
 }
-ul{  
+ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.replylist{
+.replylist {
   overflow: scroll;
   height: 100vh;
 }
-.replylist::-webkit-scrollbar {display:none}
-li{
+.replylist::-webkit-scrollbar {
+  display: none;
+}
+li {
   width: 80%;
   height: 100%;
   margin-top: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background: #eeba10;
   border-radius: 20px;
   padding: 5px 0 5px 20px;

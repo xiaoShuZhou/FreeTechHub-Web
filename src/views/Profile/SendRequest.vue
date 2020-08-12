@@ -52,14 +52,10 @@ export default {
   },
   created() {
     if (!is_authenticated()) {
-      this.$router.push({
-        name: 'Login'
-      })
+      this.$router.push({name: 'Login'})
     } else {
       User.get(this.$route.params.id)
-      .then(user => {
-        this.user = user
-      })
+      .then(user => this.user = user)
     }
 
   },

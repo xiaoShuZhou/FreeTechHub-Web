@@ -19,7 +19,7 @@
 
 <script>
 import Question from "@/assets/utils/models/Question"
-import { is_authenticated } from '@/assets/utils/auth'
+import { login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -36,11 +36,9 @@ export default {
   },
   methods: {
     newQuestion(){
-      if( !is_authenticated() ){
-        this.$router.push({name: 'Login'})
-      }else{
+      login_required(this, () => {
         this.$router.push({name: 'NewQuestion'})
-      }
+      })
     },
   },
   created() {

@@ -6,10 +6,10 @@
       </div>
       <div>
         <button v-if="user && user.pk" @click="editProfile">Edit</button>
-        <p>major:{{user.major}}</p>
-        <p>Balance: {{user.blance}}</p>
-        <p>grade:{{user.grade}}</p>
-        <p>bio:{{user.bio}}</p>
+        <p>major:{{profile_owner.major}}</p>
+        <p>Balance: {{profile_owner.blance}}</p>
+        <p>grade:{{profile_owner.grade}}</p>
+        <p>bio:{{profile_owner.bio}}</p>
         <button v-if="user && user.pk" @click='goSendrequest'>addfriend</button>
       </div>
     </div>
@@ -38,14 +38,13 @@
 
 <script>
 import User from '@/assets/utils/models/User'
+import { login_required } from '@/assets/utils/auth'
 import FriendRequest from '@/assets/utils/models/FriendRequest'
-import { is_authenticated } from '@/assets/utils/auth'
 export default {
   data() {
     return {
-      user: '',
-      follow: '',
-      from_user: '',
+      profile_owner: '',
+      visitor: '',
     }
   },
   methods: {
@@ -77,19 +76,17 @@ export default {
     },
   },
   created() {
-    if (!is_authenticated()) {
-      this.$router.push({
-        name: 'Login'
-      })
-    } else {
-      User.get(this.$route.params.id).then(user => {
-        this.user = user
-        User.getSelf().then(from_user => {
-          this.from_user = from_user
-        })
-      })
-    }
+    login_required(this, self => {
+      this.visitor = self
+      User.get(this.profile_owner_id)
+      .then(owner => this.profile_owner = owner)
+    })
   },
+  computed: {
+    profile_owner_id() {
+      return this.$route.params.id
+    }
+  }
 }
 </script>
 

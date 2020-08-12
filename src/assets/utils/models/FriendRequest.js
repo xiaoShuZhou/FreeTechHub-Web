@@ -1,35 +1,30 @@
 import Model from "./Model";
+import User from "./User"
 import axios from "axios"
+import BASE_URL from "../consts"
 
 class FriendRequest extends Model {
     static app_name = 'user'
     static model_name = 'friendrequest'
 
-    constructor({id, to_user, from_user, timestamp,
-        request_message, is_cancel }) {
-        super({to_user, from_user,  request_message, is_cancel})
+    constructor({id, sender_instance, receiver_instance,
+                datetime, note, state, sender, receiver}) {
+        super({note, state, sender, receiver})
 
         this.app_name = 'user'
         this.model = "friendrequest"
         this.pk = id
 
-        // this custom data for followership
-        this.to_user = to_user
-        this.from_user = from_user
-        this.timestamp = timestamp
-        this.request_message = request_message
-        this.is_cancel = is_cancel
-
-        this.Requestlist = []
-
-
+        // this custom data for FriendRequest
+        this.sender_instance = new User(sender_instance)
+        this.receiver_instance = new User(receiver_instance)
+        this.datetime = datetime
     }
 
     // FriendRequest custom methods
     static async getRequestlist() {
-        let res = await axios.get('http://127.0.0.1:8000/user/getrequest/')
-        this.Requestlist = res.data
-        return this.Requestlist
+        let res = await axios.get(BASE_URL+'user/getrequest/')
+        return res.data
     }
 
     // get model by id
