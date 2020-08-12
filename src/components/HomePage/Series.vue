@@ -7,7 +7,10 @@
         <a class="search-btn" href=""><i class="fas fa-search"></i></a>
       </div>
       <h1>WHAT'S IN YOUR MIND</h1>
-      <button>START A SERIES</button>
+      <div class="buttons">
+        <router-link tag="button" :to="{name: 'ShowBlogs'}">START A BLOG</router-link>
+        <router-link tag="button" :to="{name: 'ShowSeries'}">START A SERIES</router-link>
+      </div>
     </div>
     <div class="series">
       <div><h1>TOP TRENDING SERIES</h1></div>
@@ -110,12 +113,17 @@
     filter: opacity(40%);
   }
 
-
+  .buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
   button {
     background: #D6C4BE;
     border-radius: 12px;
     font-size: 1em;
     font-weight: bold;
+    margin: 20px 0;
     padding: 20px 20px;
     border: none;
     outline: none;

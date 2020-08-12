@@ -23,21 +23,6 @@
         <small>时间：昨天</small>
         <p>余额~</p>
       </li>
-      <li>
-        <p>用户5回复了你的评论</p>
-        <small>时间：昨天</small>
-        <p>内容</p>
-      </li>
-      <li>
-        <p>用户6回复了你的评论</p>
-        <small>时间：昨天</small>
-        <p>内容</p>
-      </li>
-      <li>
-        <p>用户7回复了你的评论</p>
-        <small>时间：昨天</small>
-        <p>内容</p>
-      </li>
     </ul>
   </div>
 </template>
@@ -74,12 +59,14 @@ ul{
 li{
   width: 80%;
   height: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  min-height: 100px;
+  margin: 20px 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  background: #5eb1d8;
+  background: #3498db;
   border-radius: 20px;
   padding: 5px 0 5px 20px;
   transition: all 0.3s ease;
+  color: #fff;
+  font-size: 26px;
 }
 </style>

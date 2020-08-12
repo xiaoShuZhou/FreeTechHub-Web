@@ -4,7 +4,7 @@
       <h1>PUT OUR HEADS TOGETHER</h1>
       <p>We are easily fulling into our own logic trap and often not worthwhile spending our entire wonderful sunday
         afternoon tp spot it.Having a fresh point of view can make a big difference.</p>
-      <button>Join the discussion</button>
+      <router-link tag="button" :to="{name:'ShowQuestions'}">Join the discussion</router-link>
     </div>
     <div><img src="@/assets/img/undraw_true_love_cy8x.svg"></div>
   </div>
