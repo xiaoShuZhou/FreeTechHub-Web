@@ -32,6 +32,7 @@ import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
 import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
 import ProfileReply from '@/views/Profile/ProfileReply'
 import RequestFriend from '@/views/Profile/RequestFriend'
+import TransactionRecord from '@/views/Profile/TransactionRecord'
 //
 import EditProfile from '@/views/Profile/EditProfile.vue'
 import SendRequest from '@/views/Profile/SendRequest.vue'
@@ -60,14 +61,15 @@ const routes = [
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
-      { path: 'information/:id',  name: 'ProfileInformation',   component: ProfileInformation,    props: true},
-      { path: 'blogs',            name: 'ProfileBlog',          component: ProfileBlogs},
-      { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions,      props: true},
-      { path: 'edit/profile/:id', name: 'EditProfile',          component: EditProfile },
-      { path: 'follow/:id',       name: 'ProfileFollow',        component: ProfileFollow},
-      { path: 'sendrequest/:id',   name: 'SendRequest',        component: SendRequest },
-      { path: 'skilltrees',       name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
-      { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,  props: true,
+      { path: 'information/:id',    name: 'ProfileInformation',   component: ProfileInformation,    props: true},
+      { path: 'blogs',              name: 'ProfileBlog',          component: ProfileBlogs},
+      { path: 'questions',          name: 'ProfileQuestions',     component: ProfileQuestions,      props: true},
+      { path: 'edit/profile/:id',   name: 'EditProfile',          component: EditProfile },
+      { path: 'follow/:id',         name: 'ProfileFollow',        component: ProfileFollow},
+      { path: 'sendrequest/:id',    name: 'SendRequest',          component: SendRequest },
+      { path: 'skilltrees',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
+      { path: 'transactionrecord',  name: 'TransactionRecord',    component: TransactionRecord},
+      { path: 'messagecenter',      name: 'ProfileMessageCenter', component: ProfileMessageCenter,  props: true,
         redirect: 'messagecenter/friends/:id',
         children:[
           { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},

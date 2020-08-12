@@ -334,10 +334,6 @@ button {
 .icon {
   width: 40%;
 }
-.comment {
-  display: block;
-  margin: 20% 0 0 2%;
-}
 .likegroup {
   position: fixed;
   display: flex;
@@ -381,6 +377,8 @@ button {
 }
 .comment {
   grid-area: comment;
+  display: block;
+  margin: 5% 2%;
 }
 .comment img {
   width: 10%;
@@ -431,6 +429,7 @@ button {
     align-content: center;
     line-height: 30px;
     padding: 5% 0;
+    margin: 0;
     font-family: Merriweather, Georgia, "Times New Roman", serif;
     font-weight: 300;
     font-size: 18px;
