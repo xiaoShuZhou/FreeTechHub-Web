@@ -1,64 +1,72 @@
 <template>
-    <div class="ProfileFriends">
-      <div class="friendlist">
-          <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''"/>
-        <div class="list">
-          <ul>
-            <li>
-              <a href="#">
-                <div class="flex" v-for="friendlist in friendlists" :key='friendlist.url'>
-                  <img src="@/assets/img/landing.jpg" class="avatar">
-                  <div >
-                    <p>username : {{friendlist.related_user.username}}</p>
-                    <p>MESSAGE</p>
-                  </div>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <button class="add">Add Friend</button>
+  <div class="ProfileFriends">
+
+    <div class="friendlist">
+      <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''"/>
+      <div class="list">
+        <ul ref="friends">
+          <li class="flex" 
+              @click="chatWith(friend.pk)" 
+              v-for="friend in friends" :key='friend.pk'
+              :ref="'friend-'+friend.pk">
+            <img src="@/assets/img/landing.jpg" class="avatar">
+            <p>username : {{friend.username}}</p>
+          </li>
+        </ul>
       </div>
-      <div class="chat">
-        <div class="message">
-          <img src="@/assets/img/landing.jpg">
+      <button class="add">Add Friend</button>
+    </div>
+
+    <div class="chat">
+      <div class="message">
+        <img src="@/assets/img/landing.jpg">
+      </div>
+      <div class="edit">
+        <div class="icon">
+          <img src="@/assets/img/代码.svg" alt="">
+          <img src="@/assets/img/img.svg" alt="">
+          <a class="history-message" href="#">消息记录</a>
         </div>
-        <div class="edit">
-          <div class="icon">
-            <img src="@/assets/img/代码.svg" alt="">
-            <img src="@/assets/img/img.svg" alt="">
-            <a class="history-message" href="#">消息记录</a>
-          </div>
-          <textarea></textarea>
-          <button type="button" class="send">发送</button>
-        </div>
+        <textarea></textarea>
+        <button type="button" class="send">发送</button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-import Friendship from '@/assets/utils/models/Friendship'
 import { login_required } from '@/assets/utils/auth'
 export default {
   data() {
     return {
-      friendlists: '',
+      friends: '',
     }
   },
   methods: {
-    getAllfriends() {
-      Friendship.getFriendlist()
-        .then(friendlists => {
-          this.friendlists = friendlists
-        })
+    getFriends(user) {
+      user.getFriends()
+      .then(friends => this.friends = friends)
     },
+    chatWith(user_id) {
+      // clean ths background-color of the old selected user
+      for (let node of this.$refs.friends.childNodes) {
+        node.style['background-color'] = ''
+      }
+      // light the selected user
+      this.$refs['friend-'+user_id][0].style['background-color'] = '#c18cf2'
+      this.$store.commit('chatWith', user_id)
+    }
   },
   created() {
-    login_required(this, () => {
-      this.getAllfriends()
+    login_required(this, self => {
+      this.getFriends(self)
     })
-
   },
+  computed: {
+    chattingWith () {
+      return this.$store.state.chattingWith
+    }
+  }
 }
 </script>
 

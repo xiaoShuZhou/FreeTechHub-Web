@@ -12,7 +12,10 @@
         <li>
           <a href="#discussion">Questions</a>
         </li>
-        <li>
+        <li v-if="is_login">
+          <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
+        </li>
+        <li v-else>
           <router-link to="/login">Login</router-link>
         </li>
       </ul>
@@ -21,11 +24,29 @@
 </template>
 
 <script>
+import {is_authenticated} from "@/assets/utils/auth"
+
 export default {
   name: "Navbar",
+  data() { 
+    return {
+      is_login: false
+    }
+  }
+  ,
   methods: {
   },
-  mounted(){
+  created() {
+    is_authenticated(this).then(res => {
+      if (res == true) {
+        this.is_login = true
+      }
+    })
+  },
+  computed: {
+    user_id() {
+      return this.$store.state.user.pk
+    }
   }
 };
 </script>

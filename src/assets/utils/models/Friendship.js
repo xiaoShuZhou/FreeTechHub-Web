@@ -1,11 +1,13 @@
 import Model from "./Model";
 import axios from "axios"
+import User from "./User"
+import BASE_URL from '../consts'
 
 class Friendship extends Model {
     static app_name = 'user'
     static model_name = 'friendship'
 
-    constructor({id, friend_1, friend_2 }) {
+    constructor({id, friend_instance_1, friend_instance_2, friend_1, friend_2 }) {
         super({friend_1, friend_2})
 
         this.app_name = 'user'
@@ -13,17 +15,14 @@ class Friendship extends Model {
         this.pk = id
 
         // this custom data for followership
-        this.friend_1= friend_1
-        this.friend_2 = friend_2
-        this.friendlists = []
-
+        this.friend_instance_1 = new User(friend_instance_1)
+        this.friend_instance_2 = new User(friend_instance_2)
     }
 
     //get related friendslist
     static async getFriendlist() {
-        let res = await axios.get('http://127.0.0.1:8000/user/getfriendlists/')
-        this.friendlists = res.data
-        return this.friendlists
+        let res = await axios.get(BASE_URL+'user/getfriendlists/')
+        return res.data
     }
 
     // get model by id

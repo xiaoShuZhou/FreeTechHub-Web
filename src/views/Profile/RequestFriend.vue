@@ -22,7 +22,7 @@
 <script>
 import FriendRequest from '@/assets/utils/models/FriendRequest'
 import Friendship from '@/assets/utils/models/Friendship'
-import { is_authenticated } from '@/assets/utils/auth'
+import { login_required } from '@/assets/utils/auth'
 export default {
   data() {
     return {
@@ -73,14 +73,9 @@ export default {
     }
   },
   created() {
-    if (!is_authenticated()) {
-      this.$router.push({
-        name: 'Login'
-      })
-    } else {
+    login_required(() => {
       this.getAlllrequestlist()
-    }
-
+    })
   },
 };
 </script>

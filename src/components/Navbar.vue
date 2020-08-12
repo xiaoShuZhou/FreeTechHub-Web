@@ -5,22 +5,24 @@
     <router-link class="list" to="/show/blogs">blogs</router-link> 
     <router-link class="list" to="/show/series">series</router-link> 
     <router-link class="list" to="/show/questions">questions</router-link> 
-    <router-link class="list" :to="{name:'ProfileInformation', params:{id: user.pk}}">Profile</router-link>
+    <a class="list" @click="goProfile()">Profile</a>
     <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
     <img class="expand" src="@/assets/img/Expand.svg" alt="">
-    <router-link to="/login">Login</router-link> 
+    <router-link v-if="is_login" to="/login">Logout</router-link> 
+    <router-link v-else to="/login">Login</router-link>
   </div>
 </template>
 
 <script>
-import User from '@/assets/utils/models/User'
+import {is_authenticated, login_required} from '@/assets/utils/auth'
 
 export default {
   name: "Navbar",
   data() {
     return {
       search_tag_name: '',
+      is_login: false,
       user: '',
     }
   },
@@ -35,11 +37,20 @@ export default {
           query: { tag_name: this.search_tag_name },
         })
       }
+    },
+    goProfile() {
+      login_required(this, user => {
+        this.$router.push(
+          {name:'ProfileInformation', params:{id: user.pk}}
+        )
+      })
     }
   },
-  mounted() {
-    User.getSelf().then(user =>{
-    this.user= user
+  created() {
+    is_authenticated(this).then(res => {
+      if (res == true) {
+        this.is_login = true
+      }
     })
   },
 }

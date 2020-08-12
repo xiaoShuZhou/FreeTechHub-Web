@@ -54,10 +54,9 @@ export default {
     },
   },
   created() {
-    is_authenticated().then(() => {
+    is_authenticated(this).then(() => {
       Blog.all().then(blogs => this.blogs = blogs)
     })
-    
   },
 }
 </script>

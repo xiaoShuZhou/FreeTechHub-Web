@@ -1,5 +1,6 @@
 import Model from "./Model"
 import axios from 'axios'
+import BASE_URL from '../consts'
 class User extends Model {
     static app_name = 'user'
     static model_name = 'user'
@@ -36,15 +37,24 @@ class User extends Model {
         this.context = []
     }
 
+    // get all the friends of this user
+    async getFriends() {
+        let res = await axios.get(BASE_URL+`user/getfriends/${this.pk}/`)
+        let friends = []
+        for (let raw_user of res.data) {
+            friends.push(new User(raw_user))
+        }
+        return friends
+    }
 
     // custom methods
     static async getSelf() {
-        let res = await axios.get('http://127.0.0.1:8000/user/getself/')
+        let res = await axios.get(BASE_URL+'user/getself/')
         return new User(res.data)
     }
 
     static async changepassword(oldpass,newpass) {
-        let res = await axios.post('http://127.0.0.1:8000/user/changepassword/',
+        let res = await axios.post(BASE_URL+'user/changepassword/',
          {oldpassword:oldpass, newpassword1:newpass})
         this.context = res.data.data
         return this.context
