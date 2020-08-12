@@ -1,26 +1,55 @@
 <template>
   <div class="ShowBlog">
-    <Navbar id="navbar"/>
+    <Navbar id="navbar" />
     <div class="img">
-      <img src="@/assets/img/landing.jpg" alt="">
+      <img src="@/assets/img/landing.jpg" alt />
     </div>
     <div class="blog">
       <div class="title">
         <h1>{{ blog.title }}</h1>
         <div class="user">
-          <a href=""><img class="icon" src="@/assets/img/头像 女孩.svg" alt=""></a>
+          <a href>
+            <img class="icon" src="@/assets/img/头像 女孩.svg" alt />
+          </a>
           <div class="content">
-            <a href="">用户名</a>
+            <a href>用户名</a>
             <p>个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名</p>
           </div>
+        </div>
+        <div class="taggroup">
+          <a href class="tag">
+            <img class="icon" src="@/assets/img/标签.svg" alt />
+            {{blog.tags}}
+          </a>
+          <a href class="tag">
+            <img class="icon" src="@/assets/img/标签.svg" alt />django
+          </a>
+          <a href class="tag">
+            <img class="icon" src="@/assets/img/标签.svg" alt />vue
+          </a>
         </div>
       </div>
       <div class="content" v-html="blog.m_content" v-highlight></div>
       <div class="sidebar">
-        <div class="taggroup">
-          <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">{{blog.tags}}</a>
-          <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">django</a>
-          <a href="" class="tag"><img class="icon" src="@/assets/img/标签.svg" alt="">vue</a>
+        <div class="relatedblog">
+          <ul>
+            <li>
+              <a href>博客名</a>
+              <span>游览量2233</span>
+            </li>
+            <li>
+              <a href>博客名</a>
+              <span>游览量2233</span>
+            </li>
+            <li>
+              <a href>博客名</a>
+              <span>游览量2233</span>
+            </li>
+            <li>
+              <a href>博客名</a>
+              <span>游览量2233</span>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="likegroup">
@@ -37,7 +66,41 @@
       <div class="buttons">
         <button @click="editBlog">Edit</button>
         <button @click="deleteBlog">Delete</button>
-        <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
+        <button
+          v-if="this.followeruser.pk !== this.followinguser.pk"
+          @click="followingship"
+        >{{content}}</button>
+      </div>
+      <div class="comment">
+        <ul>
+          <li>
+            <div>
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <a href>用户1</a>
+                <p>评论</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <a href>用户1</a>
+                <p>评论</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <a href>用户1</a>
+                <p>评论</p>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -56,102 +119,104 @@ export default {
   },
   data() {
     return {
-      blog: '',
-      followership:'',
-      followinguser:'',
-      followeruser:'',
-      followerlists:'',
-      deleteid:'',
-      content: 'follow',
+      blog: "",
+      followership: "",
+      followinguser: "",
+      followeruser: "",
+      followerlists: "",
+      deleteid: "",
+      content: "follow",
       liked: true,
-
-    }
+    };
   },
   methods: {
     _getFollowership() {
       return new Followership({
-        following:this.followinguser.pk,
-        follower:this.followeruser.pk,
-      })
+        following: this.followinguser.pk,
+        follower: this.followeruser.pk,
+      });
     },
-    init(){
-      let follower_id = []
-      if(!this.followerlists)
-      {
+    init() {
+      let follower_id = [];
+      if (!this.followerlists) {
         return;
       }
-      this.followerlists.forEach(followerlist => {
-        follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
-      })
-      follower_id.forEach(item=>{
-      if(item.following_id==this.followinguser.pk){
-          this.deleteid = item.id
-          this.liked = false
-          this.content = "unfollow"
+      this.followerlists.forEach((followerlist) => {
+        follower_id.push({
+          following_id: followerlist.following,
+          id: followerlist.id,
+        });
+      });
+      follower_id.forEach((item) => {
+        if (item.following_id == this.followinguser.pk) {
+          this.deleteid = item.id;
+          this.liked = false;
+          this.content = "unfollow";
+        } else {
+          this.liked = true;
+          this.content = "Follow";
         }
-      else{
-        this.liked = true;
-        this.content = "Follow"
-        }
-      })
-   },
+      });
+    },
     deleteBlog() {
       this.blog.delete().then(() => {
-          this.$router.push({name: 'ShowBlogs'})
-      })
+        this.$router.push({ name: "ShowBlogs" });
+      });
     },
     editBlog() {
-      this.$router.push({name: 'EditBlog'})
+      this.$router.push({ name: "EditBlog" });
     },
     followingship() {
-      let followership = this._getFollowership()
+      let followership = this._getFollowership();
       if (this.liked) {
-        this.content = "unfollow"
-        this.liked = !this.liked
-        followership.save()
+        this.content = "unfollow";
+        this.liked = !this.liked;
+        followership.save();
       } else {
-          this.content = "follow"
-          User.getSelf().then(user =>{
-            this.followeruser = user
-            this.followerlists = this.followeruser.follower_users
-            let follower_id = []
-            if(!this.followerlists)
-             {
-               return;
-             }
-             this.followerlists.forEach(followerlist => {
-               follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
-             })
-             follower_id.forEach(item=>{
-             if(item.following_id==this.followinguser.pk){
-                 this.deleteid = item.id
-             }
-             else{
-               console.log('ERR')
-             }
-           })
-           Followership.get(this.deleteid).then(followership => {followership.delete()})
-         })
-         this.liked = !this.liked
+        this.content = "follow";
+        User.getSelf().then((user) => {
+          this.followeruser = user;
+          this.followerlists = this.followeruser.follower_users;
+          let follower_id = [];
+          if (!this.followerlists) {
+            return;
+          }
+          this.followerlists.forEach((followerlist) => {
+            follower_id.push({
+              following_id: followerlist.following,
+              id: followerlist.id,
+            });
+          });
+          follower_id.forEach((item) => {
+            if (item.following_id == this.followinguser.pk) {
+              this.deleteid = item.id;
+            } else {
+              console.log("ERR");
+            }
+          });
+          Followership.get(this.deleteid).then((followership) => {
+            followership.delete();
+          });
+        });
+        this.liked = !this.liked;
       }
     },
   },
   created() {
     login_required(this, (user) => {
-        Blog.get(this.$route.params.id)
-        .then(blog => {
-          this.blog = blog
-          this.followeruser = user
-          this.followerlists = this.followeruser.follower_users
-          this.init()
-          User.get(this.blog.owner).then(user =>{
-            this.followinguser = user
-            this.init()
-          })
-        })
-    })
+      Blog.get(this.$route.params.id).then((blog) => {
+        this.blog = blog;
+        this.followeruser = user;
+        this.followerlists = this.followeruser.follower_users;
+        this.init();
+        User.get(this.blog.owner).then((user) => {
+          this.followinguser = user;
+          this.init();
+        });
+      });
+    });
   },
-}
+};
 </script>
 
 <style scoped>
@@ -163,6 +228,7 @@ export default {
 
 .ShowBlog {
   width: 100vw;
+  height: 100%;
 }
 .blog {
   background-color: #fff;
@@ -170,18 +236,19 @@ export default {
   width: 80%;
   height: 100%;
   display: grid;
-  grid-template-areas: 'title  title'
-                       'content sidebar'
-                       'buttons buttons'; 
+  grid-template-areas:
+    "title  title"
+    "content sidebar"
+    "buttons buttons"
+    "comment comment";
   grid-template-columns: 85% 15%;
-  grid-template-rows: 4% 96%;
-  justify-items: center;
+  justify-items: stretch;
   align-self: start;
   margin-left: 10%;
   line-height: 30px;
   margin-top: 45%;
   padding: 5% 0 0 5%;
-  font-family: Merriweather,Georgia,"Times New Roman",serif;
+  font-family: Merriweather, Georgia, "Times New Roman", serif;
   font-weight: 300;
   font-size: 18px;
   color: #262d3d;
@@ -193,10 +260,14 @@ export default {
   flex-direction: column;
   justify-content: space-around;
 }
-.content{
+h1{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.content {
   grid-area: content;
 }
-.sidebar{
+.sidebar {
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
@@ -209,7 +280,7 @@ export default {
   justify-content: center;
   display: block;
 }
-.user{
+.user {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -218,19 +289,19 @@ export default {
   border-bottom: 1px solid gray;
   padding: 2% 1% 2% 1%;
 }
-.user a{
+.user a {
   width: 20%;
 }
-.user div{
+.user div {
   width: 60%;
 }
-.user div p{
+.user div p {
   font-size: 16px;
   word-break: break-all;
 }
 button {
   border: 0;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 40%;
   border-radius: 5px;
@@ -240,7 +311,7 @@ button {
   color: #311f1f;
   margin: 3vh 2vw;
 }
-.img img{
+.img img {
   top: 64px;
   width: 100%;
   height: 100%;
@@ -250,28 +321,31 @@ button {
   z-index: -1;
   position: absolute;
 }
-.tag{
+.tag {
   display: block;
   background-color: #e16531;
   border-radius: 10px;
-  width: 100px;
-  margin: 20px 0 20px 0;
+  width: auto;
+  max-width: 120px;
+  max-height: 60px;
+  height: auto;
+  margin: 20px;
 }
-.icon{
+.icon {
   width: 40%;
 }
-.comment{
+.comment {
   display: block;
   margin: 20% 0 0 2%;
 }
-.likegroup{
+.likegroup {
   position: fixed;
   display: flex;
   flex-direction: column;
   top: 25%;
   left: 5%;
 }
-.likegroup img{
+.likegroup img {
   width: 50%;
   background-color: rgb(209, 204, 204);
   margin-top: 20px;
@@ -279,12 +353,123 @@ button {
   box-shadow: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
-.top{
+.top {
   position: fixed;
   right: 0;
   bottom: 10%;
 }
-.top img{
+.top img {
   width: 50%;
+}
+.relatedblog {
+  background: #fdcb6e;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+}
+.relatedblog span {
+  display: block;
+  font-size: 12px;
+}
+.relatedblog li {
+  margin: 10px 5px;
+}
+.taggroup{
+  display: flex;
+  justify-content: baseline;
+  flex-wrap: wrap;
+}
+.comment {
+  grid-area: comment;
+}
+.comment img {
+  width: 10%;
+}
+.comment li {
+  margin: 20px 10px;
+}
+.comment li div{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comment li div div{
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 1280px) {
+  .ShowBlog {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+  }
+  .img img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  .blog {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+      "title"
+      "content"
+      "buttons"
+      "comment"
+      "sidebar";
+    grid-template-columns: 100%;
+    justify-items: stretch;
+    align-content: center;
+    line-height: 30px;
+    padding: 5% 0;
+    font-family: Merriweather, Georgia, "Times New Roman", serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #262d3d;
+    box-shadow: rgba(0, 0, 0, 0.2);
+  }
+  .content{
+    width: 100%;
+    height: 100%;
+  }
+  .buttons{
+    display: flex;
+    flex-direction: row;
+  }
+  .comment {
+    grid-area: comment;
+  }
+  .comment img {
+    width: 10%;
+  }
+  .comment li {
+    margin: 20px 10px;
+  }
+  .comment li div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .comment li div div{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .taggroup {
+    display: none;
+  }
+  .relatedblog {
+    width: 100%;
+  }
 }
 </style>

@@ -79,6 +79,7 @@ button {
   min-height: 7vh;
   font-size: 1.5rem;
   color: #311f1f;
+  margin-bottom: 10%;
 }
 
 .ShowBlogs {
@@ -164,7 +165,7 @@ img{
   width: 100%;
   height: 40%;
 }
-@media screen and (max-width: 1025px){
+@media screen and (max-width: 1280px){
   .ShowBlogs{
     width: 100%;
     height: 100%;

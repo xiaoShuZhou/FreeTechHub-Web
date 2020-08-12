@@ -136,7 +136,7 @@ a:-webkit-any-link {
 .home {
   display: none;
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1280px) {
   .ProfileLeftNavbar {
     position: absolute;
     width: 40px;
