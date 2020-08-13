@@ -9,8 +9,8 @@ export default new Vuex.Store({
     user: ''
   },
   mutations: {
-    chatWith(state, user_id) {
-      state.chattingWith = user_id
+    chatWith(state, user) {
+      state.chattingWith = user
     },
     setUser(state, user) {
       state.user = user
