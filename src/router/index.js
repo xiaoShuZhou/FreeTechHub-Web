@@ -56,7 +56,6 @@ const routes = [
   { path: '/show/questions',    name: 'ShowQuestions',component: ShowQuestions},
   { path: '/edit/question/:id', name: 'EditQuestion', component: EditQuestion},
   { path: '/show/question/:id', name: 'ShowQuestion', component: ShowQuestion},
-  { path: '/about',             name: 'About',        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue') },
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
@@ -65,18 +64,18 @@ const routes = [
       { path: 'questions',        name: 'ProfileQuestions',     component: ProfileQuestions},
       { path: 'edit/profile/:id', name: 'EditProfile',          component: EditProfile },
       { path: 'follow/:id',       name: 'ProfileFollow',        component: ProfileFollow},
-      { path: 'sendrequest/:id',   name: 'SendRequest',        component: SendRequest },
+      { path: 'sendrequest/:id',  name: 'SendRequest',          component: SendRequest },
       { path: 'skilltrees',       name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
+
       { path: 'messagecenter',    name: 'ProfileMessageCenter', component: ProfileMessageCenter,
-        redirect: 'messagecenter/friends/:id',
         children:[
           { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},
           { path: 'reply',              name: 'Reply',          component: ProfileReply},
           { path: 'requestfriend/:id',  name: 'RequestFriend',  component: RequestFriend},
         ]
       },
-      { path: 'settings',               name: 'ProfileSettings',      component: ProfileSettings,
-        redirect: 'settings/changepassword/:id',
+
+      { path: 'settings',               name: 'ProfileSettings',component: ProfileSettings,
         children:[
           { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
           { path: 'changemail',         name: 'ChangeMail',     component: ChangeMail},
