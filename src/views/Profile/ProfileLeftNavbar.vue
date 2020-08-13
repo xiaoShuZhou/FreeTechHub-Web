@@ -32,7 +32,7 @@
         </router-link>
       </li>
       <li>
-        <router-link v-if="user != ''" :to="{name:'ProfileMessageCenter', params:{id: this.user.pk}}">
+        <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
           <img src="@/assets/img/好友.svg"/>
           <span>MessageCenter</span>
         </router-link>
