@@ -35,6 +35,7 @@ class User extends Model {
         this.user_permissions = user_permissions
         this.follower_users = follower_users
         this.context = []
+        this.newMessageNum = 0
     }
 
     // get all the friends of this user

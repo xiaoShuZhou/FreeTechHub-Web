@@ -32,7 +32,6 @@ import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
 import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
 import ProfileReply from '@/views/Profile/ProfileReply'
 import RequestFriend from '@/views/Profile/RequestFriend'
-//
 import EditProfile from '@/views/Profile/EditProfile.vue'
 import SendRequest from '@/views/Profile/SendRequest.vue'
 Vue.use(VueRouter)

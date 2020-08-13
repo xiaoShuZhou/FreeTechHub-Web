@@ -10,7 +10,8 @@
               v-for="friend in friends" :key='friend.pk'
               :ref="'friend-'+friend.pk">
             <img src="@/assets/img/landing.jpg" class="avatar">
-            <p>username : {{friend.username}}</p>
+            <p>{{friend.username}}</p>
+            <NewMessage v-if="friend.newMessageNum != 0" :num=friend.newMessageNum />
           </li>
         </ul>
       </div>
@@ -51,6 +52,7 @@ import {addClassNames, removeClassNames} from '@/assets/utils/classNameHandler'
 import {domain} from '@/assets/utils/consts'
 import Message from '@/assets/utils/models/Message'
 import Chat from '@/assets/utils/models/Chat'
+import NewMessage from '@/components/NewMessage'
 
 export default {
   data() {
@@ -61,6 +63,9 @@ export default {
       message: '',
       messages: [],
     }
+  },
+  components: {
+    NewMessage
   },
   methods: {
     getFriends(user) {
@@ -96,7 +101,14 @@ export default {
         this.newMessage(true)
       }
       this.websocket.onmessage = (event) => {
-        this.messages.push(new Message(JSON.parse(event.data)))
+        let msg = new Message(JSON.parse(event.data))
+        if (msg.sender == this.chattingWith.pk) {
+          this.messages.push(msg)
+        } else {
+          for (let friend of this.friends) {
+            if (friend.pk == msg.sender) friend.newMessageNum++
+          }
+        }
       }
     })
   },
