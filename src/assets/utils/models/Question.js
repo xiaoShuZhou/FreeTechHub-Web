@@ -26,7 +26,7 @@ class Question extends Model {
         }
         if (answers != undefined) {
             this.answers = []
-            answers.forEach(answwer => { this.answers.push(new Answer(answer)) })
+            answers.forEach(answer => { this.answers.push(new Answer(answer)) })
         }
     }
 
