@@ -4,21 +4,18 @@
   <div class="box">
     <form>
       <div class="inputbox">
-        <!-- <input type="text" v-model= 'username' @blur="validate_username" /> -->
-        <input type="text" v-model= 'username' required=""/>
+        <input type="text" v-model= 'username' @blur="validate_username" required=""/>
         <label>Username：</label>
       </div>
         
       <div class="inputbox">
-        <!-- <input type="email" v-model="email" @blur="validate_email"/> -->
-        <input type="email" v-model="email" required=""/>
+        <input type="email" v-model="email" @blur="validate_email" required=""/>
         <label>Email：</label>
         <p id="test_user"></p>
       </div>
         
       <div class="inputbox">
-        <!-- <input type="password" v-model="password1"  @blur="validate_password"/> -->
-        <input type="password" v-model="password1" required=""/>
+        <input type="password" v-model="password1"  @blur="validate_password" required=""/>
         <label>Password1：</label>
         <p id="test_user"></p>
       </div>

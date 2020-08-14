@@ -43,46 +43,4 @@
     color: white;
     font-size: 45px;
   }
-  /* @media screen and (max-width: 636px){
-    .shadow{
-      position: absolute;
-      top: 28px; 
-    }
-  }
-  @media screen and (max-width: 499px){
-    .shadow{
-      position: absolute;
-      top: 76px; 
-    }
-  }
-  @media screen  and (max-width: 325px){
-    .shadow{
-      position: absolute;
-      top: 124px; 
-    }
-  }
-  @media screen  and (max-width: 310px){
-    .shadow{
-      position: absolute;
-      top: 172px; 
-    }
-  }
-  @media screen  and (max-width: 300px){
-    .shadow{
-      position: absolute;
-      top: 196px; 
-    }
-  }
-  @media screen  and (max-width: 295px){
-    .shadow{
-      position: absolute;
-      top: 172px; 
-    }
-  }
-  @media screen  and (max-width: 295px){
-    .shadow{
-      position: absolute;
-      top: 196px; 
-    }
-  } */
 </style>
