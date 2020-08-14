@@ -229,11 +229,17 @@
       grid-template-columns: 100%;
       padding: 0;
     }
-    .search{
+   .search{
       width: 100%;
       grid-area: search;
       display: grid;
-      flex-direction: column;
+      grid-template-areas:  'title1'
+                            'title2'
+                            'search-box'
+                            'buttons';
+      grid-auto-columns: 50% 50%;
+      justify-content: center;
+      align-items: center;
     }
     .picture{
       display: flex;
