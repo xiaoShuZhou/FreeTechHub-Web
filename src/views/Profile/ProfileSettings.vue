@@ -4,7 +4,6 @@
       <div>
         <router-link v-if="user" :to="{name:'ChangePassword', params:{id: this.user.pk}}">修改密码</router-link>
         <router-link v-if="user" :to="{name:'ChangeMail', params:{id: this.user.pk}}">修改邮箱</router-link>
-        <router-link :to="{name:'ForgetPassword'}">忘记密码</router-link>
       </div>
       <transition mode="out-in">
         <router-view></router-view>
@@ -59,7 +58,7 @@ export default {
   font-size: 30px;
   border-right: 1px solid black;
 }
-.box div a:nth-child(3){
+.box div a:nth-child(2){
   border: none;
 }
 .box .inputbox {

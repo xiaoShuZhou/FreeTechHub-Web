@@ -45,6 +45,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   background: #fbfbff;
+  overflow: scroll;
 }
 .BlogDetail{
   height: 100vh;
