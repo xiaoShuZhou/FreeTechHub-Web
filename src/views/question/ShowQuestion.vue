@@ -18,7 +18,7 @@
         <li v-for="answer in answers" :key="answer.id">
           <div class="card">
             <h2 class="card-title">Answered by {{ answer.owner }} at {{ answer.time }}</h2>
-            <p class="content" v-html='answer.content' v-highlight></p>
+            <p class="content" v-html='answer.m_content' v-highlight></p>
             <p class="status" v-if="answer.status == false">Unaccepted</p>
             <p class="status" v-else>Accepted</p>
             <button>Accept</button>

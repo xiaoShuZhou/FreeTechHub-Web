@@ -37,6 +37,7 @@ export default {
       blog_id: this.id,
       title: '',
       content: '',
+      blog: '',
       owner: '',
     }
   },
