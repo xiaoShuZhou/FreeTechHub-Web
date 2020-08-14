@@ -1,13 +1,16 @@
 <template>
   <div class="container" id="series">
     <div class="search">
-      <h1>SEARCH</h1>
+      <h1 class="title1">SEARCH</h1>
       <div class="search-box">
         <input class="search-text" type="text" placeholder="Search what you want">
         <a class="search-btn" href=""><i class="fas fa-search"></i></a>
       </div>
-      <h1>WHAT'S IN YOUR MIND</h1>
-      <button>START A SERIES</button>
+      <h1 class="title2">WHAT'S IN YOUR MIND</h1>
+      <div class="buttons">
+        <router-link tag="button" :to="{name: 'ShowBlogs'}">START A BLOG</router-link>
+        <router-link tag="button" :to="{name: 'ShowSeries'}">START A SERIES</router-link>
+      </div>
     </div>
     <div class="series">
       <div><h1>TOP TRENDING SERIES</h1></div>
@@ -39,7 +42,7 @@
   .container {
     display: flex;
     background: #FFF4E8;
-    padding: 0 50px 100px 50px;;
+    padding: 0 50px 100px 50px;
   }
 
   .container h1 {
@@ -110,15 +113,21 @@
     filter: opacity(40%);
   }
 
-
+  .buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
   button {
     background: #D6C4BE;
     border-radius: 12px;
     font-size: 1em;
     font-weight: bold;
+    margin: 20px 0;
     padding: 20px 20px;
     border: none;
     outline: none;
+    min-width: 200px;
   }
 
   .search-box {
@@ -169,5 +178,80 @@
     background: white;
   }
 
-
+  @media screen and (max-width: 1120px) {
+    .container{
+      width: 100%;
+      display: grid;
+      grid-template-areas:  'series'
+                            'search';
+      grid-template-columns: 100%;
+      padding: 0;
+    }
+    .series{
+      width: 100%;
+      grid-area: series;
+    }
+    .search{
+      width: 100%;
+      grid-area: search;
+      display: grid;
+      grid-template-areas:  'title1 title2'
+                            'search-box search-box'
+                            'buttons buttons';
+      grid-auto-columns: 50% 50%;
+      justify-items: center;
+      align-items: center;
+    }
+    .title1{
+      grid-area: title1;
+    }
+    .title2{
+      grid-area: title2;
+      word-wrap: break-word;
+    }
+    .search-box{
+      grid-area: search-box;
+    }
+    .buttons{
+      width: 100%;
+      grid-area: buttons;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+  @media screen and (max-width: 380px){
+    .container{
+      width: 100%;
+      display: grid;
+      grid-template-areas:  'series'
+                            'search';
+      grid-template-columns: 100%;
+      padding: 0;
+    }
+   .search{
+      width: 100%;
+      grid-area: search;
+      display: grid;
+      grid-template-areas:  'title1'
+                            'title2'
+                            'search-box'
+                            'buttons';
+      grid-auto-columns: 50% 50%;
+      justify-content: center;
+      align-items: center;
+    }
+    .picture{
+      display: flex;
+      flex-direction: column;
+    }
+    .buttons{
+      width: 100%;
+      grid-area: buttons;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 </style>

@@ -4,13 +4,13 @@
     <div class="question">
       <h1 class="title">{{ question.title }}</h1>
       <p class="Publisher">Publisher:{{ question.owner }}</p>
-      <p class="content" v-html='question.content' v-highlight></p>
+      <div class="content" v-html='question.content' v-highlight></div>
       <p class="bounty">Bounty:{{ question.bounty }}</p>
       <p class="status" v-if="question.status == false">Unsolved</p>
       <p class="status" v-else>Solved</p>
       <div class="buttons">
-          <button @click="editQuestion">Edit</button>
-          <button @click="deleteQuestion">Delete</button>
+        <button @click="editQuestion">Edit</button>
+        <button @click="deleteQuestion">Delete</button>
       </div>
       <hr>
       <h2>Answers:</h2>
@@ -27,6 +27,37 @@
       </ul>
       <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Post your answer" />
       <button @click="saveAnswer()">Post</button>
+      <div class="comment">
+        <ul>
+          <li>
+            <div>
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <a href>用户1</a>
+                <p>回答</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <a href>用户1</a>
+                <p>回答</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <img src="@/assets/img/头像 女孩.svg" alt />
+              <div>
+                <a href>用户1</a>
+                <p>回答</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -89,19 +120,52 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 .ShowQuestion {
   padding: 0 10vw;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .buttons {
-    display: flex;
+  display: flex;
+  justify-content: center;
 }
-
+.content{
+  word-wrap: break-word;
+}
+.question{
+  margin-top: 10vh;
+  width: 100%;
+  height: 100%;
+}
+.comment {
+  grid-area: comment;
+  display: block;
+  margin: 5% 2%;
+}
+.comment img {
+  width: 10%;
+}
+.comment li {
+  margin: 20px 10px;
+}
+.comment li div{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comment li div div{
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

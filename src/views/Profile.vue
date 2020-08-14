@@ -33,9 +33,11 @@ export default {
 }
 .sidebar{
   grid-area: left;
+  transition: all 0.5s ease;
 }
 .content{
   grid-area: content;
+  transition: all 0.5s ease;
 }
 .v-enter,
 .v-leave-to {
@@ -47,12 +49,13 @@ export default {
 .v-leave-active {
   transition: all 1s ease;
 }
-@media screen and (max-width: 1025px){
+@media screen and (max-width: 1280px){
   .Profile {
   display: grid;
   grid-template-columns: 100%;
   grid-template-areas: "content";
   grid-template-rows: 100%;
+  transition: all 0.5s ease-in-out;
   }
 }
 </style>

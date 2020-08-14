@@ -8,7 +8,7 @@
         make your creative changes! If you don't have any programming experience, don't worry, we have complete
         programming and git tutorials to help you easily get there.</p>
     </div>
-    <div>
+    <div class="buttons">
       <button>Tutorial</button>
       <button>FTH Project</button>
     </div>
@@ -61,5 +61,14 @@
     font-size: 1em;
     padding: 20px 20px;
     border: none;
+  }
+  @media screen and (max-width: 750px){
+    .container {
+      width: 100%;
+      padding: 0;
+    }
+    .buttons{
+      margin-bottom: 20px;
+    }
   }
 </style>

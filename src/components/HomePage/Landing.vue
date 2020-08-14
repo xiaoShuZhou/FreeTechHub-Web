@@ -43,5 +43,4 @@
     color: white;
     font-size: 45px;
   }
-
 </style>

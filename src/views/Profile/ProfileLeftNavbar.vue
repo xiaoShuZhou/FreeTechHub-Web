@@ -44,6 +44,12 @@
         </router-link>
       </li>
       <li>
+        <router-link :to="{name:'TransactionRecord'}">
+          <img src="@/assets/img/交易提醒.svg"/>
+          <span>TransactionRecord</span>
+        </router-link>
+      </li>
+      <li>
         <router-link v-if="user != ''" :to="{name:'ChangePassword', params:{id: this.user.pk}}">
           <img src="@/assets/img/设置.svg"/>
           <span>Settings</span>
@@ -79,6 +85,10 @@ export default {
   margin: 0;
   padding: 0;
   text-decoration: none;
+}
+.ProfileLeftNavbar{
+  width: 100%;
+  height: 100vh;
 }
 .list {
   display: flex;
@@ -133,7 +143,7 @@ a:-webkit-any-link {
 .home {
   display: none;
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1280px) {
   .ProfileLeftNavbar {
     position: absolute;
     width: 40px;

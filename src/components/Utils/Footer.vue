@@ -20,7 +20,7 @@ export default {
 <style scoped>
   .footer{
     background: linear-gradient(to left, #ba7453, #d1a884);
-    width: 100vw;
+    width: 100%;
     height: 10vh;
     display: flex;
     align-content: center;
@@ -56,5 +56,15 @@ export default {
     padding-bottom: 5%;
     align-self: center;
   }
-
+  @media screen and (max-width: 484px){
+    .footer{
+      height: 100%;
+    }
+    img {
+      width: 100%;
+      padding-top: 5%;
+      padding-bottom: 5%;
+      align-self: center;
+    }
+  }
 </style>

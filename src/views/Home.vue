@@ -45,4 +45,10 @@ export default {
   scroll-behavior: smooth;
 	text-decoration: none;
 }
+.home{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
 </style>
