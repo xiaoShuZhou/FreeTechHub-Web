@@ -66,10 +66,7 @@
       <div class="buttons">
         <button @click="editBlog">Edit</button>
         <button @click="deleteBlog">Delete</button>
-        <button
-          v-if="this.followeruser.pk !== this.followinguser.pk"
-          @click="followingship"
-        >{{content}}</button>
+        <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
       </div>
       <div class="comment">
         <ul>
@@ -102,24 +99,30 @@
           </li>
         </ul>
       </div>
+      <h2>Comments:</h2>
+      <show-comments v-if="blog != '' && root_comment_tree != ''" :root_id="blog.root_comment" :blog_id="blog.pk" :is_root="true"></show-comments>
     </div>
   </div>
 </template>
 
 <script>
 import Blog from "@/assets/utils/models/Blog";
+import Comment from "@/assets/utils/models/Comment"
 import Navbar from "@/components/Navbar.vue";
 import { login_required } from "@/assets/utils/auth";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
+import ShowComments from '@/components/ShowComments.vue'
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
+    ShowComments
   },
   data() {
     return {
       blog: '',
+      history:'',
       followership:'',
       followinguser:'',
       followeruser:'',
@@ -162,9 +165,29 @@ export default {
           this.$router.push({name: 'ShowBlogs'})
       })
     },
+
     editBlog() {
       this.$router.push({name: 'EditBlog'})
     },
+
+    like() {
+      login_required(this, () => {
+        this.blog.like().then(() => {
+          this.blog.getLikeHistory()
+          .then(history => this.history=history)
+        })
+      })
+    },
+
+    dislike() {
+      login_required(this, () => {
+        this.blog.dislike().then(() => {
+          this.blog.getLikeHistory()
+          .then(history => this.history=history)
+        })
+      })
+    },
+
     followingship() {
       let followership = this._getFollowership()
       if (this.liked) {
@@ -203,16 +226,30 @@ export default {
         Blog.get(this.$route.params.id)
         .then(blog => {
           this.blog = blog
+          Comment.query_sub_comments(blog.root_comment)
+          .then(comment_tree => {
+            let wrapped_comment_tree = Comment.wrap_sub_comments(comment_tree)
+            this.$store.commit('set_root_comment_tree', wrapped_comment_tree)
+            this.$store.commit('set_root_id', this.blog.root_comment)
+          })
+
           this.followeruser = user
           this.followerlists = this.followeruser.follower_users
-          this.init()
+          this.init();
+
           User.get(this.blog.owner).then(user =>{
             this.followinguser = user
             this.init()
           })
+          blog.getLikeHistory().then(history => this.history=history)
         })
     })
   },
+  computed: {
+    root_comment_tree: function() {
+      return this.$store.state.root_comment_tree
+    }
+  }
 }
 </script>
 

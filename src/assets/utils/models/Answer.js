@@ -4,8 +4,8 @@ import axios from 'axios'
 import BASE_URL from '../consts'
 
 class Answer extends Model {
-    static app_name = 'question'    // required
-    static model_name = 'answer'   // required
+    static app_name = 'question'    
+    static model_name = 'answer'   
 
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
@@ -14,12 +14,10 @@ class Answer extends Model {
                  content_type_id}) {
         super({content, owner,question})     // data fields that is requried when save
 
-        // required data fields
-        this.app_name = 'question'  // required
-        this.model = "answer"      // required
-        this.pk = id            // required
+        this.app_name = 'question'  
+        this.model = "answer"      
+        this.pk = id            
 
-        // this custom data for Tag
         this.time = time
         this.status = status
         this.owner = owner
@@ -62,7 +60,6 @@ class Answer extends Model {
         return await Model._getOne(this.app_name, this.model_name, id, this)
     }
 
-    // get all the model
     static async all() {
         return await Model._raw_all(this.app_name, this.model_name, this)
     }
