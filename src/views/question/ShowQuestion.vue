@@ -18,7 +18,7 @@
         <li v-for="answer in answers" :key="answer.id">
           <div class="card">
             <h2 class="card-title">Answered by {{ answer.owner }} at {{ answer.time }}</h2>
-            <p class="content" v-html='answer.content' v-highlight></p>
+            <p class="content" v-html='answer.m_content' v-highlight></p>
             <p class="status" v-if="answer.status == false">Unaccepted</p>
             <p class="status" v-else>Accepted</p>
             <button>Accept</button>
@@ -70,7 +70,10 @@ export default {
     getAnswers() {
       Question.get(this.$route.params.id).then(question => {
         this.question = question
-        this.answers = question.answers
+        this.answers = []
+        for (let answer of question.answers) {
+          this.answers.push(new Answer(answer))
+        }
       })
     },
     saveAnswer() {
