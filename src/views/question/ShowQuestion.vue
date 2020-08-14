@@ -70,10 +70,7 @@ export default {
     getAnswers() {
       Question.get(this.$route.params.id).then(question => {
         this.question = question
-        this.answers = []
-        for (let answer of question.answers) {
-          this.answers.push(new Answer(answer))
-        }
+        this.answers = question.answers
       })
     },
     saveAnswer() {

@@ -1,6 +1,7 @@
 import Model from "./Model";
 import marked from 'marked'
 import Tag from "./Tag"
+import Answer from './Answer'
 
 class Question extends Model {
     static app_name = 'question'     
@@ -18,11 +19,14 @@ class Question extends Model {
         this.status = status
         this.owner = owner
         this.m_content = marked(this.content)
-        this.answers = answers
 
         if (tags != undefined) {
             this.tags = []
             tags.forEach(tag => { this.tags.push(new Tag(tag)) })
+        }
+        if (answers != undefined) {
+            this.answers = []
+            answers.forEach(answwer => { this.answers.push(new Answer(answer)) })
         }
     }
 
