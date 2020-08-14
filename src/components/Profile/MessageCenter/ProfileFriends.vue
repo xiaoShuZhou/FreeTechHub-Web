@@ -6,11 +6,12 @@
       <div class="list">
         <ul ref="friends">
           <li class="flex" 
-              @click="chatWith(friend.pk)" 
+              @click="chatWith(friend)" 
               v-for="friend in friends" :key='friend.pk'
               :ref="'friend-'+friend.pk">
             <img src="@/assets/img/landing.jpg" class="avatar">
-            <p>username : {{friend.username}}</p>
+            <p>{{friend.username}}</p>
+            <NewMessage v-if="friend.newMessageNum != 0" :num=friend.newMessageNum />
           </li>
         </ul>
       </div>
@@ -19,7 +20,18 @@
 
     <div class="chat">
       <div class="message">
-        <img src="@/assets/img/landing.jpg">
+        <ul>
+          <li class="one-message" v-for="message in messages" :key="message.pk">
+            <div v-if="message.sender == self.pk" class="right">
+              <span>{{self.username}}</span>
+              <p>{{message.content}}</p>
+            </div>
+            <div v-else class="left">
+              <span>{{chattingWith.username}}</span>
+              <p>{{message.content}}</p>
+            </div>
+          </li>
+        </ul>
       </div>
       <div class="edit">
         <div class="icon">
@@ -27,8 +39,8 @@
           <img src="@/assets/img/img.svg" alt="">
           <a class="history-message" href="#">消息记录</a>
         </div>
-        <textarea></textarea>
-        <button type="button" class="send">发送</button>
+        <textarea v-model="message"></textarea>
+        <button type="button" class="send" @click="newMessage()">发送</button>
       </div>
     </div>
   </div>
@@ -36,35 +48,85 @@
 
 <script>
 import { login_required } from '@/assets/utils/auth'
+import {addClassNames, removeClassNames} from '@/assets/utils/classNameHandler'
+import {domain} from '@/assets/utils/consts'
+import Message from '@/assets/utils/models/Message'
+import Chat from '@/assets/utils/models/Chat'
+import NewMessage from '@/components/NewMessage'
+
 export default {
   data() {
     return {
+      self: '',
       friends: '',
+      Websocket: '',
+      message: '',
+      messages: [],
     }
+  },
+  components: {
+    NewMessage
   },
   methods: {
     getFriends(user) {
       user.getFriends()
       .then(friends => this.friends = friends)
     },
-    chatWith(user_id) {
+    chatWith(user) {
       // clean ths background-color of the old selected user
       for (let node of this.$refs.friends.childNodes) {
-        node.style['background-color'] = ''
+        removeClassNames(node, ["selected"])
       }
       // light the selected user
-      this.$refs['friend-'+user_id][0].style['background-color'] = '#c18cf2'
-      this.$store.commit('chatWith', user_id)
+      addClassNames(this.$refs['friend-'+user.pk][0], ["selected"])
+      this.$store.commit('chatWith', user)
+    },
+    newMessage(register) {
+      let msg = JSON.stringify({
+        register: register ? true : false,
+        sender_id : this.self.pk,
+        receiver_id: this.chattingWith.pk,
+        message: this.message
+      })
+      this.websocket.send(msg)
+      this.message = ''
     }
   },
   created() {
     login_required(this, self => {
+      this.self = self
       this.getFriends(self)
+      this.websocket = new WebSocket('ws://' + domain + '/ws/')
+      this.websocket.onopen = () => {
+        this.newMessage(true)
+      }
+      this.websocket.onmessage = (event) => {
+        let msg = new Message(JSON.parse(event.data))
+        if (msg.sender == this.chattingWith.pk) {
+          this.messages.push(msg)
+        } else {
+          for (let friend of this.friends) {
+            if (friend.pk == msg.sender) friend.newMessageNum++
+          }
+        }
+      }
     })
   },
   computed: {
     chattingWith () {
       return this.$store.state.chattingWith
+    }
+  },
+  watch: {
+    chattingWith: {
+      handler: function(newVal) {
+        Chat.getChat(this.self.pk, newVal.pk).then(chat => {
+          this.chat = chat
+          this.messages = chat.messages
+        })
+      },
+      // 深度深入对象内部变化
+      deep: true
     }
   }
 }
@@ -109,23 +171,28 @@ ul::-webkit-scrollbar {display:none}
 li{
   text-align: center;
 }
-li:nth-last-child(1){
+li:nth-last-child(1) {
   border-bottom: 2px solid #c3c3c3;
   padding-bottom: 30px;
 }
-li:nth-child(1){
+li:nth-child(1) {
   border-top: 2px solid #c3c3c3;
   padding-top: 30px;
 }
-.message{
+.message {
   grid-area: message;
+  overflow: scroll;
+  scrollbar-width: none;
+  height: 60vh;
 }
-.edit{
+.message::-webkit-scrollbar {display:none}
+
+.edit {
   border: 2px solid black;
   grid-area: edit;
   height: 100%;
 }
-.chat{
+.chat {
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -133,7 +200,7 @@ li:nth-child(1){
   border: 2px solid black;
   height: 107%;
 }
-input{
+input {
   border-radius: 20px;
   border: 2px solid black;
   outline: none;
@@ -226,5 +293,29 @@ li a div div{
 .icon img{
   width: 30px;
   height: 30px;
+}
+
+.selected {
+  background-color: aquamarine;
+}
+
+.one-message {
+  display: flex;
+  flex-direction: column;
+  margin: 1vh 2vw;
+}
+
+.one-message .left {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.one-message .right {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  align-items: flex-end;
 }
 </style>

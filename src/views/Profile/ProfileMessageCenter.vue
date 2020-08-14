@@ -3,7 +3,7 @@
     <div class="navbar">
       <router-link v-if="user && user.pk" :to="{name:'Friends', params:{id: user.pk}}">好友消息</router-link>
       <router-link :to="{name:'Reply'}">回复我的</router-link>
-      <router-link v-if="user && user.pk" :to="{name:'RequestFriend', params:{id: user.pk}}">好友申请</router-link>
+      <router-link v-if="user != ''" :to="{name:'RequestFriend',  params:{id: user.pk}}">好友申请</router-link>
     </div>
     <transition class="main" mode="out-in">
       <router-view></router-view>

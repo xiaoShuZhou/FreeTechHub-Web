@@ -8,7 +8,7 @@
     </h2>
     <ul class="list">
       <li>
-        <router-link v-if="user && user.pk" :to="{name:'ProfileInformation', params:{id: this.user.pk}}">
+        <router-link v-if="user != ''" :to="{name:'ProfileInformation', params:{id: this.user.pk}}">
           <img src="@/assets/img/个人信息.svg"/>
           <span>Profile</span>
         </router-link>
@@ -26,19 +26,19 @@
         </router-link>
       </li>
       <li>
-        <router-link v-if="user && user.pk" :to="{name:'ProfileFollow', params:{id: this.user.pk}}">
+        <router-link v-if="user != ''" :to="{name:'ProfileFollow', params:{id: this.user.pk}}">
           <img src="@/assets/img/关注.svg"/>
           <span>Follow</span>
         </router-link>
       </li>
       <li>
-        <router-link v-if="user && user.pk" :to="{name:'ProfileMessageCenter', params:{id: this.user.pk}}">
+        <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
           <img src="@/assets/img/好友.svg"/>
           <span>MessageCenter</span>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileSkillTrees'}">
+        <router-link v-if="user != ''" :to="{name:'ProfileSkillTrees'}">
           <img src="@/assets/img/树叶.svg"/>
           <span>SkillTress</span>
         </router-link>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import User from '@/assets/utils/models/User'
+import {login_required} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
   data() {
@@ -74,10 +74,8 @@ export default {
       user: '',
     }
   },
-  mounted() {
-    User.getSelf().then(user =>{
-    this.user= user
-    })
+  created() {
+    login_required(this, user => this.user = user)
   },
 }
 </script>
