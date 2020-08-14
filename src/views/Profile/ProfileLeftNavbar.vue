@@ -50,7 +50,7 @@
         </router-link>
       </li>
       <li>
-        <router-link v-if="user && user.pk" :to="{name:'ProfileSettings', params:{id: this.user.pk}}">
+        <router-link v-if="user != ''" :to="{name:'ChangePassword', params:{id: this.user.pk}}">
           <img src="@/assets/img/设置.svg"/>
           <span>Settings</span>
         </router-link>

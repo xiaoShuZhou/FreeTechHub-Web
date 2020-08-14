@@ -2,8 +2,8 @@
 
     <div class="box">
       <div>
-        <router-link v-if="user && user.pk" :to="{name:'ChangePassword', params:{id: this.user.pk}}">修改密码</router-link>
-        <router-link v-if="user && user.pk" :to="{name:'ChangeMail', params:{id: this.user.pk}}">修改邮箱</router-link>
+        <router-link v-if="user" :to="{name:'ChangePassword', params:{id: this.user.pk}}">修改密码</router-link>
+        <router-link v-if="user" :to="{name:'ChangeMail', params:{id: this.user.pk}}">修改邮箱</router-link>
         <router-link :to="{name:'ForgetPassword'}">忘记密码</router-link>
       </div>
       <transition mode="out-in">

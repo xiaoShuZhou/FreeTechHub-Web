@@ -77,8 +77,7 @@ const routes = [
           { path: 'requestfriend/:id',  name: 'RequestFriend',  component: RequestFriend},
         ]
       },
-      { path: 'settings',               name: 'ProfileSettings',      component: ProfileSettings,     props: true,
-        redirect: 'settings/changepassword/:id',
+      { path: 'settings',               name: 'ChangePassword',      component: ProfileSettings,     props: true,
         children:[
           { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
           { path: 'changemail',         name: 'ChangeMail',     component: ChangeMail},
