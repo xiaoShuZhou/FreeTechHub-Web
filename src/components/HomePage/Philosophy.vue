@@ -44,5 +44,10 @@
   p {
     color: #A8364C;
   }
-
+@media screen and (max-width: 516px){
+  .philosophy{
+    display: flex;
+    flex-direction: column;
+  }
+}
 </style>

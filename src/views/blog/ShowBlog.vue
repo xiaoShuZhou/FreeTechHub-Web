@@ -119,104 +119,101 @@ export default {
   },
   data() {
     return {
-      blog: "",
-      followership: "",
-      followinguser: "",
-      followeruser: "",
-      followerlists: "",
-      deleteid: "",
-      content: "follow",
+      blog: '',
+      followership:'',
+      followinguser:'',
+      followeruser:'',
+      followerlists:'',
+      deleteid:'',
+      content: 'follow',
       liked: true,
-    };
+    }
   },
   methods: {
     _getFollowership() {
       return new Followership({
-        following: this.followinguser.pk,
-        follower: this.followeruser.pk,
-      });
+        following:this.followinguser.pk,
+        follower:this.followeruser.pk,
+      })
     },
-    init() {
-      let follower_id = [];
-      if (!this.followerlists) {
+    init(){
+      let follower_id = []
+      if(!this.followerlists)
+      {
         return;
       }
-      this.followerlists.forEach((followerlist) => {
-        follower_id.push({
-          following_id: followerlist.following,
-          id: followerlist.id,
-        });
-      });
-      follower_id.forEach((item) => {
-        if (item.following_id == this.followinguser.pk) {
-          this.deleteid = item.id;
-          this.liked = false;
-          this.content = "unfollow";
-        } else {
-          this.liked = true;
-          this.content = "Follow";
+      this.followerlists.forEach(followerlist => {
+        follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
+      })
+      follower_id.forEach(item=>{
+      if(item.following_id==this.followinguser.pk){
+          this.deleteid = item.id
+          this.liked = false
+          this.content = "unfollow"
         }
-      });
-    },
+      else{
+        this.liked = true;
+        this.content = "Follow"
+        }
+      })
+   },
     deleteBlog() {
       this.blog.delete().then(() => {
-        this.$router.push({ name: "ShowBlogs" });
-      });
+          this.$router.push({name: 'ShowBlogs'})
+      })
     },
     editBlog() {
-      this.$router.push({ name: "EditBlog" });
+      this.$router.push({name: 'EditBlog'})
     },
     followingship() {
-      let followership = this._getFollowership();
+      let followership = this._getFollowership()
       if (this.liked) {
-        this.content = "unfollow";
-        this.liked = !this.liked;
-        followership.save();
+        this.content = "unfollow"
+        this.liked = !this.liked
+        followership.save()
       } else {
-        this.content = "follow";
-        User.getSelf().then((user) => {
-          this.followeruser = user;
-          this.followerlists = this.followeruser.follower_users;
-          let follower_id = [];
-          if (!this.followerlists) {
-            return;
-          }
-          this.followerlists.forEach((followerlist) => {
-            follower_id.push({
-              following_id: followerlist.following,
-              id: followerlist.id,
-            });
-          });
-          follower_id.forEach((item) => {
-            if (item.following_id == this.followinguser.pk) {
-              this.deleteid = item.id;
-            } else {
-              console.log("ERR");
-            }
-          });
-          Followership.get(this.deleteid).then((followership) => {
-            followership.delete();
-          });
-        });
-        this.liked = !this.liked;
+          this.content = "follow"
+          User.getSelf().then(user =>{
+            this.followeruser = user
+            this.followerlists = this.followeruser.follower_users
+            let follower_id = []
+            if(!this.followerlists)
+             {
+               return;
+             }
+             this.followerlists.forEach(followerlist => {
+               follower_id.push({'following_id':followerlist.following,'id':followerlist.id})
+             })
+             follower_id.forEach(item=>{
+             if(item.following_id==this.followinguser.pk){
+                 this.deleteid = item.id
+             }
+             else{
+               console.log('ERR')
+             }
+           })
+           Followership.get(this.deleteid).then(followership => {followership.delete()})
+         })
+         this.liked = !this.liked
       }
     },
   },
   created() {
     login_required(this, (user) => {
-      Blog.get(this.$route.params.id).then((blog) => {
-        this.blog = blog;
-        this.followeruser = user;
-        this.followerlists = this.followeruser.follower_users;
-        this.init();
-        User.get(this.blog.owner).then((user) => {
-          this.followinguser = user;
-          this.init();
-        });
-      });
-    });
+        Blog.get(this.$route.params.id)
+        .then(blog => {
+          this.blog = blog
+          this.followeruser = user
+          this.followerlists = this.followeruser.follower_users
+          this.init()
+          User.get(this.blog.owner).then(user =>{
+            this.followinguser = user
+            this.init()
+          })
+        })
+    })
   },
-};
+}
 </script>
 
 <style scoped>

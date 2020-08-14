@@ -24,7 +24,7 @@ export default {
   },
   mounted() {
     User.getSelf().then(user =>{
-    this.user= user
+    this.user = user
     })
   },
 }

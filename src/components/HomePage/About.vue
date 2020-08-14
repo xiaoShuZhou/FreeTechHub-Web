@@ -22,8 +22,10 @@
 
 <style scoped>
   .about {
+    width: 100%;
     background: #D6C1B4;
     padding: 0 100px 100px 20px;
+    box-sizing: border-box;
   }
 
   .center {
@@ -65,5 +67,48 @@
   .about-under > div:nth-child(3) {
     padding-left: 33px;
   }
+@media screen and (max-width: 1120px){
+  .about {
+    width: 100%;
+    background: #D6C1B4;
+    padding: 0;
+  }
+  .center{
+    width: 100%;
 
+    padding-top: 2vh;
+    padding-bottom: 50px;
+  }
+  .about-under{
+    display: grid;
+    grid-template-areas: 'img1'
+                         'text1'
+                         'img2'
+                         'text2';
+    grid-template-columns: 100%;
+    justify-items: center;
+    align-items: center;
+    grid-row-gap: 20px;
+  }
+  .about img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .about-under > div:nth-child(1) {
+    grid-area: img1;
+  }
+  .about-under > div:nth-child(2) {
+    grid-area: text1;
+    padding: 0;
+  }  
+  .about-under > div:nth-child(3) {
+    grid-area: text2;
+    padding: 0;
+  }
+  .about-under > div:nth-child(4) {
+    grid-area: img2;
+    padding-bottom: 20px;
+  }
+}
 </style>

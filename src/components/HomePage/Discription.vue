@@ -49,5 +49,14 @@
   h1, p {
     color: aliceblue;
   }
-
+@media screen and (max-width: 516px) {
+  .knowledge{
+    padding-top: 6vh;
+  }
+}
+@media screen and (max-width: 343px) {
+  .knowledge{
+    padding-top: 15vh;
+  }
+}
 </style>
