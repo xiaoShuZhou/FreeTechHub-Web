@@ -68,6 +68,8 @@
         <button @click="deleteBlog">Delete</button>
         <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
       </div>
+      <h2>Comments:</h2>
+      <show-comments v-if="blog != '' && root_comment_tree != ''" :root_id="blog.root_comment" :blog_id="blog.pk" :is_root="true"></show-comments>
       <div class="comment">
         <ul>
           <li>
@@ -99,8 +101,6 @@
           </li>
         </ul>
       </div>
-      <h2>Comments:</h2>
-      <show-comments v-if="blog != '' && root_comment_tree != ''" :root_id="blog.root_comment" :blog_id="blog.pk" :is_root="true"></show-comments>
     </div>
   </div>
 </template>
