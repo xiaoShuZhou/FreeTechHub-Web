@@ -122,7 +122,6 @@ export default {
   data() {
     return {
       blog: '',
-      history:'',
       followership:'',
       followinguser:'',
       followeruser:'',
@@ -130,6 +129,7 @@ export default {
       deleteid:'',
       content: 'follow',
       liked: true,
+      history: ''
     }
   },
   methods: {
@@ -170,24 +170,6 @@ export default {
       this.$router.push({name: 'EditBlog'})
     },
 
-    like() {
-      login_required(this, () => {
-        this.blog.like().then(() => {
-          this.blog.getLikeHistory()
-          .then(history => this.history=history)
-        })
-      })
-    },
-
-    dislike() {
-      login_required(this, () => {
-        this.blog.dislike().then(() => {
-          this.blog.getLikeHistory()
-          .then(history => this.history=history)
-        })
-      })
-    },
-
     followingship() {
       let followership = this._getFollowership()
       if (this.liked) {
@@ -220,6 +202,24 @@ export default {
          this.liked = !this.liked
       }
     },
+
+    like() {
+      login_required(this, () => {
+        this.blog.like().then(() => {
+          this.blog.getLikeHistory()
+          .then(history => this.history=history)
+        })
+      })
+    },
+
+    dislike() {
+      login_required(this, () => {
+        this.blog.dislike().then(() => {
+          this.blog.getLikeHistory()
+          .then(history => this.history=history)
+        })
+      })
+    },
   },
   created() {
     login_required(this, (user) => {
@@ -241,7 +241,7 @@ export default {
             this.followinguser = user
             this.init()
           })
-          blog.getLikeHistory().then(history => this.history=history)
+          blog.getLikeHistory().then(history => this.history = history)
         })
     })
   },

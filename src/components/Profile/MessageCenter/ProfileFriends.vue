@@ -80,6 +80,7 @@ export default {
       // light the selected user
       addClassNames(this.$refs['friend-'+user.pk][0], ["selected"])
       this.$store.commit('chatWith', user)
+      user.newMessageNum = 0
     },
     newMessage(register) {
       let msg = JSON.stringify({
@@ -101,13 +102,20 @@ export default {
         this.newMessage(true)
       }
       this.websocket.onmessage = (event) => {
-        let msg = new Message(JSON.parse(event.data))
-        if (msg.sender == this.chattingWith.pk) {
-          this.messages.push(msg)
-        } else {
-          for (let friend of this.friends) {
-            if (friend.pk == msg.sender) friend.newMessageNum++
+        let msg = JSON.parse(event.data)
+        console.log(msg)
+        if (msg.type == "message") {
+          msg = new Message(msg)
+          if (msg.sender == this.chattingWith.pk ||
+              msg.receiver == this.chattingWith.pk) {
+            this.messages.push(msg)
+          } else {
+            for (let friend of this.friends) {
+              if (friend.pk == msg.sender) friend.newMessageNum++
+            }
           }
+        } else {
+          console.log("else")
         }
       }
     })

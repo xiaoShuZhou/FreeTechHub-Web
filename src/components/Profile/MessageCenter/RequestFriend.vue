@@ -1,18 +1,27 @@
 <template>
   <div class="RequestFriend">
-    <div>
+    <div class="list">
+      <h2>Your requests</h2>
       <ul>
-        <li v-for="requestlist in requestlists" :key='requestlist.url'>
-          <a href="#" class="avatar">
-            <img src="@/assets/img/头像 女孩.svg" alt />
-            <div>
-              <p v-for="fromuser in requestlist.fromuser" :key='fromuser.url'>username:{{fromuser.username}}</p>
-              <p>MESSAGE:{{requestlist.request_message}}</p>
-              <p>TIME:{{requestlist.timestamp}}</P>
-            </div>
-            <button class="btn"  @click="accept(requestlist)">accept</button>
-            <button class="btn"  @click='cancel(requestlist)'>cancel</button>
-          </a>
+        <li v-for="request in sent_requests" :key='request.pk'>
+          <img src="@/assets/img/头像 女孩.svg" alt="avatar"/>
+          {{ request.receiver_instance.username }} {{ request.datetime }}
+          <p>Note: {{ request.note }}</p>
+          <p>State: {{ request.getState() }}</p>
+          <button class="btn" @click="request.cancel()">cancel</button>
+        </li>
+      </ul>
+    </div>
+    <div class="list">
+      <h2>Received requests</h2>
+      <ul>
+        <li v-for="request in received_requests" :key='request.pk'>
+          <img src="@/assets/img/头像 女孩.svg" alt="avatar"/>
+          {{ request.sender_instance.username }} {{ request.datetime }}
+          <p>Note: {{ request.note }}</p>
+          <p>State: {{ request.getState() }}</p>
+          <button class="btn" @click="request.accept()">Accept</button>
+          <button class="btn" @click="request.deny()">Deny</button>
         </li>
       </ul>
     </div>
@@ -20,61 +29,25 @@
 </template>
 
 <script>
-import FriendRequest from '@/assets/utils/models/FriendRequest'
-import Friendship from '@/assets/utils/models/Friendship'
+
 import { login_required } from '@/assets/utils/auth'
 export default {
   data() {
     return {
-      requestlists: '',
-      is_cancel: '',
+      sent_requests: '',
+      received_requests: ''
     }
   },
   methods: {
-    _getstate(requestlist) {
-      return new FriendRequest({
-        id: requestlist.id,
-        is_cancel: this.is_cancel,
-        to_user: requestlist.to_user,
-        from_user: requestlist.from_user,
-      })
-    },
-    handle(requestlist) {
-      FriendRequest.get(requestlist.id)
-        .then(FriendRequest => {
-          this.is_cancel = FriendRequest.is_cancel
-          this.is_cancel = !this.is_cancel
-          let state = this._getstate(requestlist)
-          state.update()
-            .then(() => {
-              this.getAlllrequestlist()
-            })
-        })
-    },
-    _getfriendship(friend_1, friend_2) {
-      return new Friendship({
-        friend_1: friend_1,
-        friend_2: friend_2,
-      })
-    },
-    getAlllrequestlist() {
-      FriendRequest.getRequestlist()
-        .then(requestlist => {
-          this.requestlists = requestlist.request
-        })
-    },
-    cancel(requestlist) {
-      this.handle(requestlist)
-    },
-    accept(requestlist) {
-      this.handle(requestlist)
-      let friendship = this._getfriendship(requestlist.to_user, requestlist.from_user)
-      friendship.save()
-    }
   },
   created() {
-    login_required(() => {
-      this.getAlllrequestlist()
+    login_required(this, user => {
+      // get all the friend request of this uesr 
+      user.getFriendRequests()
+      .then(requests => this.sent_requests = requests)
+      // get all the friend request that sent to this uesr 
+      user.getReceivedFriendRequests()
+      .then(requests => this.received_requests = requests)
     })
   },
 };
@@ -84,12 +57,17 @@ export default {
 .RequestFriend {
   width: 100%;
   height: 90vh;
+  display: flex;
+}
+.list {
+  width: 47.5%;
 }
 ul{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 li a {
   display: flex;
