@@ -72,7 +72,8 @@ export default {
 }
 .ShowSeries {
   width: 100%;
-  height: 150vh;
+  height: 100%;
+  margin: 10vh 0;
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
@@ -147,10 +148,9 @@ button {
 }
 @media screen and (max-width: 1025px){
   .ShowSeries {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
   }
   .cardlist {
     list-style: none;
@@ -167,19 +167,18 @@ button {
 }
 @media screen and (max-width: 650px) {
   .ShowSeries {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
   }
   .cardlist {
-  list-style: none;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  margin-top: 10%;
-  flex-direction: column;
-  justify-content: center;
+    list-style: none;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-top: 10%;
+    flex-direction: column;
+    justify-content: center;
   }
   .cardlist li{
     height: 100%;
