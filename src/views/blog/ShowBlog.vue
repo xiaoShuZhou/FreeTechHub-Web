@@ -70,7 +70,12 @@
       </div>
       <div class="comment">
         <h2>Comments:</h2>
-        <show-comments v-if="blog != '' && root_comment_tree != ''" :root_id="blog.root_comment" :blog_id="blog.pk" :is_root="true"></show-comments>
+        <show-comments v-if="blog != '' && root_comment_tree != ''" 
+          :root_id="blog.root_comment" 
+          :blog_id="blog.pk" 
+          :is_root="true"
+          :showComment="true">
+        </show-comments>
       </div> 
     </div>
   </div>

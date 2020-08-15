@@ -9,22 +9,31 @@
 					<div v-if="is_root == false">
 						<h2 class="card-title">By {{ comment_tree.comment.owner }} at {{ comment_tree.comment.time }}</h2>
             <div v-if="comment_tree.comment.owner == user">
-              <button @click="Delete(comment_tree.comment)">Delete</button>
+              <button @click="deleteComment(comment_tree.comment)">Delete</button>
             </div>
 						<p class="content" v-html='comment_tree.comment.content'></p>
 						<div v-if="comment_tree.comment.status == false">
-							<button @click="ReplyTo(comment_tree.comment)">Reply To</button>
+							<button @click="replyTo(comment_tree.comment)">Reply To</button>
 						</div>
 						<div v-else>
-							<mavon-editor :ishljs = "true" :preview="true" v-model="sub_comment_content"  placeholder="What do you want to post" />
-							<button @click="saveSubComment(comment_tree.comment)">Save</button>
-							<button @click="Cancel(comment_tree.comment)">Cancel</button>
+              <mavon-editor :ishljs = "true" :preview="true" v-model="sub_comment_content"  placeholder="What do you want to post" />
+              <button @click="saveSubComment(comment_tree.comment)">Save</button>
+              <button @click="cancel(comment_tree.comment)">Cancel</button>
 						</div>
+            <div v-if="is_root == false">
+              <button v-if="showChildren == false" @click="toggleChildren">Check out reply</button>
+              <button v-if="showChildren" @click="toggleChildren">Stow reply</button>
+            </div>
 						<hr>
 					</div>
 					<div v-if="comment_tree.sub_comment_ids.length != 0">
 						<li v-for="comment_id in comment_tree.sub_comment_ids" :key="comment_id">
-							<show-comments :root_id="comment_id" :blog_id="blog_id" :is_root="false"></show-comments>
+							<show-comments v-if="showChildren" 
+                :root_id="comment_id" 
+                :blog_id="blog_id" 
+                :is_root="false"
+                :showComment="false">
+              </show-comments>
 						</li>
 					</div>
 				</div>
@@ -38,12 +47,13 @@ import {login_required} from '@/assets/utils/auth'
 
 export default {
 	name:"ShowComments",
-	props: ['root_id','blog_id', 'is_root'],
+	props: ['root_id','blog_id', 'is_root', 'showComment'],
 	data(){
 		return {
 			comment_tree:'',
 			comment_content:'',
-			sub_comment_content:'',
+      sub_comment_content:'',
+      showChildren:this.showComment,
       owner:'',
       user:'',
 		}
@@ -67,11 +77,11 @@ export default {
       })
     },
 
-    ReplyTo(comment){
+    replyTo(comment){
       comment.status = true
     },
 
-    Cancel(comment){
+    cancel(comment){
       comment.status = false
     },
 
@@ -102,7 +112,7 @@ export default {
       })
     },
     
-    Delete(comment){
+    deleteComment(comment){
       comment.delete().then(() => {
         Comment.query_sub_comments(this.$store.state.root_id)
         .then(comment_tree => {
@@ -111,6 +121,10 @@ export default {
           this.comment_tree = Comment.get_matched_comment_tree(this.$store.state.root_comment_tree, this.$store.state.root_id)
         })
       })
+    },
+
+    toggleChildren(){
+      this.showChildren = !this.showChildren
     }
 	},
 	created() {
