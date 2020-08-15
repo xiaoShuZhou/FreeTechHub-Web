@@ -70,7 +70,7 @@ export default {
       this.$router.push({
         name: 'EditProfile',
         params: {
-          id: this.user.pk
+          id: this.profile_owner.pk
         }
       })
     },
