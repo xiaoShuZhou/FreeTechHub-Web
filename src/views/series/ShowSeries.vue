@@ -14,13 +14,13 @@
             <img class="avatar" src="@/assets/img/头像 女孩.svg">
             <a href="">用户名</a>
           </div>
-          <p class="seriescontent">{{ series.description | stringfilter}}</p>
           <h3>Tags: </h3>
           <ul>
             <li v-for="tag in series.tags" :key="tag.pk">
               {{tag.tag_name}}
             </li>
           </ul>
+          <p class="seriescontent">{{ series.description | stringfilter}}</p>
         </div>
       </li>
     </ul>
@@ -83,7 +83,6 @@ export default {
   list-style: none;
   display: grid;
   width: 100%;
-  height: 100%;
   margin-top: 10%;
   grid-template-columns: 33.3% 33.3% 33.3%;
 }
