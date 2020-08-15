@@ -11,7 +11,6 @@
               <img class="avatar" src="@/assets/img/头像 女孩.svg">
               <a href="">用户名</a>
             </div>
-            <!-- <p class="content" v-html="question.content"></p> -->
             <p class="bounty">Bounty:{{ question.bounty }}</p>
           </div>
         </li>

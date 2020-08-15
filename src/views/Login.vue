@@ -105,16 +105,18 @@ export default {
 .Login{
 	margin: 0;
 	padding: 0;
+  height: 100vh;
 	font-family: sans-serif;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .box{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  margin-top: 8%;
-	margin-left: 35%;
 	width: 500px;
   height: 400px;
 	padding: 40px;
@@ -179,5 +181,12 @@ a{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+@media screen and (max-width: 550px) {
+  .box{
+    width: 100vw;
+    height: auto;
+    margin-left: 0;
+  }
 }
 </style>

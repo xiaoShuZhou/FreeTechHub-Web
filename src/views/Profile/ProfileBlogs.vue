@@ -3,8 +3,10 @@
     <div class="BlogList">
       <input type="text" placeholder="Search"/>
       <h2>BlogList</h2>
-      <li v-for="blog in blogs" :key="blog.id">
-        {{blog.title}}
+      <li v-for="blog in blogs" :key="blog.pk">
+        <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
+          {{ blog.title }}
+        </router-link>
       </li>
     </div>
     <BlogDetail class="BlogDetail"/>
@@ -32,11 +34,12 @@ export default {
 <style  scoped>
 * {
   width: auto;
+  text-decoration: none;
 }
 .ProfileBlogs{
   display: grid;
   grid-template-areas: 'BlogList BlogDetail';
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 30% 70%;
 }
 .BlogList{
   height: 100vh;
@@ -56,8 +59,7 @@ li{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 25px;
   text-align: center;
-  padding-left: 200px;
-  line-height: 350px;
+  line-height: 120px;
 
 }
 input{
