@@ -4,23 +4,9 @@
       <div class="questionlist">
         <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''" />
         <div class="list">
-          <ul>
-            <li>
-              <a href="">
-                问题1
-              </a>
-            </li>
-            <li>
-              <a href="">
-                问题2
-              </a>
-            </li>
-            <li>
-              <a href="">
-                问题3
-              </a>
-            </li>
-          </ul>
+          <li v-for="question in questions" :key="question.pk">
+            <router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link>
+          </li>
         </div>
       </div>
       <div class="questiondetail">
@@ -60,8 +46,16 @@
 </template>
 
 <script>
+import Question from '@/assets/utils/models/Question'
 export default {
-
+  data() {
+    return {
+      questions:''
+    }
+  },
+  created() {
+    Question.all().then(questions => this.questions = questions)
+  },
 }
 </script>
 
@@ -69,6 +63,8 @@ export default {
 *{
   margin: 0;
   padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 .ProfileQuestions{
   width: 100%;
