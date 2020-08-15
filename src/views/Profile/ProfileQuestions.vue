@@ -4,7 +4,7 @@
       <div class="questionlist">
         <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''" />
         <div class="list">
-          <li v-for="question in questions" :key="question.id">
+          <li v-for="question in questions" :key="question.pk">
             <router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link>
           </li>
         </div>

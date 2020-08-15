@@ -3,7 +3,7 @@
     <div class="BlogList">
       <input type="text" placeholder="Search"/>
       <h2>BlogList</h2>
-      <li v-for="blog in blogs" :key="blog.id">
+      <li v-for="blog in blogs" :key="blog.pk">
         <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
           {{ blog.title }}
         </router-link>
