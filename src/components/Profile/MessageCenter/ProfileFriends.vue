@@ -49,7 +49,7 @@
 <script>
 import { login_required } from '@/assets/utils/auth'
 import {addClassNames, removeClassNames} from '@/assets/utils/classNameHandler'
-import {domain} from '@/assets/utils/consts'
+import {DOMAIN} from '@/assets/utils/consts'
 import Message from '@/assets/utils/models/Message'
 import Chat from '@/assets/utils/models/Chat'
 import NewMessage from '@/components/NewMessage'
@@ -97,7 +97,7 @@ export default {
     login_required(this, self => {
       this.self = self
       this.getFriends(self)
-      this.websocket = new WebSocket('ws://' + domain + '/ws/')
+      this.websocket = new WebSocket('ws://' + DOMAIN + '/ws/')
       this.websocket.onopen = () => {
         this.newMessage(true)
       }
