@@ -89,8 +89,8 @@ export default {
     },
     getAnswers() {
       Question.get(this.$route.params.id).then((question) => {
-        this.question = question;
-        this.answers = question.answers;
+        this.question = question
+        this.answers = question.answers
       })
     },
     saveAnswer() {
