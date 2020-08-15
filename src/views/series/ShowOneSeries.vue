@@ -123,6 +123,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10vh 0;
 }
 .cardlist {
   list-style: none;

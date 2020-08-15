@@ -1,10 +1,14 @@
 <template>
   <div class="ShowQuestion">
     <Navbar />
+    <img class="landing" src="@/assets/img/landing.jpg">
     <div class="question">
       <div class="title">
         <h1>{{ question.title }}</h1>
-        <p class="Publisher">Publisher:{{ question.owner }}</p>
+        <div class="Publisher">
+          <img  src="@/assets/img/头像 女孩.svg"/>
+          <p>Publisher:{{ question.owner }}</p>
+        </div>
         <p class="bounty">Bounty:{{ question.bounty }}</p>
         <p class="status" v-if="question.status == false">Unsolved</p>
         <p class="status" v-else>Solved</p>
@@ -118,12 +122,24 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+.landing{
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
 .title p {
   display: inline-block;
   margin: 2vh 2vw;
 }
 .Publisher {
-  margin: 2vh 0;
+  margin: 2vh 3vw;
+  display: flex;
+  align-items: center;
+}
+.Publisher img{
+  width: 20%;
+  max-width: 100px;
+  min-width: 80px;
 }
 .buttons {
   display: flex;
@@ -134,9 +150,11 @@ export default {
   margin-left: 5vw;
 }
 .question {
-  margin-top: 10vh;
+  margin-top: 60%;
   width: 100%;
   height: 100%;
+  z-index: 1;
+  background: white;
 }
 .comment {
   grid-area: comment;
@@ -200,14 +218,25 @@ button {
   color: #311f1f;
   margin: 3vh 2vw;
 }
+@media screen and (max-width: 1000px){
+  .landing{
+    margin-top: 9vh;
+    position: relative;
+    width: 100vw;
+  }
+  .question{
+    margin: 0;
+    width: 90%;
+  }
+}
 @media screen and (max-width: 550px) {
   .buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
   }
-  button {
-    min-width: 80px;
+  .buttons button {
+    width: 80%;
   }
   .card{
     display: grid;
@@ -220,6 +249,11 @@ button {
   .card-img{
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+  }
+  .card-img img{
+    max-width: 100px;
+    margin-right: 7vw;
   }
 }
 </style>
