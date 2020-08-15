@@ -15,10 +15,10 @@
       <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
     </div>
     <div class="button">
-        <router-link to='/show/questions'>
-          <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
-        </router-link>
-      </div>
+      <router-link to='/show/questions'>
+        <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
+      </router-link>
+    </div>
   </div>
 </template>
 

@@ -139,10 +139,10 @@ a {
 }
 @media screen and (max-width: 1025px){
   .ShowQuestions {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
   .cardlist {
     list-style: none;

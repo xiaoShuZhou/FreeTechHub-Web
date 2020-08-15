@@ -1,12 +1,12 @@
 <template>
   <div class="ShowQuestion">
     <Navbar />
-    <img class="landing" src="@/assets/img/landing.jpg">
+    <img class="landing" src="@/assets/img/landing.jpg" />
     <div class="question">
       <div class="title">
         <h1>{{ question.title }}</h1>
         <div class="Publisher">
-          <img  src="@/assets/img/头像 女孩.svg"/>
+          <img src="@/assets/img/头像 女孩.svg" />
           <p>Publisher:{{ question.owner }}</p>
         </div>
         <p class="bounty">Bounty:{{ question.bounty }}</p>
@@ -25,7 +25,7 @@
           <li v-for="answer in answers" :key="answer.id">
             <div class="card">
               <div class="card-img">
-                <img  src="@/assets/img/头像 女孩.svg"/>
+                <img src="@/assets/img/头像 女孩.svg" />
                 <h4>{{ answer.owner }}</h4>
               </div>
               <h2 class="card-title">{{ answer.time }}</h2>
@@ -60,24 +60,24 @@ export default {
   },
   data() {
     return {
-      owner: "",
-      id: "",
-      question: "",
-      answers: "",
-      content: "",
-    };
+      owner: '',
+      id: '',
+      question: '',
+      answers: '',
+      content: '',
+    }
   },
   methods: {
     deleteQuestion() {
       this.question.delete().then(() => {
-        this.$router.push({ name: "ShowQuestions" });
-      });
+        this.$router.push({ name: "ShowQuestions" })
+      })
     },
     editQuestion() {
       this.$router.push({
         name: "EditQuestion",
         params: { id: this.$route.params.id },
-      });
+      })
     },
     _getAnswer() {
       return new Answer({
@@ -85,25 +85,25 @@ export default {
         content: this.content,
         owner: this.owner,
         question: this.question.pk,
-      });
+      })
     },
     getAnswers() {
       Question.get(this.$route.params.id).then((question) => {
         this.question = question;
         this.answers = question.answers;
-      });
+      })
     },
     saveAnswer() {
-      let answer = this._getAnswer();
+      let answer = this._getAnswer()
       answer.save().then(() => {
-        this.getAnswers();
-      });
+        this.getAnswers()
+      })
     },
   },
   created() {
-    this.getAnswers();
+    this.getAnswers()
   },
-};
+}
 </script>
 
 <style scoped>
@@ -122,7 +122,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.landing{
+.landing {
   position: absolute;
   width: 100%;
   z-index: -1;
@@ -136,7 +136,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.Publisher img{
+.Publisher img {
   width: 20%;
   max-width: 100px;
   min-width: 80px;
@@ -173,34 +173,35 @@ export default {
 .comment li:nth-last-child(1) {
   border: none !important;
 }
-.card{
+.card {
   display: grid;
-  grid-template-areas: 'card-title card-title   status'
-                       'card-img card-content accept';
+  grid-template-areas:
+    "card-title card-title   status"
+    "card-img card-content accept";
   grid-template-columns: 10% 80% 10%;
   justify-items: stretch;
   grid-gap: 20px;
 }
-.card-img{
+.card-img {
   grid-area: card-img;
   align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.card-title{
+.card-title {
   grid-area: card-title;
 }
-.card-content{
+.card-content {
   grid-area: card-content;
   word-break: break-all;
 }
-.status{
+.status {
   grid-area: status;
   align-self: center;
   text-align: center;
 }
-.accept{
+.accept {
   grid-area: accept;
   margin: 0;
   align-self: center;
@@ -218,13 +219,13 @@ button {
   color: #311f1f;
   margin: 3vh 2vw;
 }
-@media screen and (max-width: 1000px){
-  .landing{
+@media screen and (max-width: 1000px) {
+  .landing {
     margin-top: 9vh;
     position: relative;
     width: 100vw;
   }
-  .question{
+  .question {
     margin: 0;
     width: 90%;
   }
@@ -238,20 +239,21 @@ button {
   .buttons button {
     width: 80%;
   }
-  .card{
+  .card {
     display: grid;
-    grid-template-areas: 'card-img card-img'
-                         'card-title card-title'
-                         'card-content card-content'
-                         'status accept';
+    grid-template-areas:
+      "card-img card-img"
+      "card-title card-title"
+      "card-content card-content"
+      "status accept";
     grid-template-columns: 50% 50%;
   }
-  .card-img{
+  .card-img {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
   }
-  .card-img img{
+  .card-img img {
     max-width: 100px;
     margin-right: 7vw;
   }
