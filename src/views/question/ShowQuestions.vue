@@ -89,6 +89,7 @@ ul {
 .content {
   margin: 2vh 3vw;
   max-width: 100%;
+  word-break: break-all;
 }
 
 .bounty {

@@ -1,28 +1,29 @@
 <template>
   <div class="ShowOneSeries">
     <Navbar/>
+    <img class="landing" src="@/assets/img/landing.jpg" alt="">
     <h1>{{series.name}}</h1>
     <h2>Sub series:</h2>
     <ul class="cardlist">
       <li v-for="series in sub_series" :key="series.pk">
         <div class="card">
           <img class="card-img" src="@/assets/img/landing.jpg"/>
-          <h1>
+          <h3>
             <router-link :to="{name: 'ShowOneSeries', params: {id: series.pk}}" >
               {{ series.name }}
             </router-link>
-          </h1>
+          </h3>
           <div class="user">
             <img class="avatar" src="@/assets/img/头像 女孩.svg">
             <a href="">用户名</a>
           </div>
-          <p>{{ series.description | stringfilter}}</p>
-          <h3>Tags: </h3>
+          <h4>Tags: </h4>
           <ul>
             <li v-for="tag in series.tags" :key="tag.pk">
               {{tag.tag_name}}
             </li>
           </ul>
+          <p>{{ series.description | stringfilter}}</p>
         </div>
       </li>
     </ul>
@@ -44,7 +45,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-
+          <p>{{blog.content | stringfilter}}</p>
         </div>
       </li>
     </ul>
@@ -127,6 +128,9 @@ export default {
   margin: 10vh 0;
   padding: 0 10vw;
 }
+.landing{
+  width: 100vw;
+}
 .cardlist {
   list-style: none;
   display: grid;
@@ -188,6 +192,7 @@ button {
 }
 h3{
   margin: 20px 10px;
+  text-align: center;
 }
 h4{
   margin: 20px 10px;
