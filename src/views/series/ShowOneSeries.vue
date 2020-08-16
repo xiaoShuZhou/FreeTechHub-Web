@@ -6,6 +6,7 @@
     <ul class="cardlist">
       <li v-for="series in sub_series" :key="series.pk">
         <div class="card">
+          <img class="card-img" src="@/assets/img/landing.jpg"/>
           <h1>
             <router-link :to="{name: 'ShowOneSeries', params: {id: series.pk}}" >
               {{ series.name }}
@@ -29,7 +30,7 @@
     <ul class="cardlist">
       <li v-for="blog in series.blogs" :key="blog.pk">
         <div class="card">
-
+          <img class="card-img" src="@/assets/img/landing.jpg"/>
           <h3 class="title">
             <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
               {{ blog.title }}
@@ -123,6 +124,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10vh 0;
+  padding: 0 10vw;
 }
 .cardlist {
   list-style: none;
@@ -146,7 +149,10 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
+.card-img{
+  width: 100%;
+  height: 50%;
+}
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
 }
@@ -202,6 +208,7 @@ p{
     height: 100%;
     margin-top: 5%;
     grid-template-columns: 50% 50%;
+    grid-column-gap: 20px;
   }
   .cardlist li{
     max-height: 60vh;
