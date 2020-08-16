@@ -5,13 +5,14 @@
       <ul class="cardlist">
         <li v-for="question in questions" :key="question.pk">
           <div class="card">
+            <img src="@/assets/img/landing.jpg" class="card-img">
             <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
-            <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
             <div class="user">
               <img class="avatar" src="@/assets/img/头像 女孩.svg">
               <a href="">用户名</a>
             </div>
             <p class="bounty">Bounty:{{ question.bounty }}</p>
+            <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
           </div>
         </li>
       </ul>
@@ -86,7 +87,7 @@ ul {
 }
 
 .content {
-  margin: 0 3vw;
+  margin: 2vh 3vw;
   max-width: 100%;
 }
 
@@ -131,12 +132,17 @@ a {
   width: 20%;
   margin: 10px;
 }
-@media screen and (max-width: 1025px){
-  .ShowQuestions {
+.card-img{
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
+}
+@media screen and (max-width: 1025px){
+  .ShowQuestions {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
   .cardlist {
     list-style: none;
