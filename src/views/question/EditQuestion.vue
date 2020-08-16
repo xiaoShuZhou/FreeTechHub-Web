@@ -1,21 +1,23 @@
 <template>
   <div class="container">
-    <div class="col-md-12">
-      <h2>Title:{{title}}</h2>
-      <div class="form-group">
-        <input type="text" v-model="title" class="form-control" placeholder="Title">
-      </div>
-      <div class="form-group">
-        <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
-      </div>
-      <div class="form-group">
-        Bounty:<input type="number" v-model = "bounty">
-      </div>
-      <div class="form-group">
-        <router-link to='/show/questions'>
-          <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
-        </router-link>
-      </div>
+    <h2>Title:{{title}}</h2>
+    <div class="form-group">
+      <input type="text" v-model="title" class="form-control" placeholder="Title">
+    </div>
+    <div class="form-group">
+      <input type="number" v-model = "bounty" placeholder="Bounty">
+    </div>
+    <div class="content">
+      <h2>Content:</h2>
+      <p v-html="content" v-highlight></p>
+    </div>
+    <div class="editor">
+      <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
+    </div>
+    <div class="button">
+      <router-link to='/show/questions'>
+        <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -88,6 +90,12 @@ h2{
   text-align: center;
   word-break: break-all;
 }
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .header {
   padding: 30px;
   font-size: 40px;
@@ -132,7 +140,6 @@ h2{
 input{
   width: 180px;
   height: 30px;
-  margin: 20px 0 20px 0;
   border-radius: 20px;
   border: 2px solid black;
   outline: none;
@@ -155,7 +162,9 @@ input{
 }
 .form-group{
   text-align: center;
+  margin: 5vh 0;
 }
+
 .btn{
   border-radius: 20px;
   border: 2px solid #ffcec1;
