@@ -1,7 +1,5 @@
 import Model from "./Model";
 import User from "./User"
-import axios from "axios"
-import BASE_URL from "../consts"
 
 class FriendRequest extends Model {
     static app_name = 'user'
@@ -22,9 +20,29 @@ class FriendRequest extends Model {
     }
 
     // FriendRequest custom methods
-    static async getRequestlist() {
-        let res = await axios.get(BASE_URL+'user/getrequest/')
-        return res.data
+    getState() {
+        let map = {
+            'A': 'approved',
+            'D': 'denied',
+            'C': 'canceled',
+            'W': 'waiting',
+        }
+        return map[this.state]
+    }
+
+    deny() {
+        this.state = "D"
+        this.update()
+    }
+
+    accept() {
+        this.state = "A"
+        this.update()
+    }
+
+    cancel() {
+        this.state = "C"
+        this.update()
     }
 
     // get model by id

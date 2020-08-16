@@ -53,8 +53,7 @@ export default {
   },
   methods: {
     newBlog() {
-      login_required()
-      .then(() => this.$router.push({name: 'NewBlog'}))
+      login_required(this, () => this.$router.push({name: 'NewBlog'}))
     },
   },
   created() {

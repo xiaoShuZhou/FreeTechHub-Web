@@ -10,6 +10,7 @@ export default new Vuex.Store({
     user: '',
     root_comment_tree:'',
     root_id:'',
+    socketHandle: ''
   },
 //methods
   mutations: {
@@ -24,6 +25,12 @@ export default new Vuex.Store({
     },
     set_root_id(state, id){
       state.root_id = id
+    },
+    setSocketHandle(state, socketHandle){
+        state.socketHandle = socketHandle
+    },
+    removeSocketHandle(state) {
+        state.socketHandle = ''
     }
   },
 //async methods
