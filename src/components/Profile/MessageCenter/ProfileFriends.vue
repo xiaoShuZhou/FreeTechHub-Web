@@ -40,26 +40,26 @@
           <a class="history-message" href="#">消息记录</a>
         </div>
         <textarea v-model="message"></textarea>
-        <button type="button" class="send" @click="newMessage()">发送</button>
+        <button type="button" class="send" @click="sendMessage()">发送</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { login_required } from '@/assets/utils/auth'
 import {addClassNames, removeClassNames} from '@/assets/utils/classNameHandler'
-import {domain} from '@/assets/utils/consts'
 import Message from '@/assets/utils/models/Message'
 import Chat from '@/assets/utils/models/Chat'
 import NewMessage from '@/components/NewMessage'
+import WebSocketHandle from '@/assets/utils/WebSocketHandle'
+
 
 export default {
+  props: ["_user"],
   data() {
     return {
-      self: '',
+      self: this._user,
       friends: '',
-      Websocket: '',
       message: '',
       messages: [],
     }
@@ -80,31 +80,32 @@ export default {
       // light the selected user
       addClassNames(this.$refs['friend-'+user.pk][0], ["selected"])
       this.$store.commit('chatWith', user)
+      user.newMessageNum = 0
     },
-    newMessage(register) {
-      let msg = JSON.stringify({
-        register: register ? true : false,
+    sendMessage() {
+      this.socketHandle.send_json({
         sender_id : this.self.pk,
         receiver_id: this.chattingWith.pk,
         message: this.message
       })
-      this.websocket.send(msg)
       this.message = ''
     }
   },
   created() {
-    login_required(this, self => {
-      this.self = self
-      this.getFriends(self)
-      this.websocket = new WebSocket('ws://' + domain + '/ws/')
-      this.websocket.onopen = () => {
-        this.newMessage(true)
-      }
-      this.websocket.onmessage = (event) => {
-        let msg = new Message(JSON.parse(event.data))
-        if (msg.sender == this.chattingWith.pk) {
+    this.getFriends(this.self)
+
+    WebSocketHandle.createSocketIfNotExist(this, this.self.pk)
+    this.socketHandle.add_callback("chat", msg => {
+      if (msg.type == "message") {
+        msg = new Message(msg)
+        // if the sender or receiver is who the user is chatting with
+        // push the message into display
+        if (msg.sender == this.chattingWith.pk ||
+            msg.receiver == this.chattingWith.pk) {
           this.messages.push(msg)
-        } else {
+        } 
+        // else, add a notification
+        else {
           for (let friend of this.friends) {
             if (friend.pk == msg.sender) friend.newMessageNum++
           }
@@ -115,13 +116,15 @@ export default {
   computed: {
     chattingWith () {
       return this.$store.state.chattingWith
+    },
+    socketHandle() {
+      return this.$store.state.socketHandle
     }
   },
   watch: {
     chattingWith: {
       handler: function(newVal) {
         Chat.getChat(this.self.pk, newVal.pk).then(chat => {
-          this.chat = chat
           this.messages = chat.messages
         })
       },

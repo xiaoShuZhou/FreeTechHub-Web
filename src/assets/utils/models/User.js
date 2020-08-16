@@ -1,4 +1,5 @@
 import Model from "./Model"
+import FriendRequest from "./FriendRequest"
 import axios from 'axios'
 import BASE_URL from '../consts'
 class User extends Model {
@@ -38,6 +39,12 @@ class User extends Model {
         this.newMessageNum = 0
     }
 
+    // custom methods
+    static async getSelf() {
+        let res = await axios.get(BASE_URL+'user/getself/')
+        return new User(res.data)
+    }
+
     // get all the friends of this user
     async getFriends() {
         let res = await axios.get(BASE_URL+`user/getfriends/${this.pk}/`)
@@ -48,10 +55,24 @@ class User extends Model {
         return friends
     }
 
-    // custom methods
-    static async getSelf() {
-        let res = await axios.get(BASE_URL+'user/getself/')
-        return new User(res.data)
+    // get all the received friend requests of this user
+    async getReceivedFriendRequests() {
+        let res = await axios.get(BASE_URL+`user/get_received_requests/${this.pk}/`)
+        let requests = []
+        for (let request of res.data) {
+            requests.push(new FriendRequest(request))
+        }
+        return requests
+    }
+
+    // get all the friend requests of this user
+    async getFriendRequests() {
+        let res = await axios.get(BASE_URL+`user/getrequests/${this.pk}/`)
+        let requests = []
+        for (let request of res.data) {
+            requests.push(new FriendRequest(request))
+        }
+        return requests
     }
 
     static async changepassword(oldpass,newpass) {

@@ -11,6 +11,7 @@ export async function login(username, password) {
   })
   axios.defaults.headers['Authorization'] = 'JWT ' + res.data.token
   localStorage.setItem("token", 'JWT ' + res.data.token);
+  return await User.getSelf()
 }
 
 export function logout() {

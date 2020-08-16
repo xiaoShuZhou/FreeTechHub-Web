@@ -1,5 +1,5 @@
 <template>
-  <div class="New">
+  <div class="NewMessage">
     <img src="@/assets/img/new.svg" alt="new">
     {{number}}
   </div>
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "New",
+  name: "NewMessage",
   props: ["num"],
   data() {
     return {
@@ -25,9 +25,12 @@ export default {
 </script>
 
 <style scoped>
-.New {
-  width: 3vw;
+.NewMessage {
   display: flex;
   color: red;
+}
+
+.NewMessage img {
+    height: 4vh;
 }
 </style>

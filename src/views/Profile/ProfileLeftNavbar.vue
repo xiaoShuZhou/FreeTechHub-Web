@@ -31,7 +31,7 @@
           <span>Follow</span>
         </router-link>
       </li>
-      <li>
+      <li v-if="is_owner">
         <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
           <img src="@/assets/img/好友.svg"/>
           <span>MessageCenter</span>
@@ -43,13 +43,13 @@
           <span>SkillTress</span>
         </router-link>
       </li>
-      <li>
+      <li v-if="is_owner">
         <router-link :to="{name:'TransactionRecord'}">
           <img src="@/assets/img/交易提醒.svg"/>
           <span>TransactionRecord</span>
         </router-link>
       </li>
-      <li>
+      <li v-if="is_owner">
         <router-link v-if="user != ''" :to="{name:'ChangePassword', params:{id: this.user.pk}}">
           <img src="@/assets/img/设置.svg"/>
           <span>Settings</span>
@@ -69,9 +69,11 @@
 import {login_required} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
+  props: ['_is_owner'],
   data() {
     return {
       user: '',
+      is_owner: this._is_owner
     }
   },
   created() {

@@ -6,7 +6,7 @@ class Message extends Model {
 
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
-    constructor({id, content, datetime, belonging_chat, sender}) {
+    constructor({id, content, datetime, belonging_chat, sender, receiver}) {
         super({content, belonging_chat, sender})     // data fields that is requried when save
 
         // required data fields
@@ -16,6 +16,7 @@ class Message extends Model {
 
         // this custom data for Message
         this.datetime = datetime
+        this.receiver = receiver
     }
 
     // get model by id
