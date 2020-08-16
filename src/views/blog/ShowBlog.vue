@@ -70,7 +70,11 @@
       </div>
       <div class="comment">
         <h2>Comments:</h2>
-        <show-comments v-if="blog != '' && root_comment_tree != ''" :root_id="blog.root_comment" :blog_id="blog.pk" :is_root="true"></show-comments>
+        <show-comments v-if="blog != '' && root_comment_tree != ''"
+          :root_id="blog.root_comment" 
+          :is_root="true"
+          :_fold="false">
+        </show-comments>
       </div> 
     </div>
   </div>
@@ -220,7 +224,7 @@ export default {
     root_comment_tree: function() {
       return this.$store.state.root_comment_tree
     }
-  }
+  },
 }
 </script>
 

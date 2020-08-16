@@ -3,12 +3,13 @@ import marked from 'marked'
 import BASE_URL from '../consts'
 import axios from 'axios'
 import Blog from './Blog'
+import User from './User'
 
 class Comment extends Model {
     static app_name = 'comment'
     static model_name = 'comment'
 
-    constructor({id, content, time, owner, blog, sub_comments_of, sub_comments}) {
+    constructor({id, content, time, owner, owner_instance, blog, sub_comments_of, sub_comments}) {
         super({content, owner, sub_comments_of})
 
         this.app_name = 'comment'
@@ -18,7 +19,9 @@ class Comment extends Model {
         this.sub_comments = sub_comments
         this.time = time
         this.status = false
-        this.owner = owner
+        if (owner_instance != undefined) {
+            this.owner_instance = new User(owner_instance)
+        }
         this.m_content = marked(this.content)
         this.blog = []
         if (blog != undefined) {
@@ -27,6 +30,7 @@ class Comment extends Model {
         }
     }
 
+    //return the whole dict tree from API based on id of root comment using axios
     static async query_sub_comments(id){
         let res = await axios.get(BASE_URL + `${this.app_name}/` + "query/", {
             params:{id}
@@ -34,6 +38,7 @@ class Comment extends Model {
         return res.data
     }
 
+    //wrap the whole dict tree and return wrapped tree
     static wrap_sub_comments(comment_tree){
         let wrapped_sub_trees = []
 
@@ -56,6 +61,7 @@ class Comment extends Model {
         return wrapped_comment_tree
     }
 
+    //return node where id is located and ids of its sub comments
     static get_matched_comment_tree(comment_tree, id){
         let sub_comment_ids = []
         if (id == comment_tree.comment.pk){
@@ -75,6 +81,7 @@ class Comment extends Model {
                 }
             }
         }
+        return null
     }
 
     static async get(id) {
