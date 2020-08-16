@@ -5,7 +5,7 @@
       <img src="@/assets/img/loading.gif" alt="loding">
       <h2>Logining in...</h2>
       <p>Because our server has trouble connecting to Github therefore, it is very likely that we will take many attempts until you logged in, and we will refresh this page if the server timeouts.</p>
-      <p>if you want to use normal login in, click <a :href="'http://'+IP+'#/login/'" >here.</a></p>
+      <p>if you want to use normal login in, click <a :href="'http://'+IP+':8080/#/login/'" >here.</a></p>
     </div>
     <div class="box" v-else>
       <form>
@@ -36,6 +36,7 @@ import {getQueryParams} from '@/assets/utils/getQueryParams'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
 import {IP} from '@/assets/utils/consts'
+import WebSocketHandle from '@/assets/utils/WebSocketHandle'
 
 
 export default {
@@ -54,14 +55,17 @@ export default {
   methods: {
     login: async function() { 
       try{
-        await login(this.username, this.password)
+        let user = await login(this.username, this.password)
+        this.$store.commit("setSocketHandle", new WebSocketHandle(user.pk))
         this.$router.push({name: "ShowBlogs"})
       } catch(err) {
         alert('Wrong passowrd or username!')
       }
     },
+
     logout: function() { 
       logout()
+      this.$store.commit("removeSocketHandle")
       this.$router.push({name: "ShowBlogs"})
     },
 

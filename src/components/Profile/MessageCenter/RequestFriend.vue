@@ -30,10 +30,12 @@
 
 <script>
 
-import { login_required } from '@/assets/utils/auth'
+// import { login_required } from '@/assets/utils/auth'
 export default {
+  props: ['_user'],
   data() {
     return {
+      user: this._user,
       sent_requests: '',
       received_requests: ''
     }
@@ -41,14 +43,12 @@ export default {
   methods: {
   },
   created() {
-    login_required(this, user => {
-      // get all the friend request of this uesr 
-      user.getFriendRequests()
-      .then(requests => this.sent_requests = requests)
-      // get all the friend request that sent to this uesr 
-      user.getReceivedFriendRequests()
-      .then(requests => this.received_requests = requests)
-    })
+    // get all the friend request of this uesr 
+    this.user.getFriendRequests()
+    .then(requests => this.sent_requests = requests)
+    // get all the friend request that sent to this uesr 
+    this.user.getReceivedFriendRequests()
+    .then(requests => this.received_requests = requests)
   },
 };
 </script>

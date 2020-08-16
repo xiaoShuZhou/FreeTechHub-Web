@@ -1,18 +1,58 @@
 <template>
   <div class="Profile">
-    <ProfileLeftNavbar class="sidebar"/>
+    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner />
     <transition>
-      <router-view class="content" mode="out-in"></router-view>
+      <router-view class="content" mode="out-in" 
+        v-if="profile_owner != ''" :_user=profile_owner :_is_owner=is_owner>
+      </router-view>
     </transition>
   </div>
 </template>
 
 <script>
 import ProfileLeftNavbar from '@/views/Profile/ProfileLeftNavbar'
+import {login_required} from '@/assets/utils/auth'
+import User from '@/assets/utils/models/User'
+
+
 export default {
   name: 'Profile',
   components:{
     ProfileLeftNavbar
+  },
+  data() {
+    return {
+      profile_owner: '',
+      is_owner: false
+    }
+  },
+  methods: {
+    load() {
+      login_required(this, visitor => {
+        if(this.user_id != undefined) {
+          User.get(this.user_id).then(user =>{
+            this.profile_owner = user
+            if(this.profile_owner.pk == visitor.pk) {
+              this.is_owner = true
+            }
+          })
+        }
+      })
+    }
+  },
+  created() {
+    this.load()
+  },
+  computed: {
+    user_id() {
+      return this.$route.params.id
+    }
+  },
+  watch: {
+    user_id() {
+      this.user = ''
+      this.load()
+    }
   }
 }
 </script>

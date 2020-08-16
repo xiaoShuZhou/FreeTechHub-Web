@@ -1,16 +1,22 @@
 import {DOMAIN} from '@/assets/utils/consts'
 
-class Websocket extends WebSocket {
+class WebSocketHandle {
     constructor(user_id) {
-        super('ws://' + DOMAIN + '/ws/')
-        this.onopen = () => {
+        this._socket = new WebSocket('ws://' + DOMAIN + '/ws/')
+        this._socket.onopen = () => {
             this.register(user_id)
         }
-        this.onmessage = (event) => {
+        this._socket.onmessage = (event) => {
             this.on_receive_json(event)
         }
         this.callbacks = []
         this.callers = []
+    }
+
+    static createSocketIfNotExist(vm, user_id) {
+        if (vm.$store.state.socketHandle == '') {
+            vm.$store.commit("setSocketHandle", new WebSocketHandle(user_id))
+        }
     }
 
     register(user_id) {
@@ -18,12 +24,12 @@ class Websocket extends WebSocket {
             register: true,
             sender_id : user_id,
         })
-        this.send(msg)
+        this._socket.send(msg)
     }
 
     send_json(msg) {
-        let msg = JSON.stringify(msg)
-        this.websocket.send(msg)
+        msg = JSON.stringify(msg)
+        this._socket.send(msg)
     }
 
     add_callback(name, callback) {
@@ -41,4 +47,4 @@ class Websocket extends WebSocket {
     }
 }
 
-export default Websocket
+export default WebSocketHandle
