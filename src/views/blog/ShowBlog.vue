@@ -69,12 +69,12 @@
         <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
       </div>
       <div class="comment">
-        <h2>Comments:</h2>
-        <show-comments v-if="blog != '' && root_comment_tree != ''"
-          :root_id="blog.root_comment" 
-          :is_root="true"
-          :_fold="false">
-        </show-comments>
+      <h2>Comments:</h2>
+      <show-comments v-if="blog != '' && root_comment_tree != ''"
+        :root_id="blog.root_comment" 
+        :is_root="true"
+        :_fold="false">
+      </show-comments>
       </div> 
     </div>
   </div>
@@ -198,26 +198,27 @@ export default {
   },
   created() {
     login_required(this, (user) => {
-        Blog.get(this.$route.params.id)
-        .then(blog => {
-          this.blog = blog
-          Comment.query_sub_comments(blog.root_comment)
-          .then(comment_tree => {
-            let wrapped_comment_tree = Comment.wrap_sub_comments(comment_tree)
-            this.$store.commit('set_root_comment_tree', wrapped_comment_tree)
-            this.$store.commit('set_root_id', this.blog.root_comment)
-          })
-
-          this.followeruser = user
-          this.followerlists = this.followeruser.follower_users
-          this.init();
-
-          User.get(this.blog.owner).then(user =>{
-            this.followinguser = user
-            this.init()
-          })
-          blog.getLikeHistory().then(history => this.history=history)
+      this.$store.commit('set_root_comment_tree', '')
+      Blog.get(this.$route.params.id)
+      .then(blog => {
+        this.blog = blog
+        Comment.query_sub_comments(blog.root_comment)
+        .then(comment_tree => {
+          let wrapped_comment_tree = Comment.wrap_sub_comments(comment_tree)
+          this.$store.commit('set_root_comment_tree', wrapped_comment_tree)
+          this.$store.commit('set_root_id', this.blog.root_comment)
         })
+
+        this.followeruser = user
+        this.followerlists = this.followeruser.follower_users
+        this.init();
+
+        User.get(this.blog.owner).then(user =>{
+          this.followinguser = user
+          this.init()
+        })
+        blog.getLikeHistory().then(history => this.history=history)
+      })
     })
   },
   computed: {
