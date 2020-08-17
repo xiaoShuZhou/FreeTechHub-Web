@@ -18,6 +18,7 @@ import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
 import Register from '@/views/Register.vue'
 import ForgetPassword from '@/views/ForgetPassword.vue'
+
 //Profile
 import Profile from '@/views/Profile'
 import ProfileInformation from '@/views/Profile/ProfileInformation'
