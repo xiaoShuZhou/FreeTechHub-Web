@@ -35,13 +35,12 @@
 
 <script>
 import {is_authenticated, login_required} from '@/assets/utils/auth'
-
 export default {
   name: "Navbar",
   props:['_user'],
   data() {
     return {
-      search_tag_name: '',
+      keywords: '',
       is_login: false,
       user: this._user,
       show: false
@@ -49,13 +48,10 @@ export default {
   },
   methods: {
     search() {
-      if (
-        this.search != '' &&
-        this.$route.query.tag_name != this.search_tag_name
-      ) {
+      if (this.keywords != this.$route.query.keywords) {
         this.$router.push({
           name: "Search",
-          query: { tag_name: this.search_tag_name },
+          query: { keywords: this.keywords }
         })
       }
     },
