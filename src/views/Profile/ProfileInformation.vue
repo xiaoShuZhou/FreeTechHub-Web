@@ -37,14 +37,13 @@
 </template>
 
 <script>
-import User from '@/assets/utils/models/User'
-import { login_required } from '@/assets/utils/auth'
 import FriendRequest from '@/assets/utils/models/FriendRequest'
 export default {
+  props:['_is_owner', '_user'],
   data() {
     return {
-      profile_owner: '',
-      visitor: '',
+      profile_owner: this._user,
+      is_owner: this._is_owner,
     }
   },
   methods: {
@@ -74,13 +73,6 @@ export default {
         }
       })
     },
-  },
-  created() {
-    login_required(this, self => {
-      this.visitor = self
-      User.get(this.profile_owner_id)
-      .then(owner => this.profile_owner = owner)
-    })
   },
   computed: {
     profile_owner_id() {

@@ -1,5 +1,6 @@
 <template>
-  <div v-if="visible" class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent>
+  <!-- <div v-if="visible" class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent> -->
+  <div class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent>
     <div class="alert">
       <div class="message">
         <label>留言信息</label>
@@ -22,14 +23,12 @@ export default {
   },
   data() {
     return{
-      visible: this.status,
-      scrollTop: 0
     }
   },
   methods:{
     cancel(){
-      this.visible = !this.visible
-      this.$emit('closealert', this.visible);
+      // this.visible = !this.visible
+      this.$emit('closealert', false);
     },
   },
 }

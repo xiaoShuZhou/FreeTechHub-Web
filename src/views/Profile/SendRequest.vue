@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import User from '@/assets/utils/models/User'
 import FriendRequest from '@/assets/utils/models/FriendRequest'
 import { is_authenticated} from '@/assets/utils/auth'
 export default {
   name: 'SendRequest',
+  props:['_is_owner','_user'],
   components: {
 
   },
   data() {
     return {
-      user: '',
+      user: this._user,
       follow: '',
       from_user:'',
       request_message:'',
@@ -39,25 +39,24 @@ export default {
       })
     },
     addfriend() {
-    User.getSelf().then(from_user =>{
-      this.from_user = from_user
-      let friendRequest = this._getFriendRequest()
-      friendRequest.save()
-      User.getSelf()
-      .then(user =>{
-        this.$router.push({name:"ProfileInformation", params:{id: user.pk}})
+      this.user.then(from_user =>{
+        this.from_user = from_user
+        let friendRequest = this._getFriendRequest()
+        friendRequest.save()
+        this.user.getSelf()
+        .then(user =>{
+          this.$router.push({name:"ProfileInformation", params:{id: user.pk}})
         })
-    })
+      })
     },
   },
   created() {
     if (!is_authenticated()) {
       this.$router.push({name: 'Login'})
     } else {
-      User.get(this.$route.params.id)
+      this.user.get(this.$route.params.id)
       .then(user => this.user = user)
     }
-
   },
 }
 </script>

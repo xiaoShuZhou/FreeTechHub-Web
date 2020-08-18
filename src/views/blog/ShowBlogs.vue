@@ -1,6 +1,6 @@
 <template>
   <div class="ShowBlogs">
-    <Navbar/>
+    <Navbar :_user="user"/>
     <h1>Blogs</h1>
     <ul class="cardlist">
       <li v-for="blog in blogs" :key="blog.pk">
@@ -49,6 +49,7 @@ export default {
       pagenumber: 1,
       blogshow: '',
       currentpage: 0,
+      user: '',
     }
   },
   methods: {
@@ -58,6 +59,7 @@ export default {
   },
   created() {
     is_authenticated(this).then(() => {
+      this.user = this.$store.state.user
       Blog.all().then(blogs => this.blogs = blogs)
     })
   },

@@ -22,15 +22,16 @@
 import User from '@/assets/utils/models/User'
 export default {
   name: 'EditProfile',
+  props:['_is_owner', '_user'],
   components: {},
   data() {
     return {
-      user: null,
-      username: '',
-      email: '',
-      bio: '',
-      grade: '',
-      major:'',
+      user: this._user,
+      username: this._user.username,
+      email: this._user.email,
+      bio: this._user.bio,
+      grade: this._user.grade,
+      major: this._user.major,
     }
   },
   methods: {
@@ -56,20 +57,6 @@ export default {
       })
     }
   },
-  created() {
-    if (this.$route.params.id != undefined) {
-      User.get(this.$route.params.id)
-        .then(user => {
-          this.id = user.pk
-          this.username = user.username
-          this.grade = user.grade
-          this.bio = user.bio
-          this.major = user.major
-          this.email = user.email
-
-        })
-    }
-  }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="Profile">
-    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner />
+    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner :_user=profile_owner />
     <transition>
       <router-view class="content" mode="out-in" 
         v-if="profile_owner != ''" :_user=profile_owner :_is_owner=is_owner>
