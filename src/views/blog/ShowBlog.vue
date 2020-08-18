@@ -14,6 +14,7 @@
           <div class="content">
             <a href>用户名</a>
             <p>个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名</p>
+            <p>{{ blog.view_num }} views</p>
           </div>
         </div>
         <div class="taggroup">
