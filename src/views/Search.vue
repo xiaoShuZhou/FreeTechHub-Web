@@ -2,46 +2,38 @@
   <div class="Search">
     <Navbar/>
     
-    <div class="result" v-if="this.blogs.length != 0">
-      <div class="blogs">
-        <h2>Related blogs:</h2>
-        <ul>
-          <li v-for="blog in blogs" :key="blog.pk">
-            <div class="card">
-              <h3 class="title"><router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >{{ blog.title }}</router-link></h3>
-              <h4>Tags: </h4>
-              <ul class="tag-list">
-                <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
+    <div class="results" v-if="results.length != 0">
+      <div class="card" v-for="result in results" :key="result.model+result.pk">
+        <div v-if="result.model == 'blog'">
+          <h2 class="title"> 
+            [Blog]
+            <router-link 
+              :to="{name:'ShowBlog', params:{id: result.pk}}">
+              {{ result.title }}
+            </router-link>
+          </h2>
+        </div>
+        <div v-else-if="result.model == 'question'">
+          <h2 class="title"> 
+            [Question]
+            <router-link 
+              :to="{name:'ShowQuestion', params:{id: result.pk}}">
+              {{ result.title }}
+            </router-link>
+          </h2>
+        </div>
       </div>
     </div>
-    <h2 v-else>No related blogs</h2>
-
-    <div class="questions" v-if="this.questions.length != 0">
-      <h2>Related questions:</h2>
-      <ul>
-        <li v-for="question in questions" :key="question.pk">
-          <div class="card">
-            <h3 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}" >{{ question.title }}</router-link></h3>
-            <h4>Tags: </h4>
-            <ul class="tag-list">
-              <li v-for="tag in question.tags" :key="tag.pk">{{tag.tag_name}}</li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+    <div v-else>
+      <h1>No related content</h1>
     </div>
-    <h2 v-else>No related questions</h2>
-    
+
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import Tag from '@/assets/utils/models/Tag'
+import search from '@/assets/utils/models/search'
 
 export default {
   name: "Search",
@@ -50,19 +42,24 @@ export default {
   },
   data() {
     return {
-      blogs: '',
-      questions: ''
+      results: ''
     }
   },
   methods: {
     
   },
   created() {
-    let tag = new Tag({tag_name: this.$route.query['tag_name']})
-    tag.get_tagged_items().then(res => {
-      this.blogs = res.blogs
-      this.questions = res.questions
-    })
+    search(this.keywords).then(res => this.results = res)
+  },
+  computed: {
+    keywords() {
+      return this.$route.query.keywords
+    }
+  },
+  watch: {
+    keywords(val) {
+      search(val).then(res => this.results = res)
+    }
   }
 }
 </script>
@@ -72,6 +69,10 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.results {
+  margin: 12vh 10vw;
 }
 
 .card {

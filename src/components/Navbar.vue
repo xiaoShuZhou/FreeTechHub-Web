@@ -6,7 +6,7 @@
     <router-link class="list" to="/show/series">series</router-link> 
     <router-link class="list" to="/show/questions">questions</router-link> 
     <a class="list" @click="goProfile()">Profile</a>
-    <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
+    <input type="text" name="search" v-model="keywords" placeholder="Search"/>
     <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
     <img class="expand" src="@/assets/img/Expand.svg" alt="">
     <router-link v-if="is_login" to="/login">Logout</router-link> 
@@ -16,25 +16,21 @@
 
 <script>
 import {is_authenticated, login_required} from '@/assets/utils/auth'
-
 export default {
   name: "Navbar",
   data() {
     return {
-      search_tag_name: '',
+      keywords: '',
       is_login: false,
       user: '',
     }
   },
   methods: {
     search() {
-      if (
-        this.search != '' &&
-        this.$route.query.tag_name != this.search_tag_name
-      ) {
+      if (this.keywords != this.$route.query.keywords) {
         this.$router.push({
           name: "Search",
-          query: { tag_name: this.search_tag_name },
+          query: { keywords: this.keywords }
         })
       }
     },
