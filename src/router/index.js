@@ -36,7 +36,7 @@ import RequestFriend from '@/components/Profile/MessageCenter/RequestFriend'
 import TransactionRecord from '@/views/Profile/TransactionRecord'
 //
 import EditProfile from '@/views/Profile/EditProfile.vue'
-import SendRequest from '@/views/Profile/SendRequest.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -68,7 +68,6 @@ const routes = [
       { path: 'questions',          name: 'ProfileQuestions',     component: ProfileQuestions,},
       { path: 'edit/profile/:id',   name: 'EditProfile',          component: EditProfile },
       { path: 'follow/:id',         name: 'ProfileFollow',        component: ProfileFollow},
-      { path: 'sendrequest/:id',    name: 'SendRequest',          component: SendRequest },
       { path: 'skilltrees',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
       { path: 'transactionrecord',  name: 'TransactionRecord',    component: TransactionRecord},
       { path: 'messagecenter',      name: 'ProfileMessageCenter', component: ProfileMessageCenter,

@@ -1,5 +1,6 @@
 <template>
   <div class="ProfileInformation">
+    <AddFriend v-if="status" :status="this.status" @closealert="closealert"/>
     <div class="box1">
       <div id="image">
         <img src="@/assets/img/landing.jpg" />
@@ -10,7 +11,7 @@
         <p>Balance: {{profile_owner.blance}}</p>
         <p>grade:{{profile_owner.grade}}</p>
         <p>bio:{{profile_owner.bio}}</p>
-        <button v-if="profile_owner" @click='goSendrequest'>addfriend</button>
+        <button @click="showalert" id="addfriend-btn">Add Friend</button>
       </div>
     </div>
     <div class="box2">
@@ -38,13 +39,19 @@
 
 <script>
 import FriendRequest from '@/assets/utils/models/FriendRequest'
+import AddFriend from '@/components/AddFriend.vue'
+
 export default {
   props:['_is_owner', '_user'],
   data() {
     return {
       profile_owner: this._user,
       is_owner: this._is_owner,
+      status: false,
     }
+  },
+  components:{
+    AddFriend
   },
   methods: {
     _getFriendRequest() {
@@ -72,6 +79,12 @@ export default {
           id: this.profile_owner.pk
         }
       })
+    },
+    showalert(){
+      this.status = ! this.status
+    },
+    closealert(val){
+      this.status = val
     },
   },
   computed: {
@@ -104,7 +117,7 @@ img {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   flex-grow: unset;
 }
 .box1 div p {
@@ -112,7 +125,6 @@ img {
   padding-left: 30px;
 }
 .box1 div:nth-child(2) {
-  position: relative;
   bottom: 100px;
 }
 .box2 {
@@ -128,7 +140,6 @@ img {
   display: inline-block;
   width: 60px;
   height: 60px;
-  position: relative;
   top: 28px;
   right: 5px;
   bottom: 20px;

@@ -205,8 +205,6 @@ export default {
     },
     addfriend(){
       this.status = !this.status
-      var buttontop = document.getElementById("addfriend-btn")
-      this.top = buttontop.scrollTop
     },
     closealert(val){
       this.status = val

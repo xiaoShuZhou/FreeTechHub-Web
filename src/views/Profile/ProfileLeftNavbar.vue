@@ -66,7 +66,6 @@
 </template>
 
 <script>
-// import {login_required} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
   props: ['_is_owner', '_user'],

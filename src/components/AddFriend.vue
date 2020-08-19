@@ -1,5 +1,4 @@
 <template>
-  <!-- <div v-if="visible" class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent> -->
   <div class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent>
     <div class="alert">
       <div class="message">
@@ -27,7 +26,6 @@ export default {
   },
   methods:{
     cancel(){
-      // this.visible = !this.visible
       this.$emit('closealert', false);
     },
   },

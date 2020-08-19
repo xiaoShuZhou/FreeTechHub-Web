@@ -54,15 +54,12 @@ export default {
   methods: {
     follow() {},
     gopersonalprofile(follower) {
-      this.user.get(follower.id).then(user => {
-        this.$router.push({
-          name: "ProfileInformation",
-          params: {
-            id: user.pk
-          }
-        })
+      this.$router.push({
+        name: "ProfileInformation",
+        params: {
+          id: follower.pk
+        }
       })
-
     },
     getFollowinglist() {
       Followership.getFollowinglist().then(followings => {
@@ -82,9 +79,7 @@ export default {
           this.getFollowinglist()
           this.getFollowerlist()
         })
-
       })
-
     },
   },
   created() {
