@@ -53,9 +53,6 @@ export default {
   created() {
     if (!is_authenticated()) {
       this.$router.push({name: 'Login'})
-    } else {
-      this.user.get(this.$route.params.id)
-      .then(user => this.user = user)
     }
   },
 }

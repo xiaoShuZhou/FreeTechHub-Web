@@ -1,9 +1,7 @@
 <template>
   <div class="ShowSeries">
+    <StarBackground />
     <Navbar/>
-    <div class="sky" ref="sky">
-      <canvas ref="canvas"></canvas>
-    </div>
     <ul class="cardlist">
       <li v-for="series in all_series" :key="series.pk">
         <div class="card">
@@ -37,12 +35,14 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
+import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowSeries",
   components: {
     Navbar,
     Footer,
+    StarBackground
   },
   data() {
     return {
@@ -139,14 +139,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.sky{
-  z-index: -1;
-  top: 10vh;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-	background: radial-gradient(225% 105% at bottom center, #f7f7b6 10%, #e96f92 40%, #75517d 65%, #1b2947);
 }
 .cardlist {
   list-style: none;
