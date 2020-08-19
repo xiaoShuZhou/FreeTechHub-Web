@@ -1,6 +1,6 @@
 <template>
   <div class="EditBlog">
-    <Navbar />
+    <Navbar/>
     <span class="title">
     <h4>Title: </h4>
     <input type="text" v-model="title" required="required"/>

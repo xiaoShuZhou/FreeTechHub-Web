@@ -39,6 +39,7 @@
 import FollowButton from '@/components/FollowButton'
 
 export default {
+  props:['_is_owner', '_user'],
   name: "ProfileFollow",
   props: ['_user'],
   components: {
@@ -52,9 +53,6 @@ export default {
       totalfollower: '',
       totalfollowing: '',
     }
-  },
-  methods: {
-    
   },
   created() {
     this.user.getFollowershipList()

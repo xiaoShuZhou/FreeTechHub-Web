@@ -13,18 +13,13 @@
 </template>
 
 <script>
-import User from '@/assets/utils/models/User'
 export default {
+  props:['_is_owner', '_user'],
   name: 'ChangePassword',
   data() {
     return {
-      user: '',
+      user: this._user,
     }
-  },
-  mounted() {
-    User.getSelf().then(user =>{
-    this.user = user
-    })
   },
 }
 </script>

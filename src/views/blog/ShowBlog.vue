@@ -1,6 +1,7 @@
 <template>
   <div class="ShowBlog">
-    <Navbar id="navbar" />
+    <Navbar id="navbar" :_user='user'/>
+    <AddFriend v-if="status" :status="this.status" @closealert="closealert"/>
     <div class="img">
       <img src="@/assets/img/landing.jpg" alt />
     </div>
@@ -16,6 +17,7 @@
               {{blog.owner_instance.username}}
             </router-link>
             <p>{{ blog.owner_instance.bio }}</p>
+            <button @click="addfriend" id="addfriend-btn">Add Friend</button>
             <p>{{ blog.view_num }} views</p>
             <FollowButton 
              :_content_owner=blog.owner_instance
@@ -89,13 +91,15 @@ import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
 import ShowComments from '@/components/ShowComments.vue'
 import FollowButton from '@/components/FollowButton'
+import AddFriend from '@/components/AddFriend.vue'
 
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
     ShowComments,
-    FollowButton
+    FollowButton,
+    AddFriend
   },
   data() {
     return {
@@ -108,7 +112,9 @@ export default {
       deleteid:'',
       content: 'follow',
       liked: true,
-      history: ''
+      history: '',
+      status: false,
+      top: 0
     }
   },
   methods: {
@@ -198,6 +204,12 @@ export default {
           .then(history => this.history=history)
         })
       })
+    },
+    addfriend(){
+      this.status = !this.status
+    },
+    closealert(val){
+      this.status = val
     },
   },
   created() {

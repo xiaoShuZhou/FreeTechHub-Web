@@ -1,28 +1,30 @@
 <template>
   <div class="ShowOneSeries">
+    <StarBackground />
     <Navbar/>
+    <img class="landing" src="@/assets/img/landing.jpg" alt="">
     <h1>{{series.name}}</h1>
     <h2>Sub series:</h2>
     <ul class="cardlist">
       <li v-for="series in sub_series" :key="series.pk">
         <div class="card">
           <img class="card-img" src="@/assets/img/landing.jpg"/>
-          <h1>
+          <h3>
             <router-link :to="{name: 'ShowOneSeries', params: {id: series.pk}}" >
               {{ series.name }}
             </router-link>
-          </h1>
+          </h3>
           <div class="user">
             <img class="avatar" src="@/assets/img/头像 女孩.svg">
             <a href="">用户名</a>
           </div>
-          <p>{{ series.description | stringfilter}}</p>
-          <h3>Tags: </h3>
+          <h4>Tags: </h4>
           <ul>
             <li v-for="tag in series.tags" :key="tag.pk">
               {{tag.tag_name}}
             </li>
           </ul>
+          <p>{{ series.description | stringfilter}}</p>
         </div>
       </li>
     </ul>
@@ -44,7 +46,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-
+          <p>{{blog.content | stringfilter}}</p>
         </div>
       </li>
     </ul>
@@ -61,12 +63,14 @@ import Navbar from '@/components/Navbar.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
 import Footer from '@/components/Footer.vue'
+import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowOneSeries",
   components: {
     Navbar,
-    Footer
+    Footer,
+    StarBackground
   },
   data() {
     return {
@@ -126,6 +130,9 @@ export default {
   align-items: center;
   margin: 10vh 0;
   padding: 0 10vw;
+}
+.landing{
+  width: 100vw;
 }
 .cardlist {
   list-style: none;
@@ -188,6 +195,7 @@ button {
 }
 h3{
   margin: 20px 10px;
+  text-align: center;
 }
 h4{
   margin: 20px 10px;

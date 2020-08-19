@@ -1,6 +1,6 @@
 <template>
   <div class="Profile">
-    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner />
+    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner :_user=profile_owner />
     <transition>
       <router-view class="content" mode="out-in" 
         v-if="profile_owner != ''" 
@@ -101,6 +101,9 @@ export default {
   grid-template-areas: "content";
   grid-template-rows: 100%;
   transition: all 0.5s ease-in-out;
+  }
+  .content{
+    height: 100vh;
   }
 }
 </style>

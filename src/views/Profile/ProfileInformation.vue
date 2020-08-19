@@ -1,5 +1,6 @@
 <template>
   <div class="ProfileInformation">
+    <AddFriend v-if="status" :status="this.status" @closealert="closealert"/>
     <div class="box1">
       <div id="image">
         <img src="@/assets/img/landing.jpg" />
@@ -10,10 +11,10 @@
         <p>Balance: {{profile_owner.blance}}</p>
         <p>grade:{{profile_owner.grade}}</p>
         <p>bio:{{profile_owner.bio}}</p>
-        <button v-if="profile_owner" @click='goSendrequest'>addfriend</button>
         <FollowButton 
          :_content_owner=profile_owner
          :_visitor=visitor />
+        <button @click="showalert" id="addfriend-btn">Add Friend</button>
       </div>
     </div>
     <div class="box2">
@@ -40,21 +41,23 @@
 </template>
 
 <script>
-import User from '@/assets/utils/models/User'
-import { login_required } from '@/assets/utils/auth'
 import FriendRequest from '@/assets/utils/models/FriendRequest'
 import FollowButton from '@/components/FollowButton'
+import AddFriend from '@/components/AddFriend.vue'
 
 export default {
-  props: ['_user', '_visitor'],
+  props: ['_user', '_visitor', '_is_owner'],
   data() {
     return {
       profile_owner: this._user,
       visitor: this._visitor,
+      is_owner: this._is_owner,
+      status: false,
     }
   },
   components: {
-    FollowButton
+    FollowButton,
+    AddFriend
   },
   methods: {
     _getFriendRequest() {
@@ -83,13 +86,12 @@ export default {
         }
       })
     },
-  },
-  created() {
-    login_required(this, self => {
-      this.visitor = self
-      User.get(this.profile_owner_id)
-      .then(owner => this.profile_owner = owner)
-    })
+    showalert(){
+      this.status = ! this.status
+    },
+    closealert(val){
+      this.status = val
+    },
   },
   computed: {
     profile_owner_id() {
@@ -121,7 +123,7 @@ img {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   flex-grow: unset;
 }
 .box1 div p {
@@ -129,7 +131,6 @@ img {
   padding-left: 30px;
 }
 .box1 div:nth-child(2) {
-  position: relative;
   bottom: 100px;
 }
 .box2 {
@@ -145,7 +146,6 @@ img {
   display: inline-block;
   width: 60px;
   height: 60px;
-  position: relative;
   top: 28px;
   right: 5px;
   bottom: 20px;

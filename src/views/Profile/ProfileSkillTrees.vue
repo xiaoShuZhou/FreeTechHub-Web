@@ -1,6 +1,6 @@
 <template>
   <div>
-      SkillTrees
+    SkillTrees
   </div>
 </template>
 

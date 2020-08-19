@@ -1,5 +1,6 @@
 <template>
   <div class="ShowSeries">
+    <StarBackground />
     <Navbar/>
     <ul class="cardlist">
       <li v-for="series in all_series" :key="series.pk">
@@ -34,12 +35,14 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
+import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowSeries",
   components: {
     Navbar,
     Footer,
+    StarBackground
   },
   data() {
     return {
@@ -59,7 +62,7 @@ export default {
   created() {
     // use login_required can make sure the expired token get removed
     login_required(this, () => this.loadSeries())
-  }
+  },
 }
 </script>
 
@@ -79,7 +82,6 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
 .cardlist {
   list-style: none;
   display: grid;
