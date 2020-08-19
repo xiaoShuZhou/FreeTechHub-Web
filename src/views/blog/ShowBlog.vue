@@ -16,6 +16,7 @@
             <a href>用户名</a>
             <p>个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名</p>
             <button @click="addfriend" id="addfriend-btn">Add Friend</button>
+            <p>{{ blog.view_num }} views</p>
           </div>
         </div>
         <div class="taggroup">
@@ -206,7 +207,6 @@ export default {
       this.status = !this.status
       var buttontop = document.getElementById("addfriend-btn")
       this.top = buttontop.scrollTop
-      // console.log(buttontop.scrollTop)
     },
     closealert(val){
       this.status = val

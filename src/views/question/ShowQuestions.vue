@@ -1,24 +1,27 @@
 <template>
-    <div class="ShowQuestions">
-      <Navbar/>
-      <h1>Questions</h1>
-      <ul class="cardlist">
-        <li v-for="question in questions" :key="question.pk">
-          <div class="card">
-            <img src="@/assets/img/landing.jpg" class="card-img">
-            <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
-            <div class="user">
-              <img class="avatar" src="@/assets/img/头像 女孩.svg">
-              <a href="">用户名</a>
-            </div>
-            <p class="bounty">Bounty:{{ question.bounty }}</p>
-            <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
-          </div>
-        </li>
-      </ul>
-      <button @click="newQuestion">create new question</button>
-      <Footer/>
+  <div class="ShowQuestions">
+    <div class="sky" ref="sky">
+      <canvas ref="canvas"></canvas>
     </div>
+    <Navbar/>
+    <h1>Questions</h1>
+    <ul class="cardlist">
+      <li v-for="question in questions" :key="question.pk">
+        <div class="card">
+          <img src="@/assets/img/landing.jpg" class="card-img">
+          <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
+          <div class="user">
+            <img class="avatar" src="@/assets/img/头像 女孩.svg">
+            <a href="">用户名</a>
+          </div>
+          <p class="bounty">Bounty:{{ question.bounty }}</p>
+          <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
+        </div>
+      </li>
+    </ul>
+    <button @click="newQuestion">create new question</button>
+    <Footer/>
+  </div>
 </template>
 
 <script>
@@ -48,6 +51,64 @@ export default {
   created() {
     Question.all().then(questions => this.questions = questions)
   },
+  mounted(){
+    let _this = this
+    _this.$refs.sky.width = document.documentElement.scrollWidth
+    _this.$refs.sky.height =  document.documentElement.scrollHeight 
+    function Star(id, x, y){
+      this.id = id
+      this.x = x
+      this.y = y
+      this.r = Math.floor(Math.random()*2) + 1;
+      var alpha = (Math.floor(Math.random() * 10 ) +1 ) /10 /2
+      this.color = "rgba(255,255,255," + alpha + ")"
+    }
+    Star.prototype.draw = function() {
+      ctx.fillStyle = this.color
+      ctx.shadowBlur = this.r * 2
+      ctx.beginPath()
+      ctx.arc(this.x, this.y, this.r, 0, 2 *Math.PI, false)
+      ctx.closePath()
+      ctx.fill()
+    }
+    Star.prototype.move = function() {
+      this.y -= 1
+      if(this.y <= -10) this.y = _Height + 10
+      this.draw()
+    }
+    Star.prototype.die = function() {
+      stars[this.id] = null
+      delete stars[this.id]
+    }
+    var canvas = _this.$refs.canvas,
+        ctx = canvas.getContext("2d"),
+        _Width = _this.$refs.sky.width,
+        _Height = _this.$refs.sky.height,
+        stars = [],
+        initStarsPopulation = 80;
+    function setCanvasSize() {
+      canvas.setAttribute('width', _Width)
+      canvas.setAttribute('height', _Height)
+    }
+    function __init__(){
+      ctx.strokeStyle = 'white';
+      ctx.shadowColor = 'white';
+      for(var i =0; i < initStarsPopulation; i++){
+        stars[i] = new Star(i, Math.floor(Math.random() * _Width), Math.floor(Math.random() * _Height))
+      }
+      ctx.shadowBlur = 0
+      animate()
+    }
+    function animate(){
+      ctx.clearRect(0, 0, _Width, _Height)
+      for(var i in stars){
+        stars[i].move()
+      }
+      requestAnimationFrame(animate)
+    }
+    setCanvasSize()
+    __init__()
+  },
 }
 </script>
 
@@ -57,6 +118,14 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.sky{
+  z-index: -1;
+  top: 10vh;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+	background: radial-gradient(225% 105% at bottom center, #f7f7b6 10%, #e96f92 40%, #75517d 65%, #1b2947);
 }
 button {
   border: 0;

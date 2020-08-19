@@ -10,10 +10,10 @@ class Blog extends Model {
     static model_name = 'blog'
 
     // the input argument must be something like:
-    constructor({id, title, content, date, viewTimes, owner,
+    constructor({id, title, content, date, view_num, owner,
                  tags, series, like_num, dislike_num, content_type_id, blogs, root_comment}) {
         
-        super({title, content, owner, viewTimes, series, root_comment})  // data fields that is requried when save
+        super({title, content, owner, series, root_comment})  // data fields that is requried when save
         // required data fields
         this.app_name = 'blog'
         this.model = "blog"
@@ -22,6 +22,7 @@ class Blog extends Model {
         // this custom data for Blog
         this.date = date
         this.owner = owner
+        this.view_num = view_num
         this.like_num = like_num
         this.dislike_num = dislike_num
         this.content_type_id = content_type_id

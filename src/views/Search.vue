@@ -1,33 +1,38 @@
 <template>
   <div class="Search">
     <Navbar/>
-    
+    <div class="sky" ref="sky">
+      <canvas ref="canvas"></canvas>
+    </div>
     <div class="results" v-if="results.length != 0">
-      <div class="card" v-for="result in results" :key="result.model+result.pk">
-        <div v-if="result.model == 'blog'">
-          <h2 class="title"> 
-            [Blog]
-            <router-link 
-              :to="{name:'ShowBlog', params:{id: result.pk}}">
-              {{ result.title }}
-            </router-link>
-          </h2>
-        </div>
-        <div v-else-if="result.model == 'question'">
-          <h2 class="title"> 
-            [Question]
-            <router-link 
-              :to="{name:'ShowQuestion', params:{id: result.pk}}">
-              {{ result.title }}
-            </router-link>
-          </h2>
-        </div>
-      </div>
+      <ul class="cardlist">
+        <li v-for="result in results" :key="result.model+result.pk">
+          <div v-if="result.model == 'blog'" class="card">
+            <img class="card-img" src="@/assets/img/landing.jpg" alt="">
+            <h2 class="title"> 
+              [Blog]
+              <router-link 
+                :to="{name:'ShowBlog', params:{id: result.pk}}">
+                {{ result.title }}
+              </router-link>
+            </h2>
+          </div>
+          <div class="card" v-else-if="result.model == 'question'">
+            <img class="card-img" src="@/assets/img/landing.jpg" alt="">
+            <h2 class="title"> 
+              [Question]
+              <router-link 
+                :to="{name:'ShowQuestion', params:{id: result.pk}}">
+                {{ result.title }}
+              </router-link>
+            </h2>
+          </div>
+          <div v-else>
+            <h1>No related content</h1>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div v-else>
-      <h1>No related content</h1>
-    </div>
-
   </div>
 </template>
 
@@ -51,6 +56,64 @@ export default {
   created() {
     search(this.keywords).then(res => this.results = res)
   },
+  mounted(){
+    let _this = this
+    _this.$refs.sky.width = document.documentElement.scrollWidth
+    _this.$refs.sky.height =  document.documentElement.scrollHeight 
+    function Star(id, x, y){
+      this.id = id
+      this.x = x
+      this.y = y
+      this.r = Math.floor(Math.random()*2) + 1;
+      var alpha = (Math.floor(Math.random() * 10 ) +1 ) /10 /2
+      this.color = "rgba(255,255,255," + alpha + ")"
+    }
+    Star.prototype.draw = function() {
+      ctx.fillStyle = this.color
+      ctx.shadowBlur = this.r * 2
+      ctx.beginPath()
+      ctx.arc(this.x, this.y, this.r, 0, 2 *Math.PI, false)
+      ctx.closePath()
+      ctx.fill()
+    }
+    Star.prototype.move = function() {
+      this.y -= 1
+      if(this.y <= -10) this.y = _Height + 10
+      this.draw()
+    }
+    Star.prototype.die = function() {
+      stars[this.id] = null
+      delete stars[this.id]
+    }
+    var canvas = _this.$refs.canvas,
+        ctx = canvas.getContext("2d"),
+        _Width = _this.$refs.sky.width,
+        _Height = _this.$refs.sky.height,
+        stars = [],
+        initStarsPopulation = 80;
+    function setCanvasSize() {
+      canvas.setAttribute('width', _Width)
+      canvas.setAttribute('height', _Height)
+    }
+    function __init__(){
+      ctx.strokeStyle = 'white';
+      ctx.shadowColor = 'white';
+      for(var i =0; i < initStarsPopulation; i++){
+        stars[i] = new Star(i, Math.floor(Math.random() * _Width), Math.floor(Math.random() * _Height))
+      }
+      ctx.shadowBlur = 0
+      animate()
+    }
+    function animate(){
+      ctx.clearRect(0, 0, _Width, _Height)
+      for(var i in stars){
+        stars[i].move()
+      }
+      requestAnimationFrame(animate)
+    }
+    setCanvasSize()
+    __init__()
+  },
   computed: {
     keywords() {
       return this.$route.query.keywords
@@ -69,6 +132,26 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.sky{
+  z-index: -1;
+  top: 10vh;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+	background: radial-gradient(225% 105% at bottom center, #f7f7b6 10%, #e96f92 40%, #75517d 65%, #1b2947);
+}
+
+@keyframes colorChange{
+	0%{
+		opacity: 0.1;
+	}
+	50%{
+		opacity: 0.9;
+	}
+	100%{
+		opacity: 0.1;
+	}
 }
 .cardlist {
   list-style: none;
@@ -129,6 +212,9 @@ export default {
   .ShowOneSeries{
     width: 100%;
     height: 100%;
+  }
+  .sky{
+    top: 6vh;
   }
   .cardlist {
     list-style: none;

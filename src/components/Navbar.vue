@@ -21,7 +21,7 @@
         <a class="list" @click="goProfile()">Profile</a>
       </li>
       <li class="search">
-        <input type="text" name="search" v-model="search_tag_name" placeholder="Search"/>
+        <input type="text" name="search" v-model="keywords" placeholder="Search"/>
         <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
       </li>
       <li>
@@ -136,8 +136,10 @@ img{
   color: #000;
 }
 li {
-  padding: 0 10px 0 10px;
 	margin: 0 10px 0;
+}
+.list{
+  width: 200px;
 }
 .list-logo {
   color: rgb(32, 78, 207) !important;
@@ -166,6 +168,7 @@ li:hover{
   background: #fe6b40;
   transition: all 0.5s ease;
 }
+
 li:-webkit-any-link{
   color: white;
 }
