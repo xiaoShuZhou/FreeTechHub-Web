@@ -1,24 +1,25 @@
 <template>
-    <div class="ShowQuestions">
-      <Navbar/>
-      <h1>Questions</h1>
-      <ul class="cardlist">
-        <li v-for="question in questions" :key="question.pk">
-          <div class="card">
-            <img src="@/assets/img/landing.jpg" class="card-img">
-            <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
-            <div class="user">
-              <img class="avatar" src="@/assets/img/头像 女孩.svg">
-              <a href="">用户名</a>
-            </div>
-            <p class="bounty">Bounty:{{ question.bounty }}</p>
-            <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
+  <div class="ShowQuestions">
+    <StarBackground />
+    <Navbar/>
+    <h1>Questions</h1>
+    <ul class="cardlist">
+      <li v-for="question in questions" :key="question.pk">
+        <div class="card">
+          <img src="@/assets/img/landing.jpg" class="card-img">
+          <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
+          <div class="user">
+            <img class="avatar" src="@/assets/img/头像 女孩.svg">
+            <a href="">用户名</a>
           </div>
-        </li>
-      </ul>
-      <button @click="newQuestion">create new question</button>
-      <Footer/>
-    </div>
+          <p class="bounty">Bounty:{{ question.bounty }}</p>
+          <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
+        </div>
+      </li>
+    </ul>
+    <button @click="newQuestion">create new question</button>
+    <Footer/>
+  </div>
 </template>
 
 <script>
@@ -26,12 +27,14 @@ import Question from "@/assets/utils/models/Question"
 import { login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import StarBackground from '@/components/StarBackground'
 
 export default {
   name: 'ShowQuestions',
   components: {
     Navbar,
-    Footer
+    Footer,
+    StarBackground
   },
   data() {
     return {
@@ -58,6 +61,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -89,6 +93,7 @@ ul {
 .content {
   margin: 2vh 3vw;
   max-width: 100%;
+  word-break: break-all;
 }
 
 .bounty {

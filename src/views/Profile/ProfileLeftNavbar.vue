@@ -66,18 +66,14 @@
 </template>
 
 <script>
-import {login_required} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
-  props: ['_is_owner'],
+  props: ['_is_owner', '_user'],
   data() {
     return {
-      user: '',
+      user: this._user,
       is_owner: this._is_owner
     }
-  },
-  created() {
-    login_required(this, user => this.user = user)
   },
 }
 </script>

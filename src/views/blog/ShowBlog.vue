@@ -1,6 +1,7 @@
 <template>
   <div class="ShowBlog">
-    <Navbar id="navbar" />
+    <Navbar id="navbar" :_user='user'/>
+    <AddFriend v-if="status" :status="this.status" @closealert="closealert"/>
     <div class="img">
       <img src="@/assets/img/landing.jpg" alt />
     </div>
@@ -14,6 +15,7 @@
           <div class="content">
             <a href>用户名</a>
             <p>个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名</p>
+            <button @click="addfriend" id="addfriend-btn">Add Friend</button>
             <p>{{ blog.view_num }} views</p>
           </div>
         </div>
@@ -89,11 +91,14 @@ import { login_required } from "@/assets/utils/auth";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
 import ShowComments from '@/components/ShowComments.vue'
+import AddFriend from '@/components/AddFriend.vue'
+
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
-    ShowComments
+    ShowComments,
+    AddFriend
   },
   data() {
     return {
@@ -105,7 +110,9 @@ export default {
       deleteid:'',
       content: 'follow',
       liked: true,
-      history: ''
+      history: '',
+      status: false,
+      top: 0
     }
   },
   methods: {
@@ -195,6 +202,12 @@ export default {
           .then(history => this.history=history)
         })
       })
+    },
+    addfriend(){
+      this.status = !this.status
+    },
+    closealert(val){
+      this.status = val
     },
   },
   created() {

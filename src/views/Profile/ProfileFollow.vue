@@ -39,12 +39,12 @@
 
 <script>
 import Followership from '@/assets/utils/models/Followership'
-import User from '@/assets/utils/models/User'
 export default {
+  props:['_is_owner', '_user'],
   name: "ProfileFollow",
   data() {
     return {
-      user: '',
+      user: this._user,
       followings: '',
       followers: '',
       totalfollower: '',
@@ -54,15 +54,12 @@ export default {
   methods: {
     follow() {},
     gopersonalprofile(follower) {
-      User.get(follower.id).then(user => {
-        this.$router.push({
-          name: "ProfileInformation",
-          params: {
-            id: user.pk
-          }
-        })
+      this.$router.push({
+        name: "ProfileInformation",
+        params: {
+          id: follower.pk
+        }
       })
-
     },
     getFollowinglist() {
       Followership.getFollowinglist().then(followings => {
@@ -82,9 +79,7 @@ export default {
           this.getFollowinglist()
           this.getFollowerlist()
         })
-
       })
-
     },
   },
   created() {

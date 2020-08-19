@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <router-link class="logo" to="/">FreeTechHub</router-link>
-    <ul class="menu">
+    <ul v-bind:class="{shownavbar:show}" class="menu">
       <li>
         <router-link class="menu-logo" to="/">FreeTechHub</router-link>
       </li>
@@ -21,7 +21,7 @@
         <router-link :to="{name:'Login'}">Login</router-link>
       </li>
     </ul>
-    <div class="menu-btn"><img class="iconfont" src="@/assets/img/菜单.svg" alt=""></div>
+    <div class="menu-btn" @click="shownavbar"><img class="iconfont" src="@/assets/img/菜单.svg" alt=""></div>
   </nav>
 </template>
 
@@ -31,11 +31,16 @@ export default {
   name: "Navbar",
   data() { 
     return {
-      is_login: false
+      is_login: false,
+      show: false
     }
   }
   ,
   methods: {
+    shownavbar(){
+      this.show = !this.show
+      
+    }
   },
   created() {
     is_authenticated(this).then(res => {
@@ -161,6 +166,10 @@ a.active:visited {
 		flex-direction: column;
 		transition: all 0.5s ease-in-out; 
 	}
+  .shownavbar{
+		left: -10vw !important;
+		width: 40vw !important;
+  }
 	.menu li{
 		display: block;
 		width: 50%;
