@@ -3,7 +3,10 @@
     <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner />
     <transition>
       <router-view class="content" mode="out-in" 
-        v-if="profile_owner != ''" :_user=profile_owner :_is_owner=is_owner>
+        v-if="profile_owner != ''" 
+        :_user=profile_owner 
+        :_is_owner=is_owner
+        :_visitor=visitor >
       </router-view>
     </transition>
   </div>
@@ -23,12 +26,14 @@ export default {
   data() {
     return {
       profile_owner: '',
+      visitor: '',
       is_owner: false
     }
   },
   methods: {
     load() {
       login_required(this, visitor => {
+        this.visitor = visitor
         if(this.user_id != undefined) {
           User.get(this.user_id).then(user =>{
             this.profile_owner = user

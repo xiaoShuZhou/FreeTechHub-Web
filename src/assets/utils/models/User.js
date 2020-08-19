@@ -2,6 +2,7 @@ import Model from "./Model"
 import FriendRequest from "./FriendRequest"
 import axios from 'axios'
 import BASE_URL from '../consts'
+import Followership from './Followership'
 class User extends Model {
     static app_name = 'user'
     static model_name = 'user'
@@ -11,7 +12,7 @@ class User extends Model {
     constructor({ id, last_login, is_superuser, date_joined,
                   username, email, date_of_birth, is_authorized,
                   balance, major, grade, bio,avatar, groups,
-                  user_permissions, follower_users }) {
+                  user_permissions}) {
 
         super({username, email, grade, bio, major})     // data fields that is requried when save
 
@@ -34,7 +35,6 @@ class User extends Model {
         this.avatar = avatar
         this.groups = groups
         this.user_permissions = user_permissions
-        this.follower_users = follower_users
         this.context = []
         this.newMessageNum = 0
     }
@@ -43,6 +43,46 @@ class User extends Model {
     static async getSelf() {
         let res = await axios.get(BASE_URL+'user/getself/')
         return new User(res.data)
+    }
+
+    // get lists of followers and followings
+    async getFollowershipList() {
+        let res = await axios.get(BASE_URL+`user/getfollowerships/${this.pk}/`)
+        let followers = []
+        for (let follower of res.data.followers) {
+            followers.push(new User(follower))
+        }
+        let followings = []
+        for (let following of res.data.followings) {
+            followings.push(new User(following))
+        }
+        return {
+            followers: followers,
+            followings: followings
+        }
+    }
+
+    async follow(user_id) {
+        let followership = new Followership({
+            following: user_id,
+            follower: this.pk
+        })
+        let res = await followership.save()
+        return res.data
+    }
+
+    async unfollow(user_id) {
+        let res = await axios.post(BASE_URL+'user/unfollow/', {
+            following_id: user_id,
+            follower_id: this.pk
+        })
+        return res.data
+    }
+
+    async is_followed(user_id) {
+        let res = await axios.get(
+            BASE_URL+`user/followship_check/${this.pk}/${user_id}`)
+        return res.data
     }
 
     // get all the friends of this user
@@ -82,12 +122,10 @@ class User extends Model {
         return this.context
     }
 
-
     // get model by id
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)
     }
-
 
     // get all the model
     static async all() {

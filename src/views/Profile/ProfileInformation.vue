@@ -11,6 +11,9 @@
         <p>grade:{{profile_owner.grade}}</p>
         <p>bio:{{profile_owner.bio}}</p>
         <button v-if="profile_owner" @click='goSendrequest'>addfriend</button>
+        <FollowButton 
+         :_content_owner=profile_owner
+         :_visitor=visitor />
       </div>
     </div>
     <div class="box2">
@@ -40,12 +43,18 @@
 import User from '@/assets/utils/models/User'
 import { login_required } from '@/assets/utils/auth'
 import FriendRequest from '@/assets/utils/models/FriendRequest'
+import FollowButton from '@/components/FollowButton'
+
 export default {
+  props: ['_user', '_visitor'],
   data() {
     return {
-      profile_owner: '',
-      visitor: '',
+      profile_owner: this._user,
+      visitor: this._visitor,
     }
+  },
+  components: {
+    FollowButton
   },
   methods: {
     _getFriendRequest() {

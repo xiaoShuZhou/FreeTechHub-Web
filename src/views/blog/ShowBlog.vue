@@ -4,7 +4,7 @@
     <div class="img">
       <img src="@/assets/img/landing.jpg" alt />
     </div>
-    <div class="blog">
+    <div class="blog" v-if="blog != ''">
       <div class="title">
         <h1>{{ blog.title }}</h1>
         <div class="user">
@@ -12,21 +12,20 @@
             <img class="icon" src="@/assets/img/头像 女孩.svg" alt />
           </a>
           <div class="content">
-            <a href>用户名</a>
-            <p>个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名个性签名</p>
+            <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
+              {{blog.owner_instance.username}}
+            </router-link>
+            <p>{{ blog.owner_instance.bio }}</p>
             <p>{{ blog.view_num }} views</p>
+            <FollowButton 
+             :_content_owner=blog.owner_instance
+             :_visitor=user />
           </div>
         </div>
-        <div class="taggroup">
-          <a href class="tag">
+        <div class="taggroup" v-if="blog.tags.length != 0">
+          <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
             <img class="icon" src="@/assets/img/标签.svg" alt />
-            {{blog.tags}}
-          </a>
-          <a href class="tag">
-            <img class="icon" src="@/assets/img/标签.svg" alt />django
-          </a>
-          <a href class="tag">
-            <img class="icon" src="@/assets/img/标签.svg" alt />vue
+            {{ tag.tag_name }}
           </a>
         </div>
       </div>
@@ -89,15 +88,19 @@ import { login_required } from "@/assets/utils/auth";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
 import ShowComments from '@/components/ShowComments.vue'
+import FollowButton from '@/components/FollowButton'
+
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
-    ShowComments
+    ShowComments,
+    FollowButton
   },
   data() {
     return {
       blog: '',
+      user: '',
       followership:'',
       followinguser:'',
       followeruser:'',
@@ -198,7 +201,8 @@ export default {
     },
   },
   created() {
-    login_required(this, (user) => {
+    login_required(this, user => {
+      this.user = user
       this.$store.commit('set_root_comment_tree', '')
       Blog.get(this.$route.params.id)
       .then(blog => {
@@ -208,15 +212,6 @@ export default {
           let wrapped_comment_tree = Comment.wrap_sub_comments(comment_tree)
           this.$store.commit('set_root_comment_tree', wrapped_comment_tree)
           this.$store.commit('set_root_id', this.blog.root_comment)
-        })
-
-        this.followeruser = user
-        this.followerlists = this.followeruser.follower_users
-        this.init();
-
-        User.get(this.blog.owner).then(user =>{
-          this.followinguser = user
-          this.init()
         })
         blog.getLikeHistory().then(history => this.history = history)
       })

@@ -4,6 +4,7 @@ import Comment from "./Comment"
 import marked from 'marked'
 import axios from 'axios'
 import BASE_URL from '../consts'
+import User from './User'
 
 class Blog extends Model {
     static app_name = 'blog'
@@ -11,7 +12,8 @@ class Blog extends Model {
 
     // the input argument must be something like:
     constructor({id, title, content, date, view_num, owner,
-                 tags, series, like_num, dislike_num, content_type_id, blogs, root_comment}) {
+                 tags, series, like_num, dislike_num, content_type_id,
+                 blogs, root_comment, owner_instance}) {
         
         super({title, content, owner, series, root_comment})  // data fields that is requried when save
         // required data fields
@@ -28,6 +30,10 @@ class Blog extends Model {
         this.content_type_id = content_type_id
         this.m_content = marked(this.content)
         this.blogs = blogs
+        
+        if (owner_instance != undefined) {
+            this.owner_instance = new User(owner_instance)
+        }
 
         if (tags != undefined) {
             this.tags = []

@@ -1,35 +1,33 @@
 <template>
   <div class="ProfileFollow">
-    <div class="Following">
-      <h2>Following<small>粉丝数：{{totalfollowing}}</small></h2>
+    <div class="Followings">
+      <h2>Following<small>关注数：{{totalfollowing}}</small></h2>
       <div class="FollowingList">
         <ul>
           <li v-for="following in followings" :key='following.following_id'>
-            <a @click='gopersonalprofile(follower)' class="avatar">
               <img src="@/assets/img/头像 女孩.svg" alt />
               <div>
-                <p>username: {{following.following_name}}</p>
-                <p>bio: {{following.user_bio}}</p>
+                <p>username: {{following.username}}</p>
+                <p>bio: {{following.bio}}</p>
               </div>
-              <button class="btn" v-on:click.stop="deleteFollowing(following)" href="#">已关注</button>
-            </a>
+              <FollowButton 
+               :_content_owner=following
+               :_visitor=user 
+               :_follow=true />
           </li>
         </ul>
       </div>
     </div>
-    <div class="Follower">
-      <h2>Follower<small>关注数：{{totalfollower}}</small></h2>
+    <div class="Followers">
+      <h2>Follower<small>粉丝数：{{totalfollower}}</small></h2>
       <div class="FollowerList">
         <ul>
           <li v-for="follower in followers" :key='follower.following_id'>
-            <a @click='gopersonalprofile(follower)' class="avatar">
-              <img src="@/assets/img/头像 女孩.svg" alt />
-              <div>
-                <p>username: {{follower.follower_name}}</p>
-                <p>bio: {{follower.user_bio}}</p>
-              </div>
-              <button class="btn" v-on:click.stop="follow" href="#">已关注</button>
-            </a>
+            <img src="@/assets/img/头像 女孩.svg" alt />
+            <div>
+              <p>username: {{follower.username}}</p>
+              <p>bio: {{follower.bio}}</p>
+            </div>
           </li>
         </ul>
       </div>
@@ -38,13 +36,17 @@
 </template>
 
 <script>
-import Followership from '@/assets/utils/models/Followership'
-import User from '@/assets/utils/models/User'
+import FollowButton from '@/components/FollowButton'
+
 export default {
   name: "ProfileFollow",
+  props: ['_user'],
+  components: {
+    FollowButton
+  },
   data() {
     return {
-      user: '',
+      user: this._user,
       followings: '',
       followers: '',
       totalfollower: '',
@@ -52,49 +54,17 @@ export default {
     }
   },
   methods: {
-    follow() {},
-    gopersonalprofile(follower) {
-      User.get(follower.id).then(user => {
-        this.$router.push({
-          name: "ProfileInformation",
-          params: {
-            id: user.pk
-          }
-        })
-      })
-
-    },
-    getFollowinglist() {
-      Followership.getFollowinglist().then(followings => {
-        this.followings = followings
-        this.totalfollowing = this.followings.length
-      })
-    },
-    getFollowerlist() {
-      Followership.getFollowerlist().then(followers => {
-        this.followers = followers,
-        this.totalfollower = this.followers.length
-      })
-    },
-    deleteFollowing(following) {
-      Followership.get(following.following_id).then(followership => {
-        followership.delete().then(() => {
-          this.getFollowinglist()
-          this.getFollowerlist()
-        })
-
-      })
-
-    },
+    
   },
   created() {
-    this.getFollowinglist()
-    this.getFollowerlist()
+    this.user.getFollowershipList()
+    .then(res => {
+      this.followings = res.followings
+      this.followers = res.followers
+      this.totalfollower = this.followers.length
+      this.totalfollowing = this.followings.length
+    })
   },
-  mounted() {
-    this.getFollowinglist()
-    this.getFollowerlist()
-  }
 };
 </script>
 
@@ -124,7 +94,7 @@ small{
   font-size: 15px;
   padding: 0 0 0 20px;
 }
-.Follower {
+.Followers {
   grid-area: Follower;
 }
 ul{
@@ -148,10 +118,10 @@ li:nth-child(1) {
   border-top: 1px solid #e4dfdf;
   padding-top: 30px;
 }
-.Following {
+.Followings {
   grid-area: Following;
 }
-.Following::-webkit-scrollbar {
+.Followings::-webkit-scrollbar {
   display: none;
 }
 .btn {

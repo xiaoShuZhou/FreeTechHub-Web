@@ -1,11 +1,14 @@
 import Model from "./Model";
-import axios from "axios"
+import User from "./User"
 
 class Followership extends Model {
     static app_name = 'user'
     static model_name = 'followership'
 
-    constructor({id, following , follower }) {
+    constructor({id, following , follower, 
+                 following_user_instance,
+                 follower_user_instance}) {
+        
         super({following , follower})
 
         this.app_name = 'user'
@@ -13,23 +16,12 @@ class Followership extends Model {
         this.pk = id
 
         // this custom data for followership
-        this.following = following
-        this.follower=  follower
-        this.followings = []
-        this.followers = []
-    }
-
-    //Followership custom methods
-    static async getFollowinglist() {
-        let res = await axios.get('http://127.0.0.1:8000/user/getfollowing/')
-        this.followings = res.data.data
-        return this.followings
-    }
-
-    static async getFollowerlist() {
-        let res = await axios.get('http://127.0.0.1:8000/user/getfollower/')
-        this.followers = res.data.data
-        return this.followers
+        if (following_user_instance != undefined) {
+            this.following_user_instance = new User(following_user_instance)
+        }
+        if (follower_user_instance != undefined) {
+            this.follower_user_instance = new User(follower_user_instance)
+        }
     }
 
     // get model by id
