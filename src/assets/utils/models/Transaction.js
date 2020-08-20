@@ -1,5 +1,7 @@
 import Model from "./Model";
-import marked from 'marked'
+import BASE_URL from '../consts';
+import User from './User';
+import axios from "axios";
 
 class Transaction extends Model {
     static app_name = 'transaction'    // required
@@ -7,8 +9,8 @@ class Transaction extends Model {
 
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
-    constructor({id, user, amount, time, transaction_type, description}) {
-        super({amount, transaction_type, description})     // data fields that is requried when save
+    constructor({id, user, user_instance, amount, time, transaction_type, description}) {
+        super({amount, user, transaction_type, description})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'transaction'  // required
@@ -16,16 +18,20 @@ class Transaction extends Model {
         this.pk = id            // required
 
         // this custom data for Tag
-        this.user = user
+        if (user_instance != undefined) {
+            this.user_instance = new User(user_instance)
+        }
         this.time = time
     }
 
-
-    // -*- Just copy paste everything below to every concrete model -*-
-
-    // They can not be defined inside of Model super class because
-    // I can't get the constructors of these concrete models from 
-    // the Model super class. If you know how, plase let me know.
+    static async get_wrapped_transactions(id){
+        let res = await axios.get(BASE_URL+`transaction/query/${id}/`)
+        let wrap_transactions = []
+        for (let item of res.data['transactions']){
+            wrap_transactions.push(new Transaction(item))
+        }
+        return wrap_transactions
+    }
 
     // get model by id
     static async get(id) {

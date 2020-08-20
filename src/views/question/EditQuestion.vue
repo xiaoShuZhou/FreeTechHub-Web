@@ -15,15 +15,15 @@
       <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
     </div>
     <div class="button">
-      <router-link to='/show/questions'>
-        <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
-      </router-link>
+      <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
     </div>
   </div>
 </template>
 
 <script>
 import Question from '@/assets/utils/models/Question'
+import Transaction from '@/assets/utils/models/Transaction'
+import { login_required } from '@/assets/utils/auth'
 import marked from 'marked'
 
 export default {
@@ -37,7 +37,7 @@ export default {
       title:'',
       content:'',
       bounty:'',
-      owner:'',
+      user:'',
       question:'',
     }
   },
@@ -49,24 +49,46 @@ export default {
         title: this.title,
         content: marked(this.content),
         bounty: this.bounty,
-        owner: this.owner,
+        owner: this.user.pk,
       })
     },
-
+     _getTransaction(){
+      return new Transaction({
+        user: this.user.pk,
+        amount: this.bounty,
+        transaction_type: 'PBQ',
+        description:this.title,
+      })
+    },
     saveQuestion(){
       let question = this._getQuestion()
       if(this.$route.name == "NewQuestion"){
-        question.save().then(()=>{
-          this.$router.push({name:'ShowQuestions'})
-        })
+        if (this.user.balance >= this.bounty){
+            question.save().then(()=>{
+              let transaction = this._getTransaction()
+              transaction.save().then(() => {
+                this.$router.push({name:'ShowQuestions'})
+            })
+          })
+        }else{
+          alert("your balance is not enough.")
+        }
       }else{
-        question.update().then(()=>{
-          this.$router.push({name:'ShowQuestion', params: {id: this.id }})
-        })
+        if (this.user.balance >= this.bounty){
+          question.update().then(()=>{
+            let transaction = this._getTransaction()
+            transaction.save().then(() => {
+              this.$router.push({name:'ShowQuestion', params: {id: this.id }})
+            })
+          })
+        }else{
+          alert("your balance is not enough.")
+        }
       }
     },
   },
   created(){
+    login_required(this, user => this.user = user)
     if(this.$route.params.id != undefined){
       Question.get(this.$route.params.id).then(question => {
         this.title = question.title

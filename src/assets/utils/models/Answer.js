@@ -2,6 +2,8 @@ import Model from "./Model";
 import marked from 'marked'
 import axios from 'axios'
 import BASE_URL from '../consts'
+import User from './User'
+import Comment from "./Comment"
 
 class Answer extends Model {
     static app_name = 'question'    
@@ -9,18 +11,19 @@ class Answer extends Model {
 
     // the input argument must be something like:
     // {id: xxx, ....(other data fields)}
-    constructor({id, content, time, status, owner,
+    constructor({id, content, time, status, owner, owner_instance,
                  question, like_num, dislike_num,
-                 content_type_id}) {
-        super({content, owner,question})     // data fields that is requried when save
+                 content_type_id, root_comment}) {
+        super({content, owner, question, status, root_comment})     // data fields that is requried when save
 
         this.app_name = 'question'  
         this.model = "answer"      
         this.pk = id            
 
         this.time = time
-        this.status = status
-        this.owner = owner
+        if (owner_instance != undefined) {
+            this.owner_instance = new User(owner_instance)
+        }
         this.agree_num = like_num
         this.disagree_num = dislike_num
         this.content_type_id = content_type_id
@@ -54,6 +57,21 @@ class Answer extends Model {
             }
         })
         return res.data
+    }
+
+    async save(){
+        let response = await axios.post(this._getModelURL(), this._getData())
+        this.pk = response.data.id
+        let root_comment = new Comment({
+            content: '',
+            owner:response.data.owner,
+            sub_comments_of:null,
+        })
+        let res = await root_comment.save()
+        this.root_comment = res.data.id
+        this.owner = response.data.owner
+        this.update()
+        return response
     }
     
     static async get(id) {

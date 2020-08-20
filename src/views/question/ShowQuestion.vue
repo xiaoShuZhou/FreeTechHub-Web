@@ -3,15 +3,17 @@
     <Navbar />
     <img class="landing" src="@/assets/img/landing.jpg" />
     <div class="question">
-      <div class="title">
-        <h1>{{ question.title }}</h1>
-        <div class="Publisher">
-          <img src="@/assets/img/头像 女孩.svg" />
-          <p>Publisher:{{ question.owner }}</p>
+      <div v-if="question != ''">
+        <div class="title">
+          <h1>{{ question.title }}</h1>
+          <div class="Publisher">
+            <img src="@/assets/img/头像 女孩.svg" />
+            <p>Publisher:{{ question.owner_instance.username }}</p>
+          </div>
+          <p class="bounty">Bounty:{{ question.bounty }}</p>
+          <p class="status" v-if="question.status == false">Unsolved</p>
+          <p class="status" v-else>Solved</p>
         </div>
-        <p class="bounty">Bounty:{{ question.bounty }}</p>
-        <p class="status" v-if="question.status == false">Unsolved</p>
-        <p class="status" v-else>Solved</p>
       </div>
       <div class="content" v-html="question.content" v-highlight></div>
       <div class="buttons">
@@ -22,35 +24,66 @@
       <h2>Answers:</h2>
       <div class="comment">
         <ul>
-          <li v-for="answer in answers" :key="answer.id">
-            <div class="card">
-              <div class="card-img">
-                <img src="@/assets/img/头像 女孩.svg" />
-                <h4>{{ answer.owner }}</h4>
+          <div v-if="accepted_answer != ''">
+            <li>
+              <div class="card">
+                <div class="card-img">
+                  <img src="@/assets/img/头像 女孩.svg" />
+                  <h4>{{ accepted_answer.owner_instance.username }}</h4>
+                </div>
+                <h2 class="card-title">{{ accepted_answer.time }}</h2>
+                <p class="card-content" v-html="accepted_answer.m_content" v-highlight></p>
+                <h4 class="status">Accepted</h4>
               </div>
-              <h2 class="card-title">{{ answer.time }}</h2>
-              <p class="card-content" v-html="answer.m_content" v-highlight></p>
-              <h4 class="status" v-if="answer.status == false">Unaccepted</h4>
-              <h4 class="status" v-else>Accepted</h4>
-              <button class="accept" v-if="answer.status == false">Accept</button>
-            </div>
-          </li>
+            </li>
+            <li v-for="answer in answers" :key="answer.id">
+              <div v-if="answer.status == false">
+                <div class="card">
+                  <div class="card-img">
+                    <img src="@/assets/img/头像 女孩.svg" />
+                    <h4>{{ answer.owner_instance.username }}</h4>
+                  </div>
+                  <h2 class="card-title">{{ answer.time }}</h2>
+                  <p class="card-content" v-html="answer.m_content" v-highlight></p>
+                  <h4 class="status">Unaccepted</h4>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div v-else>
+            <li v-for="answer in answers" :key="answer.id">
+              <div class="card">
+                <div class="card-img">
+                  <img src="@/assets/img/头像 女孩.svg" />
+                  <h4>{{ answer.owner_instance.username }}</h4>
+                </div>
+                <h2 class="card-title">{{ answer.time }}</h2>
+                <p class="card-content" v-html="answer.m_content" v-highlight></p>
+                <h4 class="status">Unaccepted</h4>
+                <button class="accept" @click="acceptAnswer(answer)">Accept</button>
+              </div>
+            </li>
+          </div>
         </ul>
       </div>
-      <mavon-editor
-        :ishljs="true"
-        :preview="true"
-        v-model="content"
-        placeholder="Post your answer"
-      />
-      <button @click="saveAnswer()">Post</button>
+      <div v-if="this.accepted_answer == ''">
+        <mavon-editor
+          :ishljs="true"
+          :preview="true"
+          v-model="content"
+          placeholder="Post your answer"
+        />
+        <button @click="saveAnswer()">Post</button>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
 import Question from "@/assets/utils/models/Question";
+import Transaction from '@/assets/utils/models/Transaction'
 import Answer from "@/assets/utils/models/Answer";
+import { login_required } from '@/assets/utils/auth'
 import Navbar from "@/components/Navbar.vue";
 
 export default {
@@ -60,10 +93,11 @@ export default {
   },
   data() {
     return {
-      owner: '',
+      user:'',
       id: '',
       question: '',
       answers: '',
+      accepted_answer:'',
       content: '',
     }
   },
@@ -83,14 +117,27 @@ export default {
       return new Answer({
         id: this.id,
         content: this.content,
-        owner: this.owner,
+        owner: this.user.pk,
         question: this.question.pk,
       })
     },
+    _getTransaction(){
+      return new Transaction({
+        user: this.question.owner,
+        amount: this.question.bounty,
+        transaction_type: 'B',
+        description:this.question.title,
+      })
+    },
     getAnswers() {
-      Question.get(this.$route.params.id).then((question) => {
+      Question.get(this.$route.params.id).then(question => {
         this.question = question
         this.answers = question.answers
+        for (let answer of this.answers) {
+          if (answer.status == true) {
+            this.accepted_answer = answer
+          }
+        }
       })
     },
     saveAnswer() {
@@ -99,8 +146,21 @@ export default {
         this.getAnswers()
       })
     },
+    acceptAnswer(answer){
+      answer.status = true
+      answer.update().then(() => {
+        this.question.status = true
+        this.question.update().then(() => {
+          let transaction = this._getTransaction()
+          transaction.save().then(() => { 
+            this.getAnswers()
+          })
+        })
+      })
+    }
   },
   created() {
+    login_required(this, user => this.user = user)
     this.getAnswers()
   },
 }
