@@ -69,7 +69,7 @@ const routes = [
       { path: 'edit/profile/:id',   name: 'EditProfile',          component: EditProfile },
       { path: 'follow/:id',         name: 'ProfileFollow',        component: ProfileFollow},
       { path: 'skilltrees',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
-      { path: 'transactionrecord',  name: 'TransactionRecord',    component: TransactionRecord},
+      { path: 'transactionrecord/:id',  name: 'TransactionRecord',    component: TransactionRecord},
       { path: 'messagecenter',      name: 'ProfileMessageCenter', component: ProfileMessageCenter,
         children:[
           { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},

@@ -1,36 +1,65 @@
 <template>
-  <div class="TransactionRecord">
+  <div v-if="_is_owner" class="TransactionRecord">
     <h1>交易记录</h1>
-    <h3>当前余额：2233</h3>
+    <h3>当前余额：{{ user.balance }}</h3>
     <ul>
-      <li>
-        <p>你采纳了用户1的答案，失去赏金~</p>
-        <small>时间：昨天</small>
-        <p>余额~</p>
-      </li>
-      <li>
-        <p>用户1采纳了你的答案，获得赏金~</p>
-        <small>时间：昨天</small>
-        <p>余额~</p>
-      </li>
-      <li>
-        <p>你采纳了用户2的答案，失去赏金~</p>
-        <small>时间：昨天</small>
-        <p>余额~</p>
-      </li>
-      <li>
-        <p>用户2采纳了你的答案，获得赏金~</p>
-        <small>时间：昨天</small>
-        <p>余额~</p>
-      </li>
+      <div v-for="transaction in transactions" :key="transaction.pk">
+        <li>
+          <div v-if="transaction.transaction_type == 'B'">
+            <p>{{ transaction.user }}采纳了你的答案，获得赏金~</p>
+            <small>时间：{{ transaction.time }}</small>
+            <p>赏金:{{ transaction.amount }}</p>
+            <p>问题:{{ transaction.description }}</p>
+          </div>
+          <div v-else-if="transaction.transaction_type == 'PBQ'">
+            <p>你发布一条金额为{{ transaction.amount }}的悬赏问题</p>
+            <small>时间：{{transaction.time}}</small>
+            <p>赏金:{{ transaction.amount }}</p>
+          </div>
+          <div v-else-if="transaction.transaction_type == 'DL'">
+            <p>每日登陆</p>
+            <small>时间：{{transaction.time}}</small>
+            <p>奖励:{{ transaction.amount }}</p>
+          </div>
+          <div v-else-if="transaction.transaction_type == 'LT'">
+            <p>你点亮了一个技能树</p>
+            <small>时间：{{transaction.time}}</small>
+            <p>奖励:{{ transaction.amount }}</p>
+          </div>
+          <div v-else-if="transaction.transaction_type == 'L10%'">
+            <p>你博客点赞用户的数量超过用户总数的10%</p>
+            <small>时间：{{transaction.time}}</small>
+            <p>奖励:{{ transaction.amount }}</p>
+          </div><div v-else-if="transaction.transaction_type == 'L25%'">
+            <p>你博客点赞用户的数量超过用户总数的25%</p>
+            <small>时间：{{transaction.time}}</small>
+            <p>奖励:{{ transaction.amount }}</p>
+          </div>
+        </li>
+      </div>
     </ul>
   </div>
 </template>
 
 <script>
+import Transcation from '@/assets/utils/models/Transaction'
+
 export default {
   name: "TransactionRecord",
-};
+  
+  props: ['_user', '_is_owner'],
+  data(){
+    return {
+      user: this._user,
+      transactions:'',
+    }
+  },
+  created(){
+    Transcation.get_wrapped_transactions(this.user.pk)
+    .then(wrapped_transactions => {
+      this.transactions = wrapped_transactions})
+  }
+}
 </script>
 
 <style scoped>

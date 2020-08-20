@@ -15,7 +15,7 @@ class User extends Model {
                   balance, major, grade, bio,avatar, groups,
                   user_permissions}) {
 
-        super({username, email, grade, bio, major})     // data fields that is requried when save
+        super({username, email, grade, bio, major, balance})     // data fields that is requried when save
 
         // required data fields
         this.app_name = 'user'
@@ -29,7 +29,6 @@ class User extends Model {
         this.date_of_birth= date_of_birth
         this.last_login = last_login
         this.is_authorized = is_authorized
-        this.balance = balance
         this.major = major
         this.grade = grade
         this.bio = bio

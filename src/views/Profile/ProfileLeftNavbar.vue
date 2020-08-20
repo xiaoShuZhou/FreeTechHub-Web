@@ -44,7 +44,7 @@
         </router-link>
       </li>
       <li v-if="is_owner">
-        <router-link :to="{name:'TransactionRecord'}">
+        <router-link v-if="user != ''" :to="{name:'TransactionRecord', params:{id: this.user.pk}}">
           <img src="@/assets/img/交易提醒.svg"/>
           <span>TransactionRecord</span>
         </router-link>
