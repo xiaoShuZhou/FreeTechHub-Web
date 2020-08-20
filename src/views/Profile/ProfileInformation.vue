@@ -1,20 +1,28 @@
 <template>
   <div class="ProfileInformation">
-    <AddFriend v-if="status" :status="this.status" @closealert="closealert"/>
+    <AddFriend 
+      v-if="status && !_is_owner" 
+      :status="this.status" 
+      @closealert="closealert"
+      :_user=_user
+      :_visitor=_visitor />
     <div class="box1">
       <div id="image">
         <img src="@/assets/img/landing.jpg" />
       </div>
       <div>
-        <button v-if="profile_owner" @click="editProfile">Edit</button>
+        <button v-if="profile_owner && _is_owner" @click="editProfile">Edit</button>
         <p>major:{{profile_owner.major}}</p>
         <p>Balance: {{profile_owner.blance}}</p>
         <p>grade:{{profile_owner.grade}}</p>
         <p>bio:{{profile_owner.bio}}</p>
         <FollowButton 
-         :_content_owner=profile_owner
-         :_visitor=visitor />
-        <button @click="showalert" id="addfriend-btn">Add Friend</button>
+         :_content_owner=_user
+         :_visitor=_visitor />
+        <button 
+          @click="showalert" 
+          id="addfriend-btn"
+          v-if="!_is_owner">Add Friend</button>
       </div>
     </div>
     <div class="box2">
@@ -41,7 +49,6 @@
 </template>
 
 <script>
-import FriendRequest from '@/assets/utils/models/FriendRequest'
 import FollowButton from '@/components/FollowButton'
 import AddFriend from '@/components/AddFriend.vue'
 
@@ -51,7 +58,6 @@ export default {
     return {
       profile_owner: this._user,
       visitor: this._visitor,
-      is_owner: this._is_owner,
       status: false,
     }
   },
@@ -60,24 +66,6 @@ export default {
     AddFriend
   },
   methods: {
-    _getFriendRequest() {
-      return new FriendRequest({
-        to_user: this.user.pk,
-        from_user: this.from_user.pk
-      })
-    },
-    addfriend() {
-        let friendRequest = this._getFriendRequest()
-        friendRequest.save()
-    },
-    goSendrequest() {
-      this.$router.push({
-        name: "SendRequest",
-        params: {
-          id: this.$route.params.id
-        }
-      })
-    },
     editProfile() {
       this.$router.push({
         name: 'EditProfile',
@@ -96,6 +84,14 @@ export default {
   computed: {
     profile_owner_id() {
       return this.$route.params.id
+    }
+  },
+  watch: {
+    _user(val) {
+      this.profile_owner = val
+    },
+    _visitor(val) {
+      this.visitor = val
     }
   }
 }

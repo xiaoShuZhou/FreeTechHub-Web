@@ -14,9 +14,13 @@ class Friendship extends Model {
         this.model = "friendship"
         this.pk = id
 
-        // this custom data for followership
-        this.friend_instance_1 = new User(friend_instance_1)
-        this.friend_instance_2 = new User(friend_instance_2)
+        // this custom data for Friendship
+        if (friend_instance_1 != undefined) {
+            this.friend_instance_1 = new User(friend_instance_1)
+        }
+        if (friend_instance_2 != undefined) {
+            this.friend_instance_2 = new User(friend_instance_2)
+        }
     }
 
     //get related friendslist

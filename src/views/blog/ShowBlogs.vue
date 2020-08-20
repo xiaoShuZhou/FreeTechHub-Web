@@ -14,7 +14,9 @@
           </h3>
           <div class="user">
             <img class="avatar" src="@/assets/img/头像 女孩.svg">
-            <a href="">用户名</a>
+            <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
+              {{blog.owner_instance.username}}
+            </router-link>
           </div>
           <h4>Tags: </h4>
           <ul class="tag-list">

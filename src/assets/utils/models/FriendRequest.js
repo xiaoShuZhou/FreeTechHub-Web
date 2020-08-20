@@ -14,8 +14,12 @@ class FriendRequest extends Model {
         this.pk = id
 
         // this custom data for FriendRequest
-        this.sender_instance = new User(sender_instance)
-        this.receiver_instance = new User(receiver_instance)
+        if (sender_instance != undefined) {
+            this.sender_instance = new User(sender_instance)
+        }
+        if (receiver_instance != undefined) {
+            this.receiver_instance = new User(receiver_instance)
+        }
         this.datetime = datetime
     }
 

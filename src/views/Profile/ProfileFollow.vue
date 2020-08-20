@@ -7,13 +7,16 @@
           <li v-for="following in followings" :key='following.following_id'>
               <img src="@/assets/img/头像 女孩.svg" alt />
               <div>
-                <p>username: {{following.username}}</p>
+                <router-link :to="{name: 'ProfileInformation', params: {id: following.pk}}">
+                  {{following.username}}
+                </router-link>
                 <p>bio: {{following.bio}}</p>
               </div>
               <FollowButton 
-               :_content_owner=following
-               :_visitor=user 
-               :_follow=true />
+                v-if="_is_owner"
+                :_content_owner=following
+                :_visitor=user 
+                :_follow=true />
           </li>
         </ul>
       </div>
@@ -24,8 +27,10 @@
         <ul>
           <li v-for="follower in followers" :key='follower.following_id'>
             <img src="@/assets/img/头像 女孩.svg" alt />
-            <div>
-              <p>username: {{follower.username}}</p>
+            <div> 
+              <router-link :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
+                {{follower.username}}
+              </router-link>
               <p>bio: {{follower.bio}}</p>
             </div>
           </li>
@@ -41,7 +46,6 @@ import FollowButton from '@/components/FollowButton'
 export default {
   props:['_is_owner', '_user'],
   name: "ProfileFollow",
-  props: ['_user'],
   components: {
     FollowButton
   },

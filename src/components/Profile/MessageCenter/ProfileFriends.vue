@@ -19,7 +19,7 @@
     </div>
 
     <div class="chat">
-      <div class="message">
+      <div class="message" ref='message'>
         <ul>
           <li class="one-message" v-for="message in messages" :key="message.pk">
             <div v-if="message.sender == self.pk" class="right">
@@ -73,6 +73,9 @@ export default {
       .then(friends => this.friends = friends)
     },
     chatWith(user) {
+      let msg_el = this.$refs['message']
+      msg_el.scrollTop = 1000
+
       // clean ths background-color of the old selected user
       for (let node of this.$refs.friends.childNodes) {
         removeClassNames(node, ["selected"])

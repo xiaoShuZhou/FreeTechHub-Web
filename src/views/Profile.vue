@@ -1,9 +1,12 @@
 <template>
   <div class="Profile">
-    <ProfileLeftNavbar v-if="profile_owner != ''" class="sidebar" :_is_owner=is_owner :_user=profile_owner />
+    <ProfileLeftNavbar class="sidebar"
+      v-if="profile_owner != '' && visitor != ''" 
+      :_is_owner=is_owner 
+      :_user=profile_owner />
     <transition>
       <router-view class="content" mode="out-in" 
-        v-if="profile_owner != ''" 
+        v-if="profile_owner != '' && visitor != ''" 
         :_user=profile_owner 
         :_is_owner=is_owner
         :_visitor=visitor >
@@ -39,6 +42,8 @@ export default {
             this.profile_owner = user
             if(this.profile_owner.pk == visitor.pk) {
               this.is_owner = true
+            } else {
+              this.is_owner = false
             }
           })
         }
@@ -55,7 +60,8 @@ export default {
   },
   watch: {
     user_id() {
-      this.user = ''
+      this.profile_owner = ''
+      this.visitor = ''
       this.load()
     }
   }

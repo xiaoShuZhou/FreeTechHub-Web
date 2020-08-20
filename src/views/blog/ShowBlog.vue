@@ -1,7 +1,12 @@
 <template>
   <div class="ShowBlog">
     <Navbar id="navbar" :_user='user'/>
-    <AddFriend v-if="status" :status="this.status" @closealert="closealert"/>
+    <AddFriend 
+      v-if="status" 
+      :status="this.status" 
+      @closealert="closealert"
+      :_user=blog.owner_instance
+      :_visitor=user />
     <div class="img">
       <img src="@/assets/img/landing.jpg" alt />
     </div>

@@ -3,6 +3,7 @@ import FriendRequest from "./FriendRequest"
 import axios from 'axios'
 import BASE_URL from '../consts'
 import Followership from './Followership'
+
 class User extends Model {
     static app_name = 'user'
     static model_name = 'user'
@@ -93,6 +94,17 @@ class User extends Model {
             friends.push(new User(raw_user))
         }
         return friends
+    }
+
+    // send a friend request
+    async friend(user_id, note) {
+        let friend_request = new FriendRequest({
+            sender: this.pk,
+            receiver: user_id,
+            note: note
+        })
+        let res = await friend_request.save()
+        return res.data
     }
 
     // get all the received friend requests of this user

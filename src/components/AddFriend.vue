@@ -1,13 +1,17 @@
 <template>
-  <div class="AddFriend" id="AddFriend" @touchmove.prevent @mousewheel.prevent>
+  <div class="AddFriend" 
+    id="AddFriend" 
+    @touchmove.prevent 
+    @mousewheel.prevent
+    v-if="_user.pk != _visitor.pk">
     <div class="alert">
       <div class="message">
         <label>留言信息</label>
-        <textarea type="text"></textarea>
+        <textarea type="text" v-model="msg"></textarea>
       </div>   
       <div class="buttonlist">
-        <button>发送</button>
-        <button @click="cancel">取消</button>
+        <button @click="friend()">发送</button>
+        <button @click="cancel()">取消</button>
       </div> 
     </div>
   </div>
@@ -18,16 +22,25 @@ export default {
   name: 'AddFriend',
   props:{
     status: Boolean,
-    top: Number
+    top: Number,
+    _visitor: Object,
+    _user: Object
   },
   data() {
     return{
+      msg: ''
     }
   },
   methods:{
     cancel(){
       this.$emit('closealert', false);
     },
+    friend() {
+      this._visitor.friend(this._user.pk, this.msg)
+      .then(() => {
+        this.$emit('closealert', false)
+      })
+    }
   },
 }
 </script>
