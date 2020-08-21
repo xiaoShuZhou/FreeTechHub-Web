@@ -44,7 +44,7 @@ const routes = [
   { path: '/login',             name: 'Login',          component: Login },
   { path: '/register',          name: 'Register',       component: Register},
   { path: '/search',            name: 'Search',         component: Search },
-  { path: '/forgetpassword',     name: 'ForgetPassword', component: ForgetPassword},
+  { path: '/forgetpassword',    name: 'ForgetPassword', component: ForgetPassword},
   // blogs
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
@@ -63,17 +63,17 @@ const routes = [
   // profile
   { path: '/profile',           name: 'Profile',      component: Profile,
     children:[
-      { path: 'information/:id',    name: 'ProfileInformation',   component: ProfileInformation,},
-      { path: 'blogs',              name: 'ProfileBlog',          component: ProfileBlogs},
-      { path: 'questions',          name: 'ProfileQuestions',     component: ProfileQuestions,},
-      { path: 'edit/profile/:id',   name: 'EditProfile',          component: EditProfile },
-      { path: 'follow/:id',         name: 'ProfileFollow',        component: ProfileFollow},
-      { path: 'skilltrees',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
+      { path: 'information/:id',        name: 'ProfileInformation',   component: ProfileInformation,},
+      { path: 'blogs/:id',              name: 'ProfileBlog',          component: ProfileBlogs},
+      { path: 'questions/:id',          name: 'ProfileQuestions',     component: ProfileQuestions,},
+      { path: 'edit/profile/:id',       name: 'EditProfile',          component: EditProfile },
+      { path: 'follow/:id',             name: 'ProfileFollow',        component: ProfileFollow},
+      { path: 'skilltrees/:id',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
       { path: 'transactionrecord/:id',  name: 'TransactionRecord',    component: TransactionRecord},
-      { path: 'messagecenter',      name: 'ProfileMessageCenter', component: ProfileMessageCenter,
+      { path: 'messagecenter',          name: 'ProfileMessageCenter', component: ProfileMessageCenter,
         children:[
           { path: 'friends/:id',        name: 'Friends',        component: ProfileFriends},
-          { path: 'reply',              name: 'Reply',          component: ProfileReply},
+          { path: 'reply/:id',          name: 'Reply',          component: ProfileReply},
           { path: 'requestfriend/:id',  name: 'RequestFriend',  component: RequestFriend},
         ]
       },

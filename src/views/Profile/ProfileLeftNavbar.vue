@@ -38,7 +38,7 @@
         </router-link>
       </li>
       <li>
-        <router-link v-if="user != ''" :to="{name:'ProfileSkillTrees'}">
+        <router-link v-if="user != ''" :to="{name:'ProfileSkillTrees', params:{id: this.user.pk}}">
           <img src="@/assets/img/树叶.svg"/>
           <span>SkillTress</span>
         </router-link>
