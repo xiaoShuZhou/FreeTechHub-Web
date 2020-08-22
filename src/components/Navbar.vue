@@ -6,9 +6,6 @@
         <router-link class="list-logo" to="/">FreeTechHub</router-link>
       </li>
       <li>
-        <router-link class="list" to="/about">About</router-link> 
-      </li>
-      <li>
         <router-link class="list" to="/show/blogs">blogs</router-link> 
       </li>
       <li>
@@ -17,8 +14,11 @@
       <li>
         <router-link class="list" to="/show/questions">questions</router-link> 
       </li>
-      <li>
-        <a class="list" @click="goProfile()">Profile</a>
+      <li v-if="is_login">
+        <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
+      </li>
+      <li v-else>
+        <router-link :to="{name:'Login'}">Login</router-link>
       </li>
       <li class="search">
         <input type="text" name="search" v-model="keywords" placeholder="Search"/>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import {is_authenticated, login_required} from '@/assets/utils/auth'
+import {is_authenticated} from '@/assets/utils/auth'
 export default {
   name: "Navbar",
   props:['_user'],
@@ -55,13 +55,6 @@ export default {
         })
       }
     },
-    goProfile() {
-      login_required(this, user => {
-        this.$router.push(
-          {name:'ProfileInformation', params:{id: user.pk}}
-        )
-      })
-    },
     shownavbar(){
       this.show = ! this.show
     }
@@ -73,6 +66,11 @@ export default {
       }
     })
   },
+  computed: {
+    user_id() {
+      return this.$store.state.user.pk
+    }
+  }
 }
 </script>
 

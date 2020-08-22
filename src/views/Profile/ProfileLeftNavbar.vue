@@ -14,13 +14,13 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileBlog'}">
+        <router-link v-if="user != ''" :to="{name:'ProfileBlog', params:{id: this.user.pk}}">
           <img src="@/assets/img/博客园.svg"/>
           <span>Blogs</span>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'ProfileQuestions'}">
+        <router-link v-if="user != ''" :to="{name:'ProfileQuestions', params:{id: this.user.pk}}">
           <img src="@/assets/img/问题.svg"/>
           <span>Questions</span>
         </router-link>
@@ -31,16 +31,16 @@
           <span>Follow</span>
         </router-link>
       </li>
-      <li v-if="is_owner">
-        <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
-          <img src="@/assets/img/好友.svg"/>
-          <span>MessageCenter</span>
-        </router-link>
-      </li>
       <li>
         <router-link v-if="user != ''" :to="{name:'ProfileSkillTrees', params:{id: this.user.pk}}">
           <img src="@/assets/img/树叶.svg"/>
           <span>SkillTress</span>
+        </router-link>
+      </li>
+      <li v-if="is_owner">
+        <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
+          <img src="@/assets/img/好友.svg"/>
+          <span>MessageCenter</span>
         </router-link>
       </li>
       <li v-if="is_owner">
@@ -55,11 +55,11 @@
           <span>Settings</span>
         </router-link>
       </li>
-      <li>
-        <a href="#">
+      <li v-if="_is_owner">
+        <router-link :to="{name:'Login'}">
           <img src="@/assets/img/登出.svg"/>
           <span>Logout</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
