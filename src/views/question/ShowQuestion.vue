@@ -74,8 +74,9 @@
           placeholder="Post your answer"
         />
         <button @click="saveAnswer()">Post</button>
+      </div>
     </div>
-    </div>
+    <Footer/>
   </div>
 </template>
 
@@ -85,11 +86,13 @@ import Transaction from '@/assets/utils/models/Transaction'
 import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth'
 import Navbar from "@/components/Navbar.vue";
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: "ShowQuestion",
   components: {
     Navbar,
+    Footer
   },
   data() {
     return {

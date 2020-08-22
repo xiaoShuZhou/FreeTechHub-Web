@@ -78,6 +78,7 @@ button {
   width: 100%;
   height: 100%;
   padding: 0 10vw;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,7 +147,7 @@ a {
   .ShowQuestions {
     width: 100%;
     height: 100%;
-    margin: 0;
+    margin-top: 6vh;
     padding: 0;
   }
   .cardlist {

@@ -2,6 +2,7 @@
   <div class="ShowSeries">
     <StarBackground />
     <Navbar/>
+    <h1>Series</h1>
     <ul class="cardlist">
       <li v-for="series in all_series" :key="series.pk">
         <div class="card">
@@ -76,7 +77,7 @@ export default {
 .ShowSeries {
   width: 100%;
   height: 100%;
-  margin: 10vh 0;
+  margin-top: 10vh;
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
@@ -152,6 +153,7 @@ button {
   .ShowSeries {
     width: 100%;
     height: 100%;
+    margin-top: 6vh;
     padding: 0;
   }
   .cardlist {
@@ -171,6 +173,7 @@ button {
   .ShowSeries {
     width: 100%;
     height: 100%;
+    margin-top: 6vh;
     padding: 0;
   }
   .cardlist {

@@ -94,6 +94,7 @@ button {
   width: 100%;
   height: 100%;
   padding: 0 10vw;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;

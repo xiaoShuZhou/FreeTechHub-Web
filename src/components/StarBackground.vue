@@ -32,10 +32,6 @@ export default {
       if(this.y <= -10) this.y = _Height + 10
       this.draw()
     }
-    Star.prototype.die = function() {
-      stars[this.id] = null
-      delete stars[this.id]
-    }
     var canvas = _this.$refs.canvas,
         ctx = canvas.getContext("2d"),
         _Width = _this.$refs.StarBackground.width,
@@ -71,7 +67,6 @@ export default {
 <style>
 .StarBackground{
   z-index: -1;
-  top: 10vh;
   height: 100%;
   width: 100%;
   position: fixed;

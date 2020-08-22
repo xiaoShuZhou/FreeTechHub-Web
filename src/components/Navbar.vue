@@ -186,7 +186,7 @@ li:-webkit-any-link{
 .search{
   display: flex;
 }
-@media screen and (max-width: 1280px){
+@media screen and (max-width: 1025px){
   .expand{
     display: inline;
   }
@@ -224,9 +224,13 @@ li:-webkit-any-link{
   }
   .navbar-list li{
     width: 50%;
-    height: 100px;
-    margin: 20px auto;
+    /* height: 100px; */
+    /* margin: 20px auto; */
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
   }
   li:nth-last-child(1){
     width: 100px;
@@ -243,7 +247,7 @@ li:-webkit-any-link{
   }
   li:hover{
     width: 100%;
-    height: 40px;
+    height: 100%;
   }
   li:nth-child(7):hover{
     background: none;

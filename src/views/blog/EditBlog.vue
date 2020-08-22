@@ -125,5 +125,9 @@ export default {
   font-size: 1.5rem;
   color: #311f1f;
   margin: 5vh 5vw;
+  outline: none;
+}
+button:hover{
+  box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.2);
 }
 </style>

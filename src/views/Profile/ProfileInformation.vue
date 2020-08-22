@@ -107,7 +107,6 @@ export default {
 div {
   background: #f9f6ff;
   padding: 10px;
-  margin: 10px;
 }
 img {
   width: 200px;
