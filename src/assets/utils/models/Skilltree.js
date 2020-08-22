@@ -7,8 +7,8 @@ class Skilltree extends Model {
     static app_name = 'skilltree'
     static model_name = 'skilltree'
 
-    constructor({id, name, is_under_changing,
-                 last_modified, root_node, tree_structure}) {
+    constructor({id, name, is_under_changing, last_modified,
+                 root_node, tree_structure, agree_num, disagree_num}) {
         super({is_under_changing, root_node})
 
         // required data fields
@@ -20,6 +20,8 @@ class Skilltree extends Model {
         this.name = name
         this.last_modified = last_modified
         this.tree_structure =tree_structure
+        this.agree_num = agree_num
+        this.disagree_num = disagree_num
         this.modify_queue = []
     }
 
