@@ -1,28 +1,121 @@
 <template>
   <div>
     <div id class="box">
-      <form>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
         <div id class="inputbox">
-          <label>密码:</label>
-          <input type="email" required />
+          <el-form-item label="OldPassword" prop="oldpass">
+            <el-input type="password" v-model="ruleForm.oldpass" autocomplete="off"></el-input>
+          </el-form-item>
         </div>
         <div id class="inputbox">
-          <label>新邮箱:</label>
-          <input type="password" required />
+          <el-form-item label="Email" prop="email">
+            <el-input v-model="ruleForm.email"></el-input>
+          </el-form-item>
         </div>
         <div id class="inputbox">
-          <label>确认邮箱:</label>
-          <input type="password" required />
+          <el-form-item label="Confirm" prop="checkemail">
+            <el-input type="email" v-model="ruleForm.checkemail" autocomplete="off"></el-input>
+          </el-form-item>
         </div>
-        <button type="submit" value="submit">确认修改</button>
-      </form>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">submit</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
 export default {
-  name: 'ChangeMail'
+  name: 'ChangeMail',
+  data() {
+    var validateOldpass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please enter your oldpassword'));
+      } else {
+        User.checkpassword(value).then(res => {
+          if (res == "false") {
+            callback(new Error('The old password is incorrect'));
+          } else {
+            callback();
+          }
+        })
+      }
+    };
+    var validateEmail = (rule, value, callback) => {
+      var apos = value.indexOf("@")
+      var dotpos = value.lastIndexOf(".")
+      if (value === '') {
+        callback(new Error('Please enter your email'));
+      } else if (apos < 1 || dotpos - apos < 2) {
+        callback(new Error('Please enter the correct email address'));
+      } else {
+        var type = "email"
+        User.checkrepeat(value, type).then(res => {
+          if (res.count > 0) {
+            callback(new Error('Email name already exists'));
+          } else {
+            callback();
+          }
+        })
+      }
+    };
+    var validateEmail2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('Please type your new Email again.'));
+      } else if (value !== this.ruleForm.email) {
+        callback(new Error('The two email you typed do not match.'));
+      } else {
+        callback();
+      }
+    };
+    return {
+      ruleForm: {
+        oldpass: '',
+        email: '',
+        checkemail: '',
+      },
+      rules: {
+        oldpass: [{
+          validator: validateOldpass,
+          trigger: 'blur'
+        }],
+        email: [{
+          validator: validateEmail,
+          trigger: 'blur'
+        }],
+        checkemail: [{
+          validator: validateEmail2,
+          trigger: 'blur'
+        }],
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          User.changeemail(this.ruleForm.oldpass, this.ruleForm.email).then(() => {
+            this.$notify({
+              title: 'Successfully changed',
+              type: 'success'
+            });
+            this.$router.push({
+              name: "Login"
+            })
+          })
+        } else {
+          this.$message({
+            showClose: true,
+            message: 'Please fill out the form correctly',
+            type: 'error'
+          });
+          return false;
+        }
+      });
+    },
+  }
 }
 </script>
 
@@ -40,64 +133,6 @@ export default {
   height: 100%;
   padding: 40px;
   box-sizing: border-box;
-  background: #d2e9f3;
   bottom: 15%;
-}
-.box div{
-  display: flex;
-  justify-content: center;
-}
-.box div a {
-  margin: 0 0 30px 0;
-  padding-right: 10px;
-  padding-left: 10px;
-  color: black;
-  text-align: center;
-  font-size: 30px;
-  border: border;
-  border-right: 1px solid black;
-}
-.box div a:nth-child(3){
-  border: none;
-}
-.box .inputbox {
-  position: relative;
-  width: 50%;
-}
-form{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.box .inputbox input {
-  width: 70%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #979eff;
-  letter-spacing: 1px;
-  margin-bottom: 30px;
-  border: 2px solid #979eff;
-  border-radius: 10px;
-  outline: none;
-  background: transparent;
-}
-.box .inputbox label{
-  position: relative;
-	top: 0;
-	left: -2%;
-	padding: 10px 0;
-	letter-spacing: 1px;
-	color: black;
-  font-size: 25px;
-}
-.box button[type="submit"] {
-  border: none;
-  color: #ffffff;
-  background-color: #979eff;
-  font-size: 30px;
-  padding: 10px 20px;
-  border-radius: 30px;
-  left: 50%;
 }
 </style>

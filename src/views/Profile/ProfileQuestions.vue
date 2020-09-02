@@ -12,7 +12,7 @@
       <div class="questiondetail">
         <div class="question">
           <div class="name">
-            <h2>问题名</h2> 
+            <h2>问题名</h2>
           </div>
           <div class="content">
             <p>问题内容</p>
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="answear">
-            <p> <strong>采纳答案：</strong></p> 
+            <p> <strong>采纳答案：</strong></p>
         </div>
         <div class="buttongroup">
           <button type="button" class="view">View All</button>
@@ -72,7 +72,7 @@ export default {
   display: grid;
   grid-template-columns: 30% 70%;
   justify-items: space-between;
-  background-color: #e3f6f1;
+  background: #fafbff;
 }
 .questionlist{
   list-style: none;
