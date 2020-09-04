@@ -17,7 +17,9 @@ import ShowQuestion from '@/views/question/ShowQuestion.vue'
 import Login from '@/views/Login.vue'
 import Search from '@/views/Search.vue'
 import Register from '@/views/Register.vue'
-import ForgetPassword from '@/views/ForgetPassword.vue'
+import Activate from '@/views/Activate.vue'
+import ChangeActivate from '@/views/ChangeActivate.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 
 //Profile
 import Profile from '@/views/Profile'
@@ -40,11 +42,13 @@ import EditProfile from '@/views/Profile/EditProfile.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/',                  name: 'Home',           component: Home },
-  { path: '/login',             name: 'Login',          component: Login },
-  { path: '/register',          name: 'Register',       component: Register},
-  { path: '/search',            name: 'Search',         component: Search },
-  { path: '/forgetpassword',    name: 'ForgetPassword', component: ForgetPassword},
+  { path: '/',                        name: 'Home',           component: Home },
+  { path: '/login',                   name: 'Login',          component: Login },
+  { path: '/search',                  name: 'Search',         component: Search },
+  { path: '/register',                name: 'Register',       component: Register },
+  { path: '/active/:activate/:id',    name: 'Activate',       component: Activate },
+  { path: '/active/:activate/:id/:email',  name: 'ChangeActivate', component: ChangeActivate },
+  { path: '/forgetpassword/:code/:id/',    name: 'ResetPassword',  component: ResetPassword },
   // blogs
   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
@@ -79,8 +83,8 @@ const routes = [
       },
       { path: 'settings',             name: 'ProfileSettings',component: ProfileSettings,
         children:[
-          { path: 'changepassword/',  name: 'ChangePassword', component: ChangePassword},
-          { path: 'changemail/',      name: 'ChangeMail',     component: ChangeMail},
+          { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
+          { path: 'changemail/:id',     name: 'ChangeMail',     component: ChangeMail},
         ]},
     ]},
 ]

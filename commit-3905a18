@@ -1,0 +1,458 @@
+From 3905a1805321656bb8cadb6a7e3b1a40bacf3b86 Mon Sep 17 00:00:00 2001
+From: ELAINEYangyin <2515997297@qq.com>
+Date: Sat, 22 Aug 2020 20:24:37 +0800
+Subject: =?UTF-8?q?=E6=88=91=E4=B9=9F=E4=B8=8D=E7=9F=A5=E9=81=93=E5=B9=B2?=
+ =?UTF-8?q?=E4=BA=86=E4=BB=80=E4=B9=88?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+
+diff --git a/src/Activate.vue b/src/Activate.vue
+index 8684317..ba696bb 100644
+--- a/src/Activate.vue
++++ b/src/Activate.vue
+@@ -9,9 +9,8 @@ export default {
+   name: "Activate",
+   created() {
+     var email = ''
+-    var type = "validate"
+-    User.validate(this.$route.params.activate, this.$route.params.id, type, email).then(res => {
+-      console.log(res)
++    var request_type = "validate"
++    User.validate(this.$route.params.activate, this.$route.params.id, request_type, email).then(res => {
+       if (res === "true") {
+         this.$router.push({
+           name: "ShowBlogs"
+@@ -22,8 +21,8 @@ export default {
+           cancelButtonText: 'cancel',
+           type: 'warning'
+         }).then(() => {
+-          type = "resend"
+-          User.validate(this.$route.params.activate, this.$route.params.id, type, email).then(() => {
++          request_type = "resend_register"
++          User.validate(this.$route.params.activate, this.$route.params.id, request_type, email).then(() => {
+             this.$message({
+               type: 'success',
+               message: 'Send successful!'
+diff --git a/src/ChangeActivate.vue b/src/ChangeActivate.vue
+index 4fa3b54..fbd16d2 100644
+--- a/src/ChangeActivate.vue
++++ b/src/ChangeActivate.vue
+@@ -9,9 +9,8 @@ export default {
+   name: "ChangeActivate",
+   created() {
+     var email = ''
+-    var type = "changeemail"
+-    User.validate(this.$route.params.activate, this.$route.params.id, type, this.$route.params.code2).then(res => {
+-      console.log(res)
++    var request_type = "change_email"
++    User.validate(this.$route.params.activate, this.$route.params.id, request_type, this.$route.params.email).then(res => {
+       if (res === "true") {
+         this.$router.push({
+           name: "ShowBlogs"
+@@ -22,8 +21,8 @@ export default {
+           cancelButtonText: 'cancel',
+           type: 'warning'
+         }).then(() => {
+-          type = "changeresend"
+-          User.validate(this.$route.params.activate, this.$route.params.id, type, email).then(() => {
++          request_type = "resend_change_email"
++          User.validate(this.$route.params.activate, this.$route.params.id, request_type, email).then(() => {
+             this.$message({
+               type: 'success',
+               message: 'Send successful!'
+diff --git a/src/ResetPassword.vue b/src/ResetPassword.vue
+index de207a9..e94442f 100644
+--- a/src/ResetPassword.vue
++++ b/src/ResetPassword.vue
+@@ -68,9 +68,6 @@ export default {
+   };
+ },
+   methods: {
+-    githubLogin() {
+-      window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
+-    },
+     submitForm(formName) {
+       this.$refs[formName].validate((valid) => {
+         if (valid) {
+diff --git a/src/assets/utils/models/User.js b/src/assets/utils/models/User.js
+index 1377690..878b66f 100644
+--- a/src/assets/utils/models/User.js
++++ b/src/assets/utils/models/User.js
+@@ -32,6 +32,7 @@ class User extends Model {
+         this.major = major
+         this.grade = grade
+         this.bio = bio
++        this.email = email
+         this.avatar = avatar
+         this.groups = groups
+         this.totallikes = totallikes
+@@ -128,9 +129,10 @@ class User extends Model {
+         return requests
+     }
+ 
++
+     static async changepassword(oldpass,newpass) {
+         let res = await axios.post(BASE_URL+'user/changepassword/',
+-         {oldpassword:oldpass, newpassword1:newpass})
++         {oldpassword:oldpass, newpassword:newpass})
+         this.context = res.data.data
+         return this.context
+     }
+@@ -143,14 +145,6 @@ class User extends Model {
+         return this.context
+     }
+ 
+-    //check changeemail’s email
+-    static async checkchangeemail(Email) {
+-        let res = await axios.post(BASE_URL + `user/checkchangeemail/`,
+-          {email: Email}
+-        )
+-        return res.data
+-    }
+-
+     // upload photo as avatar
+     static async upload(e){
+       let file = e.target.files[0];
+@@ -188,11 +182,11 @@ class User extends Model {
+     }
+ 
+     //check whether the verification code is correct
+-    static async validate(Code, User_id, Type, Email){
++    static async validate(Code, User_id, request_type, Email){
+         let res = await axios.post(BASE_URL +`user/validate/`, {
+           code: Code,
+           user_id: User_id,
+-          type: Type,
++          type: request_type,
+           email: Email
+         })
+         return res.data
+diff --git a/src/components/Profile/Settings/ChangeMail.vue b/src/components/Profile/Settings/ChangeMail.vue
+index bf0a87d..8587fed 100644
+--- a/src/components/Profile/Settings/ChangeMail.vue
++++ b/src/components/Profile/Settings/ChangeMail.vue
+@@ -51,7 +51,8 @@ export default {
+       } else if (apos < 1 || dotpos - apos < 2) {
+         callback(new Error('Please enter the correct email address'));
+       } else {
+-        User.checkchangeemail(value).then(res => {
++        var type = "email"
++        User.checkrepeat(value, type).then(res => {
+           if (res.count > 0) {
+             callback(new Error('Email name already exists'));
+           } else {
+diff --git a/src/router/index.js b/src/router/index.js
+index abe4617..d7891fc 100644
+--- a/src/router/index.js
++++ b/src/router/index.js
+@@ -47,8 +47,8 @@ const routes = [
+   { path: '/search',                  name: 'Search',         component: Search },
+   { path: '/register',                name: 'Register',       component: Register },
+   { path: '/active/:activate/:id',    name: 'Activate',       component: Activate },
+-  { path: '/active/:activate/:id/:code2',          name: 'ChangeActivate', component: ChangeActivate },
+-  { path: '/forgetpassword/:code1/:id/:code2',     name: 'ResetPassword',  component: ResetPassword },
++  { path: '/active/:activate/:id/:email',  name: 'ChangeActivate', component: ChangeActivate },
++  { path: '/forgetpassword/:code/:id/',    name: 'ResetPassword',  component: ResetPassword },
+   // blogs
+   { path: '/show/blogs',        name: 'ShowBlogs',    component: ShowBlogs },
+   { path: '/show/blog/:id',     name: 'ShowBlog',     component: ShowBlog },
+diff --git a/src/views/Profile/EditProfile.vue b/src/views/Profile/EditProfile.vue
+index 2da11c1..cadd7ea 100644
+--- a/src/views/Profile/EditProfile.vue
++++ b/src/views/Profile/EditProfile.vue
+@@ -4,6 +4,10 @@
+     <div class="inputbox">
+       <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update" />
+     </div>
++    <div class="inputbox">
++      <input type="text" v-model="username" required="" />
++      <label>Username: </label>
++    </div>
+     <div class="inputbox">
+       <input type="text" v-model="major" required="" />
+       <label>major: </label>
+@@ -29,12 +33,12 @@ export default {
+   components: {},
+   data() {
+     return {
+-      user: this._user,
+-      username: this._user.username,
+-      email: this._user.email,
+-      bio: this._user.bio,
+-      grade: this._user.grade,
+-      major: this._user.major,
++      id: this._user.pk,
++      username: '',
++      email :'',
++      bio: '',
++      grade: '',
++      major: '',
+     }
+   },
+   methods: {
+@@ -55,7 +59,7 @@ export default {
+         grade: this.grade,
+         major: this.major,
+         bio: this.bio,
+-        email: this.email,
++        email:this.email,
+       })
+     },
+ 
+@@ -69,6 +73,22 @@ export default {
+           }
+         })
+       })
++    },
++    load(id) {
++      User.get(id)
++      .then(user => {
++        this.id = user.pk
++        this.username = user.username
++        this.grade = user.grade
++        this.bio = user.bio
++        this.major = user.major
++        this.email = user.email
++      })
++    }
++  },
++  created() {
++    if(this.id != undefined) {
++      this.load(this.id)
+     }
+   },
+ }
+diff --git a/src/views/Profile/ProfileInformation.vue b/src/views/Profile/ProfileInformation.vue
+index a185dca..462a7e0 100644
+--- a/src/views/Profile/ProfileInformation.vue
++++ b/src/views/Profile/ProfileInformation.vue
+@@ -10,12 +10,13 @@
+       <div id="image">
+         <img :src="profile_owner.avatar" />
+       </div>
++        <p id='username'>{{profile_owner.username}}</p>
++        <el-button v-if="profile_owner && _is_owner" @click="editProfile" icon="el-icon-edit" circle></el-button>
+       <div>
+-        <button v-if="profile_owner && _is_owner" @click="editProfile">Edit</button>
+-        <p>major:{{profile_owner.major}}</p>
+-        <p>Balance: {{profile_owner.blance}}</p>
+-        <p>grade:{{profile_owner.grade}}</p>
+-        <p>bio:{{profile_owner.bio}}</p>
++        <p id='info' style="color:#8188d5;">major:</p><p id='info' style="color:#878fef;">{{profile_owner.major}}</p>
++        <p id='info' style="color:#8188d5;">Balance:</p><p id='info' style="color:#878fef;">{{profile_owner.blance}}</p>
++        <p id='info' style="color:#8188d5;">grade:</p><p id='info' style="color:#878fef;">{{profile_owner.grade}}</p>
++        <p id='info' style="color:#8188d5;">bio:</p><p id='info' style="color:#878fef;">{{profile_owner.bio}}</p>
+         <FollowButton
+          :_content_owner=_user
+          :_visitor=_visitor />
+@@ -28,14 +29,14 @@
+     <div class="box2">
+       <div>
+         <img src="@/assets/img/浏览量.svg" alt="">
+-         <p>Total views:{{profile_owner.totalviews}}</p>
++         <p id='total'>Total views:{{profile_owner.totalviews}}</p>
+         <img src="@/assets/img/粉丝趴.svg" alt="">
+-        <p>Follows: 0438</p>
++        <p id='total'>Follows: {{totalfollowing}}</p>
+         <br>
+         <img src="@/assets/img/点赞.svg" alt="">
+-        <p>Total likes:{{profile_owner.totallikes}}</p>
++        <p id='total'>Total likes:{{profile_owner.totallikes}}</p>
+         <img src="@/assets/img/概率.svg" alt="">
+-        <p>Accept rate: 99%</p>
++        <p id='total'>Accept rate: {{acceptance_rate}}</p>
+       </div>
+       <div>
+         <div id="chart_example">
+@@ -60,6 +61,8 @@ export default {
+       profile_owner: this._user,
+       visitor: this._visitor,
+       status: false,
++      totalfollowing: '',
++      acceptance_rate:''
+     }
+   },
+   components: {
+@@ -82,6 +85,15 @@ export default {
+       this.status = val
+     },
+   },
++  created() {
++    this.profile_owner.getFollowershipList()
++    .then(res => {
++      this.totalfollowing = res.followings.length
++      User.gettags(this.$route.params.id).then(res => {
++        this.acceptance_rate = res.acceptance_rate
++      })
++    })
++  },
+   mounted() {
+     var colorList = ['#9370DB', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976',
+     '#6173d6','#914ce5', '#42b1cc', '#ff55ac', '#0090ff']
+@@ -220,6 +232,23 @@ export default {
+ </script>
+ 
+ <style scoped>
++#username{
++  font-weight:900;
++  font-size: 550%;
++  color:#8188d5;
++  font-family:Cursive;
++}
++#total{
++  font-weight:400;
++  font-size: 250%;
++  color:#8188d5;
++  font-family:Cursive;
++}
++#info{
++  font-weight:400;
++  font-size: 150%;
++  font-family:Cursive;
++}
+ #chart_example{
+   width: 400px;
+   height: 190px;
+diff --git a/src/views/Profile/RequestFriend0.vue b/src/views/Profile/RequestFriend0.vue
+deleted file mode 100644
+index ece123a..0000000
+--- a/src/views/Profile/RequestFriend0.vue
++++ /dev/null
+@@ -1,135 +0,0 @@
+-<template>
+-  <div class="RequestFriend">
+-    <div>
+-      <ul>
+-        <li v-for="requestlist in requestlists" :key='requestlist.url'>
+-          <a href="#" class="avatar">
+-            <img src="@/assets/img/头像 女孩.svg" alt />
+-            <div>
+-              <p v-for="fromuser in requestlist.fromuser" :key='fromuser.url'>username:{{fromuser.username}}</p>
+-              <p>MESSAGE:{{requestlist.request_message}}</p>
+-              <p>TIME:{{requestlist.timestamp}}</P>
+-            </div>
+-            <button class="btn"  @click="accept(requestlist)">accept</button>
+-            <button class="btn"  @click='cancel(requestlist)'>cancel</button>
+-          </a>
+-        </li>
+-      </ul>
+-    </div>
+-  </div>
+-</template>
+-
+-<script>
+-import FriendRequest from '@/assets/utils/models/FriendRequest'
+-import Friendship from '@/assets/utils/models/Friendship'
+-import { is_authenticated } from '@/assets/utils/auth'
+-export default {
+-  data() {
+-    return {
+-      requestlists: '',
+-      is_cancel: '',
+-    }
+-  },
+-  methods: {
+-    _getstate(requestlist) {
+-      return new FriendRequest({
+-        id: requestlist.id,
+-        is_cancel: this.is_cancel,
+-        to_user: requestlist.to_user,
+-        from_user: requestlist.from_user,
+-      })
+-    },
+-    handle(requestlist) {
+-      FriendRequest.get(requestlist.id)
+-        .then(FriendRequest => {
+-          this.is_cancel = FriendRequest.is_cancel
+-          this.is_cancel = !this.is_cancel
+-          let state = this._getstate(requestlist)
+-          state.update()
+-            .then(() => {
+-              this.getAlllrequestlist()
+-            })
+-        })
+-    },
+-    _getfriendship(friend_1, friend_2) {
+-      return new Friendship({
+-        friend_1: friend_1,
+-        friend_2: friend_2,
+-      })
+-    },
+-    getAlllrequestlist() {
+-      FriendRequest.getRequestlist()
+-        .then(requestlist => {
+-          this.requestlists = requestlist.request
+-        })
+-    },
+-    cancel(requestlist) {
+-      this.handle(requestlist)
+-    },
+-    accept(requestlist) {
+-      this.handle(requestlist)
+-      let friendship = this._getfriendship(requestlist.to_user, requestlist.from_user)
+-      friendship.save()
+-    }
+-  },
+-  created() {
+-    if (!is_authenticated()) {
+-      this.$router.push({
+-        name: 'Login'
+-      })
+-    } else {
+-      this.getAlllrequestlist()
+-    }
+-
+-  },
+-};
+-</script>
+-
+-<style scoped>
+-.RequestFriend {
+-  width: 100%;
+-  height: 90vh;
+-}
+-ul{
+-  display: flex;
+-  flex-direction: column;
+-  justify-content: center;
+-  align-items: center;
+-}
+-li a {
+-  display: flex;
+-  flex-direction: row;
+-  justify-content: space-around;
+-  text-decoration: none;
+-  align-items: center;
+-}
+-li {
+-  list-style: none;
+-  margin: 20px 0 20px 0;
+-  width: 80%;
+-  height: 100%;
+-  font-size: 24px;
+-  background: #eeba10;
+-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+-  border-radius: 10px;
+-  transition: all 0.3s ease;
+-}
+-.btn {
+-  border: none;
+-  color: white;
+-  width: 100px;
+-  height: 40px;
+-  vertical-align: middle;
+-  display: inline-block;
+-  color: white;
+-  text-decoration: none;
+-  text-transform: uppercase;
+-  font-size: 22px;
+-  letter-spacing: 2px;
+-  border-radius: 20px;
+-  background-image: repeating-linear-gradient(90deg, #755bea,#ff72c0);
+-}
+-img{
+-  width: 10%;
+-}
+-</style>

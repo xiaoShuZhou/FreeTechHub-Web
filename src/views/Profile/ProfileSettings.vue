@@ -2,8 +2,8 @@
 
     <div class="box">
       <div>
-        <router-link v-if="user" :to="{name:'ChangePassword', params:{id: this.user.pk}}">修改密码</router-link>
-        <router-link v-if="user" :to="{name:'ChangeMail', params:{id: this.user.pk}}">修改邮箱</router-link>
+        <router-link v-if="user != ''" :to="{name:'ChangePassword', params:{id: user.pk}}">修改密码</router-link>
+        <router-link v-if="user != ''" :to="{name:'ChangeMail', params:{id: user.pk}}">修改邮箱</router-link>
       </div>
       <transition mode="out-in">
         <router-view></router-view>
@@ -22,6 +22,7 @@ export default {
     }
   },
 }
+
 </script>
 
 <style scoped>
@@ -38,7 +39,7 @@ export default {
   height: 100vh;
   padding: 40px;
   box-sizing: border-box;
-  background: #d2e9f3;
+  background: #fafbff;
 }
 .box div{
   display: flex;

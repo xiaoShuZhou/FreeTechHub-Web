@@ -47,7 +47,7 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background: #fbfbff;
+  background: #fafbff;
   overflow: scroll;
 }
 .BlogDetail{
@@ -66,7 +66,7 @@ input{
   width: 180px;
   height: 40px;
   border-radius: 10px;
-  background-color: #f4f3f7;
+  background-color: #fafbff;
   background: url(~@/assets/img/放大镜.svg);
   background-size: 20%;
 	background-position: right;

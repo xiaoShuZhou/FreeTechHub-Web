@@ -1,5 +1,5 @@
 <template>
-  <div class="FollowButton" 
+  <div class="FollowButton"
     v-if="_visitor.pk != _content_owner.pk && followed != 'loading'">
     <button v-if="followed" @click="unfollow()">unfollow</button>
     <button v-else @click="follow()">follow</button>
@@ -25,7 +25,7 @@ export default {
       .then(() => this.followed = false)
     },
     load() {
-      if (this._visitor.pk != this._content_owner.pk 
+      if (this._visitor.pk != this._content_owner.pk
           && this.followed == 'loading') {
         this._visitor.is_followed(this._content_owner.pk)
         .then(res => this.followed = res)
