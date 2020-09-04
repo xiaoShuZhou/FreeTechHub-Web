@@ -1,6 +1,5 @@
 import Model from "./Model"
 import Tag from "./Tag"
-import Comment from "./Comment"
 import marked from 'marked'
 import axios from 'axios'
 import BASE_URL from '../consts'
@@ -68,21 +67,6 @@ class Blog extends Model {
             }
         })
         return res.data
-    }
-    
-    async save() {
-        let response = await axios.post(this._getModelURL(), this._getData())
-        this.pk = response.data.id
-        let root_comment = new Comment({
-            content: '',
-            owner:response.data.owner,
-            sub_comments_of:null,
-        })
-        let res = await root_comment.save()
-        this.root_comment = res.data.id
-        this.owner = response.data.owner
-        this.update()
-        return response
     }
 
     // get model by id

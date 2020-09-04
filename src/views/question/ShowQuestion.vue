@@ -14,57 +14,47 @@
           <p class="status" v-if="question.status == false">Unsolved</p>
           <p class="status" v-else>Solved</p>
         </div>
-      </div>
-      <div class="content" v-html="question.content" v-highlight></div>
-      <div class="buttons">
-        <button @click="editQuestion">Edit</button>
-        <button @click="deleteQuestion">Delete</button>
+        <div class="taggroup" v-if="question.tags.length != 0">
+          <a href class="tag" v-for="tag in question.tags" :key="tag.pk">
+            <img class="icon" src="@/assets/img/标签.svg" alt />
+            {{ tag.tag_name }}
+          </a>
+        </div>
+        <div class="content" v-html="question.content" v-highlight></div>
+        <div class="buttons">
+          <button @click="editQuestion">Edit</button>
+          <button @click="deleteQuestion">Delete</button>
+        </div>
       </div>
       <hr />
       <h2>Answers:</h2>
-      <div class="comment">
-        <ul>
-          <div v-if="accepted_answer != ''">
-            <li>
-              <div class="card">
-                <div class="card-img">
-                  <img src="@/assets/img/头像 女孩.svg" />
-                  <h4>{{ accepted_answer.owner_instance.username }}</h4>
-                </div>
-                <h2 class="card-title">{{ accepted_answer.time }}</h2>
-                <p class="card-content" v-html="accepted_answer.m_content" v-highlight></p>
-                <h4 class="status">Accepted</h4>
-              </div>
-            </li>
-            <li v-for="answer in answers" :key="answer.id">
-              <div v-if="answer.status == false">
-                <div class="card">
-                  <div class="card-img">
-                    <img src="@/assets/img/头像 女孩.svg" />
-                    <h4>{{ answer.owner_instance.username }}</h4>
-                  </div>
-                  <h2 class="card-title">{{ answer.time }}</h2>
-                  <p class="card-content" v-html="answer.m_content" v-highlight></p>
-                  <h4 class="status">Unaccepted</h4>
-                </div>
-              </div>
-            </li>
+      <div v-if="accepted_answer != ''">
+        <show-answers
+          :_answer="accepted_answer"
+          :question="question"
+          :_is_accepted="true"
+          :_user="user">
+        </show-answers>
+        <li v-for="answer in answers" :key="answer.pk">
+          <div v-if="answer.status == false">
+            <show-answers
+              :_answer="answer"
+              :question="question"
+              :_is_accepted="true"
+              :_user="user">
+            </show-answers>
           </div>
-          <div v-else>
-            <li v-for="answer in answers" :key="answer.id">
-              <div class="card">
-                <div class="card-img">
-                  <img src="@/assets/img/头像 女孩.svg" />
-                  <h4>{{ answer.owner_instance.username }}</h4>
-                </div>
-                <h2 class="card-title">{{ answer.time }}</h2>
-                <p class="card-content" v-html="answer.m_content" v-highlight></p>
-                <h4 class="status">Unaccepted</h4>
-                <button class="accept" @click="acceptAnswer(answer)">Accept</button>
-              </div>
-            </li>
-          </div>
-        </ul>
+        </li>
+      </div>
+      <div v-else>
+        <li v-for="answer in answers" :key="answer.pk">
+          <show-answers
+            :_answer="answer"
+            :question="question"
+            :_is_accepted="false"
+            :_user="user">
+          </show-answers>
+        </li>
       </div>
       <div v-if="this.accepted_answer == ''">
         <mavon-editor
@@ -74,29 +64,30 @@
           placeholder="Post your answer"
         />
         <button @click="saveAnswer()">Post</button>
-    </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Question from "@/assets/utils/models/Question";
-import Transaction from '@/assets/utils/models/Transaction'
 import Answer from "@/assets/utils/models/Answer";
-import { login_required } from '@/assets/utils/auth'
+import { login_required } from '@/assets/utils/auth';
 import Navbar from "@/components/Navbar.vue";
+import ShowAnswers from '@/components/ShowAnswers.vue';
 
 export default {
   name: "ShowQuestion",
   components: {
     Navbar,
+    ShowAnswers,
   },
   data() {
     return {
       user:'',
       id: '',
       question: '',
-      answers: '',
+      answers:'',
       accepted_answer:'',
       content: '',
     }
@@ -121,15 +112,25 @@ export default {
         question: this.question.pk,
       })
     },
-    _getTransaction(){
-      return new Transaction({
-        user: this.question.owner,
-        amount: this.question.bounty,
-        transaction_type: 'B',
-        description:this.question.title,
+    saveAnswer() {
+      let answer = this._getAnswer()
+      answer.save().then(() => {
+        this.content = ''
+        Question.get(this.$route.params.id).then(question => {
+          this.question = question
+          this.answers = question.answers
+          for (let answer of this.answers) {
+            if (answer.status == true) {
+              this.accepted_answer = answer
+            }
+          }
+        })
       })
     },
-    getAnswers() {
+  },
+  created() {
+    login_required(this, user => {
+      this.user = user
       Question.get(this.$route.params.id).then(question => {
         this.question = question
         this.answers = question.answers
@@ -139,29 +140,7 @@ export default {
           }
         }
       })
-    },
-    saveAnswer() {
-      let answer = this._getAnswer()
-      answer.save().then(() => {
-        this.getAnswers()
-      })
-    },
-    acceptAnswer(answer){
-      answer.status = true
-      answer.update().then(() => {
-        this.question.status = true
-        this.question.update().then(() => {
-          let transaction = this._getTransaction()
-          transaction.save().then(() => { 
-            this.getAnswers()
-          })
-        })
-      })
-    }
-  },
-  created() {
-    login_required(this, user => this.user = user)
-    this.getAnswers()
+    })
   },
 }
 </script>
@@ -255,6 +234,24 @@ export default {
 .card-content {
   grid-area: card-content;
   word-break: break-all;
+}
+.tag {
+  display: block;
+  background-color: #e16531;
+  border-radius: 10px;
+  width: auto;
+  max-width: 120px;
+  max-height: 60px;
+  height: auto;
+  margin: 20px;
+}
+.icon {
+  width: 40%;
+}
+.taggroup{
+  display: flex;
+  justify-content: baseline;
+  flex-wrap: wrap;
 }
 .status {
   grid-area: status;
