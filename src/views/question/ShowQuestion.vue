@@ -29,7 +29,7 @@
       <hr />
       <h2>Answers:</h2>
       <div v-if="accepted_answer != ''">
-        <show-answers
+        <show-answers @updatedAnswer="updatedAnswer"
           :_answer="accepted_answer"
           :question="question"
           :_is_accepted="true"
@@ -37,7 +37,7 @@
         </show-answers>
         <li v-for="answer in answers" :key="answer.pk">
           <div v-if="answer.status == false">
-            <show-answers
+            <show-answers @updatedAnswer="updatedAnswer"
               :_answer="answer"
               :question="question"
               :_is_accepted="true"
@@ -48,7 +48,7 @@
       </div>
       <div v-else>
         <li v-for="answer in answers" :key="answer.pk">
-          <show-answers
+          <show-answers @updatedAnswer="updatedAnswer"
             :_answer="answer"
             :question="question"
             :_is_accepted="false"
@@ -98,12 +98,14 @@ export default {
         this.$router.push({ name: "ShowQuestions" })
       })
     },
+
     editQuestion() {
       this.$router.push({
         name: "EditQuestion",
         params: { id: this.$route.params.id },
       })
     },
+
     _getAnswer() {
       return new Answer({
         id: this.id,
@@ -112,6 +114,7 @@ export default {
         question: this.question.pk,
       })
     },
+
     saveAnswer() {
       let answer = this._getAnswer()
       answer.save().then(() => {
@@ -127,6 +130,10 @@ export default {
         })
       })
     },
+
+    updatedAnswer(updated_answer) {
+      this.accepted_answer = updated_answer
+    }
   },
   created() {
     login_required(this, user => {

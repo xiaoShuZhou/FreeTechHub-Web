@@ -10,7 +10,7 @@
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
             <p class="card-content" v-html="answer.m_content" v-highlight></p>
-            <div v-if="answer.status">
+            <div v-if="answer.status == true">
               <h4 class="status">Accepted</h4>
             </div>
             <div v-else>
@@ -99,8 +99,9 @@ export default {
           transaction.save().then(() => { 
             Answer.get(answer.pk)
             .then(new_answer => {
-              this.answer = new_answer
-              this.is_accepted = true
+              // this.answer = new_answer
+              this.$emit("updatedAnswer", new_answer)
+              // this.is_accepted = true
             })
           })
         })
@@ -112,7 +113,6 @@ export default {
         Comment.query_sub_comments(answer.root_comment)
         .then(comment_tree => {
           this.wrapped_tree = Comment.wrap_sub_comments(comment_tree)
-          console.log(this.wrapped_tree)
         })
       }
       this.fold = !this.fold
@@ -120,8 +120,12 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.wrapped_tree = wrapped_comment_tree
-      console.log(this.wrapped_tree)
     }
-	},
+  },
+  watch: {
+    answer(val) {
+      this.answer = val
+    }
+  }
 }
 </script>
