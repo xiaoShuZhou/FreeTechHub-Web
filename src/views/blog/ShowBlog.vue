@@ -22,7 +22,11 @@
               {{blog.owner_instance.username}}
             </router-link>
             <p>{{ blog.owner_instance.bio }}</p>
-            <button @click="addfriend" id="addfriend-btn">Add Friend</button>
+            <button 
+              @click="addfriend" 
+              id="addfriend-btn" 
+              v-show="blog.owner_instance.pk != user.pk"
+            >Add Friend</button>
             <p>{{ blog.view_num }} views</p>
             <FollowButton 
              :_content_owner=blog.owner_instance

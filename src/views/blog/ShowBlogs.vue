@@ -49,7 +49,6 @@ export default {
   data() {
     return {
       blogs: '',
-      totalpage:[],
       pagesize: 9,
       pagenumber: 1,
       blogshow: '',

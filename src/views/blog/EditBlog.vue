@@ -7,16 +7,7 @@
     </span>
     <h2>content</h2>
     <mavon-editor v-model="content" />
-    <div class="tags">
-      <ul>
-        Tags:
-        <li v-for="tag in tags" :key="tag">
-          {{tag}}
-        </li>
-      </ul>
-    </div>
-    <input type="text" v-model="tag">
-    <button @click="addTag()">add tag</button>
+    <NewTag ref="NewTag"/>
     <button class="submit" @click="save()">submit</button>
     <Footer/>
   </div>
@@ -24,7 +15,9 @@
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
+import Tag from '@/assets/utils/models/Tag'
 import Navbar from '@/components/Navbar.vue'
+import NewTag from '@/components/Tags/NewTag.vue'
 import Footer from '@/components/Footer.vue'
 import { login_required } from '@/assets/utils/auth'
 
@@ -32,7 +25,8 @@ export default {
   name: 'EditBlog',
   components: {
     Navbar,
-    Footer
+    Footer,
+    NewTag
   },
   props: {
     id: {
@@ -48,7 +42,6 @@ export default {
       blog: '',
       owner: '',
       tags: [],
-      tag: ''
     }
   },
   methods: {
@@ -65,12 +58,20 @@ export default {
       login_required(this, user => {
         let blog = this._getblog(user)
         if (this.$route.name == "NewBlog") {
-          blog.save().then(() => {
-            this.$router.push({ name: 'ShowBlogs' })
+          blog.save().then((res) => {
+            this.tags = this.$refs.NewTag.tags
+            Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
+            .then(() => {
+              this.$router.push({ name: 'ShowBlogs' })
+            })
           })
         } else {
-          blog.update().then(() => {
-            this.$router.push({name: "ShowBlog", params: {id: this.blog_id}})
+          blog.update().then(res => {
+            this.tags = this.$refs.NewTag.tags
+            Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
+            .then(() => {
+              this.$router.push({name: "ShowBlog", params: {id: this.blog_id}})
+            })
           })
         }
       })
@@ -83,13 +84,11 @@ export default {
         this.title = blog.title
         this.content = blog.content
         this.owner = blog.owner
+        blog.tags.forEach(tag => {
+          this.$refs.NewTag.tags.push(tag.tag_name)
+        })
       })
     },
-
-    addTag() {
-      this.tags.push(this.tag)
-      this.tag = ''
-    }
   },
 
   created() {

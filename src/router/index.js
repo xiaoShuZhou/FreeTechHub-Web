@@ -83,8 +83,8 @@ const routes = [
       },
       { path: 'settings',             name: 'ProfileSettings',component: ProfileSettings,
         children:[
-          { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
-          { path: 'changemail/:id',     name: 'ChangeMail',     component: ChangeMail},
+          { path: 'changepassword/', name: 'ChangePassword', component: ChangePassword},
+          { path: 'changemail/',     name: 'ChangeMail',     component: ChangeMail},
         ]},
     ]},
 ]
