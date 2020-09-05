@@ -77,10 +77,15 @@
       </div>
       <div class="comment">
       <h2>Comments:</h2>
-      <show-comments v-if="blog != '' && root_comment_tree != ''"
-        :root_id="blog.root_comment" 
+      <show-comments v-if="blog != '' && wrapped_tree != ''"
+        :node_id="blog.root_comment"
+        :root_id="blog.root_comment"
+        :wrapped_tree="wrapped_tree"
         :is_root="true"
-        :_fold="false">
+        :_fold="false"
+        :_blog="true"
+        :_answer="false"
+        :_user="user">
       </show-comments>
       </div> 
     </div>
@@ -119,6 +124,7 @@ export default {
       liked: true,
       history: '',
       status: false,
+      wrapped_tree: '',
       top: 0
     }
   },
@@ -220,24 +226,16 @@ export default {
   created() {
     login_required(this, user => {
       this.user = user
-      this.$store.commit('set_root_comment_tree', '')
       Blog.get(this.$route.params.id)
       .then(blog => {
         this.blog = blog
         Comment.query_sub_comments(blog.root_comment)
         .then(comment_tree => {
-          let wrapped_comment_tree = Comment.wrap_sub_comments(comment_tree)
-          this.$store.commit('set_root_comment_tree', wrapped_comment_tree)
-          this.$store.commit('set_root_id', this.blog.root_comment)
+          this.wrapped_tree = Comment.wrap_sub_comments(comment_tree)
         })
         blog.getLikeHistory().then(history => this.history = history)
       })
     })
-  },
-  computed: {
-    root_comment_tree: function() {
-      return this.$store.state.root_comment_tree
-    }
   },
 }
 </script>
