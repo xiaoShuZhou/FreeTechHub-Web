@@ -77,7 +77,7 @@
       </div>
       <div class="comment">
       <h2>Comments:</h2>
-      <show-comments v-if="blog != '' && wrapped_tree != ''"
+      <show-comments @updatedTree="updatedTree" v-if="blog != '' && wrapped_tree != ''"
         :node_id="blog.root_comment"
         :root_id="blog.root_comment"
         :wrapped_tree="wrapped_tree"
@@ -216,12 +216,18 @@ export default {
         })
       })
     },
+
     addfriend(){
       this.status = !this.status
     },
+
     closealert(val){
       this.status = val
     },
+
+    updatedTree(val){
+      this.wrapped_tree = val
+    }
   },
   created() {
     login_required(this, user => {
