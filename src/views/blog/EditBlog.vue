@@ -7,6 +7,16 @@
     </span>
     <h2>content</h2>
     <mavon-editor v-model="content" />
+    <div class="tags">
+      <ul>
+        Tags:
+        <li v-for="tag in tags" :key="tag">
+          {{tag}}
+        </li>
+      </ul>
+    </div>
+    <input type="text" v-model="tag">
+    <button @click="addTag()">add tag</button>
     <button class="submit" @click="save()">submit</button>
     <Footer/>
   </div>
@@ -37,6 +47,8 @@ export default {
       content: '',
       blog: '',
       owner: '',
+      tags: [],
+      tag: ''
     }
   },
   methods: {
@@ -72,6 +84,11 @@ export default {
         this.content = blog.content
         this.owner = blog.owner
       })
+    },
+
+    addTag() {
+      this.tags.push(this.tag)
+      this.tag = ''
     }
   },
 
@@ -126,4 +143,13 @@ export default {
   color: #311f1f;
   margin: 5vh 5vw;
 }
+
+.tags ul {
+  display: flex;
+}
+
+.tags li {
+  margin: 1vh 3vw;
+}
+
 </style>

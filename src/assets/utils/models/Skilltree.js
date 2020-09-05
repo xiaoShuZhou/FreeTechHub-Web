@@ -3,7 +3,7 @@ import axios from "axios"
 import BASE_URL from '../consts'
 
 
-class Skilltree extends Model {
+class SkillTree extends Model {
     static app_name = 'skilltree'
     static model_name = 'skilltree'
 
@@ -123,8 +123,8 @@ class Skilltree extends Model {
     // get model by id
     static async get(id) {
         let res = await axios.get(BASE_URL+`${this.app_name}/skilltree_handler/${id}/`)
-        return new Skilltree(res.data)
+        return new SkillTree(res.data)
     }
 }
 
-export default Skilltree
+export default SkillTree
