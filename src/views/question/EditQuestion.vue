@@ -14,6 +14,7 @@
     <div class="editor">
       <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
     </div>
+    <NewTag ref="NewTag"/>
     <div class="button">
       <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
     </div>
@@ -24,13 +25,17 @@
 import Question from '@/assets/utils/models/Question'
 import Transaction from '@/assets/utils/models/Transaction'
 import { login_required } from '@/assets/utils/auth'
+import NewTag from '@/components/Tags/NewTag.vue'
+import Tag from '@/assets/utils/models/Tag'
 import marked from 'marked'
 
 export default {
   name: 'EditQuestion',
   props: {
   },
-
+  components: {
+    NewTag
+  },
   data(){
     return {
       id:'',
@@ -39,11 +44,12 @@ export default {
       bounty:'',
       user:'',
       question:'',
+      tags: []
     }
   },
 
   methods:{
-    _getQuestion(){
+    _getQuestion() {
       return new Question({
         id: this.id,
         title: this.title,
@@ -52,7 +58,7 @@ export default {
         owner: this.user.pk,
       })
     },
-     _getTransaction(){
+     _getTransaction() {
       return new Transaction({
         user: this.user.pk,
         amount: this.bounty,
@@ -60,44 +66,64 @@ export default {
         description:this.title,
       })
     },
-    saveQuestion(){
+    saveQuestion() {
       let question = this._getQuestion()
-      if(this.$route.name == "NewQuestion"){
+      if (this.$route.name == "NewQuestion"){
         if (this.user.balance >= this.bounty){
-            question.save().then(()=>{
+            question.save().then(res => {
               let transaction = this._getTransaction()
-              transaction.save().then(() => {
+              this.tags = this.$refs.NewTag.tags
+
+              let promises = [
+                transaction.save(),
+                Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
+              ]
+              
+              Promise.all(promises).then(() => {
                 this.$router.push({name:'ShowQuestions'})
             })
           })
-        }else{
+        } else {
           alert("your balance is not enough.")
         }
-      }else{
+      } else {
         if (this.user.balance >= this.bounty){
-          question.update().then(()=>{
+          question.update().then(res => {
             let transaction = this._getTransaction()
-            transaction.save().then(() => {
+            this.tags = this.$refs.NewTag.tags
+
+            let promises = [
+              transaction.save(),
+              Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
+            ]
+
+            Promise.all(promises).then(() => {
               this.$router.push({name:'ShowQuestion', params: {id: this.id }})
             })
           })
-        }else{
+        } else {
           alert("your balance is not enough.")
         }
       }
     },
   },
-  created(){
-    login_required(this, user => this.user = user)
-    if(this.$route.params.id != undefined){
-      Question.get(this.$route.params.id).then(question => {
-        this.title = question.title
-        this.content = question.content
-        this.bounty = question.bounty
-        this.id = question.pk
-        this.owner = question.owner
-      })
-    }
+  created() {
+    login_required(this, user => {
+      this.user = user
+      if (this.$route.params.id != undefined) {
+        Question.get(this.$route.params.id)
+        .then(question => {
+          this.title = question.title
+          this.content = question.content
+          this.bounty = question.bounty
+          this.id = question.pk
+          this.owner = question.owner
+          question.tags.forEach(tag => {
+            this.$refs.NewTag.tags.push(tag.tag_name)
+          })
+        })
+      }
+    })
   }
 }
 </script>

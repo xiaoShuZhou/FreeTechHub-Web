@@ -11,6 +11,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "echarts": "^4.8.0",
+    "element-ui": "^2.13.2",
     "highlight.js": "^10.1.2",
     "jqeury": "^0.0.1-security",
     "jquery": "^3.5.1",

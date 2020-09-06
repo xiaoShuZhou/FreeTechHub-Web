@@ -1,26 +1,27 @@
 <template>
   <div class="ProfileInformation">
-    <AddFriend 
-      v-if="status && !_is_owner" 
-      :status="this.status" 
+    <AddFriend
+      v-if="status && !_is_owner"
+      :status="this.status"
       @closealert="closealert"
       :_user=_user
       :_visitor=_visitor />
     <div class="box1">
       <div id="image">
-        <img src="@/assets/img/landing.jpg" />
+        <img :src="profile_owner.avatar" />
       </div>
+        <p id='username'>{{profile_owner.username}}</p>
+        <el-button v-if="profile_owner && _is_owner" @click="editProfile" icon="el-icon-edit" circle></el-button>
       <div>
-        <button v-if="profile_owner && _is_owner" @click="editProfile">Edit</button>
-        <p>major:{{profile_owner.major}}</p>
-        <p>Balance: {{profile_owner.blance}}</p>
-        <p>grade:{{profile_owner.grade}}</p>
-        <p>bio:{{profile_owner.bio}}</p>
-        <FollowButton 
+        <p id='info' style="color:#8188d5;">major:</p><p id='info' style="color:#878fef;">{{profile_owner.major}}</p>
+        <p id='info' style="color:#8188d5;">Balance:</p><p id='info' style="color:#878fef;">{{profile_owner.blance}}</p>
+        <p id='info' style="color:#8188d5;">grade:</p><p id='info' style="color:#878fef;">{{profile_owner.grade}}</p>
+        <p id='info' style="color:#8188d5;">bio:</p><p id='info' style="color:#878fef;">{{profile_owner.bio}}</p>
+        <FollowButton
          :_content_owner=_user
          :_visitor=_visitor />
-        <button 
-          @click="showalert" 
+        <button
+          @click="showalert"
           id="addfriend-btn"
           v-if="!_is_owner">Add Friend</button>
       </div>
@@ -28,18 +29,18 @@
     <div class="box2">
       <div>
         <img src="@/assets/img/浏览量.svg" alt="">
-        <p>Total views: 666</p>
+         <p id='total'>Total views:{{profile_owner.totalviews}}</p>
         <img src="@/assets/img/粉丝趴.svg" alt="">
-        <p>Follows: 0438</p>
+        <p id='total'>Follows: {{totalfollowing}}</p>
         <br>
         <img src="@/assets/img/点赞.svg" alt="">
-        <p>Total likes: 2233</p>
+        <p id='total'>Total likes:{{profile_owner.totallikes}}</p>
         <img src="@/assets/img/概率.svg" alt="">
-        <p>Accept rate: 99%</p>
+        <p id='total'>Accept rate: {{acceptance_rate}}</p>
       </div>
       <div>
-        <img src="@/assets/img/landing.jpg" />
-        <img src="@/assets/img/landing.jpg" />
+        <div id="chart_example">
+        </div>
       </div>
     </div>
     <div class="box3">
@@ -49,9 +50,10 @@
 </template>
 
 <script>
+import User from '@/assets/utils/models/User'
+import echarts from 'echarts'
 import FollowButton from '@/components/FollowButton'
 import AddFriend from '@/components/AddFriend.vue'
-
 export default {
   props: ['_user', '_visitor', '_is_owner'],
   data() {
@@ -59,6 +61,8 @@ export default {
       profile_owner: this._user,
       visitor: this._visitor,
       status: false,
+      totalfollowing: '',
+      acceptance_rate:''
     }
   },
   components: {
@@ -81,6 +85,136 @@ export default {
       this.status = val
     },
   },
+  created() {
+    this.profile_owner.getFollowershipList()
+    .then(res => {
+      this.totalfollowing = res.followings.length
+      User.gettags(this.$route.params.id).then(res => {
+        this.acceptance_rate = res.acceptance_rate
+      })
+    })
+  },
+  mounted() {
+    var colorList = ['#9370DB', '#06d3c4', '#ffbc32', '#2ccc44', '#ff3976',
+    '#6173d6','#914ce5', '#42b1cc', '#ff55ac', '#0090ff']
+    let myChart = echarts.init(document.getElementById('chart_example'));
+    User.gettags(this.$route.params.id).then(res => {
+      this.data1 = res.Bdata
+      this.data2 = res.Qdata
+      let option = {
+        title: {
+          text: "Blog type                                     Answer type",
+
+          textStyle: {
+            fontSize: 18,
+            fontFamily: "Trebuchet MS",
+            fontWeight: "bold",
+            color: "#9999FF"
+          },
+          bottom: "0%"
+        },
+
+        series: [{
+            name: 'Blog type',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            center: ['25%', '50%'],
+            avoidLabelOverlap: true,
+            itemStyle: {
+              normal: {
+                color: function(params) {
+                  return colorList[params.dataIndex]
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                length: 22,
+                length2: 22,
+                lineStyle: {
+                  color: '#2478EC'
+                }
+              }
+            },
+            label: {
+              normal: {
+                formatter: function(params) {
+                  return ('{b|' + params.value + "}\n{a|" + params.name + '}')
+                },
+                show: true,
+                padding: [-30, -30, 0, -30],
+                rich: {
+                  b: {
+                    fontSize: 10,
+                    color: '#2AD0FF',
+                    textAlign: 'center'
+                  },
+                  a: {
+                    fontSize: 10,
+                    color: '#CFDCFF',
+                    height: 10,
+                    textAlign: 'center'
+                  }
+                }
+              },
+            },
+            data: this.data1
+          },
+          {
+            name: 'Answer type',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            center: ['75%', '50%'],
+            avoidLabelOverlap: true,
+            itemStyle: {
+              normal: {
+                color: function(params) {
+                  return colorList[params.dataIndex]
+                }
+              }
+            },
+            labelLine: {
+              normal: {
+                length: 20,
+                length2: 20,
+                lineStyle: {
+                  color: '#2478EC'
+                }
+              }
+            },
+            label: {
+              normal: {
+                formatter: function(params) {
+                  return ('{b|' + params.value + "}\n{a|" + params.name + '}')
+                },
+                show: true,
+                padding: [-30, -30, 0, -30],
+                rich: {
+                  b: {
+                    fontSize: 10,
+                    color: '#CFDCFF',
+                    textAlign: 'center'
+                  },
+                  a: {
+                    fontSize: 10,
+                    color: '#2AD0FF',
+                    height: 10,
+                    textAlign: 'center'
+                  }
+                }
+              },
+            },
+            data: this.data2
+          }
+        ]
+      };
+      myChart.setOption(option);
+      window.addEventListener('resize', function() {
+        myChart.resize()
+      });
+    });
+
+  },
   computed: {
     profile_owner_id() {
       return this.$route.params.id
@@ -98,6 +232,27 @@ export default {
 </script>
 
 <style scoped>
+#username{
+  font-weight:900;
+  font-size: 550%;
+  color:#8188d5;
+  font-family:Cursive;
+}
+#total{
+  font-weight:400;
+  font-size: 250%;
+  color:#8188d5;
+  font-family:Cursive;
+}
+#info{
+  font-weight:400;
+  font-size: 150%;
+  font-family:Cursive;
+}
+#chart_example{
+  width: 400px;
+  height: 190px;
+}
 .ProfileInformation {
   display: flex;
   flex-direction: column;

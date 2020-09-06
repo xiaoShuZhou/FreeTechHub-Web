@@ -6,13 +6,13 @@
         <router-link class="list-logo" to="/">FreeTechHub</router-link>
       </li>
       <li>
-        <router-link class="list" to="/show/blogs">blogs</router-link> 
+        <router-link class="list" to="/show/blogs">blogs</router-link>
       </li>
       <li>
-        <router-link class="list" to="/show/series">series</router-link> 
+        <router-link class="list" to="/show/series">series</router-link>
       </li>
       <li>
-        <router-link class="list" to="/show/questions">questions</router-link> 
+        <router-link class="list" to="/show/questions">questions</router-link>
       </li>
       <li v-if="is_login">
         <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
@@ -22,7 +22,7 @@
         <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
       </li>
       <li>
-        <router-link v-if="is_login" to="/login">Logout</router-link> 
+        <router-link v-if="is_login" to="/login">Logout</router-link>
         <router-link v-else to="/login">Login</router-link>
       </li>
     </ul>
@@ -72,6 +72,9 @@ export default {
 </script>
 
 <style  scoped>
+#profile{
+  color:#fff
+}
 *{
   margin: 0;
   padding: 0;

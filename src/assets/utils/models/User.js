@@ -12,8 +12,8 @@ class User extends Model {
     // {id: xxx, ....(other data fields)}
     constructor({ id, last_login, is_superuser, date_joined,
                   username, email, date_of_birth, is_authorized,
-                  balance, major, grade, bio,avatar, groups,
-                  user_permissions}) {
+                  balance, major, grade, bio, avatar, groups,
+                  user_permissions, totallikes, totalviews}) {
 
         super({username, email, grade, bio, major, balance})     // data fields that is requried when save
 
@@ -32,8 +32,11 @@ class User extends Model {
         this.major = major
         this.grade = grade
         this.bio = bio
+        this.email = email
         this.avatar = avatar
         this.groups = groups
+        this.totallikes = totallikes
+        this.totalviews= totalviews
         this.user_permissions = user_permissions
         this.context = []
         this.newMessageNum = 0
@@ -126,11 +129,79 @@ class User extends Model {
         return requests
     }
 
-    static async changepassword(oldpass,newpass) {
-        let res = await axios.post(BASE_URL+'user/changepassword/',
-         {oldpassword:oldpass, newpassword1:newpass})
+
+    static async changepassword(oldpassword, newpassword) {
+        let res = await axios.post(BASE_URL+'user/changepassword/', {
+            oldpassword, newpassword})
         this.context = res.data.data
         return this.context
+    }
+
+
+    static async changeemail(password, email) {
+        let res = await axios.post(BASE_URL+'user/changeemail/', {
+            password, email})
+        this.context = res.data.data
+        return this.context
+    }
+
+    // upload photo as avatar
+    static async upload(e){
+      let file = e.target.files[0];
+      let param = new FormData();
+      param.append('file', file);
+      let config = {
+        headers:{'Content-Type': 'multipart/form-data'}
+      };
+      let res = await axios.post(BASE_URL+'user/upload/', param,config)
+      return res.data
+    }
+
+    // Get tags
+    static async gettags(param) {
+        let res = await axios.get(BASE_URL + `user/gettags/${param}/`)
+        return res.data
+    }
+
+    // check whether the username or email exist
+    static async checkrepeat(value, type) {
+        let res = await axios.post(BASE_URL + `user/checkrepeat/`, {
+            value, type})
+        return res.data
+    }
+
+    //post registration information
+    static async register(username, email, password){
+        let res = await axios.post(BASE_URL +`user/register/`, {
+            username, email, password})
+        return res.data
+    }
+
+    //check whether the verification code is correct
+    static async validate(code, user_id, type, email){
+        let res = await axios.post(BASE_URL +`user/validate/`, {
+            code, user_id, type, email})
+        return res.data
+    }
+
+    //send forgetpassword email
+    static async forgetpassword(email){
+        let res = await axios.post(BASE_URL +`user/send_change/`, {
+            email})
+        return res.data
+    }
+
+    //check oldpassword right or not
+    static async checkpassword(password){
+        let res = await axios.post(BASE_URL +`user/checkpassword/`, {
+            password})
+        return res.data
+    }
+
+    static async resetpassword(password, id){
+        let res = await axios.post(BASE_URL +`user/resetpassword/`, {
+            password, id})
+        return res.data
     }
 
     // get model by id

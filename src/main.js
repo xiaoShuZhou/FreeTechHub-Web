@@ -7,6 +7,11 @@ import 'mavon-editor/dist/css/index.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
 import filters from './filters/index'
+import echarts from 'echarts'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 Vue.use(mavonEditor)

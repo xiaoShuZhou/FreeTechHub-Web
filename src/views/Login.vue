@@ -24,20 +24,19 @@
         <button @click="githubLogin">Github</button>
       </div>
       <router-link tag="button" to="/register">register</router-link>
-      <router-link tag="button" to="/forgetpassword" @click="login">Forget Password</router-link>
+      <a id="forgetpassword" tag="button" @click="forgetpassword">Forget Password</a>
     </div>
   </div>
 </template>
 
 <script>
-
 import {login, logout} from '@/assets/utils/auth'
 import {getQueryParams} from '@/assets/utils/getQueryParams'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
 import {IP} from '@/assets/utils/consts'
 import WebSocketHandle from '@/assets/utils/WebSocketHandle'
-
+import User from '@/assets/utils/models/User'
 
 export default {
   name: "Login",
@@ -53,7 +52,7 @@ export default {
     }
   },
   methods: {
-    login: async function() { 
+    login: async function() {
       try{
         let user = await login(this.username, this.password)
         this.$store.commit("setSocketHandle", new WebSocketHandle(user.pk))
@@ -63,14 +62,14 @@ export default {
       }
     },
 
-    logout: function() { 
+    logout: function() {
       logout()
       this.$store.commit("removeSocketHandle")
       this.$router.push({name: "ShowBlogs"})
     },
 
     githubLogin() {
-      window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
+      window.location.href = `https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F${IP}:8080%2F%23%2Flogin%2F`
     },
 
     githubAuth() {
@@ -84,7 +83,7 @@ export default {
         window.location.href = `http://${IP}:8080/#/show/blogs/`
       })
       .catch(err => {
-        if (err.message == 
+        if (err.message ==
               'Request failed with status code 401') {
           alert("your login token has expired, please login again.")
           logout()
@@ -94,7 +93,28 @@ export default {
           window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
         }
       })
+    },
+    forgetpassword() {
+      this.$prompt('Please enter your email', 'Warning', {
+        confirmButtonText: 'confirm',
+        cancelButtonText: 'cancel',
+        inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+        inputErrorMessage: 'Incorrect email format'
+      }).then(({ value }) => {
+        User.forgetpassword(value).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Successfully send'
+          });
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'cancel'
+        });
+      });
     }
+
   },
   created() {
     if (getQueryParams("code") != null) {
@@ -106,6 +126,9 @@ export default {
 </script>
 
 <style scoped>
+#forgetpassword{
+  color:#fff
+}
 .Login{
 	margin: 0;
 	padding: 0;

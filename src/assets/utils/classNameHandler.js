@@ -23,7 +23,7 @@ function indexOf(list, val) {
     return -1;
 }
 
-function removeItem(list, val) {
+export function removeItem(list, val) {
     var index = indexOf(list, val);
     if (index > -1) {
         list.splice(index, 1);

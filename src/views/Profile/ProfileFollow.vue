@@ -5,17 +5,17 @@
       <div class="FollowingList">
         <ul>
           <li v-for="following in followings" :key='following.following_id'>
-              <img src="@/assets/img/头像 女孩.svg" alt />
+              <img :src="profile_owner.avatar" alt />
               <div>
                 <router-link :to="{name: 'ProfileInformation', params: {id: following.pk}}">
                   {{following.username}}
                 </router-link>
                 <p>bio: {{following.bio}}</p>
               </div>
-              <FollowButton 
+              <FollowButton
                 v-if="_is_owner"
                 :_content_owner=following
-                :_visitor=user 
+                :_visitor=user
                 :_follow=true />
           </li>
         </ul>
@@ -27,7 +27,7 @@
         <ul>
           <li v-for="follower in followers" :key='follower.following_id'>
             <img src="@/assets/img/头像 女孩.svg" alt />
-            <div> 
+            <div>
               <router-link :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
                 {{follower.username}}
               </router-link>
@@ -74,7 +74,7 @@ export default {
 * {
   margin: 0;
   padding: 0;
-  background: #ffeef3;
+  background: #fafbff;
 }
 .ProfileFollow {
   display: grid;

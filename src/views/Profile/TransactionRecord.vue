@@ -46,7 +46,7 @@ import Transcation from '@/assets/utils/models/Transaction'
 
 export default {
   name: "TransactionRecord",
-  
+
   props: ['_user', '_is_owner'],
   data(){
     return {
@@ -64,7 +64,7 @@ export default {
 
 <style scoped>
 .TransactionRecord {
-  background: #b7e1f5;
+  background: #fafbff;
   width: 100%;
   height: 100vh;
   overflow: scroll;
@@ -78,7 +78,7 @@ h3{
   padding: 10px 0;
   margin: 0 8vw;
 }
-ul{  
+ul{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,11 +92,11 @@ li{
   min-height: 100px;
   margin: 20px 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  background: #3498db;
+  background: #f6f7ff;
   border-radius: 20px;
   padding: 5px 0 5px 20px;
   transition: all 0.3s ease;
-  color: #fff;
+  color: #7075af;
   font-size: 26px;
 }
 </style>

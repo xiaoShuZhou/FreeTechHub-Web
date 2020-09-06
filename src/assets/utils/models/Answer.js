@@ -3,7 +3,6 @@ import marked from 'marked'
 import axios from 'axios'
 import BASE_URL from '../consts'
 import User from './User'
-import Comment from "./Comment"
 
 class Answer extends Model {
     static app_name = 'question'    
@@ -28,6 +27,7 @@ class Answer extends Model {
         this.disagree_num = dislike_num
         this.content_type_id = content_type_id
         this.m_content = marked(this.content)
+        this.reply = false
     }
 
     // Answer custom methods
@@ -57,21 +57,6 @@ class Answer extends Model {
             }
         })
         return res.data
-    }
-
-    async save(){
-        let response = await axios.post(this._getModelURL(), this._getData())
-        this.pk = response.data.id
-        let root_comment = new Comment({
-            content: '',
-            owner:response.data.owner,
-            sub_comments_of:null,
-        })
-        let res = await root_comment.save()
-        this.root_comment = res.data.id
-        this.owner = response.data.owner
-        this.update()
-        return response
     }
     
     static async get(id) {

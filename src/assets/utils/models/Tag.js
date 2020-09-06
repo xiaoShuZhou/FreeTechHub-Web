@@ -48,6 +48,12 @@ class Tag extends Model {
         return this.tagged_items
     }
 
+    static async saveTags(tag_list, object_id, content_type_id) {
+        axios.post(BASE_URL+`${this.app_name}/`+"saveTags/", { 
+            tag_list, object_id, content_type_id
+        })
+    }
+
     // get model by id
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)

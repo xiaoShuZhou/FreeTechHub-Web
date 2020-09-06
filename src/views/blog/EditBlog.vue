@@ -3,19 +3,23 @@
     <Navbar/>
     <input type="text" class="title" v-model="title" required="required" placeholder="Title"/>
     <mavon-editor class="editor" v-model="content" />
+    <NewTag class="newtag" ref="NewTag"/>
     <button class="submit" @click="save()">submit</button>
   </div>
 </template>
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
+import Tag from '@/assets/utils/models/Tag'
 import Navbar from '@/components/Navbar.vue'
+import NewTag from '@/components/Tags/NewTag.vue'
 import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: 'EditBlog',
   components: {
     Navbar,
+    NewTag
   },
   props: {
     id: {
@@ -30,6 +34,7 @@ export default {
       content: '',
       blog: '',
       owner: '',
+      tags: [],
     }
   },
   methods: {
@@ -46,12 +51,20 @@ export default {
       login_required(this, user => {
         let blog = this._getblog(user)
         if (this.$route.name == "NewBlog") {
-          blog.save().then(() => {
-            this.$router.push({ name: 'ShowBlogs' })
+          blog.save().then((res) => {
+            this.tags = this.$refs.NewTag.tags
+            Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
+            .then(() => {
+              this.$router.push({ name: 'ShowBlogs' })
+            })
           })
         } else {
-          blog.update().then(() => {
-            this.$router.push({name: "ShowBlog", params: {id: this.blog_id}})
+          blog.update().then(res => {
+            this.tags = this.$refs.NewTag.tags
+            Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
+            .then(() => {
+              this.$router.push({name: "ShowBlog", params: {id: this.blog_id}})
+            })
           })
         }
       })
@@ -64,8 +77,11 @@ export default {
         this.title = blog.title
         this.content = blog.content
         this.owner = blog.owner
+        blog.tags.forEach(tag => {
+          this.$refs.NewTag.tags.push(tag.tag_name)
+        })
       })
-    }
+    },
   },
 
   created() {
@@ -99,9 +115,13 @@ export default {
   height: 90vh;
   display: grid;
   grid-template-areas: 'title  submit'
+                       'newtag newtag'
                        'editor editor';
   grid-template-rows: 10% 90%;
   grid-template-columns: 85% 15%;
+}
+.newtag{
+  grid-area: newtag;
 }
 .editor{
   grid-area: editor;
@@ -123,4 +143,13 @@ export default {
 button:hover{
   box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.2);
 }
+
+.tags ul {
+  display: flex;
+}
+
+.tags li {
+  margin: 1vh 3vw;
+}
+
 </style>

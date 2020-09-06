@@ -2,8 +2,8 @@
   <div class="MessageCeter">
     <div class="navbar">
       <div class="link" @click="resetMessageNum()" >
-        <router-link 
-          v-if="user != ''" 
+        <router-link
+          v-if="user != ''"
           :to="{name:'Friends', params:{id: user.pk}}">
           好友消息
         </router-link>
@@ -11,7 +11,7 @@
       </div>
 
       <div class="link" @click="resetReplyNum()" >
-        <router-link 
+        <router-link
           :to="{name:'Reply'}">
           回复我的
         </router-link>
@@ -19,8 +19,8 @@
       </div>
 
       <div class="link" @click="resetRequestNum()" >
-        <router-link 
-          v-if="user != ''" 
+        <router-link
+          v-if="user != ''"
           :to="{name:'RequestFriend',  params:{id: user.pk}}">
           好友申请
         </router-link>

@@ -8,7 +8,9 @@ class Question extends Model {
     static app_name = 'question'     
     static model_name = 'question'   
 
-    constructor({id, title, content, date, bounty, viewTimes, status, owner, owner_instance, tags, answers}) {
+    constructor({id, title, content, date, bounty,
+                 viewTimes, status, owner, owner_instance,
+                 tags, answers, content_type_id}) {
         super({title, content, bounty, owner, status})
 
         this.app_name = 'question'  
@@ -17,6 +19,8 @@ class Question extends Model {
 
         this.date = date
         this.viewTimes = viewTimes
+        this.content_type_id = content_type_id
+        
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)
         }
