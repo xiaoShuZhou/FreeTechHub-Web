@@ -53,8 +53,8 @@
       </li>
     </ul>
     <div class="buttons">
-      <button @click="editSeries">Edit</button>
-      <button @click="deleteSeries">Delete</button>
+      <el-button @click="editSeries">Edit</el-button>
+      <el-button @click="deleteSeries">Delete</el-button>
     </div>
     <Footer class="footer"/>
   </div>

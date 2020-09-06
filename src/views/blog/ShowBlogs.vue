@@ -27,7 +27,7 @@
         </div>
       </li>
     </ul>
-    <button @click="newBlog">create new blog</button>
+    <el-button @click="newBlog">create new blog</el-button>
     <Footer/>
   </div>
 </template>
@@ -77,7 +77,7 @@ export default {
   box-sizing: border-box;
 }
 h1{
-  color: rgb(238, 237, 237);
+  color: rgb(215, 180, 219);
 }
 button {
   border: 0;
@@ -136,6 +136,7 @@ button {
 }
 .readmore{
   margin: 0;
+  justify-content: flex-end;
 }
 .card:hover {
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);

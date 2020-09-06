@@ -27,6 +27,7 @@ export default {
   justify-content: space-evenly;
   margin: 0;
   padding: 0;
+  bottom: 0;
 }
 img{
   width: 100px;

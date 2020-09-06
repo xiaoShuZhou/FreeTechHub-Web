@@ -43,5 +43,16 @@ export default {
 </script>
 
 <style scoped>
-
+.NewTag{
+  display: flex;
+  flex-direction: row;
+}
+ul{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+li{
+  margin: 0 10px;
+}
 </style>

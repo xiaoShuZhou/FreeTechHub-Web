@@ -18,7 +18,7 @@
         </div>
       </li>
     </ul>
-    <button @click="newQuestion">create new question</button>
+    <el-button @click="newQuestion">默认按钮</el-button>
     <Footer/>
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
   box-sizing: border-box;
 }
 h1{
-  color: rgb(238, 237, 237);
+  color: rgb(215, 180, 219);
 }
 button {
   border: 0;

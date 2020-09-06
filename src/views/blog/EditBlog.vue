@@ -1,10 +1,10 @@
 <template>
   <div class="EditBlog">
     <Navbar/>
-    <input type="text" class="title" v-model="title" required="required" placeholder="Title"/>
+    <el-input type="text" class="title" v-model="title" required="required" placeholder="Title" clearable></el-input>
     <mavon-editor class="editor" v-model="content" />
     <NewTag class="newtag" ref="NewTag"/>
-    <button class="submit" @click="save()">submit</button>
+    <el-button class="submit" @click="save()">Submit</el-button>
   </div>
 </template>
 
@@ -108,7 +108,8 @@ export default {
 
 .title {
   grid-area: title;
-  font-size: 42px;
+  font-size: 72px;
+  height: 100;
 }
 .EditBlog {
   margin-top: 10vh;
@@ -117,8 +118,9 @@ export default {
   grid-template-areas: 'title  submit'
                        'newtag newtag'
                        'editor editor';
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 10% 5% 85%;
   grid-template-columns: 85% 15%;
+  grid-row-gap: 2vh;
 }
 .newtag{
   grid-area: newtag;

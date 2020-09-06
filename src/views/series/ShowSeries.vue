@@ -27,7 +27,7 @@
         </div>
       </li>
     </ul>
-    <button @click="newSeries">create new series</button>
+    <el-button @click="newSeries">默认按钮</el-button>
     <Footer/>
   </div>
 </template>
@@ -85,7 +85,7 @@ export default {
   align-items: center;
 }
 h1{
-  color: rgb(238, 237, 237);
+  color: rgb(215, 180, 219);
 }
 .cardlist {
   list-style: none;

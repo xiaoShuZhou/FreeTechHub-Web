@@ -70,6 +70,6 @@ export default {
   height: 100%;
   width: 100%;
   position: fixed;
-  background: radial-gradient(225% 105% at bottom center, #f7f7b6 10%, #e96f92 40%, #75517d 65%, #1b2947);
+  background: #f9f6ff;
 }
 </style>
