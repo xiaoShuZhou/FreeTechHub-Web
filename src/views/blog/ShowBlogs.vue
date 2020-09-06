@@ -77,6 +77,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+h1{
+  color: rgb(238, 237, 237);
+}
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -122,6 +125,8 @@ button {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
+  background: rgba(221, 218, 218, 0.1);
+  word-break: break-all;
 }
 .card > h4 {
   margin: 20px;
@@ -146,8 +151,8 @@ button {
 }
 .card:hover p:nth-last-child(1){
   width: 100%;
-  display: block;
-  text-align: right;
+  opacity: 1;
+  text-align: center;
   color: rgb(0, 0, 255);
   transition: all 0.5s ease;
 }
@@ -164,7 +169,8 @@ a:-webkit-any-link{
   transition: all 0.5s ease;
 }
 .card p:nth-last-child(1){
-  display: none;
+  opacity: 0;
+  max-height: 20px;
 }
 .tag-list {
   margin: 0 3vw;
@@ -174,7 +180,6 @@ a {
 }
 .card-img{
   width: 100%;
-  height: 50%;
 }
 .user{
   display: flex;
@@ -191,6 +196,7 @@ a {
     width: 100%;
     height: 100%;
     padding: 0 10vw;
+    margin-top: 6vh;
   }
   .cardlist {
     list-style: none;

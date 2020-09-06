@@ -25,6 +25,7 @@
             </li>
           </ul>
           <p>{{ series.description | stringfilter}}</p>
+          <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
@@ -47,6 +48,7 @@
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
           <p>{{blog.content | stringfilter}}</p>
+          <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
@@ -54,7 +56,7 @@
       <button @click="editSeries">Edit</button>
       <button @click="deleteSeries">Delete</button>
     </div>
-    <Footer/>
+    <Footer class="footer"/>
   </div>
 </template>
 
@@ -128,7 +130,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10vh 0;
+  margin-top: 10vh;
   padding: 0 10vw;
 }
 .landing{
@@ -155,6 +157,7 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  background: rgba(221, 218, 218, 0.1);
 }
 .card-img{
   width: 100%;
@@ -162,6 +165,36 @@ export default {
 }
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
+}
+.card:hover  a{
+  color: blue;
+  transition: all 0.5s ease;
+}
+.card:hover .icon{
+  width: 5%;
+  transition: all 0.5s ease;
+}
+.readmore{
+  margin: 0;
+}
+.card p:nth-last-child(1){
+  opacity: 0;
+  max-height: 20px;
+  margin-bottom: 15px;
+}
+.card:hover p:nth-last-child(1){
+  width: 100%;
+  opacity: 1;
+  text-align: center;
+  color: rgb(0, 0, 255);
+  transition: all 0.5s ease;
+}
+a:-webkit-any-link{
+  color: #000;
+}
+.card:hover a{
+  color: blue;
+  transition: 0.5s;
 }
 h1{
   text-align: center;
@@ -182,6 +215,10 @@ button {
   color: #311f1f;
   margin: 3vh 2vw;
   margin-bottom: 10%;
+  cursor: pointer;
+}
+button:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.2);
 }
 .user{
   display: flex;
@@ -203,6 +240,12 @@ h4{
 p{
   word-wrap: break-word;
   padding: 0 20px;
+}
+a:-webkit-any-link{
+  color: black;
+}
+.footer{
+  bottom: 0;
 }
 @media screen and (max-width: 1280px){
   .ShowOneSeries{

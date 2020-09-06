@@ -14,6 +14,7 @@
           </div>
           <p class="bounty">Bounty:{{ question.bounty }}</p>
           <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
+          <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
@@ -61,7 +62,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
+h1{
+  color: rgb(238, 237, 237);
+}
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -124,6 +127,33 @@ ul {
   flex-direction: column;
   transition: all 0.5s ease;
   justify-content: space-around;
+  background: rgba(221, 218, 218, 0.1);
+}
+.card:hover  a{
+  color: blue;
+  transition: all 0.5s ease;
+}
+.card:hover .icon{
+  width: 5%;
+  transition: all 0.5s ease;
+}
+.readmore{
+  margin: 0;
+}
+.card p:nth-last-child(1){
+  opacity: 0;
+  max-height: 20px;
+  margin-bottom: 15px;
+}
+.card:hover p:nth-last-child(1){
+  width: 100%;
+  opacity: 1;
+  text-align: center;
+  color: rgb(0, 0, 255);
+  transition: all 0.5s ease;
+}
+a:-webkit-any-link{
+  color: #000;
 }
 a {
   text-decoration: none;

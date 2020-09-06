@@ -1,28 +1,21 @@
 <template>
   <div class="EditBlog">
     <Navbar/>
-    <span class="title">
-    <h4>Title: </h4>
-    <input type="text" v-model="title" required="required"/>
-    </span>
-    <h2>content</h2>
-    <mavon-editor v-model="content" />
+    <input type="text" class="title" v-model="title" required="required" placeholder="Title"/>
+    <mavon-editor class="editor" v-model="content" />
     <button class="submit" @click="save()">submit</button>
-    <Footer/>
   </div>
 </template>
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import Navbar from '@/components/Navbar.vue'
-import Footer from '@/components/Footer.vue'
 import { login_required } from '@/assets/utils/auth'
 
 export default {
   name: 'EditBlog',
   components: {
     Navbar,
-    Footer
   },
   props: {
     id: {
@@ -98,33 +91,33 @@ export default {
 }
 
 .title {
-  display: flex;
-  margin: 10vh 5vw;
-  justify-content: center;
+  grid-area: title;
+  font-size: 42px;
 }
-
-.title input {
-  width: 30vw;
-}
-
 .EditBlog {
-  padding: 0 10vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 10vh;
+  height: 90vh;
+  display: grid;
+  grid-template-areas: 'title  submit'
+                       'editor editor';
+  grid-template-rows: 10% 90%;
+  grid-template-columns: 85% 15%;
 }
-
+.editor{
+  grid-area: editor;
+}
 .submit {
+  grid-area: submit;
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 40%;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   min-width: 8vw;
   min-height: 7vh;
-  font-size: 1.5rem;
+  font-size: 42px;
   color: #311f1f;
-  margin: 5vh 5vw;
   outline: none;
 }
 button:hover{

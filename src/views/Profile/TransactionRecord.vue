@@ -83,6 +83,7 @@ ul{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  list-style: none;
 }
 .TransactionRecord::-webkit-scrollbar {display:none}
 li{

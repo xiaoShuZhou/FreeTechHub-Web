@@ -17,11 +17,8 @@
       <li v-if="is_login">
         <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
       </li>
-      <li v-else>
-        <router-link :to="{name:'Login'}">Login</router-link>
-      </li>
       <li class="search">
-        <input type="text" name="search" v-model="keywords" placeholder="Search"/>
+        <input type="text" name="search" v-model="keywords" placeholder="Search" @enter="search"/>
         <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
       </li>
       <li>
@@ -97,13 +94,19 @@ export default {
 .navbar-list{
   height: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 24px;
+  list-style: none;
+}
+li:nth-child(1){
+  margin-left: 5vw;
 }
 input{
   border-radius: 10px;
   outline: none;
   font-size: 24px;
+  height: 40px;
 }
 input::-webkit-input-placeholder{
 	color: #000000;
@@ -133,9 +136,6 @@ img{
   border-right: 0px !important;
   color: #000;
 }
-li {
-	margin: 0 10px 0;
-}
 .list{
   width: 200px;
 }
@@ -157,18 +157,21 @@ li:nth-last-child(1){
   margin-left: 10%;
 }
 li:hover{
-  width: 100%;
+  /* width: 100%; */
   max-width: 200px;
-  height: 40px;
+  /* height: 40px; */
   cursor: pointer;
   text-align: center;
   border-radius: 5px;
   background: #fe6b40;
   transition: all 0.5s ease;
 }
-
-li:-webkit-any-link{
+li:nth-last-child(1):hover{
+  background: rgb(3, 224, 147);
   color: white;
+}
+a:-webkit-any-link{
+  color: black;
 }
 .router-link-exact-active{
   width: 100px;
@@ -196,24 +199,24 @@ li:-webkit-any-link{
     font-size: 32px;
   }
   li:nth-child(1){
-    display: none;
+    display: none !important;
   }
   .navbar{
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 6vh;
-    word-break: break-all;
+    text-align: center;
   }
   .navbar-list{
     position: absolute;
     left: -50vw;
     top: 6vh;
     width: 40vw;
-    height: 84vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: #ffdcc9;
     transition: all 0.5s ease-in-out;
@@ -223,38 +226,37 @@ li:-webkit-any-link{
     width: 30vw !important;
   }
   .navbar-list li{
-    width: 50%;
-    /* height: 100px; */
-    /* margin: 20px auto; */
+    width: 100%;
     padding: 0;
+  }
+  li:hover{
+    width: 100%;
+    height: 50%;
+    max-height: 50px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    
+    justify-content: center;
   }
   li:nth-last-child(1){
     width: 100px;
     height: 60px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 0;
-    margin: 0;
+    margin-bottom: 50px;
   }
-  li:nth-last-child(1):hover{
-    background: rgb(3, 224, 147);
+  li:nth-last-child(1){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 60px;
   }
-  li:hover{
-    width: 100%;
-    height: 100%;
-  }
-  li:nth-child(7):hover{
+  li:nth-last-child(2):hover{
     background: none;
   }
   input{
     width: 100%;
-    height: 50%;
+    height: 100%;
   }
   .search{
     display: flex!important;

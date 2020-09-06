@@ -23,6 +23,7 @@
             </li>
           </ul>
           <p class="seriescontent">{{ series.description | stringfilter}}</p>
+          <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
@@ -83,6 +84,9 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+h1{
+  color: rgb(238, 237, 237);
+}
 .cardlist {
   list-style: none;
   display: grid;
@@ -102,11 +106,35 @@ export default {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
+  background: rgba(221, 218, 218, 0.1);
 }
 .card-img{
   width: 100%;
   margin: 0;
   padding: 0;
+}
+.card:hover  a{
+  color: blue;
+  transition: all 0.5s ease;
+}
+.card:hover .icon{
+  width: 5%;
+  transition: all 0.5s ease;
+}
+.readmore{
+  margin: 0;
+}
+.card p:nth-last-child(1){
+  opacity: 0;
+  max-height: 20px;
+  margin-bottom: 15px;
+}
+.card:hover p:nth-last-child(1){
+  width: 100%;
+  opacity: 1;
+  text-align: center;
+  color: rgb(0, 0, 255);
+  transition: all 0.5s ease;
 }
 h1{
   text-align: center;
