@@ -69,7 +69,7 @@ export default {
     },
 
     githubLogin() {
-      window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
+      window.location.href = `https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F${IP}:8080%2F%23%2Flogin%2F`
     },
 
     githubAuth() {
