@@ -38,7 +38,7 @@ import {login } from '@/assets/utils/auth'
 import WebSocketHandle from '@/assets/utils/WebSocketHandle'
 import User from '@/assets/utils/models/User'
 import Navbar from "@/components/Navbar.vue"
-import {IP} from '@/assets/utils/consts'
+import {IP, PORT} from '@/assets/utils/consts'
 
 export default {
   Name: "Register",
@@ -162,7 +162,7 @@ export default {
       });
     },
     githubLogin() {
-      window.location.href = `https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F${IP}:8080%2F%23%2Flogin%2F`
+      window.location.href = `https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F${IP}:${PORT}%2F%23%2Flogin%2F`
     },
   }
 }
