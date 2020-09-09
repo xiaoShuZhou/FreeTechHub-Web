@@ -126,7 +126,6 @@ export default {
     },
 
     updatedTree(wrapped_comment_tree){
-      console.log(wrapped_comment_tree)
       this.$emit('updatedTree', wrapped_comment_tree)
     }
 	},

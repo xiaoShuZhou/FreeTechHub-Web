@@ -2,6 +2,8 @@ import Model from "./Model";
 import marked from 'marked'
 import Tag from "./Tag"
 import Answer from './Answer'
+import axios from 'axios'
+import BASE_URL from '../consts'
 import User from './User'
 
 class Question extends Model {
@@ -34,6 +36,21 @@ class Question extends Model {
             this.answers = []
             answers.forEach(answer => { this.answers.push(new Answer(answer)) })
         }
+    }
+
+    //get questions by page_id
+    static async getOnePage(page_id){
+        let response = await axios.get(BASE_URL + 'question/question', {
+            params: {
+                page: page_id,
+            }
+        })
+        let wrapped_questions = []
+        response.data.results.forEach(question => {
+            wrapped_questions.push(new Question(question))
+        })
+        var res = {questions: wrapped_questions, count: response.data.count}
+        return res
     }
 
     static async get(id) {

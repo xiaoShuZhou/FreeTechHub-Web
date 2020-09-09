@@ -27,9 +27,13 @@
         </div>
       </li>
     </ul>
+    <pagination @setPage="setPage" v-if="totalPages != ''"
+      :_curPage="currentPage"
+      :total="totalPages">
+    </pagination>
     <button @click="newBlog">create new blog</button>
     <Footer/>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -37,6 +41,7 @@ import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import Pagination from '@/components/Pagination.vue'
 import StarBackground from '@/components/StarBackground'
 
 export default {
@@ -44,15 +49,16 @@ export default {
   components: {
     Navbar,
     Footer,
-    StarBackground
+    StarBackground,
+    Pagination
   },
   data() {
     return {
       blogs: '',
-      pagesize: 9,
-      pagenumber: 1,
+      totalPages:'',
+      pageSize: 3,
+      currentPage: 1,
       blogshow: '',
-      currentpage: 0,
       user: '',
     }
   },
@@ -60,11 +66,22 @@ export default {
     newBlog() {
       login_required(this, () => this.$router.push({name: 'NewBlog'}))
     },
+    getBlogs(page_id){
+      Blog.getOnePage(page_id).then(res => {
+        var {blogs, count} = res
+        this.totalPages = Math.round(count/this.pageSize)
+        this.blogs = blogs
+      })
+    },
+    setPage(new_page) {
+      this.currentPage = new_page
+      this.getBlogs(new_page)
+    }
   },
   created() {
     is_authenticated(this).then(() => {
       this.user = this.$store.state.user
-      Blog.all().then(blogs => this.blogs = blogs)
+      this.getBlogs(this.currentPage)
     })
   },
 }

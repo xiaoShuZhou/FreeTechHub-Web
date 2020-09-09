@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import SkillTree from '@/assets/utils/models/SkillTree'
 export default {
 
 }
