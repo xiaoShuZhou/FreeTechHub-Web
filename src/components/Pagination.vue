@@ -21,51 +21,50 @@ export default {
   name: 'Pager',
   data () {
     return {
-      curPage:this._curPage,
-      gotoPage:"",
-      showFirstPage:true,
-      showLastPage:true,
-      showPrevPage:true,
-      showNextPage:true,
+      curPage: this._curPage,
+      gotoPage: "",
+      showFirstPage: true,
+      showLastPage: true,
+      showPrevPage: true,
+      showNextPage: true,
     }
   },
   methods:{
-    nextPage(){//下一页            
+    nextPage() {//下一页            
       this.$emit('setPage', this.curPage+ 1 ) //调用父组件方法
     },
-    prevPage(){//上一页
+    prevPage() {//上一页
       this.$emit('setPage', this.curPage- 1 ) //调用父组件方法
     },
-    gotoNextPage(){//跳转页面
-      if(this.gotoPage && /[1-9][0-9]*/.test(this.gotoPage)){             
+    gotoNextPage() {//跳转页面
+      if(this.gotoPage && /[1-9][0-9]*/.test(this.gotoPage)) {             
         var pg = parseInt(this.gotoPage)
         if(pg > 0){
           if(pg <= this.total){
             this.$emit('setPage', pg ) //调用父组件方法
-          }
-          else{
+          } else {
             this.gotoPage = ""
             alert("Your input is out of range")
           }
-        }else{
+        } else {
           this.gotoPage = ""
           alert("Your input should be more than 0")
         }
-      }else{
+      } else {
         this.gotoPage = ""
       }
     },      
-    firstPage(){
+    firstPage() {
       this.$emit('setPage', 1 ) //调用父组件方法
     },
-    lastPage(){
+    lastPage() {
       this.$emit('setPage', this.total ) //调用父组件方法
     },
-    initPager(){
-      this.showFirstPage = this.curPage> 1
-      this.showLastPage = this.curPage< this.total
-      this.showPrevPage = this.curPage> 1
-      this.showNextPage = this.curPage< this.total
+    initPager() {
+      this.showFirstPage = this.curPage > 1
+      this.showLastPage = this.curPage < this.total
+      this.showPrevPage = this.curPage > 1
+      this.showNextPage = this.curPage < this.total
       this.gotoPage = ""
     }
   },
