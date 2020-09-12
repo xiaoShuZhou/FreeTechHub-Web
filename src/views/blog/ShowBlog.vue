@@ -41,24 +41,13 @@
         </div>
       </div>
       <div class="content" v-html="blog.m_content" v-highlight></div>
-      <div class="sidebar">
+      <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
+          <h3>Recommends:</h3>
           <ul>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
-            </li>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
-            </li>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
-            </li>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
+            <li v-for="blog in recommend" :key="blog.pk">
+              <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}">{{ blog.title }}</router-link>
+              <p>点赞数: {{blog.like_num}}</p>
             </li>
           </ul>
         </div>
@@ -101,6 +90,7 @@ import Blog from "@/assets/utils/models/Blog";
 import Comment from "@/assets/utils/models/Comment"
 import Navbar from "@/components/Navbar.vue";
 import { login_required } from "@/assets/utils/auth";
+import { blog_recommend } from "@/assets/utils/models/search";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
 import ShowComments from '@/components/ShowComments.vue'
@@ -129,7 +119,8 @@ export default {
       history: '',
       status: false,
       wrapped_tree: '',
-      top: 0
+      top: 0,
+      recommend: ''
     }
   },
   methods: {
@@ -231,22 +222,40 @@ export default {
 
     updatedTree(val){
       this.wrapped_tree = val
+    },
+
+    load() {
+      Blog.get(this.blog_id)
+      .then(blog => {
+        this.blog = blog
+        Promise.all([
+            blog_recommend(blog),
+            Comment.query_sub_comments(blog.root_comment),
+            blog.getLikeHistory()
+        ]).then(values => {
+            this.recommend = values[0],
+            this.wrapped_tree = Comment.wrap_sub_comments(values[1])
+            this.history = values[2]
+        })
+      })
     }
   },
   created() {
     login_required(this, user => {
       this.user = user
-      Blog.get(this.$route.params.id)
-      .then(blog => {
-        this.blog = blog
-        Comment.query_sub_comments(blog.root_comment)
-        .then(comment_tree => {
-          this.wrapped_tree = Comment.wrap_sub_comments(comment_tree)
-        })
-        blog.getLikeHistory().then(history => this.history = history)
-      })
+      this.load()
     })
   },
+  watch: {
+    blog_id() {
+      this.load()
+    }
+  },
+  computed: {
+    blog_id() {
+      return this.$route.params.id
+    }
+  }
 }
 </script>
 

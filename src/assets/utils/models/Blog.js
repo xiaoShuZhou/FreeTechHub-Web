@@ -12,7 +12,7 @@ class Blog extends Model {
     // the input argument must be something like:
     constructor({id, title, content, date, view_num, owner,
                  tags, series, like_num, dislike_num, content_type_id,
-                 blogs, root_comment, owner_instance}) {
+                 root_comment, owner_instance}) {
         
         super({title, content, owner, series, root_comment})  // data fields that is requried when save
         // required data fields
@@ -28,7 +28,6 @@ class Blog extends Model {
         this.dislike_num = dislike_num
         this.content_type_id = content_type_id
         this.m_content = marked(this.content)
-        this.blogs = blogs
         
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)
