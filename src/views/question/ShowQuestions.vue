@@ -18,6 +18,10 @@
         </div>
       </li>
     </ul>
+    <pagination @setPage="setPage" v-if="totalPages != ''"
+      :_curPage="currentPage"
+      :total="totalPages">
+    </pagination>
     <el-button @click="newQuestion">默认按钮</el-button>
     <Footer/>
   </div>
@@ -28,6 +32,7 @@ import Question from "@/assets/utils/models/Question"
 import { login_required } from '@/assets/utils/auth'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import Pagination from '@/components/Pagination.vue'
 import StarBackground from '@/components/StarBackground'
 
 export default {
@@ -35,11 +40,15 @@ export default {
   components: {
     Navbar,
     Footer,
-    StarBackground
+    StarBackground,
+    Pagination
   },
   data() {
     return {
-        questions:'',
+      questions:'',
+      totalPages:'',
+      pageSize: 3,
+      currentPage: 1,
     }
   },
   methods: {
@@ -48,9 +57,20 @@ export default {
         this.$router.push({name: 'NewQuestion'})
       })
     },
+    getQuestions(page_id){
+      Question.getOnePage(page_id).then(res => {
+        var{questions, count} = res
+        this.totalPages = Math.round(count/this.pageSize)
+        this.questions = questions
+      })
+    },
+    setPage(new_page){
+      this.currentPage = new_page
+      this.getQuestions(new_page)
+    }
   },
   created() {
-    Question.all().then(questions => this.questions = questions)
+    this.getQuestions(this.currentPage)
   },
 }
 </script>

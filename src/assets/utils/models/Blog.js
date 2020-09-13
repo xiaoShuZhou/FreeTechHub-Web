@@ -12,7 +12,7 @@ class Blog extends Model {
     // the input argument must be something like:
     constructor({id, title, content, date, view_num, owner,
                  tags, series, like_num, dislike_num, content_type_id,
-                 blogs, root_comment, owner_instance}) {
+                 root_comment, owner_instance}) {
         
         super({title, content, owner, series, root_comment})  // data fields that is requried when save
         // required data fields
@@ -28,7 +28,6 @@ class Blog extends Model {
         this.dislike_num = dislike_num
         this.content_type_id = content_type_id
         this.m_content = marked(this.content)
-        this.blogs = blogs
         
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)
@@ -69,14 +68,38 @@ class Blog extends Model {
         return res.data
     }
 
+    //get blogs by page_id
+    static async getOnePage(page_id){
+        let response = await axios.get(BASE_URL + 'blog/blog', {
+            params: {
+                page: page_id,
+            }
+        })
+        let wrapped_blogs = []
+        response.data.results.forEach(blog => {
+            wrapped_blogs.push(new Blog(blog))
+        })
+
+        var res = {blogs: wrapped_blogs, count: response.data.count}
+        return res
+    }
+
     // get model by id
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)
     }
 
+    static async _raw_all(app_name, model_name, constructor) {
+        let res = [];
+        let response = await axios.get(this.base_URL + app_name + '/' + model_name + '/')
+        response.data.results.forEach(element => {
+            res.push(new constructor(element))
+        })
+        return res
+    }
     // get all the model
     static async all() {
-        return await Model._raw_all(this.app_name, this.model_name, this)
+        return await this._raw_all(this.app_name, this.model_name, this)
     }
 }
 
