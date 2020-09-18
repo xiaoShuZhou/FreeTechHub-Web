@@ -3,74 +3,86 @@
     <div class="ProfileQuestions">
       <div class="questionlist">
         <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''" />
-        <div class="list">
-          <li v-for="question in questions" :key="question.pk">
-            <router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link>
-          </li>
+        <div >
+          <el-row :gutter="20" type="flex" justify="space-between">
+            <el-col :span="16" class="boxs">
+              <li v-for="question in questions" :key="question.pk">
+              <el-card shadow="hover"> 
+                <router-link id="rlink" :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link>
+                <el-divider><i class="el-icon-hot-water"></i></el-divider>
+                <el-breadcrumb separator="|">
+                  <el-breadcrumb-item id="info">Author:{{question.owner_instance.username}}</el-breadcrumb-item>
+                  <el-breadcrumb-item id="info"><i class="el-icon-date"></i>{{ question.date }}</el-breadcrumb-item>
+                </el-breadcrumb>
+                <el-divider></el-divider>
+                <p>{{question.content| ellipsis}}</p>
+              </el-card>
+              </li>
+            </el-col>
+          </el-row>
         </div>
       </div>
-      <div class="questiondetail">
-        <div class="question">
-          <div class="name">
-            <h2>问题名</h2>
-          </div>
-          <div class="content">
-            <p>问题内容</p>
-          </div>
-        </div>
-        <div class="box">
-          <div id="box1">
-            回答数2233
-          </div>
-          <div id="box2">
-            悬赏金额$98k
-          </div>
-          <div id="box3">
-            状态(已采纳|未采纳)
-          </div>
-          <div id="box4">
-            发布时间
-          </div>
-        </div>
-        <div class="answear">
-            <p> <strong>采纳答案：</strong></p>
-        </div>
-        <div class="buttongroup">
-          <button type="button" class="view">View All</button>
-          <button type="button" class="edit">Edit </button>
-          <button type="button" class="delete">Delete</button>
-        </div>
-      </div>
+      <QuestionDetail class="QuestionDetail"/>
     </div>
   </div>
 </template>
 
 <script>
 import Question from '@/assets/utils/models/Question'
+import QuestionDetail from '@/views/Profile/ProfileQuestionDetail.vue'
 export default {
+  components:{
+    QuestionDetail
+  },
+  filters: {
+  ellipsis (value) {
+    if (!value) return ''
+      if (value.length > 15) {
+        return value.slice(0,15) + '...'
+      }
+      return value
+    }
+  },
   data() {
     return {
       questions:''
     }
-  },
+  },                                  
   created() {
-    Question.all().then(questions => this.questions = questions)
+    Question.getOwnerQuestion().then(questions => this.questions = questions.question)
   },
 }
 </script>
 
 <style scoped>
-*{
+*{-------------
   margin: 0;
   padding: 0;
   text-decoration: none;
   box-sizing: border-box;
 }
+#info{
+  font-family: FZSuXSMCTJW;
+  color: brown;
+}
+#content{
+  line-height: 0px;
+  float: left;
+  color: gray;
+  font-size: 20px;
+  font-family: FZSJ-RYTJW;
+}
+#rlink{
+  text-align: center;
+  font-size: 50px;
+  color:SteelBlue;
+  font-family:STFQLBYTJW;  
+}
 .ProfileQuestions{
   width: 100%;
   height: 100vh;
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 100% 100%;
   justify-items: space-between;
   background: #fafbff;
 }
@@ -78,6 +90,13 @@ export default {
   list-style: none;
   overflow: scroll;
   margin: 10px;
+}
+.boxs {
+		display: flex;
+		flex-direction: column;
+	}
+.el-card{
+	margin-bottom:20px; 
 }
 .questionlist::-webkit-scrollbar {display:none}
 input{
@@ -112,8 +131,8 @@ input::-moz-placeholder{
   text-align: center;
 }
 li{
-  list-style: none;
   text-align: center;
+  list-style: none;
   padding: 10px 0 10px 0;
 }
 li:nth-child(1){
@@ -137,7 +156,7 @@ li:nth-child(1){
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  /* align-items: center; */
   grid-area: box;
 }
 .box div{
@@ -146,7 +165,7 @@ li:nth-child(1){
   border: 1.5px dashed black;
   margin: 10px;
   border-radius: 10px;
-  text-align: center;
+  /* text-align: center; */
   vertical-align: middle;
 }
 .answear{

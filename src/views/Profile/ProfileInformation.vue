@@ -28,15 +28,11 @@
     </div>
     <div class="box2">
       <div>
-        <img src="@/assets/img/浏览量.svg" alt="">
-         <p id='total'>Total views:{{profile_owner.totalviews}}</p>
-        <img src="@/assets/img/粉丝趴.svg" alt="">
-        <p id='total'>Follows: {{totalfollowing}}</p>
+        <p id='total'><i class="el-icon-view"></i>Total views:{{profile_owner.totalviews}}</p>
+        <p id='total'><i class="el-icon-thumb"></i>Follows: {{totalfollowing}}</p>
         <br>
-        <img src="@/assets/img/点赞.svg" alt="">
-        <p id='total'>Total likes:{{profile_owner.totallikes}}</p>
-        <img src="@/assets/img/概率.svg" alt="">
-        <p id='total'>Accept rate: {{acceptance_rate}}</p>
+        <p id='total'><i class="el-icon-star-on"></i>Total likes:{{profile_owner.totallikes}}</p>
+        <p id='total'><i class="el-icon-finished"></i>Accept rate: {{acceptance_rate}}</p>
       </div>
       <div>
         <div id="chart_example">
@@ -86,11 +82,14 @@ export default {
     },
   },
   created() {
-    this.profile_owner.getFollowershipList()
-    .then(res => {
-      this.totalfollowing = res.followings.length
-      User.gettags(this.$route.params.id).then(res => {
-        this.acceptance_rate = res.acceptance_rate
+    User.get(this.$route.params.id).then(user => {
+      this.profile_owner = user
+      this.profile_owner.getFollowershipList()
+      .then(res => {
+        this.totalfollowing = res.followings.length
+        User.gettags(this.$route.params.id).then(res => {
+          this.acceptance_rate = res.acceptance_rate
+        })
       })
     })
   },
@@ -217,7 +216,7 @@ export default {
   },
   computed: {
     profile_owner_id() {
-      return this.$route.params.id
+      return this.$route.params.idt
     }
   },
   watch: {
@@ -232,16 +231,18 @@ export default {
 </script>
 
 <style scoped>
+@import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
 #username{
   font-weight:900;
   font-size: 550%;
   color:#8188d5;
-  font-family:Cursive;
+  font-family:STFQLBYTJW;
 }
 #total{
   font-weight:400;
   font-size: 250%;
-  color:#8188d5;
+  /* color:#8188d5; */
+  color: black;
   font-family:Cursive;
 }
 #info{

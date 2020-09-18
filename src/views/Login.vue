@@ -23,7 +23,7 @@
         <button @click="logout">Logout</button>
         <button @click="githubLogin">Github</button>
       </div>
-      <router-link tag="button" to="/register">register</router-link>
+      <router-link id="forgetpassword"  to="/register">register</router-link>
       <a id="forgetpassword" tag="button" @click="forgetpassword">Forget Password</a>
     </div>
   </div>

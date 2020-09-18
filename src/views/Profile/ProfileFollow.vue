@@ -5,18 +5,28 @@
       <div class="FollowingList">
         <ul>
           <li v-for="following in followings" :key='following.following_id'>
-              <img :src="profile_owner.avatar" alt />
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <el-row :gutter="10" >
+                  <el-col :span="10">
+                    <img :src="url+following.avatar" />
+                  </el-col>
+                  <el-col :span="14" id="center">
+                    <router-link  id="center" :to="{name: 'ProfileInformation', params: {id: following.pk}}">
+                      Name:{{following.username}}
+                    </router-link>
+                  <p>Bio: {{following.bio}}</p>
+                </el-col>  
+                </el-row>
+              </div> 
               <div>
-                <router-link :to="{name: 'ProfileInformation', params: {id: following.pk}}">
-                  {{following.username}}
-                </router-link>
-                <p>bio: {{following.bio}}</p>
               </div>
               <FollowButton
                 v-if="_is_owner"
                 :_content_owner=following
                 :_visitor=user
                 :_follow=true />
+            </el-card>    
           </li>
         </ul>
       </div>
@@ -26,13 +36,22 @@
       <div class="FollowerList">
         <ul>
           <li v-for="follower in followers" :key='follower.following_id'>
-            <img src="@/assets/img/头像 女孩.svg" alt />
-            <div>
-              <router-link :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
-                {{follower.username}}
+            <el-card class="box-card" id="center">
+              <div slot="header" class="clearfix">
+                <el-row :gutter="10" >
+                  <el-col :span="10">
+                    <img :src="url+follower.avatar" />
+                  </el-col>  
+                <router-link id="center" :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
+                Name:{{follower.username}}
               </router-link>
-              <p>bio: {{follower.bio}}</p>
+              <p>Bio: {{follower.bio}}</p>
+              </el-row>
+              </div>
+            <div>
+
             </div>
+            </el-card> 
           </li>
         </ul>
       </div>
@@ -42,6 +61,7 @@
 
 <script>
 import FollowButton from '@/components/FollowButton'
+import { Backend_URL } from '@/assets/utils/consts'
 
 export default {
   props:['_is_owner', '_user'],
@@ -52,6 +72,7 @@ export default {
   data() {
     return {
       user: this._user,
+      url:'',
       followings: '',
       followers: '',
       totalfollower: '',
@@ -61,6 +82,7 @@ export default {
   created() {
     this.user.getFollowershipList()
     .then(res => {
+      this. url = Backend_URL 
       this.followings = res.followings
       this.followers = res.followers
       this.totalfollower = this.followers.length
@@ -75,6 +97,10 @@ export default {
   margin: 0;
   padding: 0;
   background: #fafbff;
+}
+#center{
+  color: gray;
+  font-size: 20px;
 }
 .ProfileFollow {
   display: grid;

@@ -1,8 +1,8 @@
 <template>
   <div class="FollowButton"
     v-if="_visitor.pk != _content_owner.pk && followed != 'loading'">
-    <button v-if="followed" @click="unfollow()">unfollow</button>
-    <button v-else @click="follow()">follow</button>
+    <el-button v-if="followed" @click="unfollow()" round>unfollow</el-button>
+    <el-button v-else @click="follow()" round>follow</el-button>
   </div>
 </template>
 

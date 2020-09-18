@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import '@/common/font/font.css'
 import router from './router'
 import store from './store'
 import mavonEditor from 'mavon-editor'
@@ -10,6 +11,7 @@ import filters from './filters/index'
 import echarts from 'echarts'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/index.js'
 Vue.use(ElementUI)
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false

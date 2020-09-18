@@ -21,6 +21,8 @@
       <label>bio: </label>
     </div>
     <button class="submit" @click="save">submit</button>
+    <router-view :_user=profile_owner>
+    </router-view>
   </form>
 </div>
 </template>
@@ -33,12 +35,13 @@ export default {
   components: {},
   data() {
     return {
+      profile_owner: '',
       id: this._user.pk,
       username: '',
       email :'',
       bio: '',
       grade: '',
-      major: '',
+      major: '',  
     }
   },
   methods: {
@@ -66,11 +69,14 @@ export default {
     save() {
       let user = this._getuser()
       user.update().then(() => {
-        this.$router.push({
-          name: "ProfileInformation",
-          params: {
-            id: this.$route.params.id
-          }
+        User.get(this.$route.params.id).then(user =>{
+          this.profile_owner = user
+          this.$router.push({
+            name: "ProfileInformation",
+            params: {
+              id: this.$route.params.id
+            }
+          })
         })
       })
     },

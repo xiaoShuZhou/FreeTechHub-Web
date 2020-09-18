@@ -73,7 +73,7 @@ li {
   margin-top: 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background: #eeba10;
+  background: #fafbff;
   border-radius: 20px;
   padding: 5px 0 5px 20px;
   transition: all 0.3s ease;

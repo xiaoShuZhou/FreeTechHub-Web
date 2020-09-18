@@ -69,6 +69,11 @@ class Blog extends Model {
         })
         return res.data
     }
+
+    static async getOwnerBlog() {
+        let res = await axios.get(BASE_URL + `blog/query-related-content/`)
+        return res.data
+    }    
     
     async save() {
         let response = await axios.post(this._getModelURL(), this._getData())

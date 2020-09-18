@@ -36,6 +36,8 @@ import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
 import ProfileReply from '@/components/Profile/MessageCenter/ProfileReply'
 import RequestFriend from '@/components/Profile/MessageCenter/RequestFriend'
 import TransactionRecord from '@/views/Profile/TransactionRecord'
+import BlogDetail from '@/views/Profile/ProfileBlogDetail.vue'
+import QuestionDetail from '@/views/Profile/ProfileQuestionDetail.vue'
 //
 import EditProfile from '@/views/Profile/EditProfile.vue'
 
@@ -68,8 +70,16 @@ const routes = [
   { path: '/profile/:id',            name: 'Profile',      component: Profile,
     children:[
       { path: 'information/',        name: 'ProfileInformation',   component: ProfileInformation,},
-      { path: 'blogs/',              name: 'ProfileBlog',          component: ProfileBlogs},
-      { path: 'questions/',          name: 'ProfileQuestions',     component: ProfileQuestions,},
+      { path: 'blogs/',              name: 'ProfileBlog',          component: ProfileBlogs,
+        children:[
+          { path: 'blogdetail/:blog_id',  name: 'BlogDetail',        component: BlogDetail},
+        ]
+      },
+      { path: 'questions/',          name: 'ProfileQuestions',     component: ProfileQuestions,
+        children:[
+          { path: 'questiondetail/:question_id',  name: 'QuestionDetail',        component: QuestionDetail},
+        ]    
+      },
       { path: 'edit/profile/',       name: 'EditProfile',          component: EditProfile },
       { path: 'follow/',             name: 'ProfileFollow',        component: ProfileFollow},
       { path: 'skilltrees/',         name: 'ProfileSkillTrees',    component: ProfileSkillTrees},
@@ -83,8 +93,8 @@ const routes = [
       },
       { path: 'settings',             name: 'ProfileSettings',component: ProfileSettings,
         children:[
-          { path: 'changepassword/:id', name: 'ChangePassword', component: ChangePassword},
-          { path: 'changemail/:id',     name: 'ChangeMail',     component: ChangeMail},
+          { path: 'changepassword', name: 'ChangePassword', component: ChangePassword},
+          { path: 'changemail',     name: 'ChangeMail',     component: ChangeMail},
         ]},
     ]},
 ]

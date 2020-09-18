@@ -3,6 +3,8 @@ import marked from 'marked'
 import Tag from "./Tag"
 import Answer from './Answer'
 import User from './User'
+import axios from 'axios'
+import BASE_URL from '../consts'
 
 class Question extends Model {
     static app_name = 'question'     
@@ -31,6 +33,11 @@ class Question extends Model {
             answers.forEach(answer => { this.answers.push(new Answer(answer)) })
         }
     }
+
+    static async getOwnerQuestion() {
+        let res = await axios.get(BASE_URL + `question/query-related-content/`)
+        return res.data
+    }    
 
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)
