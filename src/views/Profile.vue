@@ -54,12 +54,15 @@ export default {
     this.load()
   },
   computed: {
+    path() {
+      return this.$route.path
+    },
     user_id() {
       return this.$route.params.id
     }
   },
   watch: {
-    user_id() {
+    path() {
       this.profile_owner = ''
       this.visitor = ''
       this.load()
