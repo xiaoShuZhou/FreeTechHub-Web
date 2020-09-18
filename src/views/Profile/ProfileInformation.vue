@@ -44,16 +44,19 @@
       </div>
     </div>
     <div class="box3">
-      <img src="@/assets/img/github活动表.jpg" />
+      <p id="total">Your frequency of use in this year:</p>
+      <canvas id="canvas"></canvas>
     </div>
   </div>
 </template>
 
 <script>
 import User from '@/assets/utils/models/User'
+import Activity from '@/assets/utils/models/Activity'
 import echarts from 'echarts'
 import FollowButton from '@/components/FollowButton'
 import AddFriend from '@/components/AddFriend.vue'
+
 export default {
   props: ['_user', '_visitor', '_is_owner'],
   data() {
@@ -62,7 +65,8 @@ export default {
       visitor: this._visitor,
       status: false,
       totalfollowing: '',
-      acceptance_rate:''
+      acceptance_rate:'',
+      activity:''
     }
   },
   components: {
@@ -92,6 +96,11 @@ export default {
       User.gettags(this.$route.params.id).then(res => {
         this.acceptance_rate = res.acceptance_rate
       })
+    })
+    Activity.getActivity(this.profile_owner.pk)
+    .then(table => {
+      this.activity = new Activity("canvas", table)
+      this.activity.draw()
     })
   },
   mounted() {
