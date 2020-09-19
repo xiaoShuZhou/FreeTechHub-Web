@@ -9,7 +9,7 @@
               <div slot="header" class="clearfix">
                 <el-row :gutter="10" >
                   <el-col :span="10">
-                    <img :src="url+following.avatar" />
+                    <img :src="following.avatar" />
                   </el-col>
                   <el-col :span="14" id="center">
                     <router-link  id="center" :to="{name: 'ProfileInformation', params: {id: following.pk}}">
@@ -40,7 +40,7 @@
               <div slot="header" class="clearfix">
                 <el-row :gutter="10" >
                   <el-col :span="10">
-                    <img :src="url+follower.avatar" />
+                    <img :src="follower.avatar" />
                   </el-col>  
                 <router-link id="center" :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
                 Name:{{follower.username}}
@@ -61,7 +61,6 @@
 
 <script>
 import FollowButton from '@/components/FollowButton'
-import { Backend_URL } from '@/assets/utils/consts'
 
 export default {
   props:['_is_owner', '_user'],
@@ -72,7 +71,6 @@ export default {
   data() {
     return {
       user: this._user,
-      url:'',
       followings: '',
       followers: '',
       totalfollower: '',
@@ -82,7 +80,7 @@ export default {
   created() {
     this.user.getFollowershipList()
     .then(res => {
-      this. url = Backend_URL 
+      console.log(res)
       this.followings = res.followings
       this.followers = res.followers
       this.totalfollower = this.followers.length

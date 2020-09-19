@@ -1,8 +1,12 @@
-const BASE_URL = 'http://127.0.0.1:8000/'
+const PRODUCTION = false
+
+let BASE_URL
+export let PORT = PRODUCTION ? '80' : '8080'
+export let IP = PRODUCTION ? '115.29.242.221' : '127.0.0.1'
+if (PRODUCTION) {
+    BASE_URL = `http://${IP}:8002/`
+} else {
+    BASE_URL = `http://${IP}:8000/`
+}
 export default BASE_URL
-export let DOMAIN = BASE_URL.substr(7, 14)
-export let IP = BASE_URL.substr(7, 9)
-export let Backend_URL = BASE_URL.substr(0, 21)
-export let AVATAR = BASE_URL.substr(0, 21)
-export let BLOG_TYPE = 6
-export let QUESTION_TYPE = 9
+export let DOMAIN = BASE_URL.substr(7, 19)

@@ -5,7 +5,7 @@
       <img src="@/assets/img/loading.gif" alt="loding">
       <h2>Logining in...</h2>
       <p>Because our server has trouble connecting to Github therefore, it is very likely that we will take many attempts until you logged in, and we will refresh this page if the server timeouts.</p>
-      <p>if you want to use normal login in, click <a :href="'http://'+IP+':8080/#/login/'" >here.</a></p>
+      <p>if you want to use normal login in, click <a :href="'http://'+IP+':'+PORT+'/#/login/'" >here.</a></p>
     </div>
     <div class="box" v-else>
       <form>
@@ -34,7 +34,8 @@ import {login, logout} from '@/assets/utils/auth'
 import {getQueryParams} from '@/assets/utils/getQueryParams'
 import Navbar from '@/components/Navbar.vue'
 import axios from 'axios'
-import {IP} from '@/assets/utils/consts'
+import BASE_URL from '@/assets/utils/consts'
+import {IP, PORT} from '@/assets/utils/consts'
 import WebSocketHandle from '@/assets/utils/WebSocketHandle'
 import User from '@/assets/utils/models/User'
 
@@ -48,7 +49,8 @@ export default {
       username: '',
       password: '',
       loading: false,
-      IP
+      IP,
+      PORT
     }
   },
   methods: {
@@ -69,18 +71,18 @@ export default {
     },
 
     githubLogin() {
-      window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
+      window.location.href = `https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F${IP}:${PORT}%2F%23%2Flogin%2F`
     },
 
     githubAuth() {
-      axios.post(`http://${IP}:8000/api/login/social/jwt/`, {
+      axios.post(`${BASE_URL}api/login/social/jwt/`, {
         "provider": "github",
         "code": getQueryParams("code")
       })
       .then(res => {
         axios.defaults.headers['Authorization'] = 'JWT ' + res.data.token
         localStorage.setItem("token", 'JWT ' + res.data.token);
-        window.location.href = `http://${IP}:8080/#/show/blogs/`
+        window.location.href = `http://${IP}:${PORT}/#/show/blogs/`
       })
       .catch(err => {
         if (err.message ==
@@ -90,7 +92,7 @@ export default {
         } else if (err.message ==
               'Request failed with status code 400') {
           // if 400 bad request probably because timeout, just try again.
-          window.location.href = "https://github.com/login/oauth/authorize/?client_id=5ee059616c2412fba0e3&redirect_uri=http:%2F%2F127.0.0.1:8080%2F%23%2Flogin%2F"
+          this.githubLogin()
         }
       })
     },

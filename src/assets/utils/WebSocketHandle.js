@@ -2,7 +2,7 @@ import {DOMAIN} from '@/assets/utils/consts'
 
 class WebSocketHandle {
     constructor(user_id) {
-        this._socket = new WebSocket('ws://' + DOMAIN + '/ws/')
+        this._socket = new WebSocket('ws://' + DOMAIN + 'ws/')
         this._socket.onopen = () => {
             this.register(user_id)
         }

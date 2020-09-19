@@ -22,7 +22,11 @@
               {{blog.owner_instance.username}}
             </router-link>
             <p>{{ blog.owner_instance.bio }}</p>
-            <button @click="addfriend" id="addfriend-btn">Add Friend</button>
+            <button 
+              @click="addfriend" 
+              id="addfriend-btn" 
+              v-show="blog.owner_instance.pk != user.pk"
+            >Add Friend</button>
             <p>{{ blog.view_num }} views</p>
             <FollowButton 
              :_content_owner=blog.owner_instance
@@ -37,24 +41,13 @@
         </div>
       </div>
       <div class="content" v-html="blog.m_content" v-highlight></div>
-      <div class="sidebar">
+      <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
+          <h3>Recommends:</h3>
           <ul>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
-            </li>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
-            </li>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
-            </li>
-            <li>
-              <a href>博客名</a>
-              <span>游览量2233</span>
+            <li v-for="blog in recommend" :key="blog.pk">
+              <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}">{{ blog.title }}</router-link>
+              <p>点赞数: {{blog.like_num}}</p>
             </li>
           </ul>
         </div>
@@ -77,10 +70,15 @@
       </div>
       <div class="comment">
       <h2>Comments:</h2>
-      <show-comments v-if="blog != '' && root_comment_tree != ''"
-        :root_id="blog.root_comment" 
+      <show-comments @updatedTree="updatedTree" v-if="blog != '' && wrapped_tree != ''"
+        :node_id="blog.root_comment"
+        :root_id="blog.root_comment"
+        :wrapped_tree="wrapped_tree"
         :is_root="true"
-        :_fold="false">
+        :_fold="false"
+        :_blog="true"
+        :_answer="false"
+        :_user="user">
       </show-comments>
       </div> 
     </div>
@@ -92,6 +90,7 @@ import Blog from "@/assets/utils/models/Blog";
 import Comment from "@/assets/utils/models/Comment"
 import Navbar from "@/components/Navbar.vue";
 import { login_required } from "@/assets/utils/auth";
+import { blog_recommend } from "@/assets/utils/models/search";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
 import ShowComments from '@/components/ShowComments.vue'
@@ -119,7 +118,9 @@ export default {
       liked: true,
       history: '',
       status: false,
-      top: 0
+      wrapped_tree: '',
+      top: 0,
+      recommend: ''
     }
   },
   methods: {
@@ -210,35 +211,51 @@ export default {
         })
       })
     },
+
     addfriend(){
       this.status = !this.status
     },
+
     closealert(val){
       this.status = val
     },
+
+    updatedTree(val){
+      this.wrapped_tree = val
+    },
+
+    load() {
+      Blog.get(this.blog_id)
+      .then(blog => {
+        this.blog = blog
+        Promise.all([
+            blog_recommend(blog),
+            Comment.query_sub_comments(blog.root_comment),
+            blog.getLikeHistory()
+        ]).then(values => {
+            this.recommend = values[0],
+            this.wrapped_tree = Comment.wrap_sub_comments(values[1])
+            this.history = values[2]
+        })
+      })
+    }
   },
   created() {
     login_required(this, user => {
       this.user = user
-      this.$store.commit('set_root_comment_tree', '')
-      Blog.get(this.$route.params.id)
-      .then(blog => {
-        this.blog = blog
-        Comment.query_sub_comments(blog.root_comment)
-        .then(comment_tree => {
-          let wrapped_comment_tree = Comment.wrap_sub_comments(comment_tree)
-          this.$store.commit('set_root_comment_tree', wrapped_comment_tree)
-          this.$store.commit('set_root_id', this.blog.root_comment)
-        })
-        blog.getLikeHistory().then(history => this.history = history)
-      })
+      this.load()
     })
   },
-  computed: {
-    root_comment_tree: function() {
-      return this.$store.state.root_comment_tree
+  watch: {
+    blog_id() {
+      this.load()
     }
   },
+  computed: {
+    blog_id() {
+      return this.$route.params.id
+    }
+  }
 }
 </script>
 

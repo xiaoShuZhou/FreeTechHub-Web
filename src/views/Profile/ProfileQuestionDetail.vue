@@ -1,24 +1,23 @@
 <template>
-  <div class="blogdetail">
+  <div class="questiondetail">
     <el-card class="box-card">
-    <div class="blog">
+    <div class="question">
       <div class="name">
-        <h2 align="center">{{blog.title}}</h2>
+        <h2 align="center">{{question.title}}</h2>
       </div>
        <el-divider></el-divider>
       <div class="content">
-        <p>{{blog.content}}</p>
+        <p>{{question.content}}</p>
       </div>
     </div>
     </el-card>
     <div class="box">
-      <div id="box2">游览量: <p>{{blog.view_num}}</p></div>
-      <div id="box3">点赞数: <p>{{blog.like_num}}</p></div>
-      <div id="box4">发布时间: <p>{{blog.date}}</p></div>
+      <div id="box2">游览量: <p>{{question.viewTimes}}</p></div>
+      <div id="box3">发布时间: <p>{{question.date}}</p></div>
     </div>
     <div class="buttongroup">
-      <el-button @click="editBlog" id="beeten" round type="warning">Edit</el-button>
-      <el-button @click="deleteBlog" id="beeten" round type="danger">Delete</el-button>
+      <el-button @click="editQuestion" id="beeten" round type="warning">Edit</el-button>
+      <el-button @click="deleteQuestion" id="beeten" round type="danger">Delete</el-button>
     </div>
 
   </div>
@@ -26,32 +25,37 @@
 
 <script>
 import { login_required } from "@/assets/utils/auth";
-import Blog from "@/assets/utils/models/Blog";
+import Question from "@/assets/utils/models/Question";
 
 export default {
-  props: ['ownerblog_id'],
+  props: ['ownerquestion_id'],
   data() {
     return {
-      blog:'',
+      question:'',
       user:'',
-      blog_id: '',
+      question_id: '',
     }
   },
   methods:{
-    deleteBlog() {
-      this.blog.delete().then(() => {
-        this.$router.push({name: 'ShowBlogs'})
+    deleteQuestion() {
+      this.question.delete().then(() => {
+        this.$router.push({name: 'ShowQuestions'})
       })
     },
-    editBlog() {
-      this.$router.push({name: 'EditBlog'})
+    editQuestion() {
+      this.$router.push({
+        name: 'EditQuestion',
+        params: {
+          id: this.ownerquestion_id
+        }
+      })
     },
     load() {
-      if(this.$route.params.blog_id)
-      { this.blog_id = this.$route.params.blog_id 
-        Blog.get(this.blog_id).then(blog => {
-        this.blog = blog
-        console.log(this.blog)
+      if(this.ownerquestion_id)
+      { this.question_id = this.ownerquestion_id
+        Question.get(this.question_id).then(question => {
+          console.log(question)
+        this.question = question
        })
       }
     }
@@ -65,7 +69,7 @@ export default {
     })
   },
   watch: {
-    "$route": "load"
+    "ownerquestion_id": "load"
   },
 
 }
@@ -77,22 +81,27 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 25px;
 }
+.content{
+  text-indent:2em; 
+  font-family:STFQLBYTJW; 
+  font-size:30px 
+}
 #beeten{
   font-size: 35px;
 }
-.blogdetail{
+.questiondetail{
   display: grid;
   grid-gap: 10px;
-  grid-template-areas: 'blog 					box'
+  grid-template-areas: 'question 					box'
                        'buttongroup 	box';
   grid-template-columns: 70% 30%;
   grid-template-rows: 70% 30%;
   align-content: center;
   background: #fafbff;
 }
-.blog{
+.question{
   border: none;
-  grid-area: blog;
+  grid-area: question;
 }
 .box{
   display: flex;
@@ -102,8 +111,8 @@ export default {
   grid-area: box;
 }
 .box div{
-  width: 100px;
-  height: 60px;
+  width: 150px;
+  height: 80px;
   border: 1.5px dashed black;
   margin: 10px;
   border-radius: 10px;

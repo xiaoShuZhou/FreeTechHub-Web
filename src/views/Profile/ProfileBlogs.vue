@@ -1,34 +1,21 @@
 <template>
   <div class="ProfileBlogs">
       <div class="BlogList">
-        <!-- <el-row>
-        <div class="search">
-        <el-col :span="6">
-        <h2 id="tilt">BlogList</h2>
-        </el-col>
-        <el-col :span="18">
-        <div class="search-box">
-          <input class="search-text" type="text" placeholder="Search what you want">
-          <a class="search-btn" href=""><i class="fas fa-search"></i></a>
-        </div>
-        </el-col>
-        </div>
-        </el-row> -->
         <el-row :gutter="20">
           <el-col :span="24">
-            <div id="type" v-for="blog in blogs" :key="blog.pk">
+            <li id="type" v-for="blog in blogs" :key="blog.id" @click="change(blog)" :class='blog.pk==selected?"selected":""'>
+              <ul>
               <el-row>
                 <el-col :span="24">
-                
-                  <p id="title" @click="show_blog(blog.id)"> {{ blog.title }}</p>
+                  <p id="title" @click="show_blog(blog.pk)"> {{ blog.title }}</p>
                   <p id="date"><i class="el-icon-date"></i>{{ blog.date }}</p>
                   <p id="content">{{ blog.content | ellipsis}}</p>
-                  <el-link type="primary" @click="show_blog(blog.id)">Continue reading</el-link>
+                  <el-link type="primary" @click="show_blog(blog.pk)">Continue reading</el-link>
                   <el-divider></el-divider>
-              
                 </el-col>
               </el-row>
-            </div>
+              </ul>
+            </li>
           </el-col>
         </el-row>
       </div>
@@ -58,29 +45,21 @@ export default {
     return {
       blogs:'',
       ownerblog_id:'',
-      url:'http://127.0.0.1:8000'
+      selected:-1
     }
   },
   methods: {
+    change(item){
+      this.selected=item.id;
+    },
     show_blog(id) {
-      this.$router.push({
-        name: 'BlogDetail',
-        params: {
-          blog_id: id
-        }
-      })
+      this.ownerblog_id = id
     },
   } ,
   created() {
-    Blog.getOwnerBlog().then(blogs => {
-      this.blogs = blogs.blog
-      this.ownerblog_id = blogs.blog_id
-      this.$router.push({
-        name: 'BlogDetail',
-        params: {
-          blog_id: this.ownerblog_id
-        }
-      })
+    Blog.getOwnerBlog(this.$route.params.id).then(blogs => {
+      this.blogs = blogs
+      this.ownerblog_id = blogs[0].pk
     })
   },
 };
@@ -90,6 +69,9 @@ export default {
 * {
   width: auto;
   text-decoration: none;
+}
+.selected{
+  color:red;
 }
 
 .ProfileBlogs{

@@ -42,7 +42,9 @@
           <img src="@/assets/img/img.svg" alt="">
           <a class="history-message" href="#">消息记录</a>
         </div>
-        <textarea v-model="message"></textarea>
+        <textarea v-model="message" 
+          @keydown.enter.exact="sendMessage()"
+          @keydown.enter.alt="newLine()"></textarea>
         <button type="button" class="send" @click="sendMessage()">发送</button>
       </div>
     </div>
@@ -90,12 +92,25 @@ export default {
       user.newMessageNum = 0
     },
     sendMessage() {
+      if (this.message == '' || this.message == '\n') {
+        alert("you can't send empty string!")
+        this.message = ''
+        return
+      }
+      if (this.chattingWith == '') {
+        alert("you must select a receiver!")
+        this.message = ''
+        return
+      }
       this.socketHandle.send_json({
         sender_id : this.self.pk,
         receiver_id: this.chattingWith.pk,
         message: this.message
       })
       this.message = ''
+    },
+    newLine() {
+      this.message += '\n'
     }
   },
   created() {

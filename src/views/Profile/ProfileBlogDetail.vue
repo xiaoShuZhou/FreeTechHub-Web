@@ -44,14 +44,18 @@ export default {
       })
     },
     editBlog() {
-      this.$router.push({name: 'EditBlog'})
+      this.$router.push({
+        name: 'EditBlog',
+        params: {
+          id: this.ownerblog_id
+        }
+      })
     },
     load() {
-      if(this.$route.params.blog_id)
-      { this.blog_id = this.$route.params.blog_id 
+      if(this.ownerblog_id)
+      { this.blog_id = this.ownerblog_id
         Blog.get(this.blog_id).then(blog => {
         this.blog = blog
-        console.log(this.blog)
        })
       }
     }
@@ -65,7 +69,7 @@ export default {
     })
   },
   watch: {
-    "$route": "load"
+    "ownerblog_id": "load"
   },
 
 }
@@ -76,6 +80,11 @@ export default {
 .name{
   font-family: "Helvetica Neue";
   font-size: 25px;
+}
+.content{
+  text-indent:2em; 
+  font-family:STFQLBYTJW; 
+  font-size:30px 
 }
 #beeten{
   font-size: 35px;
@@ -102,8 +111,8 @@ export default {
   grid-area: box;
 }
 .box div{
-  width: 100px;
-  height: 60px;
+  width: 150px;
+  height: 80px;
   border: 1.5px dashed black;
   margin: 10px;
   border-radius: 10px;

@@ -10,7 +10,9 @@ class Question extends Model {
     static app_name = 'question'     
     static model_name = 'question'   
 
-    constructor({id, title, content, date, bounty, viewTimes, status, owner, owner_instance, tags, answers}) {
+    constructor({id, title, content, date, bounty,
+                 viewTimes, status, owner, owner_instance,
+                 tags, answers, content_type_id}) {
         super({title, content, bounty, owner, status})
 
         this.app_name = 'question'  
@@ -19,6 +21,8 @@ class Question extends Model {
 
         this.date = date
         this.viewTimes = viewTimes
+        this.content_type_id = content_type_id
+        
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)
         }
@@ -34,10 +38,31 @@ class Question extends Model {
         }
     }
 
-    static async getOwnerQuestion() {
-        let res = await axios.get(BASE_URL + `question/query-related-content/`)
-        return res.data
-    }    
+    static async getOwnerQuestion(request_user_id) {
+        let results= await axios.get(BASE_URL + `question/query-related-content/`,{ 
+            params: { request_user: request_user_id }
+        }
+        )
+        let result_list = []
+        for (let result of results.data) {
+            result_list.push(new Question(result))
+        }  
+         return result_list 
+    }   
+    //get questions by page_id
+    static async getOnePage(page_id){
+        let response = await axios.get(BASE_URL + 'question/question', {
+            params: {
+                page: page_id,
+            }
+        })
+        let wrapped_questions = []
+        response.data.results.forEach(question => {
+            wrapped_questions.push(new Question(question))
+        })
+        var res = {questions: wrapped_questions, count: response.data.count}
+        return res
+    }
 
     static async get(id) {
         return await Model._getOne(this.app_name, this.model_name, id, this)
