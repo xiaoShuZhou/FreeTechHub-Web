@@ -27,7 +27,7 @@
         </div>
       </li>
     </ul>
-    <el-button @click="newSeries">默认按钮</el-button>
+    <el-button @click="newSeries">create new series</el-button>
     <Footer/>
   </div>
 </template>

@@ -105,11 +105,13 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
+el-input{
+  height: 80px !important;
+}
 .title {
   grid-area: title;
   font-size: 72px;
-  height: 100;
+  height: 50px;
 }
 .EditBlog {
   margin-top: 10vh;
@@ -118,7 +120,7 @@ export default {
   grid-template-areas: 'title  submit'
                        'newtag newtag'
                        'editor editor';
-  grid-template-rows: 10% 5% 85%;
+  grid-template-rows: 10% 15% 75%;
   grid-template-columns: 85% 15%;
   grid-row-gap: 2vh;
 }

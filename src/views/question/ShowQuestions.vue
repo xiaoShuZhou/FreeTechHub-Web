@@ -22,7 +22,7 @@
       :_curPage="currentPage"
       :total="totalPages">
     </pagination>
-    <el-button @click="newQuestion">默认按钮</el-button>
+    <el-button @click="newQuestion">create new question</el-button>
     <Footer/>
   </div>
 </template>

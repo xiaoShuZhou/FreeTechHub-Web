@@ -1,20 +1,27 @@
 <template>
   <div class="EditSeries">
     <Navbar/>
-    <input class="title" type="text" v-model="name">
+    <el-input class="title" type="text" v-model="name"></el-input>
     <mavon-editor class="editor" v-model="description"/>
     <h2 class="choose">Choose the blogs and series to be include in this series</h2>
     <div class="sub">
       <div class="subseries">
         <h4>All your series:</h4>
-        <ul>
+        <el-checkbox-group v-model="choice_list.series">
+          <el-checkbox v-for="item in choice_list.series" :key="item.series.pk">
+            <router-link :to="{name: 'ShowOneSeries', params: {id: item.series.pk}}" >
+              {{ item.series.name }}
+            </router-link>
+          </el-checkbox>
+        </el-checkbox-group>
+        <!-- <ul>
           <li v-for="item in choice_list.series" :key="item.series.pk">
             <input type="checkbox" v-model="item.choice">
             <router-link :to="{name: 'ShowOneSeries', params: {id: item.series.pk}}" >
               {{ item.series.name }}
             </router-link>
           </li>
-        </ul>
+        </ul> -->
       </div>
       <div class="subblog">
         <h4>All your Blogs:</h4>
@@ -28,7 +35,7 @@
         </ul>
         </div>
     </div>
-    <button class="submit" @click="save">submit</button>
+    <el-button class="submit" @click="save">submit</el-button>
   </div>
 </template>
 

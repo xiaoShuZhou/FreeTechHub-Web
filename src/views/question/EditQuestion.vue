@@ -1,23 +1,18 @@
 <template>
   <div class="container">
-    <h2>Title:{{title}}</h2>
-    <div class="form-group">
-      <input type="text" v-model="title" class="form-control" placeholder="Title">
+    <Navbar/>
+    <div class="title">
+      <el-input type="text" v-model="title" class="form-control" placeholder="Title"></el-input>
+      <el-button class="btn" @click="saveQuestion">保存</el-button>
     </div>
-    <div class="form-group">
-      <input type="number" v-model = "bounty" placeholder="Bounty">
-    </div>
-    <div class="content">
-      <h2>Content:</h2>
-      <p v-html="content" v-highlight></p>
+    <div class="bounty">
+      <h2>Bounty:{{bounty}}</h2>
+      <el-input type="number" v-model = "bounty" placeholder="Bounty"></el-input>
     </div>
     <div class="editor">
       <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
     </div>
-    <NewTag ref="NewTag"/>
-    <div class="button">
-      <button class="btn btn-outline btn-success" @click="saveQuestion">保存</button>
-    </div>
+    <NewTag class="newtag" ref="NewTag"/>
   </div>
 </template>
 
@@ -28,13 +23,14 @@ import { login_required } from '@/assets/utils/auth'
 import NewTag from '@/components/Tags/NewTag.vue'
 import Tag from '@/assets/utils/models/Tag'
 import marked from 'marked'
-
+import Navbar from '@/components/Navbar'
 export default {
   name: 'EditQuestion',
   props: {
   },
   components: {
-    NewTag
+    NewTag,
+    Navbar
   },
   data(){
     return {
@@ -139,10 +135,34 @@ h2{
   word-break: break-all;
 }
 .container{
+  display: grid;
+  width: 100%;
+  height: 90vh;
+  padding-top: 10vh;
+  grid-template-areas: "title"
+                       "bounty"
+                       "newtag"
+                       "editor";
+  grid-template-rows: 10% 10% 15% 65%;
+}
+.editor{
+  grid-area: editor;
+}
+.title{
+  grid-area: title;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+}
+.bounty{
+  grid-area: bounty;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+.newtag{
+  grid-area: newtag;
 }
 .header {
   padding: 30px;
@@ -208,18 +228,8 @@ input{
 .v-leave-active {
   position: absolute;
 }
-.form-group{
-  text-align: center;
-  margin: 5vh 0;
-}
-
 .btn{
-  border-radius: 20px;
-  border: 2px solid #ffcec1;
-  width: 60px;
-  height: 30px;
-  background: #ffcec1;
-  outline: none;
+  width: 50%;
+  margin-left: 8vw;
 }
-
 </style>

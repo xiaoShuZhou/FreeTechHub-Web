@@ -1,14 +1,14 @@
 <template>
   <div class="NewTag">
-    <h3>Tags</h3>
-    <ul>
+    <h3 class="title">Tags</h3>
+    <ul class="list">
       <li v-for="tag in tags" :key="tag">
         {{tag}}
-        <button @click="remove(tag)">remove</button>
+        <el-button @click="remove(tag)">remove</el-button>
       </li>
     </ul>
-    <input type="text" v-model="tag">
-    <button @click="addTag()">add tag</button>
+    <el-input class="text" type="text" v-model="tag"></el-input>
+    <el-button class="btn" @click="addTag()">add tag</el-button>
   </div>
 </template>
 
@@ -44,8 +44,29 @@ export default {
 
 <style scoped>
 .NewTag{
-  display: flex;
+  display: grid;
   flex-direction: row;
+  grid-template-areas: "title text btn"
+                       "list list list";
+  grid-template-columns: 10% 70% 20%;
+  grid-column-gap: 20px;
+  justify-items: center;
+}
+.title{
+  grid-area: title;
+}
+.list{
+  grid-area: list;
+}
+.text{
+  grid-area: text;
+  width: 100%;
+  height: 100%;
+}
+.btn{
+  grid-area: btn;
+  width: 100%;
+  height: 80%;
 }
 ul{
   list-style: none;
