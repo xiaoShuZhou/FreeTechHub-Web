@@ -22,7 +22,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-          <p>{{blog.content | stringfilter}}</p>
+          <p class="content" v-html="$options.filters.stringfilter(blog.html_content)"></p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
@@ -69,7 +69,7 @@ export default {
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         var {blogs, count} = res
-        this.totalPages = Math.round(count/this.pageSize)
+        this.totalPages = Math.ceil(count/this.pageSize)
         this.blogs = blogs
       })
     },

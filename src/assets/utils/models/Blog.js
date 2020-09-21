@@ -27,7 +27,7 @@ class Blog extends Model {
         this.like_num = like_num
         this.dislike_num = dislike_num
         this.content_type_id = content_type_id
-        this.m_content = marked(this.content)
+        this.html_content = marked(this.content)
         
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)

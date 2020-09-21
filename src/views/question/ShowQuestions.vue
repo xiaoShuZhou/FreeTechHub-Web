@@ -13,7 +13,7 @@
             <a href="">用户名</a>
           </div>
           <p class="bounty">Bounty:{{ question.bounty }}</p>
-          <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
+          <p class="content" v-html="$options.filters.stringfilter(question.html_content)"></p>
         </div>
       </li>
     </ul>
@@ -59,7 +59,7 @@ export default {
     getQuestions(page_id){
       Question.getOnePage(page_id).then(res => {
         var{questions, count} = res
-        this.totalPages = Math.round(count/this.pageSize)
+        this.totalPages = Math.ceil(count/this.pageSize)
         this.questions = questions
       })
     },
