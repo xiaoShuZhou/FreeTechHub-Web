@@ -26,7 +26,7 @@ class Answer extends Model {
         this.agree_num = like_num
         this.disagree_num = dislike_num
         this.content_type_id = content_type_id
-        this.m_content = marked(this.content)
+        this.html_content = marked(this.content)
         this.reply = false
     }
 

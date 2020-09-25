@@ -9,6 +9,7 @@
       <input type="text" v-model="gotoPage" />
       <a href="javascript:void(0);" v-on:click="gotoNextPage" >跳转</a>
     </div>
+    
   </div>
 </template>
 

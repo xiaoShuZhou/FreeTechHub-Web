@@ -9,7 +9,7 @@
               <h4>{{ answer.owner_instance.username }}</h4>
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
-            <p class="card-content" v-html="answer.m_content" v-highlight></p>
+            <p class="card-content" v-html="answer.html_content" v-highlight></p>
             <div v-if="answer.status == true">
               <h4 class="status">Accepted</h4>
             </div>
@@ -37,7 +37,7 @@
               <h4>{{ answer.owner_instance.username }}</h4>
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
-            <p class="card-content" v-html="answer.m_content" v-highlight></p>
+            <p class="card-content" v-html="answer.html_content" v-highlight></p>
             <h4 class="status">Unaccepted</h4>
             <button @click="acceptAnswer(answer)">Accept</button>
           </div>

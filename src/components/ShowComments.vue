@@ -19,7 +19,7 @@
           <div v-if="comment_tree.comment.owner_instance.pk == _user.pk">
             <button @click="deleteComment(comment_tree.comment)">Delete</button>
           </div>
-          <p class="content" v-html='comment_tree.comment.m_content' v-highlight></p>
+          <p class="content" v-html='comment_tree.comment.html_content' v-highlight></p>
           <div v-if="comment_tree.comment.status == false">
             <button @click="replyTo(comment_tree.comment)">Reply To</button>
           </div>

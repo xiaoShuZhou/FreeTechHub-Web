@@ -215,7 +215,7 @@ class Activity {
     draw() {
         for (let square of this.table) {
             square.draw(this.context)
-        }
+        } 
     }
 
     static async getActivity(user_id) {

@@ -20,7 +20,7 @@
             {{ tag.tag_name }}
           </a>
         </div>
-        <div class="content" v-html="question.content" v-highlight></div>
+        <div class="content" v-html="question.html_content" v-highlight></div>
         <div class="buttons">
           <button @click="editQuestion">Edit</button>
           <button @click="deleteQuestion">Delete</button>
