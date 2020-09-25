@@ -7,17 +7,22 @@
       @closealert="closealert"
       :_user=blog.owner_instance
       :_visitor=user />
-    <div class="img">
-      <img src="@/assets/img/landing.jpg" alt />
-    </div>
     <div class="blog" v-if="blog != ''">
       <div class="title">
         <h1>{{ blog.title }}</h1>
+        <div class="taggroup" v-if="blog.tags.length != 0">
+          <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
+            <img class="icon" src="@/assets/img/标签.svg" alt />
+            {{ tag.tag_name }}
+          </a>
+        </div>
+      </div>
+      <div class="left">
         <div class="user">
           <a href>
             <img class="icon" src="@/assets/img/头像 女孩.svg" alt />
           </a>
-          <div class="content">
+          <div class="userinformation">
             <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
               {{blog.owner_instance.username}}
             </router-link>
@@ -32,12 +37,17 @@
              :_content_owner=blog.owner_instance
              :_visitor=user />
           </div>
-        </div>
-        <div class="taggroup" v-if="blog.tags.length != 0">
-          <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
-            <img class="icon" src="@/assets/img/标签.svg" alt />
-            {{ tag.tag_name }}
-          </a>
+          <div class="likegroup">
+        <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
+        <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
+        <img
+          src="@/assets/img/dislike.svg"
+          @click="dislike"
+          v-if="history=='disliked'"
+          alt="dislike-icon"
+        />
+        <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
+          </div>
         </div>
       </div>
       <div class="content" v-html="blog.m_content" v-highlight></div>
@@ -52,34 +62,24 @@
           </ul>
         </div>
       </div>
-      <div class="likegroup">
-        <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
-        <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
-        <img
-          src="@/assets/img/dislike.svg"
-          @click="dislike"
-          v-if="history=='disliked'"
-          alt="dislike-icon"
-        />
-        <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
-      </div>
+      
       <div class="buttons">
-        <button @click="editBlog">Edit</button>
-        <button @click="deleteBlog">Delete</button>
-        <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
+        <el-button @click="editBlog">Edit</el-button>
+        <el-button @click="deleteBlog">Delete</el-button>
+        <el-button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</el-button>
       </div>
       <div class="comment">
-      <h2>Comments:</h2>
-      <show-comments @updatedTree="updatedTree" v-if="blog != '' && wrapped_tree != ''"
-        :node_id="blog.root_comment"
-        :root_id="blog.root_comment"
-        :wrapped_tree="wrapped_tree"
-        :is_root="true"
-        :_fold="false"
-        :_blog="true"
-        :_answer="false"
-        :_user="user">
-      </show-comments>
+        <h2>Comments:</h2>
+        <show-comments @updatedTree="updatedTree" v-if="blog != '' && wrapped_tree != ''"
+          :node_id="blog.root_comment"
+          :root_id="blog.root_comment"
+          :wrapped_tree="wrapped_tree"
+          :is_root="true"
+          :_fold="false"
+          :_blog="true"
+          :_answer="false"
+          :_user="user">
+        </show-comments>
       </div> 
     </div>
   </div>
@@ -273,21 +273,19 @@ export default {
 .blog {
   background-color: #fff;
   z-index: 1;
-  width: 80%;
+  width: 100%;
   height: 100%;
   display: grid;
   grid-template-areas:
-    "title  title"
-    "content sidebar"
-    "buttons buttons"
-    "comment comment";
-  grid-template-columns: 85% 15%;
+    "left  title  title"
+    "left content sidebar"
+    "left buttons sidebar"
+    "left comment sidebar";
+  grid-template-columns: 25% 52% 20%;
   justify-items: stretch;
+  margin-top: 10vh;
   align-self: start;
-  margin-left: 10%;
   line-height: 30px;
-  margin-top: 45%;
-  padding: 5% 0 0 5%;
   font-family: Merriweather, Georgia, "Times New Roman", serif;
   font-weight: 300;
   font-size: 18px;
@@ -299,6 +297,27 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  font-size: 2.4rem;
+  line-height: 1.25;
+}
+.left{
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 25%;
+  height: 100vh;
+  font-weight: 900;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  grid-area: left;
+  background: #193747;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.left div{
+  margin: 20px 0;
+  font-size: 60px;
 }
 h1{
   text-align: center;
@@ -306,6 +325,7 @@ h1{
 }
 .content {
   grid-area: content;
+  padding: 0 10%;
 }
 .sidebar {
   grid-area: sidebar;
@@ -322,21 +342,37 @@ h1{
 }
 .user {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 80%;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  padding: 2% 1% 2% 1%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: 100%;
 }
 .user a {
-  width: 20%;
+  color: #fff;
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+}
+.userinformation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.userinformation a{
+  margin: 10px 0;
+  font-size: 40px;
+}
+.userinformation p{
+  margin: 5px 0;
+  font-size: 40px;
 }
 .user div {
-  width: 60%;
+  width: 100%;
 }
 .user div p {
-  font-size: 16px;
+  font-size: 1.08rem;
   word-break: break-all;
 }
 button {
@@ -377,20 +413,18 @@ button:hover{
   margin: 20px;
 }
 .icon {
-  width: 40%;
+  width: 20%;
 }
 .likegroup {
-  position: fixed;
   display: flex;
-  flex-direction: column;
-  top: 25%;
-  left: 5%;
+  flex-direction: row;
+  justify-content: center;
 }
 .likegroup img {
-  width: 50%;
-  background-color: rgb(209, 204, 204);
+  width: 10%;
   margin-top: 20px;
   border-radius: 50%;
+  color: #4fb1ba;
   box-shadow: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
@@ -442,7 +476,7 @@ button:hover{
   display: flex;
   flex-direction: column;
 }
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1025px) {
   .ShowBlog {
     width: 100%;
     height: 100%;
@@ -464,12 +498,12 @@ button:hover{
     height: 100%;
     display: grid;
     grid-template-areas:
-      "title"
-      "content"
-      "buttons"
-      "comment"
-      "sidebar";
-    grid-template-columns: 100%;
+      "left title"
+      "left content"
+      "left buttons"
+      "left comment"
+      "left sidebar";
+    grid-template-columns: 20% 80%;
     justify-items: stretch;
     align-content: center;
     line-height: 30px;
@@ -480,6 +514,9 @@ button:hover{
     font-size: 18px;
     color: #262d3d;
     box-shadow: rgba(0, 0, 0, 0.2);
+  }
+  .left{
+    width: 20%;
   }
   .content{
     width: 100%;

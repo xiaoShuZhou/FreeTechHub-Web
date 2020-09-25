@@ -8,7 +8,7 @@
       </li>
     </ul>
     <el-input class="text" type="text" v-model="tag"></el-input>
-    <el-button class="btn" @click="addTag()">add tag</el-button>
+    <el-button class="tag-btn" @click="addTag()">add tag</el-button>
   </div>
 </template>
 
@@ -63,7 +63,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.btn{
+.tag-btn{
   grid-area: btn;
   width: 100%;
   height: 80%;
@@ -75,5 +75,10 @@ ul{
 }
 li{
   margin: 0 10px;
+}
+</style>
+<style>
+.text .el-input__inner{
+  height: 80%;
 }
 </style>

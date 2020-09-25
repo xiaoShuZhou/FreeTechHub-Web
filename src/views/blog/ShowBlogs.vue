@@ -117,6 +117,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 }
 
 .cardlist {
@@ -161,6 +162,9 @@ button {
 .card:hover  a{
   color: blue;
   transition: all 0.5s ease;
+}
+.icon{
+  display: none;
 }
 .card:hover .icon{
   width: 5%;

@@ -1,12 +1,12 @@
 <template>
-  <div class="pager"> 
+  <div class="pagination"> 
     <a href="javascript:void(0);" v-if="showFirstPage" v-on:click="firstPage" >首页</a>
     <a href="javascript:void(0);" v-if="showPrevPage" v-on:click="prevPage" >上一页</a>
     <span>{{curPage}}/{{total}}</span>
     <a href="javascript:void(0);" v-if="showNextPage" v-on:click="nextPage" >下一页</a>
     <a href="javascript:void(0);" v-if="showLastPage" v-on:click="lastPage" >尾页</a>     
     <div class="goto">
-      <input type="text" v-model="gotoPage" />
+      <el-input type="text" v-model="gotoPage" />
       <a href="javascript:void(0);" v-on:click="gotoNextPage" >跳转</a>
     </div>
   </div>
@@ -117,5 +117,29 @@ export default {
 .pager a:hover{
   color: green;
 }
-
+.pagination{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 2% 0!important;
+  justify-content: center;
+  align-items: baseline;
+  transition: all 1s ease;
+}
+.pagination a{
+  margin: 0 20px;
+  text-decoration: none;
+  color: black;
+}
+.pagination a:hover{
+  color: blue;
+}
+.goto{
+  display: flex;
+  flex-direction: row;
+  word-break: none;
+}
+.goto a{
+  width: 20px;
+}
 </style>

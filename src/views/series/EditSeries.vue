@@ -7,21 +7,14 @@
     <div class="sub">
       <div class="subseries">
         <h4>All your series:</h4>
-        <el-checkbox-group v-model="choice_list.series">
-          <el-checkbox v-for="item in choice_list.series" :key="item.series.pk">
-            <router-link :to="{name: 'ShowOneSeries', params: {id: item.series.pk}}" >
-              {{ item.series.name }}
-            </router-link>
-          </el-checkbox>
-        </el-checkbox-group>
-        <!-- <ul>
+        <ul>
           <li v-for="item in choice_list.series" :key="item.series.pk">
             <input type="checkbox" v-model="item.choice">
             <router-link :to="{name: 'ShowOneSeries', params: {id: item.series.pk}}" >
               {{ item.series.name }}
             </router-link>
           </li>
-        </ul> -->
+        </ul>
       </div>
       <div class="subblog">
         <h4>All your Blogs:</h4>

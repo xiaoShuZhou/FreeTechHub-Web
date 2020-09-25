@@ -153,7 +153,11 @@ ul {
   color: blue;
   transition: all 0.5s ease;
 }
+.icon{
+  display: none;
+}
 .card:hover .icon{
+  display: inline-block;
   width: 5%;
   transition: all 0.5s ease;
 }
@@ -216,7 +220,6 @@ a {
   .ShowQuestions {
   width: 100%;
   height: 100%;
-  margin: 0;
   padding: 0;
 }
   .cardlist {

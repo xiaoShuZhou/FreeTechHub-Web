@@ -108,13 +108,8 @@ export default {
 el-input{
   height: 80px !important;
 }
-.title {
-  grid-area: title;
-  font-size: 72px;
-  height: 50px;
-}
 .EditBlog {
-  margin-top: 10vh;
+  margin-top: 11vh;
   height: 90vh;
   display: grid;
   grid-template-areas: 'title  submit'
@@ -156,4 +151,11 @@ button:hover{
   margin: 1vh 3vw;
 }
 
+</style>
+<style>
+.title .el-input__inner{
+  grid-area: title;
+  font-size: 72px;
+  height: 100%;
+}
 </style>

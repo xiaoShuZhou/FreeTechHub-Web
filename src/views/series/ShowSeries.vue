@@ -117,7 +117,11 @@ h1{
   color: blue;
   transition: all 0.5s ease;
 }
+.icon{
+  display: none;
+}
 .card:hover .icon{
+  display: inline-block;
   width: 5%;
   transition: all 0.5s ease;
 }
@@ -140,7 +144,7 @@ h1{
   text-align: center;
 }
 h3{
-  margin: 20px 20px;
+  margin: 20px;
 }
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);

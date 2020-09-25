@@ -2,12 +2,12 @@
   <div class="container">
     <Navbar/>
     <div class="title">
-      <el-input type="text" v-model="title" class="form-control" placeholder="Title"></el-input>
-      <el-button class="btn" @click="saveQuestion">保存</el-button>
+      <el-input class="question-title" type="text" v-model="title" placeholder="Title"></el-input>
     </div>
+    <el-button class="btn" @click="saveQuestion">保存</el-button>
     <div class="bounty">
-      <h2>Bounty:{{bounty}}</h2>
-      <el-input type="number" v-model = "bounty" placeholder="Bounty"></el-input>
+      <h2>Bounty</h2>
+      <el-input type="number" class="bounty-input" v-model = "bounty" placeholder="Bounty"></el-input>
     </div>
     <div class="editor">
       <mavon-editor :ishljs = "true" :preview="true" v-model="content"  placeholder="Content" />
@@ -136,24 +136,26 @@ h2{
 }
 .container{
   display: grid;
-  width: 100%;
   height: 90vh;
-  padding-top: 10vh;
-  grid-template-areas: "title"
-                       "bounty"
-                       "newtag"
-                       "editor";
+  padding-top: 11vh;
+  grid-template-areas: "title btn"
+                       "bounty bounty"
+                       "newtag newtag"
+                       "editor editor";
   grid-template-rows: 10% 10% 15% 65%;
+  grid-template-columns: 90% 10%;
+  grid-row-gap: 2vh;
+}
+.btn{
+  grid-area: btn;
 }
 .editor{
   grid-area: editor;
+  height: 100%;
 }
 .title{
   grid-area: title;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 .bounty{
   grid-area: bounty;
@@ -229,7 +231,19 @@ input{
   position: absolute;
 }
 .btn{
-  width: 50%;
-  margin-left: 8vw;
+  width: 100%;
+}
+</style>
+<style>
+.bounty-input .el-input__inner{
+  height: 100%;
+}
+.question-title .el-input__inner{
+  height: 80px;
+  width: 100%;
+}
+.btn .el-button{
+  width: 100%;
+  height: 80px;
 }
 </style>
