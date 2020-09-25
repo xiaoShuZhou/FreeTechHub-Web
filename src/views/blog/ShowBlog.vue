@@ -40,7 +40,7 @@
           </a>
         </div>
       </div>
-      <div class="content" v-html="blog.html_content" v-highlight></div>
+      <div class="content" :key="blog.html_content" v-html="blog.html_content" v-highlight></div>
       <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
           <h3>Recommends:</h3>
@@ -103,7 +103,7 @@ export default {
     Navbar,
     ShowComments,
     FollowButton,
-    AddFriend
+    AddFriend,
   },
   data() {
     return {
@@ -238,17 +238,29 @@ export default {
             this.history = values[2]
         })
       })
+    },
+    
+    renderMath() {
+      if(window.MathJax) {
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
+      }
     }
   },
   created() {
     login_required(this, user => {
       this.user = user
       this.load()
+      this.renderMath()
     })
   },
   watch: {
     blog_id() {
       this.load()
+    },
+    blog() {
+      this.$nextTick().then(() => {
+        this.renderMath()
+      })
     }
   },
   computed: {

@@ -120,12 +120,21 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.wrapped_tree = wrapped_comment_tree
+    },
+
+    renderMath() {
+      if(window.MathJax) {
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
+      }
     }
   },
   watch: {
     answer(val) {
-      this.answer = val
-    }
+      this.$nextTick().then(() => {
+        this.answer = val
+        this.renderMath()
+      })
+    },
   }
 }
 </script>

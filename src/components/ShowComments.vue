@@ -127,6 +127,12 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.$emit('updatedTree', wrapped_comment_tree)
+    },
+
+    renderMath() {
+      if(window.MathJax) {
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
+      }
     }
 	},
 	created() {
@@ -135,6 +141,11 @@ export default {
   watch: {
     wrapped_tree(val) {
       this.comment_tree = Comment.get_matched_comment_tree(val, this.node_id)
+    },
+    comment_tree() {
+      this.$nextTick().then(() => {
+        this.renderMath()
+      })
     }
   }
 }

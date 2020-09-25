@@ -66,6 +66,7 @@ export default {
     newBlog() {
       login_required(this, () => this.$router.push({name: 'NewBlog'}))
     },
+
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         var {blogs, count} = res
@@ -73,17 +74,33 @@ export default {
         this.blogs = blogs
       })
     },
+
     setPage(new_page) {
       this.currentPage = new_page
       this.getBlogs(new_page)
+    },
+
+    renderMath() {
+      if(window.MathJax) {
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
+      }
     }
   },
+
   created() {
     is_authenticated(this).then(() => {
       this.user = this.$store.state.user
       this.getBlogs(this.currentPage)
     })
   },
+  
+  watch: {
+    blogs() {
+      this.$nextTick().then(() => {
+        this.renderMath()
+      })
+    }
+  }
 }
 </script>
 

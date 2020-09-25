@@ -133,8 +133,15 @@ export default {
 
     updatedAnswer(updated_answer) {
       this.accepted_answer = updated_answer
+    },
+
+    renderMath() {
+      if(window.MathJax) {
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
+      }
     }
   },
+
   created() {
     login_required(this, user => {
       this.user = user
@@ -149,6 +156,14 @@ export default {
       })
     })
   },
+  
+  watch: {
+    question() {
+      this.$nextTick().then(() => {
+        this.renderMath()
+      })
+    }
+  }
 }
 </script>
 

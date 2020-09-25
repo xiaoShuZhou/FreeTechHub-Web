@@ -117,7 +117,7 @@ class Coordinate2D {
     moveRight(px) { this.x += px }
 }
 
-
+//colors
 const WHITE = "#FFFFFF";
 const LIGHT_PURPLE = "#d7c8ff"
 const PURPLE = "#b17aff"
@@ -125,17 +125,20 @@ const HEAVY_PURPLE = "#731eea"
 const DARK_PURPLE = "#441b7f"
 const BACKGROUND_COLOR = "#E6E6FA"
 
+//standards
 const UPPER_LIMIT = 25
 const LOWER_LIMIT = 5
 const LEVEL = (UPPER_LIMIT - LOWER_LIMIT) / 4
 
-const CANVAS_HEIGHT = 260
-const CANVAS_WIDTH = 1555
-const EDGE_LENGTH = 30
-const SQUARE_LENGTH = 22
-const GAP_LENGTH = 6
+ //constants of length
+const winWidth = window.innerWidth
+const winHeight = window.innerHeight
+const SQUARE_LENGTH = winWidth / 82
+const GAP_LENGTH = winHeight / 150
 const STEP = SQUARE_LENGTH + GAP_LENGTH
-const ORIGIN = new Coordinate2D(1.5*EDGE_LENGTH, EDGE_LENGTH)
+const EDGE_LENGTH = SQUARE_LENGTH + GAP_LENGTH
+const CANVAS_WIDTH = 53 * SQUARE_LENGTH + 52 * GAP_LENGTH + 2 * EDGE_LENGTH
+const CANVAS_HEIGHT = 7 * SQUARE_LENGTH + 6 * GAP_LENGTH + 2 * EDGE_LENGTH
 
 const colorMap = [
     {score: LOWER_LIMIT, color: WHITE},
@@ -153,6 +156,18 @@ class Square {
     constructor(date_, score) {
         this.date = date_
         this.score = score
+        this.square_length = SQUARE_LENGTH
+        this.gap_length = GAP_LENGTH
+        this.step = STEP
+        this.origin = new Coordinate2D(1.5*EDGE_LENGTH, EDGE_LENGTH)
+        this.coordinate = this.getSpot()
+    }
+
+    resize(width, height) {
+        this.square_length = width / 82
+        this.gap_length = height / 150
+        this.step = this.square_length + this.gap_length
+        this.origin = new Coordinate2D(1.5*this.step, this.step)
         this.coordinate = this.getSpot()
     }
 
@@ -168,9 +183,9 @@ class Square {
     getSpot() {
         let week = Math.floor(this.date.delta(new MyDate(this.date.getYear(), 1, 1)) / 7)
         let day = this.date.delta(new MyDate(this.date.getYear(), 1, 1)) % 7
-        let coordinate = new Coordinate2D(ORIGIN.x, ORIGIN.y)
-        coordinate.moveDown(day*STEP)
-        coordinate.moveRight(week*STEP)
+        let coordinate = new Coordinate2D(this.origin.x, this.origin.y)
+        coordinate.moveDown(day*this.step)
+        coordinate.moveRight(week*this.step)
         return coordinate
     }
 
@@ -178,20 +193,33 @@ class Square {
         context.fillStyle = this.getColor()
         context.fillRect(this.coordinate.x,
                          this.coordinate.y,
-                         SQUARE_LENGTH,
-                         SQUARE_LENGTH)
+                         this.square_length,
+                         this.square_length)
     }
 }
 
 class Activity {
-    constructor(canvas_id, table) {  
+    constructor(canvas_id, table) {
         this.canvas = document.getElementById(canvas_id)
-        this.canvas.height = CANVAS_HEIGHT
         this.canvas.width = CANVAS_WIDTH
+        this.canvas.height = CANVAS_HEIGHT
+        this.square_length = SQUARE_LENGTH
+        this.gap_length = GAP_LENGTH
+        this.edge_length = EDGE_LENGTH
         this.context = this.canvas.getContext('2d')
         this.table = table
 
         this.drawBackground()
+    }
+
+    resize(width, height) {
+        this.square_length = width / 82
+        this.gap_length = height / 150
+        this.edge_length = this.square_length + this.gap_length
+        this.canvas.width = 53 * this.square_length + 52 * this.gap_length + 2 * this.edge_length
+        this.canvas.height = 7 * this.square_length + 6 * this.gap_length + 2 * this.edge_length
+        this.drawBackground()
+        this.draw()
     }
 
     drawBackground() {
@@ -204,12 +232,12 @@ class Activity {
             Days.push(WEEKDAYS[(j-1)%7])
         }
         for (let i = 0; i < 7;  i++) {
-            this.context.fillText(Days[i], EDGE_LENGTH/2, (i+0.8)*SQUARE_LENGTH + i*GAP_LENGTH + EDGE_LENGTH)
+            this.context.fillText(Days[i], this.edge_length/2, (i+0.8)*this.square_length + i*this.gap_length + this.edge_length)
         }
         for (let m = 0; m < 12; m++) {
-            this.context.fillText(Months[m], ((2*m+1)*((this.canvas.width-2*EDGE_LENGTH)/24) + EDGE_LENGTH), EDGE_LENGTH/2)
+            this.context.fillText(Months[m], ((2*m+1)*((this.canvas.width-2*this.edge_length)/24) + this.edge_length), this.edge_length/2)
         }
-        this.context.fillText(TODAY.getFullYear(), CANVAS_WIDTH/2, CANVAS_HEIGHT-EDGE_LENGTH/2)
+        this.context.fillText(TODAY.getFullYear(), this.canvas.width/2, this.canvas.height)
     }
 
     draw() {

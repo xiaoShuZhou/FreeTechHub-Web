@@ -56,6 +56,7 @@ export default {
         this.$router.push({name: 'NewQuestion'})
       })
     },
+
     getQuestions(page_id){
       Question.getOnePage(page_id).then(res => {
         var{questions, count} = res
@@ -63,14 +64,29 @@ export default {
         this.questions = questions
       })
     },
+
     setPage(new_page){
       this.currentPage = new_page
       this.getQuestions(new_page)
+    },
+
+    renderMath() {
+      if(window.MathJax) {
+        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
+      }
     }
   },
   created() {
     this.getQuestions(this.currentPage)
   },
+
+  watch: {
+    questions() {
+       this.$nextTick().then(() => {
+        this.renderMath()
+      })
+    }
+  }
 }
 </script>
 
