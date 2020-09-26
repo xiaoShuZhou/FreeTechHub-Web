@@ -17,13 +17,18 @@ class MyDate {
 
     toString() { return `${this.getYear()}-${this.getMonth()}-${this.getDate()}` }
 
+    is_leap() { 
+        let year = this.getYear()
+        return (year % 100 != 0 && year % 4 == 0) || (year % 400 == 0) 
+    }
+
 
     _add_one_day() {
         let year = this.getYear()
         let month = this.getMonth()
         let date = this.getDate()
 
-        let is_leap = (year % 100 != 0 && year % 4 == 0) || (year % 400 == 0)
+        let is_leap = this.is_leap()
         let s_month = [2, 4, 6, 9, 11]
 
         let end_of_month
@@ -131,8 +136,8 @@ const LOWER_LIMIT = 5
 const LEVEL = (UPPER_LIMIT - LOWER_LIMIT) / 4
 
  //constants of scale
-const SCALE_SQUARE = 88
-const SCALE_GAP = 150
+const SCALE_SQUARE = 0.01135
+const SCALE_GAP = 0.0067
 
 const colorMap = [
     {score: LOWER_LIMIT, color: WHITE},
@@ -143,24 +148,21 @@ const colorMap = [
 ]
 const TODAY = new Date()
 const FIRST_DAY = new MyDate(TODAY.getFullYear(), 1, 1)
+let col_num = Math.ceil((FIRST_DAY.is_leap() ? 366 : 365) / 7)
+
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
-const Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 class Square {
-    constructor(date_, score) {
-        this.date = date_
+    constructor(date, score) {
+        this.date = date
         this.score = score
-        this.square_length = window.innerWidth / SCALE_SQUARE
-        this.gap_length = window.innerHeight / SCALE_GAP
-        this.step = window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP
-        this.origin = new Coordinate2D(1.5*window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP, 
-                                        window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP)
-        this.coordinate = this.getSpot()
+        this.resize()
     }
 
-    resize(width, height) {
-        this.square_length = width / 82
-        this.gap_length = height / 150
+    resize() {
+        this.square_length = window.innerWidth * SCALE_SQUARE
+        this.gap_length = window.innerHeight * SCALE_GAP
         this.step = this.square_length + this.gap_length
         this.origin = new Coordinate2D(1.5*this.step, this.step)
         this.coordinate = this.getSpot()
@@ -196,22 +198,16 @@ class Square {
 class Activity {
     constructor(canvas_id, table) {
         this.canvas = document.getElementById(canvas_id)
-        this.canvas.width = 55 * window.innerWidth / SCALE_SQUARE + 54 * window.innerHeight / SCALE_GAP
-        this.canvas.height = 9 * window.innerWidth / SCALE_SQUARE + 8 * window.innerHeight / SCALE_GAP
-        this.square_length = window.innerWidth / SCALE_SQUARE
-        this.gap_length = window.innerHeight / SCALE_GAP
-        this.edge_length = window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP
         this.context = this.canvas.getContext('2d')
         this.table = table
-
-        this.drawBackground()
+        this.resize()
     }
 
-    resize(width, height) {
-        this.square_length = width / 82
-        this.gap_length = height / 150
+    resize() {
+        this.square_length = window.innerWidth * SCALE_SQUARE
+        this.gap_length = window.innerHeight * SCALE_GAP
         this.edge_length = this.square_length + this.gap_length
-        this.canvas.width = 53 * this.square_length + 52 * this.gap_length + 2 * this.edge_length
+        this.canvas.width = col_num * this.square_length + (col_num-1) * this.gap_length + 2 * this.edge_length
         this.canvas.height = 7 * this.square_length + 6 * this.gap_length + 2 * this.edge_length
         this.drawBackground()
         this.draw()
@@ -222,15 +218,18 @@ class Activity {
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
         this.context.fillStyle = "#000000"
         this.context.font = "12px serif"
-        let Days = []
-        for (let j = FIRST_DAY.getDay(); j < FIRST_DAY.getDay() + 7; j++) {
-            Days.push(WEEKDAYS[(j-1)%7])
-        }
+        let days = []
+        for (let i = FIRST_DAY.getDay(); i < FIRST_DAY.getDay() + 7; i++)
+            days.push(WEEKDAYS[(i-1)%7])
+
         for (let i = 0; i < 7;  i++) {
-            this.context.fillText(Days[i], this.edge_length/2, (i+0.8)*this.square_length + i*this.gap_length + this.edge_length)
+            let offset = 1.55*this.edge_length
+            this.context.fillText(days[i], this.edge_length/2, i*(this.edge_length) + offset)
         }
-        for (let m = 0; m < 12; m++) {
-            this.context.fillText(Months[m], ((2*m+1)*((this.canvas.width-2*this.edge_length)/24) + this.edge_length), this.edge_length/2)
+        for (let i = 0; i < 12; i++) {
+            let offset = this.edge_length + this.square_length * 3
+            let gap = 4.3 * this.edge_length
+            this.context.fillText(MONTHS[i], i*gap + offset, 0.7*this.edge_length)
         }
         this.context.fillText(TODAY.getFullYear(), this.canvas.width/2, this.canvas.height)
     }

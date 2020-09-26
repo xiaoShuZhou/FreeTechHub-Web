@@ -226,9 +226,9 @@ export default {
     })
     window.addEventListener('resize', () => {
       for (let square of this.table) {
-        square.resize(window.innerWidth, window.innerHeight)
+        square.resize()
       }
-      this.activity.resize(window.innerWidth, window.innerHeight)
+      this.activity.resize()
     })
   },
   computed: {
