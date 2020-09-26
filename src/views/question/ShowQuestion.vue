@@ -73,7 +73,7 @@
 import Question from "@/assets/utils/models/Question";
 import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth';
-import { renderMath } from "@/assets/utils/renderMath"
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
 import ShowAnswers from '@/components/ShowAnswers.vue';
 
@@ -135,10 +135,6 @@ export default {
     updatedAnswer(updated_answer) {
       this.accepted_answer = updated_answer
     },
-
-    renderMath: function () {
-      renderMath()
-    }
   },
 
   created() {
@@ -159,7 +155,7 @@ export default {
   watch: {
     question() {
       this.$nextTick().then(() => {
-        this.renderMath()
+        renderMath()
       })
     }
   }

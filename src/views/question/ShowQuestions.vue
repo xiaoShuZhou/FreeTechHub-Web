@@ -29,7 +29,7 @@
 <script>
 import Question from "@/assets/utils/models/Question"
 import { login_required } from '@/assets/utils/auth'
-import { renderMath } from "@/assets/utils/renderMath"
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -70,10 +70,6 @@ export default {
       this.currentPage = new_page
       this.getQuestions(new_page)
     },
-
-    renderMath: function () {
-      renderMath()
-    }
   },
   created() {
     this.getQuestions(this.currentPage)
@@ -82,7 +78,7 @@ export default {
   watch: {
     questions() {
        this.$nextTick().then(() => {
-        this.renderMath()
+        renderMath()
       })
     }
   }

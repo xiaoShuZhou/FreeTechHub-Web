@@ -39,7 +39,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
-import { renderMath } from "@/assets/utils/renderMath"
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -80,10 +80,6 @@ export default {
       this.currentPage = new_page
       this.getBlogs(new_page)
     },
-
-    renderMath: function () {
-      renderMath()
-    }
   },
 
   created() {
@@ -96,7 +92,7 @@ export default {
   watch: {
     blogs() {
       this.$nextTick().then(() => {
-        this.renderMath()
+        renderMath()
       })
     }
   }

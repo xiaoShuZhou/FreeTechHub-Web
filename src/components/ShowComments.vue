@@ -62,7 +62,7 @@
 
 <script>
 import Comment from '@/assets/utils/models/Comment';
-import { renderMath } from "@/assets/utils/renderMath"
+import renderMath from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowComments",
@@ -129,10 +129,6 @@ export default {
     updatedTree(wrapped_comment_tree){
       this.$emit('updatedTree', wrapped_comment_tree)
     },
-
-    renderMath: function () {
-      renderMath()
-    }
 	},
 	created() {
     this.comment_tree = Comment.get_matched_comment_tree(this.wrapped_tree, this.node_id)
@@ -143,7 +139,7 @@ export default {
     },
     comment_tree() {
       this.$nextTick().then(() => {
-        this.renderMath()
+        renderMath()
       })
     }
   }
