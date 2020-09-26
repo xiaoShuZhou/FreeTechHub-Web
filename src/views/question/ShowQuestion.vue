@@ -73,6 +73,7 @@
 import Question from "@/assets/utils/models/Question";
 import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth';
+import { renderMath } from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
 import ShowAnswers from '@/components/ShowAnswers.vue';
 
@@ -135,10 +136,8 @@ export default {
       this.accepted_answer = updated_answer
     },
 
-    renderMath() {
-      if(window.MathJax) {
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
-      }
+    renderMath: function () {
+      renderMath()
     }
   },
 

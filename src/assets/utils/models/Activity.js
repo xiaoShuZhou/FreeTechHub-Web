@@ -130,15 +130,9 @@ const UPPER_LIMIT = 25
 const LOWER_LIMIT = 5
 const LEVEL = (UPPER_LIMIT - LOWER_LIMIT) / 4
 
- //constants of length
-const winWidth = window.innerWidth
-const winHeight = window.innerHeight
-const SQUARE_LENGTH = winWidth / 82
-const GAP_LENGTH = winHeight / 150
-const STEP = SQUARE_LENGTH + GAP_LENGTH
-const EDGE_LENGTH = SQUARE_LENGTH + GAP_LENGTH
-const CANVAS_WIDTH = 53 * SQUARE_LENGTH + 52 * GAP_LENGTH + 2 * EDGE_LENGTH
-const CANVAS_HEIGHT = 7 * SQUARE_LENGTH + 6 * GAP_LENGTH + 2 * EDGE_LENGTH
+ //constants of scale
+const SCALE_SQUARE = 88
+const SCALE_GAP = 150
 
 const colorMap = [
     {score: LOWER_LIMIT, color: WHITE},
@@ -156,10 +150,11 @@ class Square {
     constructor(date_, score) {
         this.date = date_
         this.score = score
-        this.square_length = SQUARE_LENGTH
-        this.gap_length = GAP_LENGTH
-        this.step = STEP
-        this.origin = new Coordinate2D(1.5*EDGE_LENGTH, EDGE_LENGTH)
+        this.square_length = window.innerWidth / SCALE_SQUARE
+        this.gap_length = window.innerHeight / SCALE_GAP
+        this.step = window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP
+        this.origin = new Coordinate2D(1.5*window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP, 
+                                        window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP)
         this.coordinate = this.getSpot()
     }
 
@@ -201,11 +196,11 @@ class Square {
 class Activity {
     constructor(canvas_id, table) {
         this.canvas = document.getElementById(canvas_id)
-        this.canvas.width = CANVAS_WIDTH
-        this.canvas.height = CANVAS_HEIGHT
-        this.square_length = SQUARE_LENGTH
-        this.gap_length = GAP_LENGTH
-        this.edge_length = EDGE_LENGTH
+        this.canvas.width = 55 * window.innerWidth / SCALE_SQUARE + 54 * window.innerHeight / SCALE_GAP
+        this.canvas.height = 9 * window.innerWidth / SCALE_SQUARE + 8 * window.innerHeight / SCALE_GAP
+        this.square_length = window.innerWidth / SCALE_SQUARE
+        this.gap_length = window.innerHeight / SCALE_GAP
+        this.edge_length = window.innerWidth / SCALE_SQUARE + window.innerHeight / SCALE_GAP
         this.context = this.canvas.getContext('2d')
         this.table = table
 

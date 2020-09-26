@@ -29,6 +29,7 @@
 <script>
 import Question from "@/assets/utils/models/Question"
 import { login_required } from '@/assets/utils/auth'
+import { renderMath } from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -70,10 +71,8 @@ export default {
       this.getQuestions(new_page)
     },
 
-    renderMath() {
-      if(window.MathJax) {
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
-      }
+    renderMath: function () {
+      renderMath()
     }
   },
   created() {

@@ -91,11 +91,12 @@ import Comment from "@/assets/utils/models/Comment"
 import Navbar from "@/components/Navbar.vue";
 import { login_required } from "@/assets/utils/auth";
 import { blog_recommend } from "@/assets/utils/models/search";
+import { renderMath } from "@/assets/utils/renderMath";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
-import ShowComments from '@/components/ShowComments.vue'
-import FollowButton from '@/components/FollowButton'
-import AddFriend from '@/components/AddFriend.vue'
+import ShowComments from "@/components/ShowComments.vue";
+import FollowButton from '@/components/FollowButton';
+import AddFriend from '@/components/AddFriend.vue';
 
 export default {
   name: "ShowBlog",
@@ -239,11 +240,9 @@ export default {
         })
       })
     },
-    
-    renderMath() {
-      if(window.MathJax) {
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
-      }
+
+    renderMath: function () {
+      renderMath()
     }
   },
   created() {

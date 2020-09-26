@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import Comment from '@/assets/utils/models/Comment'
+import Comment from '@/assets/utils/models/Comment';
+import { renderMath } from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowComments",
@@ -129,10 +130,8 @@ export default {
       this.$emit('updatedTree', wrapped_comment_tree)
     },
 
-    renderMath() {
-      if(window.MathJax) {
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub])
-      }
+    renderMath: function () {
+      renderMath()
     }
 	},
 	created() {
