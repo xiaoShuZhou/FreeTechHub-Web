@@ -10,20 +10,20 @@
       </div>
       <div class="left">
         <div class="Publisher">
-          <img src="@/assets/img/头像 女孩.svg" />
-          <p>Publisher:{{ question.owner_instance.username }}</p>
+          <img class="avatar" :src="question.owner_instance.avatar" />
+          <h1>{{ question.owner_instance.username }}</h1>
         </div>
       </div>
       <div class="taggroup" v-if="question.tags.length != 0">
         <a href class="tag" v-for="tag in question.tags" :key="tag.pk">
-          <img class="icon" src="@/assets/img/标签.svg" alt />
-          {{ tag.tag_name }}
+          <img class="tag-img" src="@/assets/img/标签.svg" alt />
+          <span>{{ tag.tag_name }}</span>
         </a>
       </div>
       <div class="content" v-html="question.content" v-highlight></div>
       <div class="buttons">
-        <button @click="editQuestion">Edit</button>
-        <button @click="deleteQuestion">Delete</button>
+        <el-button @click="editQuestion">Edit</el-button>
+        <el-button @click="deleteQuestion">Delete</el-button>
       </div>
       <div class="answear">
       <h2>Answers:</h2>
@@ -63,7 +63,7 @@
         v-model="content"
         placeholder="Post your answer"
       />
-      <button @click="saveAnswer()">Post</button>
+      <el-button @click="saveAnswer()">Post</el-button>
       </div>
     </div> 
     <Footer/>
@@ -204,11 +204,14 @@ export default {
   color: white;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 15vh;
 }
 .Publisher img {
-  width: 20%;
-  max-width: 100px;
-  min-width: 80px;
+  width: 40%;
+  border-radius: 50%;
+}
+.Publisher h1{
+  margin-top: 3vh;
 }
 .buttons {
   grid-area: buttons;
@@ -282,14 +285,18 @@ export default {
   word-break: break-all;
 }
 .tag {
-  display: block;
-  background-color: #e16531;
-  border-radius: 10px;
-  width: auto;
-  max-width: 120px;
-  max-height: 60px;
-  height: auto;
-  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+.tag-img{
+  width: 20%;
+}
+.tag:hover{
+  border-bottom: 1px solid rgba(79, 177, 186, 0.5);
+}
+.tag:focus{
+  border-bottom: 2px solid rgba(4, 112, 124, 0.5)
 }
 .icon {
   width: 40%;
@@ -323,11 +330,9 @@ button {
   color: #311f1f;
   margin: 3vh 2vw;
 }
-@media screen and (max-width: 1000px) {
-  .landing {
-    margin-top: 9vh;
-    position: relative;
-    width: 100vw;
+@media screen and (max-width: 1025px) {
+  .ShowQuestion {
+    margin-top: 6vh;
   }
   .question {
     margin: 0;

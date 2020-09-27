@@ -12,15 +12,15 @@
         <h1>{{ blog.title }}</h1>
         <div class="taggroup" v-if="blog.tags.length != 0">
           <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
-            <img class="icon" src="@/assets/img/标签.svg" alt />
-            {{ tag.tag_name }}
+            <img class="tag-img" src="@/assets/img/标签.svg" alt />
+            <span>{{ tag.tag_name }}</span>
           </a>
         </div>
       </div>
       <div class="left">
         <div class="user">
           <a href>
-            <img class="icon" src="@/assets/img/头像 女孩.svg" alt />
+            <img class="icon" :src="blog.owner_instance.avatar"/>
           </a>
           <div class="userinformation">
             <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="content" v-html="blog.m_content" v-highlight></div>
+      <div class="blogcontent" id="blogcontent" v-html="blog.m_content" v-highlight></div>
       <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
           <h3>Recommends:</h3>
@@ -120,7 +120,7 @@ export default {
       status: false,
       wrapped_tree: '',
       top: 0,
-      recommend: ''
+      recommend: '',
     }
   },
   methods: {
@@ -238,13 +238,15 @@ export default {
             this.history = values[2]
         })
       })
-    }
+    },
+    
   },
   created() {
     login_required(this, user => {
       this.user = user
       this.load()
-    })
+    }),
+    this.createdirectory()
   },
   watch: {
     blog_id() {
@@ -278,10 +280,11 @@ export default {
   display: grid;
   grid-template-areas:
     "left  title  title"
-    "left content sidebar"
-    "left buttons sidebar"
-    "left comment sidebar";
+    "left  blogcontent sidebar"
+    "left  buttons sidebar"
+    "left  comment sidebar";
   grid-template-columns: 25% 52% 20%;
+  grid-row-gap: 10px;
   justify-items: stretch;
   margin-top: 10vh;
   align-self: start;
@@ -323,8 +326,8 @@ h1{
   text-align: center;
   margin-bottom: 20px;
 }
-.content {
-  grid-area: content;
+.blogcontent {
+  grid-area: blogcontent;
   padding: 0 10%;
 }
 .sidebar {
@@ -402,17 +405,23 @@ button:hover{
   z-index: -1;
   position: absolute;
 }
-.tag {
-  display: block;
-  background-color: #e16531;
-  border-radius: 10px;
-  width: auto;
-  max-width: 120px;
-  max-height: 60px;
-  height: auto;
+.tag{
   margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+.tag:hover{
+  border-bottom: 1px solid rgba(79, 177, 186, 0.5);
+}
+.tag:focus{
+  border-bottom: 2px solid rgba(4, 112, 124, 0.5)
 }
 .icon {
+  width: 30%;
+  border-radius: 50%;
+}
+.tag-img{
   width: 20%;
 }
 .likegroup {
@@ -437,17 +446,19 @@ button:hover{
   width: 50%;
 }
 .relatedblog {
-  background: #fdcb6e;
   width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
+  border-left: 1px solid #ebebeb;
+  padding-left: 20px;
 }
-.relatedblog span {
-  display: block;
-  font-size: 12px;
+.relatedblog h3{
+  color: #ebebeb;
 }
 .relatedblog li {
+  list-style: none;
   margin: 10px 5px;
+}
+.relatedblog li a{
+  color: black;
 }
 .taggroup{
   display: flex;
@@ -499,7 +510,7 @@ button:hover{
     display: grid;
     grid-template-areas:
       "left title"
-      "left content"
+      "left blogcontent"
       "left buttons"
       "left comment"
       "left sidebar";

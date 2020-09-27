@@ -13,7 +13,7 @@
             </router-link>
           </h3>
           <div class="user">
-            <img class="avatar" src="@/assets/img/头像 女孩.svg">
+            <img class="avatar" :src="blog.owner_instance.avatar">
             <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
               {{blog.owner_instance.username}}
             </router-link>
@@ -22,7 +22,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-          <p>{{blog.content | stringfilter}}</p>
+          <pre v-highlight><p>{{blog.content | stringfilter}}</p></pre>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
@@ -155,6 +155,8 @@ button {
 .readmore{
   margin: 0;
   justify-content: flex-end;
+    opacity: 0;
+  max-height: 20px;
 }
 .card:hover {
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
@@ -170,7 +172,7 @@ button {
   width: 5%;
   transition: all 0.5s ease;
 }
-.card:hover p:nth-last-child(1){
+.card:hover .readmore{
   width: 100%;
   opacity: 1;
   text-align: center;
@@ -188,10 +190,6 @@ a:-webkit-any-link{
 .card:hover ~ a{
   color:blue;
   transition: all 0.5s ease;
-}
-.card p:nth-last-child(1){
-  opacity: 0;
-  max-height: 20px;
 }
 .tag-list {
   margin: 0 3vw;
@@ -211,6 +209,7 @@ a {
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 @media screen and (max-width: 1280px){
   .ShowBlogs{

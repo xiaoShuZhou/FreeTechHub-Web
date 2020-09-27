@@ -9,11 +9,11 @@
           <img src="@/assets/img/landing.jpg" class="card-img">
           <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
           <div class="user">
-            <img class="avatar" src="@/assets/img/头像 女孩.svg">
-            <a href="">用户名</a>
+            <img class="avatar" :src="question.owner_instance.avatar">
+            <a href="">{{question.owner_instance.username}}</a>
           </div>
           <p class="bounty">Bounty:{{ question.bounty }}</p>
-          <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
+          <pre v-highlight><p class="content" v-html="$options.filters.stringfilter(question.content)"></p></pre>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
@@ -164,12 +164,12 @@ ul {
 .readmore{
   margin: 0;
 }
-.card p:nth-last-child(1){
+.card .readmore{
   opacity: 0;
   max-height: 20px;
   margin-bottom: 15px;
 }
-.card:hover p:nth-last-child(1){
+.card:hover .readmore{
   width: 100%;
   opacity: 1;
   text-align: center;
@@ -191,6 +191,7 @@ a {
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 .card-img{
   width: 100%;

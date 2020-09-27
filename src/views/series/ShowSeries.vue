@@ -13,8 +13,8 @@
             </router-link>
           </h1>
           <div class="user">
-            <img class="avatar" src="@/assets/img/头像 女孩.svg">
-            <a href="">用户名</a>
+            <img class="avatar" :src="series.blogs[0].owner_instance.avatar">
+            <a href="">{{series.blogs[0].owner_instance.username}}</a>
           </div>
           <h3>Tags: </h3>
           <ul>
@@ -180,6 +180,7 @@ button {
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 @media screen and (max-width: 1025px){
   .ShowSeries {
