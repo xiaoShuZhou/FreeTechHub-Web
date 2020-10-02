@@ -39,6 +39,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -66,6 +67,7 @@ export default {
     newBlog() {
       login_required(this, () => this.$router.push({name: 'NewBlog'}))
     },
+
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         var {blogs, count} = res
@@ -73,17 +75,27 @@ export default {
         this.blogs = blogs
       })
     },
+
     setPage(new_page) {
       this.currentPage = new_page
       this.getBlogs(new_page)
-    }
+    },
   },
+
   created() {
     is_authenticated(this).then(() => {
       this.user = this.$store.state.user
       this.getBlogs(this.currentPage)
     })
   },
+  
+  watch: {
+    blogs() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
+    }
+  }
 }
 </script>
 

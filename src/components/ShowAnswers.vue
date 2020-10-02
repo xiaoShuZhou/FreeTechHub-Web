@@ -64,6 +64,7 @@ import Comment from '@/assets/utils/models/Comment';
 import Answer from "@/assets/utils/models/Answer";
 import Transaction from '@/assets/utils/models/Transaction';
 import ShowComments from '@/components/ShowComments.vue';
+import renderMath from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowAnswers",
@@ -120,12 +121,15 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.wrapped_tree = wrapped_comment_tree
-    }
+    },
   },
   watch: {
     answer(val) {
-      this.answer = val
-    }
+      this.$nextTick().then(() => {
+        this.answer = val
+        renderMath()
+      })
+    },
   }
 }
 </script>

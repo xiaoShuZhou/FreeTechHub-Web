@@ -73,6 +73,7 @@
 import Question from "@/assets/utils/models/Question";
 import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth';
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
 import ShowAnswers from '@/components/ShowAnswers.vue';
 
@@ -133,8 +134,9 @@ export default {
 
     updatedAnswer(updated_answer) {
       this.accepted_answer = updated_answer
-    }
+    },
   },
+
   created() {
     login_required(this, user => {
       this.user = user
@@ -149,6 +151,14 @@ export default {
       })
     })
   },
+  
+  watch: {
+    question() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
+    }
+  }
 }
 </script>
 

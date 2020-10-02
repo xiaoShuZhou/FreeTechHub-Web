@@ -40,7 +40,7 @@
           </a>
         </div>
       </div>
-      <div class="content" v-html="blog.html_content" v-highlight></div>
+      <div class="content" :key="blog.html_content" v-html="blog.html_content" v-highlight></div>
       <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
           <h3>Recommends:</h3>
@@ -91,11 +91,12 @@ import Comment from "@/assets/utils/models/Comment"
 import Navbar from "@/components/Navbar.vue";
 import { login_required } from "@/assets/utils/auth";
 import { blog_recommend } from "@/assets/utils/models/search";
+import renderMath from "@/assets/utils/renderMath";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
-import ShowComments from '@/components/ShowComments.vue'
-import FollowButton from '@/components/FollowButton'
-import AddFriend from '@/components/AddFriend.vue'
+import ShowComments from "@/components/ShowComments.vue";
+import FollowButton from '@/components/FollowButton';
+import AddFriend from '@/components/AddFriend.vue';
 
 export default {
   name: "ShowBlog",
@@ -103,7 +104,7 @@ export default {
     Navbar,
     ShowComments,
     FollowButton,
-    AddFriend
+    AddFriend,
   },
   data() {
     return {
@@ -238,17 +239,23 @@ export default {
             this.history = values[2]
         })
       })
-    }
+    },
   },
   created() {
     login_required(this, user => {
       this.user = user
       this.load()
+      this.renderMath()
     })
   },
   watch: {
     blog_id() {
       this.load()
+    },
+    blog() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
     }
   },
   computed: {

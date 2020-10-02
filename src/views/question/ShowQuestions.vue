@@ -29,6 +29,7 @@
 <script>
 import Question from "@/assets/utils/models/Question"
 import { login_required } from '@/assets/utils/auth'
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -56,6 +57,7 @@ export default {
         this.$router.push({name: 'NewQuestion'})
       })
     },
+
     getQuestions(page_id){
       Question.getOnePage(page_id).then(res => {
         var{questions, count} = res
@@ -63,14 +65,23 @@ export default {
         this.questions = questions
       })
     },
+
     setPage(new_page){
       this.currentPage = new_page
       this.getQuestions(new_page)
-    }
+    },
   },
   created() {
     this.getQuestions(this.currentPage)
   },
+
+  watch: {
+    questions() {
+       this.$nextTick().then(() => {
+        renderMath()
+      })
+    }
+  }
 }
 </script>
 
