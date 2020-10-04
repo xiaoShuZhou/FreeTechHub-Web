@@ -22,7 +22,7 @@
           <ul class="tag-list">
             <li v-for="tag in blog.tags" :key="tag.pk">{{tag.tag_name}}</li>
           </ul>
-          <pre v-highlight><p>{{blog.content | stringfilter}}</p></pre>
+          <p class="content" v-html="$options.filters.stringfilter(blog.html_content)"></p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
@@ -39,6 +39,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -66,24 +67,35 @@ export default {
     newBlog() {
       login_required(this, () => this.$router.push({name: 'NewBlog'}))
     },
+
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         var {blogs, count} = res
-        this.totalPages = Math.round(count/this.pageSize)
+        this.totalPages = Math.ceil(count/this.pageSize)
         this.blogs = blogs
       })
     },
+
     setPage(new_page) {
       this.currentPage = new_page
       this.getBlogs(new_page)
-    }
+    },
   },
+
   created() {
     is_authenticated(this).then(() => {
       this.user = this.$store.state.user
       this.getBlogs(this.currentPage)
     })
   },
+  
+  watch: {
+    blogs() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
+    }
+  }
 }
 </script>
 

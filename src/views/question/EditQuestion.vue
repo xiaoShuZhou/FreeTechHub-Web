@@ -22,8 +22,8 @@ import Transaction from '@/assets/utils/models/Transaction'
 import { login_required } from '@/assets/utils/auth'
 import NewTag from '@/components/Tags/NewTag.vue'
 import Tag from '@/assets/utils/models/Tag'
-import marked from 'marked'
 import Navbar from '@/components/Navbar'
+
 export default {
   name: 'EditQuestion',
   props: {
@@ -49,7 +49,7 @@ export default {
       return new Question({
         id: this.id,
         title: this.title,
-        content: marked(this.content),
+        content: this.content,
         bounty: this.bounty,
         owner: this.user.pk,
       })

@@ -65,8 +65,9 @@ export default {
       visitor: this._visitor,
       status: false,
       totalfollowing: '',
-      acceptance_rate:'',
-      activity:''
+      acceptance_rate: '',
+      activity: '',
+      table: ''
     }
   },
   components: {
@@ -99,6 +100,7 @@ export default {
     })
     Activity.getActivity(this.profile_owner.pk)
     .then(table => {
+      this.table = table
       this.activity = new Activity("canvas", table)
       this.activity.draw()
     })
@@ -220,9 +222,14 @@ export default {
       myChart.setOption(option);
       window.addEventListener('resize', function() {
         myChart.resize()
-      });
-    });
-
+      })
+    })
+    window.addEventListener('resize', () => {
+      for (let square of this.table) {
+        square.resize()
+      }
+      this.activity.resize()
+    })
   },
   computed: {
     profile_owner_id() {

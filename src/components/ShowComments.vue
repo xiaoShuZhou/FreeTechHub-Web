@@ -19,7 +19,7 @@
           <div v-if="comment_tree.comment.owner_instance.pk == _user.pk">
             <el-button @click="deleteComment(comment_tree.comment)">Delete</el-button>
           </div>
-          <p class="content" v-html='comment_tree.comment.m_content' v-highlight></p>
+          <p class="content" v-html='comment_tree.comment.html_content' v-highlight></p>
           <div v-if="comment_tree.comment.status == false">
             <el-button @click="replyTo(comment_tree.comment)">Reply To</el-button>
           </div>
@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import Comment from '@/assets/utils/models/Comment'
+import Comment from '@/assets/utils/models/Comment';
+import renderMath from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowComments",
@@ -127,7 +128,7 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.$emit('updatedTree', wrapped_comment_tree)
-    }
+    },
 	},
 	created() {
     this.comment_tree = Comment.get_matched_comment_tree(this.wrapped_tree, this.node_id)
@@ -135,6 +136,11 @@ export default {
   watch: {
     wrapped_tree(val) {
       this.comment_tree = Comment.get_matched_comment_tree(val, this.node_id)
+    },
+    comment_tree() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
     }
   }
 }

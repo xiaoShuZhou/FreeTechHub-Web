@@ -9,7 +9,7 @@
               <h4>{{ answer.owner_instance.username }}</h4>
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
-            <p class="card-content" v-html="answer.m_content" v-highlight></p>
+            <p class="card-content" v-html="answer.html_content" v-highlight></p>
             <div v-if="answer.status == true">
               <h4 class="status">Accepted</h4>
             </div>
@@ -37,7 +37,7 @@
               <h4>{{ answer.owner_instance.username }}</h4>
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
-            <p class="card-content" v-html="answer.m_content" v-highlight></p>
+            <p class="card-content" v-html="answer.html_content" v-highlight></p>
             <h4 class="status">Unaccepted</h4>
             <el-button @click="acceptAnswer(answer)">Accept</el-button>
           </div>
@@ -64,6 +64,7 @@ import Comment from '@/assets/utils/models/Comment';
 import Answer from "@/assets/utils/models/Answer";
 import Transaction from '@/assets/utils/models/Transaction';
 import ShowComments from '@/components/ShowComments.vue';
+import renderMath from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowAnswers",
@@ -120,12 +121,15 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.wrapped_tree = wrapped_comment_tree
-    }
+    },
   },
   watch: {
     answer(val) {
-      this.answer = val
-    }
+      this.$nextTick().then(() => {
+        this.answer = val
+        renderMath()
+      })
+    },
   }
 }
 </script>
