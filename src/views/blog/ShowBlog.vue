@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="blogcontent" id="blogcontent" v-html="blog.m_content" v-highlight></div>
+      <div class="blogcontent" id="blogcontent" v-html="blog.html_content" v-highlight></div>
       <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
           <h3>Recommends:</h3>

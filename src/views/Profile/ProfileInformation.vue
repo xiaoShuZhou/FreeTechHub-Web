@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="box3">
-      <p id="total">Your frequency of use in this year:</p>
+      <p id="total">Your activity in this year:</p>
       <canvas id="canvas"></canvas>
     </div>
   </div>
