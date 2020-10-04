@@ -7,26 +7,20 @@
           <li v-for="following in followings" :key='following.following_id'>
             <el-card class="box-card">
               <div slot="header" class="clearfix">
-                <el-row :gutter="10" >
+                <el-row :gutter="10">
                   <el-col :span="10">
                     <img :src="following.avatar" />
                   </el-col>
                   <el-col :span="14" id="center">
-                    <router-link  id="center" :to="{name: 'ProfileInformation', params: {id: following.pk}}">
+                    <router-link id="center" :to="{name: 'ProfileInformation', params: {id: following.pk}}">
                       Name:{{following.username}}
                     </router-link>
-                  <p>Bio: {{following.bio}}</p>
-                </el-col>  
+                    <p>Bio: {{following.bio}}</p>
+                  </el-col>
                 </el-row>
-              </div> 
-              <div>
               </div>
-              <FollowButton
-                v-if="_is_owner"
-                :_content_owner=following
-                :_visitor=user
-                :_follow=true />
-            </el-card>    
+              <FollowButton v-if="_is_owner" :_content_owner=following :_visitor=user :_follow=true />
+            </el-card>
           </li>
         </ul>
       </div>
@@ -38,20 +32,17 @@
           <li v-for="follower in followers" :key='follower.following_id'>
             <el-card class="box-card" id="center">
               <div slot="header" class="clearfix">
-                <el-row :gutter="10" >
+                <el-row :gutter="10">
                   <el-col :span="10">
                     <img :src="follower.avatar" />
-                  </el-col>  
-                <router-link id="center" :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
-                Name:{{follower.username}}
-              </router-link>
-              <p>Bio: {{follower.bio}}</p>
-              </el-row>
+                  </el-col>
+                  <router-link id="center" :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
+                    Name:{{follower.username}}
+                  </router-link>
+                  <p>Bio: {{follower.bio}}</p>
+                </el-row>
               </div>
-            <div>
-
-            </div>
-            </el-card> 
+            </el-card>
           </li>
         </ul>
       </div>
@@ -96,39 +87,48 @@ export default {
   padding: 0;
   background: #fafbff;
 }
-#center{
+
+#center {
   color: gray;
   font-size: 20px;
 }
+
 .ProfileFollow {
   display: grid;
   grid-template-areas: "Follower Following";
   grid-template-columns: 50% 50%;
   justify-items: center;
 }
+
 img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
 }
+
 div div h2 {
   width: 300px;
   margin: 20px 0 10px 30%;
 }
-small{
+
+small {
   font-size: 15px;
   padding: 0 0 0 20px;
 }
+
 .Followers {
   grid-area: Follower;
 }
-ul{
+
+ul {
   overflow: scroll;
 }
+
 ul::-webkit-scrollbar {
   display: none;
 }
+
 li a {
   display: flex;
   flex-direction: row;
@@ -136,20 +136,25 @@ li a {
   text-decoration: none;
   align-items: center;
 }
+
 li {
   list-style: none;
   margin: 20px 0 20px 0;
 }
+
 li:nth-child(1) {
   border-top: 1px solid #e4dfdf;
   padding-top: 30px;
 }
+
 .Followings {
   grid-area: Following;
 }
+
 .Followings::-webkit-scrollbar {
   display: none;
 }
+
 .btn {
   border: none;
   color: white;
@@ -165,9 +170,11 @@ li:nth-child(1) {
   border-radius: 20px;
   background-image: repeating-linear-gradient(90deg, #979eff, #55e7fc);
 }
-.FollowingList .btn{
-  background-image: repeating-linear-gradient(90deg, #755bea,#ff72c0);
+
+.FollowingList .btn {
+  background-image: repeating-linear-gradient(90deg, #755bea, #ff72c0);
 }
+
 span {
   position: absolute;
   background: white;
@@ -176,12 +183,14 @@ span {
   border-radius: 50%;
   animation: animate 1s linear infinite;
 }
+
 @keyframes animate {
   0% {
     width: 0px;
     height: 0px;
     opacity: 0.5;
   }
+
   100% {
     width: 500px;
     height: 500px;

@@ -40,16 +40,19 @@
       </div>
     </div>
     <div class="box3">
-      <img src="@/assets/img/github活动表.jpg" />
+      <p id="total">Your activity in this year:</p>
+      <canvas id="canvas"></canvas>
     </div>
   </div>
 </template>
 
 <script>
 import User from '@/assets/utils/models/User'
+import Activity from '@/assets/utils/models/Activity'
 import echarts from 'echarts'
 import FollowButton from '@/components/FollowButton'
 import AddFriend from '@/components/AddFriend.vue'
+
 export default {
   props: ['_user', '_visitor', '_is_owner'],
   data() {
@@ -58,7 +61,9 @@ export default {
       visitor: this._visitor,
       status: false,
       totalfollowing: '',
-      acceptance_rate:''
+      acceptance_rate: '',
+      activity: '',
+      table: ''
     }
   },
   components: {
@@ -91,6 +96,12 @@ export default {
           this.acceptance_rate = res.acceptance_rate
         })
       })
+    })
+    Activity.getActivity(this.profile_owner.pk)
+    .then(table => {
+      this.table = table
+      this.activity = new Activity("canvas", table)
+      this.activity.draw()
     })
   },
   mounted() {
@@ -210,9 +221,14 @@ export default {
       myChart.setOption(option);
       window.addEventListener('resize', function() {
         myChart.resize()
-      });
-    });
-
+      })
+    })
+    window.addEventListener('resize', () => {
+      for (let square of this.table) {
+        square.resize()
+      }
+      this.activity.resize()
+    })
   },
   computed: {
     profile_owner_id() {
@@ -263,7 +279,6 @@ export default {
 div {
   background: #f9f6ff;
   padding: 10px;
-  margin: 10px;
 }
 img {
   width: 200px;

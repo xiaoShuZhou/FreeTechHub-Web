@@ -1,34 +1,31 @@
 <template>
   <div class="navbar" id="navbar">
-    <router-link class="logo" to="/">FreeTechHub</router-link>
-    <ul class="navbar-list" :class="{shownavbar: show}">
-      <li>
-        <router-link class="list-logo" to="/">FreeTechHub</router-link>
-      </li>
-      <li>
-        <router-link class="list" to="/show/blogs">blogs</router-link>
-      </li>
-      <li>
-        <router-link class="list" to="/show/series">series</router-link>
-      </li>
-      <li>
-        <router-link class="list" to="/show/questions">questions</router-link>
-      </li>
-      <li v-if="is_login">
-        <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
-      </li>
-      <li v-else>
-        <router-link :to="{name:'Login'}">Login</router-link>
-      </li>
-      <li class="search">
-        <input type="text" name="search" v-model="keywords" placeholder="Search"/>
-        <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
-      </li>
-      <li>
-        <router-link v-if="is_login" to="/login">Logout</router-link>
-        <router-link v-else to="/login">Login</router-link>
-      </li>
-    </ul>
+    <router-link class="logo" to="/"><el-link type="primary">FreeTechHub</el-link></router-link>
+    <el-menu class="el-menu-demo navbar-list" mode="horizontal" :class="{shownavbar: show}">
+      <el-menu-item index="1">
+        <router-link to="/"><el-link class="list-logo" type="primary">FreeTechHub</el-link></router-link>
+      </el-menu-item>
+      <el-menu-item index="2">
+        <router-link class="list" to="/show/blogs"><el-link target="_blank">blogs</el-link></router-link>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <router-link class="list" to="/show/series"><el-link target="_blank">series</el-link></router-link>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <router-link class="list" to="/show/questions"><el-link target="_blank">questions</el-link></router-link>
+      </el-menu-item>
+      <el-menu-item index="5" v-if="is_login">
+        <router-link :to="{name:'ProfileInformation', params:{id: user_id}}"><el-link target="_blank">Profile</el-link></router-link>
+      </el-menu-item>
+      <el-menu-item index="6" class="search">
+        <el-input type="text" name="search" v-model="keywords" placeholder="Search" @enter="search"/>
+        <el-button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></el-button>
+      </el-menu-item>
+      <el-menu-item index="7">
+        <router-link  v-if="is_login" to="/login"><el-button>Logout</el-button></router-link>
+        <router-link round  v-else to="/login"><el-button>Login</el-button></router-link>
+      </el-menu-item>
+    </el-menu>
     <div @click="shownavbar"><img class="expand" src="@/assets/img/Expand.svg" alt=""></div>
   </div>
 </template>
@@ -86,7 +83,6 @@ export default {
 .navbar{
   margin: 0;
   padding: 0;
-  background-color: #ffdcc9;
   width: 100%;
   position: fixed;
   top: 0;
@@ -100,13 +96,13 @@ export default {
 .navbar-list{
   height: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  font-size: 24px;
+  font-size: 24px !important;
+  list-style: none;
 }
-input{
-  border-radius: 10px;
-  outline: none;
-  font-size: 24px;
+li:nth-child(1){
+  margin-left: 5vw;
 }
 input::-webkit-input-placeholder{
 	color: #000000;
@@ -123,21 +119,10 @@ button{
   background: transparent;
   border: none;
   outline: none;
-  border-radius: 20%;
-}
-button:hover{
-  background: aqua;
-}
-img{
-  width: 30px;
-  height: 30px;
 }
 #login{
   border-right: 0px !important;
   color: #000;
-}
-li {
-	margin: 0 10px 0;
 }
 .list{
   width: 200px;
@@ -147,10 +132,6 @@ li {
   font-size: 32px;
 }
 li:nth-last-child(1){
-  background-color: rgb(0, 204, 131);
-  width: 100px;
-  height: 40px;
-  color: white;
   border-radius: 5px;
   cursor: pointer;
   display: inline-block;
@@ -160,26 +141,15 @@ li:nth-last-child(1){
   margin-left: 10%;
 }
 li:hover{
-  width: 100%;
-  max-width: 200px;
-  height: 40px;
   cursor: pointer;
   text-align: center;
   border-radius: 5px;
-  background: #fe6b40;
   transition: all 0.5s ease;
 }
+a:-webkit-any-link{
+  color: black;
+}
 
-li:-webkit-any-link{
-  color: white;
-}
-.router-link-exact-active{
-  width: 100px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 5px;
-	background: #fe6b40;
-}
 .expand{
   width: 100%;
   float: right;
@@ -189,36 +159,41 @@ li:-webkit-any-link{
 .search{
   display: flex;
 }
-@media screen and (max-width: 1280px){
+img{
+  width: 30px;
+  height: 30px;
+}
+@media screen and (max-width: 1025px){
   .expand{
     display: inline;
   }
+
   .logo{
     display: inline;
     color: rgb(32, 78, 207) !important;
     font-size: 32px;
   }
   li:nth-child(1){
-    display: none;
+    display: none !important;
   }
   .navbar{
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 6vh;
-    word-break: break-all;
+    text-align: center;
+    z-index: 3;
   }
   .navbar-list{
     position: absolute;
     left: -50vw;
     top: 6vh;
     width: 40vw;
-    height: 84vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    background-color: #ffdcc9;
     transition: all 0.5s ease-in-out;
   }
   .shownavbar{
@@ -226,34 +201,12 @@ li:-webkit-any-link{
     width: 30vw !important;
   }
   .navbar-list li{
-    width: 50%;
-    height: 100px;
-    margin: 20px auto;
-    padding: 0;
-  }
-  li:nth-last-child(1){
-    width: 100px;
-    height: 60px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-  }
-  li:nth-last-child(1):hover{
-    background: rgb(3, 224, 147);
-  }
-  li:hover{
     width: 100%;
-    height: 40px;
-  }
-  li:nth-child(7):hover{
-    background: none;
+    padding: 0;
   }
   input{
     width: 100%;
-    height: 50%;
+    height: 100%;
   }
   .search{
     display: flex!important;

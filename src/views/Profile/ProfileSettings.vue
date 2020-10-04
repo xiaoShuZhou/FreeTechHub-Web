@@ -1,5 +1,4 @@
 <template>
-
     <div class="box">
       <div>
         <router-link v-if="user != ''" :to="{name:'ChangePassword', params:{id: user.pk}}">修改密码</router-link>
@@ -9,7 +8,6 @@
         <router-view></router-view>
       </transition>
     </div>
-
 </template>
 
 <script>

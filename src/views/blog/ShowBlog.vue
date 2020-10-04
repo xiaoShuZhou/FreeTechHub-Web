@@ -7,17 +7,22 @@
       @closealert="closealert"
       :_user=blog.owner_instance
       :_visitor=user />
-    <div class="img">
-      <img src="@/assets/img/landing.jpg" alt />
-    </div>
     <div class="blog" v-if="blog != ''">
       <div class="title">
         <h1>{{ blog.title }}</h1>
+        <div class="taggroup" v-if="blog.tags.length != 0">
+          <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
+            <img class="tag-img" src="@/assets/img/标签.svg" alt />
+            <span>{{ tag.tag_name }}</span>
+          </a>
+        </div>
+      </div>
+      <div class="left">
         <div class="user">
           <a href>
-            <img class="icon" src="@/assets/img/头像 女孩.svg" alt />
+            <img class="icon" :src="blog.owner_instance.avatar"/>
           </a>
-          <div class="content">
+          <div class="userinformation">
             <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
               {{blog.owner_instance.username}}
             </router-link>
@@ -32,15 +37,20 @@
              :_content_owner=blog.owner_instance
              :_visitor=user />
           </div>
-        </div>
-        <div class="taggroup" v-if="blog.tags.length != 0">
-          <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
-            <img class="icon" src="@/assets/img/标签.svg" alt />
-            {{ tag.tag_name }}
-          </a>
+          <div class="likegroup">
+        <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
+        <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
+        <img
+          src="@/assets/img/dislike.svg"
+          @click="dislike"
+          v-if="history=='disliked'"
+          alt="dislike-icon"
+        />
+        <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
+          </div>
         </div>
       </div>
-      <div class="content" v-html="blog.m_content" v-highlight></div>
+      <div class="blogcontent" id="blogcontent" v-html="blog.html_content" v-highlight></div>
       <div class="sidebar" v-show="recommend != ''">
         <div class="relatedblog">
           <h3>Recommends:</h3>
@@ -52,34 +62,24 @@
           </ul>
         </div>
       </div>
-      <div class="likegroup">
-        <img src="@/assets/img/like.svg" @click="like" v-if="history=='liked'" alt="like-icon" />
-        <img src="@/assets/img/like-o.svg" @click="like" v-else alt="like-icon" />
-        <img
-          src="@/assets/img/dislike.svg"
-          @click="dislike"
-          v-if="history=='disliked'"
-          alt="dislike-icon"
-        />
-        <img src="@/assets/img/dislike-o.svg" @click="dislike" v-else alt="dislike-icon" />
-      </div>
+      
       <div class="buttons">
-        <button @click="editBlog">Edit</button>
-        <button @click="deleteBlog">Delete</button>
-        <button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</button>
+        <el-button @click="editBlog">Edit</el-button>
+        <el-button @click="deleteBlog">Delete</el-button>
+        <el-button v-if="this.followeruser.pk !== this.followinguser.pk" @click="followingship">{{content}}</el-button>
       </div>
       <div class="comment">
-      <h2>Comments:</h2>
-      <show-comments @updatedTree="updatedTree" v-if="blog != '' && wrapped_tree != ''"
-        :node_id="blog.root_comment"
-        :root_id="blog.root_comment"
-        :wrapped_tree="wrapped_tree"
-        :is_root="true"
-        :_fold="false"
-        :_blog="true"
-        :_answer="false"
-        :_user="user">
-      </show-comments>
+        <h2>Comments:</h2>
+        <show-comments @updatedTree="updatedTree" v-if="blog != '' && wrapped_tree != ''"
+          :node_id="blog.root_comment"
+          :root_id="blog.root_comment"
+          :wrapped_tree="wrapped_tree"
+          :is_root="true"
+          :_fold="false"
+          :_blog="true"
+          :_answer="false"
+          :_user="user">
+        </show-comments>
       </div> 
     </div>
   </div>
@@ -91,6 +91,7 @@ import Comment from "@/assets/utils/models/Comment"
 import Navbar from "@/components/Navbar.vue";
 import { login_required } from "@/assets/utils/auth";
 import { blog_recommend } from "@/assets/utils/models/search";
+import renderMath from "@/assets/utils/renderMath";
 import User from "@/assets/utils/models/User";
 import Followership from "@/assets/utils/models/Followership";
 import ShowComments from '@/components/ShowComments.vue'
@@ -120,7 +121,7 @@ export default {
       status: false,
       wrapped_tree: '',
       top: 0,
-      recommend: ''
+      recommend: '',
     }
   },
   methods: {
@@ -238,17 +239,24 @@ export default {
             this.history = values[2]
         })
       })
-    }
+    },
+    
   },
   created() {
     login_required(this, user => {
       this.user = user
       this.load()
+      this.renderMath()
     })
   },
   watch: {
     blog_id() {
       this.load()
+    },
+    blog() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
     }
   },
   computed: {
@@ -273,21 +281,20 @@ export default {
 .blog {
   background-color: #fff;
   z-index: 1;
-  width: 80%;
+  width: 100%;
   height: 100%;
   display: grid;
   grid-template-areas:
-    "title  title"
-    "content sidebar"
-    "buttons buttons"
-    "comment comment";
-  grid-template-columns: 85% 15%;
+    "left  title  title"
+    "left  blogcontent sidebar"
+    "left  buttons sidebar"
+    "left  comment sidebar";
+  grid-template-columns: 25% 52% 20%;
+  grid-row-gap: 10px;
   justify-items: stretch;
+  margin-top: 10vh;
   align-self: start;
-  margin-left: 10%;
   line-height: 30px;
-  margin-top: 45%;
-  padding: 5% 0 0 5%;
   font-family: Merriweather, Georgia, "Times New Roman", serif;
   font-weight: 300;
   font-size: 18px;
@@ -299,13 +306,35 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  font-size: 2.4rem;
+  line-height: 1.25;
+}
+.left{
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 25%;
+  height: 100vh;
+  font-weight: 900;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  grid-area: left;
+  background: #193747;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.left div{
+  margin: 20px 0;
+  font-size: 60px;
 }
 h1{
   text-align: center;
   margin-bottom: 20px;
 }
-.content {
-  grid-area: content;
+.blogcontent {
+  grid-area: blogcontent;
+  padding: 0 10%;
 }
 .sidebar {
   grid-area: sidebar;
@@ -322,21 +351,37 @@ h1{
 }
 .user {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 80%;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  padding: 2% 1% 2% 1%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: 100%;
 }
 .user a {
-  width: 20%;
+  color: #fff;
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+}
+.userinformation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.userinformation a{
+  margin: 10px 0;
+  font-size: 40px;
+}
+.userinformation p{
+  margin: 5px 0;
+  font-size: 40px;
 }
 .user div {
-  width: 60%;
+  width: 100%;
 }
 .user div p {
-  font-size: 16px;
+  font-size: 1.08rem;
   word-break: break-all;
 }
 button {
@@ -350,6 +395,11 @@ button {
   font-size: 1.5rem;
   color: #311f1f;
   margin: 3vh 2vw;
+  cursor: pointer;
+  outline: none;
+}
+button:hover{
+  box-shadow: 0 10px 14px 0 rgba(0, 0, 0, 0.2);
 }
 .img img {
   top: 64px;
@@ -361,31 +411,35 @@ button {
   z-index: -1;
   position: absolute;
 }
-.tag {
-  display: block;
-  background-color: #e16531;
-  border-radius: 10px;
-  width: auto;
-  max-width: 120px;
-  max-height: 60px;
-  height: auto;
+.tag{
   margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+.tag:hover{
+  border-bottom: 1px solid rgba(79, 177, 186, 0.5);
+}
+.tag:focus{
+  border-bottom: 2px solid rgba(4, 112, 124, 0.5)
 }
 .icon {
-  width: 40%;
+  width: 30%;
+  border-radius: 50%;
+}
+.tag-img{
+  width: 20%;
 }
 .likegroup {
-  position: fixed;
   display: flex;
-  flex-direction: column;
-  top: 25%;
-  left: 5%;
+  flex-direction: row;
+  justify-content: center;
 }
 .likegroup img {
-  width: 50%;
-  background-color: rgb(209, 204, 204);
+  width: 10%;
   margin-top: 20px;
   border-radius: 50%;
+  color: #4fb1ba;
   box-shadow: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
@@ -398,17 +452,19 @@ button {
   width: 50%;
 }
 .relatedblog {
-  background: #fdcb6e;
   width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
+  border-left: 1px solid #ebebeb;
+  padding-left: 20px;
 }
-.relatedblog span {
-  display: block;
-  font-size: 12px;
+.relatedblog h3{
+  color: #ebebeb;
 }
 .relatedblog li {
+  list-style: none;
   margin: 10px 5px;
+}
+.relatedblog li a{
+  color: black;
 }
 .taggroup{
   display: flex;
@@ -437,7 +493,7 @@ button {
   display: flex;
   flex-direction: column;
 }
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1025px) {
   .ShowBlog {
     width: 100%;
     height: 100%;
@@ -459,12 +515,12 @@ button {
     height: 100%;
     display: grid;
     grid-template-areas:
-      "title"
-      "content"
-      "buttons"
-      "comment"
-      "sidebar";
-    grid-template-columns: 100%;
+      "left title"
+      "left blogcontent"
+      "left buttons"
+      "left comment"
+      "left sidebar";
+    grid-template-columns: 20% 80%;
     justify-items: stretch;
     align-content: center;
     line-height: 30px;
@@ -475,6 +531,9 @@ button {
     font-size: 18px;
     color: #262d3d;
     box-shadow: rgba(0, 0, 0, 0.2);
+  }
+  .left{
+    width: 20%;
   }
   .content{
     width: 100%;

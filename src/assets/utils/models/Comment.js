@@ -22,7 +22,7 @@ class Comment extends Model {
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)
         }
-        this.m_content = marked(this.content)
+        this.html_content = marked(this.content)
         this.blog = []
         if (blog != undefined) {
             this.blog = []

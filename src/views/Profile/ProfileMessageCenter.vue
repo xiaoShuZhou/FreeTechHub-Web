@@ -118,7 +118,6 @@ export default {
   opacity: 0;
   transform: translateY(10%);
 }
-
 .v-enter-active,
 .v-leave-active {
   transition: all 0.5s ease;

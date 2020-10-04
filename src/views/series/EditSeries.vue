@@ -1,30 +1,34 @@
 <template>
   <div class="EditSeries">
     <Navbar/>
-    <h4>Name:</h4>
-    <input type="text" v-model="name">
-    <h4>Description:</h4>
-    <mavon-editor v-model="description"/>
-    <h2>Choose the blogs and series to be include in this series</h2>
-    <h4>All your series:</h4>
-    <ul>
-      <li v-for="item in choice_list.series" :key="item.series.pk">
-        <input type="checkbox" v-model="item.choice">
-        <router-link :to="{name: 'ShowOneSeries', params: {id: item.series.pk}}" >
-          {{ item.series.name }}
-        </router-link>
-      </li>
-    </ul>
-    <h4>All your Blogs:</h4>
-    <ul>
-      <li v-for="item in choice_list.blog" :key="item.blog.pk">
-        <input type="checkbox" v-model="item.choice">
-        <router-link :to="{name: 'ShowBlog', params: {id: item.blog.pk}}" >
-          {{ item.blog.title }}
-        </router-link>
-      </li>
-    </ul>
-    <button @click="save">submit</button>
+    <el-input class="title" type="text" v-model="name"></el-input>
+    <mavon-editor class="editor" v-model="description"/>
+    <h2 class="choose">Choose the blogs and series to be include in this series</h2>
+    <div class="sub">
+      <div class="subseries">
+        <h4>All your series:</h4>
+        <ul>
+          <li v-for="item in choice_list.series" :key="item.series.pk">
+            <input type="checkbox" v-model="item.choice">
+            <router-link :to="{name: 'ShowOneSeries', params: {id: item.series.pk}}" >
+              {{ item.series.name }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="subblog">
+        <h4>All your Blogs:</h4>
+        <ul>
+          <li v-for="item in choice_list.blog" :key="item.blog.pk">
+            <input type="checkbox" v-model="item.choice">
+            <router-link :to="{name: 'ShowBlog', params: {id: item.blog.pk}}" >
+              {{ item.blog.title }}
+            </router-link>
+          </li>
+        </ul>
+        </div>
+    </div>
+    <el-button class="submit" @click="save">submit</el-button>
   </div>
 </template>
 
@@ -179,17 +183,56 @@ export default {
 }
 </script>
 
-<style>
-
-.EditSeries {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10vh;
+<style scoped>
+*{
+  text-decoration: none;
 }
-
+.EditSeries {
+  display: grid;
+  margin-top: 10vh;
+  height: 90vh;
+  grid-template-areas: 'title submit'
+                       'choose choose'
+                       'sub sub'
+                       'editor editor';
+  grid-template-rows: 10% 5% 20% 65%;
+  grid-template-columns: 90% 10%;
+}
+.choose{
+  grid-area: choose;
+  text-align: center;
+}
+.sub{
+  grid-area: sub;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.subblog li{
+  display: inline;
+}
+.subseries{
+  grid-area: subseries;
+  text-align: center;
+}
+.subseries li{
+  display: inline;
+}
+.submit{
+  grid-area: submit;
+  width: 100%;
+  font-size: 42px;
+}
+.title{
+  grid-area: title;
+  font-size: 42px;
+}
+.editor{
+  grid-area: editor;
+  font-size: 32px;
+}
 ul {
   list-style: none;
 }
-
 </style>

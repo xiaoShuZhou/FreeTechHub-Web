@@ -1,15 +1,15 @@
 <template>
   <div class="blogdetail">
     <el-card class="box-card">
-    <div class="blog">
-      <div class="name">
-        <h2 align="center">{{blog.title}}</h2>
+      <div class="blog">
+        <div class="name">
+          <h2 align="center">{{blog.title}}</h2>
+        </div>
+        <el-divider></el-divider>
+        <div class="content">
+          <p>{{blog.content}}</p>
+        </div>
       </div>
-       <el-divider></el-divider>
-      <div class="content">
-        <p>{{blog.content}}</p>
-      </div>
-    </div>
     </el-card>
     <div class="box">
       <div id="box2">游览量: <p>{{blog.view_num}}</p></div>
@@ -20,7 +20,6 @@
       <el-button @click="editBlog" id="beeten" round type="warning">Edit</el-button>
       <el-button @click="deleteBlog" id="beeten" round type="danger">Delete</el-button>
     </div>
-
   </div>
 </template>
 
@@ -53,15 +52,14 @@ export default {
     },
     load() {
       if(this.ownerblog_id)
-      { this.blog_id = this.ownerblog_id
+      {
+        this.blog_id = this.ownerblog_id
         Blog.get(this.blog_id).then(blog => {
         this.blog = blog
        })
       }
     }
-
   },
-
   created() {
     login_required(this, user => {
       this.user = user
@@ -71,9 +69,7 @@ export default {
   watch: {
     "ownerblog_id": "load"
   },
-
 }
-
 </script>
 
 <style scoped>
@@ -82,9 +78,9 @@ export default {
   font-size: 25px;
 }
 .content{
-  text-indent:2em; 
-  font-family:STFQLBYTJW; 
-  font-size:30px; 
+  text-indent:2em;
+  font-family:STFQLBYTJW;
+  font-size:30px;
   width:100%;
   height:500px;
   overflow: auto
