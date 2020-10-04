@@ -78,7 +78,9 @@ export default {
   text-decoration: none;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+a{
+  color: #000;
+}
 .Profile {
   display: grid;
   grid-template-columns: 15% 85%;

@@ -125,16 +125,23 @@ li:nth-child(1) {
 li:nth-last-child(1) {
   margin-top: 60%;
 }
+a{
+  color: #000;
+}
 .router-link-exact-active {
+  color: #b83dba;
   background: #fe6b40;
   transition: 0.5s;
 }
 .router-link-active {
+  color: #b83dba;
   background: #fe6b40;
   transition: 0.5s;
 }
-a:-webkit-any-link {
-  color: black;
+@keyframes btn {
+  100%{
+    box-shadow: 0 0 50 20 rgb(112, 111, 211,0);
+  }
 }
 .menu {
   display: none;

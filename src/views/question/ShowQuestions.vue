@@ -9,11 +9,12 @@
           <img src="@/assets/img/landing.jpg" class="card-img">
           <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
           <div class="user">
-            <img class="avatar" src="@/assets/img/头像 女孩.svg">
-            <a href="">用户名</a>
+            <img class="avatar" :src="question.owner_instance.avatar">
+            <a href="">{{question.owner_instance.username}}</a>
           </div>
           <p class="bounty">Bounty:{{ question.bounty }}</p>
           <p class="content" v-html="$options.filters.stringfilter(question.html_content)"></p>
+          <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
@@ -21,7 +22,7 @@
       :_curPage="currentPage"
       :total="totalPages">
     </pagination>
-    <button @click="newQuestion">create new question</button>
+    <el-button @click="newQuestion">create new question</el-button>
     <Footer/>
   </div>
 </template>
@@ -92,7 +93,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
+h1{
+  color: rgb(215, 180, 219);
+}
 button {
   border: 0;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -109,6 +112,7 @@ button {
   width: 100%;
   height: 100%;
   padding: 0 10vw;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,7 +157,34 @@ ul {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
-  justify-content: space-around;
+  background: rgba(221, 218, 218, 0.1);
+}
+.card:hover  a{
+  color: blue;
+  transition: all 0.5s ease;
+}
+.icon{
+  display: none;
+}
+.card:hover .icon{
+  width: 5%;
+  transition: all 0.5s ease;
+}
+.readmore{
+  margin: 0;
+  opacity: 0;
+  max-height: 20px;
+  margin-bottom: 15px;
+}
+.card:hover .readmore{
+  width: 100%;
+  opacity: 1;
+  text-align: center;
+  color: rgb(0, 0, 255);
+  transition: all 0.5s ease;
+}
+a:-webkit-any-link{
+  color: #000;
 }
 a {
   text-decoration: none;
@@ -167,6 +198,7 @@ a {
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 .card-img{
   width: 100%;
@@ -177,7 +209,7 @@ a {
   .ShowQuestions {
     width: 100%;
     height: 100%;
-    margin: 0;
+    margin-top: 6vh;
     padding: 0;
   }
   .cardlist {
@@ -196,7 +228,6 @@ a {
   .ShowQuestions {
   width: 100%;
   height: 100%;
-  margin: 0;
   padding: 0;
 }
   .cardlist {

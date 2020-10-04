@@ -67,6 +67,9 @@ ul {
 .replylist::-webkit-scrollbar {
   display: none;
 }
+ul {
+  list-style: none;
+}
 li {
   width: 80%;
   height: 100%;

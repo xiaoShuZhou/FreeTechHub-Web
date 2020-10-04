@@ -28,11 +28,25 @@ export default {
   margin: 0;
   padding: 0;
   bottom: 0;
-  position: fixed;
 }
 img{
   width: 100px;
   height: 100%;
   margin: 0 20px;
+}
+@media screen and (max-width: 1150px){
+  .Footer{
+    height: 100%;
+    justify-content: space-around;
+  }
+  .social{
+    display: flex;
+    flex-direction: column;
+  }
+  img{
+    width: 70px;
+    height: 50%;
+    margin: 0;
+  }
 }
 </style>
