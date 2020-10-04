@@ -13,7 +13,7 @@
             <a href="">{{question.owner_instance.username}}</a>
           </div>
           <p class="bounty">Bounty:{{ question.bounty }}</p>
-          <pre v-highlight><p class="content" v-html="$options.filters.stringfilter(question.content)"></p></pre>
+          <p class="content" v-html="$options.filters.stringfilter(question.content)"></p>
           <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
@@ -146,7 +146,6 @@ ul {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
-  justify-content: space-around;
   background: rgba(221, 218, 218, 0.1);
 }
 .card:hover  a{
@@ -157,14 +156,11 @@ ul {
   display: none;
 }
 .card:hover .icon{
-  display: inline-block;
   width: 5%;
   transition: all 0.5s ease;
 }
 .readmore{
   margin: 0;
-}
-.card .readmore{
   opacity: 0;
   max-height: 20px;
   margin-bottom: 15px;

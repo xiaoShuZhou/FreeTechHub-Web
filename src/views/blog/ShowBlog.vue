@@ -245,8 +245,7 @@ export default {
     login_required(this, user => {
       this.user = user
       this.load()
-    }),
-    this.createdirectory()
+    })
   },
   watch: {
     blog_id() {

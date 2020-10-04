@@ -117,7 +117,6 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
 }
 
 .cardlist {
@@ -125,12 +124,12 @@ button {
   display: grid;
   width: 100%;
   height: 100%;
-  margin-top: 5%;
+  padding-top: 5%;
   grid-template-columns: 33.3% 33.3% 33.3%;
   transition: all 0.5s ease;
 }
 .cardlist li{
-  margin: 2vh 2vw;
+  margin: 0 2vw;
 }
 
 .card {
@@ -155,11 +154,12 @@ button {
 .readmore{
   margin: 0;
   justify-content: flex-end;
-    opacity: 0;
+  opacity: 0;
   max-height: 20px;
 }
-.card:hover {
+.card:hover{
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
+  margin-top: 30px;
 }
 .card:hover  a{
   color: blue;
@@ -227,7 +227,8 @@ a {
     grid-template-columns: 50% 50%;
   }
   .cardlist li{
-    max-height: 60vh;
+    height: 100%;
+    margin: 3vh 0;
   }
   .card:hover .icon{
     width: 5%;
