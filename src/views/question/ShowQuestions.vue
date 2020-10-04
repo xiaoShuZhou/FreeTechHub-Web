@@ -6,7 +6,7 @@
     <ul class="cardlist">
       <li v-for="question in questions" :key="question.pk">
         <div class="card">
-          <img src="@/assets/img/landing.jpg" class="card-img">
+          <img :src="question.background_image" class="card-img">
           <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
           <div class="user">
             <img class="avatar" src="@/assets/img/头像 女孩.svg">

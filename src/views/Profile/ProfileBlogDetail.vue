@@ -84,7 +84,10 @@ export default {
 .content{
   text-indent:2em; 
   font-family:STFQLBYTJW; 
-  font-size:30px 
+  font-size:30px; 
+  width:100%;
+  height:500px;
+  overflow: auto
 }
 #beeten{
   font-size: 35px;

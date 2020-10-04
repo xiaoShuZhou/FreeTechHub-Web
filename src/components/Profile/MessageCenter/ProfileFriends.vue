@@ -1,6 +1,5 @@
 <template>
   <div class="ProfileFriends">
-
     <div class="friendlist">
       <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''"/>
       <div class="list">
@@ -9,7 +8,7 @@
               @click="chatWith(friend)" 
               v-for="friend in friends" :key='friend.pk'
               :ref="'friend-'+friend.pk">
-              <img :src="url+friend.avatar" class="avatar">
+              <img :src="friend.avatar" class="avatar">
               <i id="name">{{friend.username}}</i>
             <NewMessage v-if="friend.newMessageNum != 0" :num=friend.newMessageNum />
           </li>
@@ -64,7 +63,6 @@ export default {
   data() {
     return {
       self: this._user,
-      url:'http://127.0.0.1:8000',
       friends: '',
       message: '',
       messages: [],

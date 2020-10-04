@@ -69,7 +69,7 @@ export default {
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         var {blogs, count} = res
-        this.totalPages = Math.round(count/this.pageSize)
+        this.totalPages = count%this.pageSize==0?(count/this.pageSize):(Math.floor(count/this.pageSize)+1);
         this.blogs = blogs
       })
     },

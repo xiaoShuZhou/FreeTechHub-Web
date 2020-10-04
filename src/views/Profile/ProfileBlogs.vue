@@ -5,15 +5,15 @@
           <el-col :span="24">
             <li id="type" v-for="blog in blogs" :key="blog.id" @click="change(blog)" :class='blog.pk==selected?"selected":""'>
               <ul>
-              <el-row>
-                <el-col :span="24">
-                  <p id="title" @click="show_blog(blog.pk)"> {{ blog.title }}</p>
-                  <p id="date"><i class="el-icon-date"></i>{{ blog.date }}</p>
-                  <p id="content">{{ blog.content | ellipsis}}</p>
-                  <el-link type="primary" @click="show_blog(blog.pk)">Continue reading</el-link>
-                  <el-divider></el-divider>
-                </el-col>
-              </el-row>
+                <el-row>
+                  <el-col :span="24">
+                    <p id="title" @click="show_blog(blog.pk)"> {{ blog.title }}</p>
+                    <p id="date"><i class="el-icon-date"></i>{{ blog.date }}</p>
+                    <p id="content">{{ blog.content | ellipsis}}</p>
+                    <el-link type="primary" @click="show_blog(blog.pk)">Continue reading</el-link>
+                    <el-divider></el-divider>
+                  </el-col>
+                </el-row>
               </ul>
             </li>
           </el-col>
@@ -80,9 +80,18 @@ export default {
   grid-template-columns: 30% 70%;
   background: #fafbff;
 }
+.BlogList{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fafbff;
+  overflow: scroll;
+}
 .box {
 		height: 80%;
-		/*overflow-y: auto;*/
+		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
   }

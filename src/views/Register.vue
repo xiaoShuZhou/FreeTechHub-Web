@@ -1,7 +1,7 @@
 <template>
-<div class="Register">
+<!-- <div class="Register">
   <Navbar />
-  <div class="box">
+  <div class="box"> -->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
       <div class="inputbox">
         <el-form-item label="Username" prop="username">
@@ -27,21 +27,21 @@
         <el-button type="primary" @click="submitForm('ruleForm')">submit</el-button>
       </el-form-item>
     </el-form>
-  </div>
-</div>
+  <!-- </div>
+</div> -->
 </template>
 
 <script>
 import {login } from '@/assets/utils/auth'
 import WebSocketHandle from '@/assets/utils/WebSocketHandle'
 import User from '@/assets/utils/models/User'
-import Navbar from "@/components/Navbar.vue"
+// import Navbar from "@/components/Navbar.vue"
 import {IP, PORT} from '@/assets/utils/consts'
 
 export default {
   Name: "Register",
   components: {
-    Navbar,
+    // Navbar,
   },
   data() {
     var validateUsername = (rule, value, callback) => {

@@ -7,7 +7,7 @@
       </div>
        <el-divider></el-divider>
       <div class="content">
-        <p>{{question.content}}</p>
+        <p v-html="question.m_content"></p>
       </div>
     </div>
     </el-card>
@@ -54,7 +54,6 @@ export default {
       if(this.ownerquestion_id)
       { this.question_id = this.ownerquestion_id
         Question.get(this.question_id).then(question => {
-          console.log(question)
         this.question = question
        })
       }

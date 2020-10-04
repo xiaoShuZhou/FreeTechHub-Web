@@ -9,7 +9,7 @@
                 <el-col :span="24">
                   <p id="title" @click="show_question(question.pk)"> {{ question.title }}</p>
                   <p id="date"><i class="el-icon-date"></i>{{ question.date }}</p>
-                  <p id="content">{{ question.content | ellipsis}}</p>
+                  <p v-html="$options.filters.stringfilter(question.content)"></p>
                   <el-link type="primary" @click="show_question(question.pk)">Continue reading</el-link>
                   <el-divider></el-divider>
                 </el-col>
@@ -80,9 +80,18 @@ export default {
   grid-template-columns: 30% 70%;
   background: #fafbff;
 }
+.QuestionList{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fafbff;
+  overflow: scroll;
+}
 .box {
 		height: 80%;
-		/*overflow-y: auto;*/
+		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
   }
@@ -179,15 +188,7 @@ export default {
   grid-template-areas: 'BlogList BlogDetail';
   grid-template-columns: 100% 100%;
 }
-.BlogList{
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 
-  overflow: scroll;
-}
 li{
   display: block;
   list-style: none;
