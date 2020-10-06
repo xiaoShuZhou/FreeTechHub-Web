@@ -54,7 +54,7 @@ export default {
   display: grid;
   flex-direction: row;
   grid-template-areas: "text btn";
-  grid-template-columns: 89% 10%;
+  grid-template-columns: 81% 18%;
 }
 
 .list{

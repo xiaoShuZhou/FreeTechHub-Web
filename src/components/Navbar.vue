@@ -32,7 +32,6 @@
 
 <script>
 import {is_authenticated, logout} from '@/assets/utils/auth'
-
 export default {
   name: "Navbar",
   props:['_user'],
@@ -154,7 +153,6 @@ li:hover{
 a:-webkit-any-link{
   color: black;
 }
-
 .expand{
   width: 100%;
   float: right;
@@ -172,7 +170,6 @@ img{
   .expand{
     display: inline;
   }
-
   .logo{
     display: inline;
     color: rgb(32, 78, 207) !important;
