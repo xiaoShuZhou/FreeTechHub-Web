@@ -1,6 +1,5 @@
 <template>
   <div class="ShowOneSeries">
-    <StarBackground />
     <Navbar/>
     <img class="landing" src="@/assets/img/landing.jpg" alt="">
     <h1>{{series.name}}</h1>
@@ -65,14 +64,12 @@ import Navbar from '@/components/Navbar.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
 import Footer from '@/components/Footer.vue'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowOneSeries",
   components: {
     Navbar,
     Footer,
-    StarBackground
   },
   data() {
     return {

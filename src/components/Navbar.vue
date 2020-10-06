@@ -22,8 +22,8 @@
         <el-button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></el-button>
       </el-menu-item>
       <el-menu-item index="7">
-        <router-link  v-if="is_login" to="/login"><el-button>Logout</el-button></router-link>
-        <router-link round  v-else to="/login"><el-button>Login</el-button></router-link>
+        <router-link v-if="is_login" to="/login"><el-button @click="logout()">Logout</el-button></router-link>
+        <router-link round v-else to="/login"><el-button >Login</el-button></router-link>
       </el-menu-item>
     </el-menu>
     <div @click="shownavbar"><img class="expand" src="@/assets/img/Expand.svg" alt=""></div>
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import {is_authenticated} from '@/assets/utils/auth'
+import {is_authenticated, logout} from '@/assets/utils/auth'
+
 export default {
   name: "Navbar",
   props:['_user'],
@@ -44,6 +45,10 @@ export default {
     }
   },
   methods: {
+    logout() {
+      logout()
+      this.is_login = false
+    },
     search() {
       if (this.keywords != this.$route.query.keywords) {
         this.$router.push({
