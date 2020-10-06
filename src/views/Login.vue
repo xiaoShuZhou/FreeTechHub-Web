@@ -74,14 +74,6 @@ export default {
     }
   },
   methods: {
-    test(){
-      const signUpButton = document.getElementById('signUp');
-      const signInButton = document.getElementById('signIn');
-      const container = document.getElementById('container');
-      signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'));
-      signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'));
-    },
-
     login: async function() {
       try{
         let user = await login(this.username, this.password)
@@ -90,6 +82,13 @@ export default {
       } catch(err) {
         alert('Wrong passowrd or username!')
       }
+    },
+    test(){
+      const signUpButton = document.getElementById('signUp');
+      const signInButton = document.getElementById('signIn');
+      const container = document.getElementById('container');
+      signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'));
+      signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'));
     },
 
     logout: function() {
