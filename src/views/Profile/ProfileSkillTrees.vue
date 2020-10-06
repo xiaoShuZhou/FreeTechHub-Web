@@ -8,10 +8,8 @@
 import SkillTree from '@/assets/utils/models/SkillTree.js'
 SkillTree.get(4).then(tree => window.tree = tree)
 export default {
-
 }
 </script>
 
 <style scoped>
-
 </style>

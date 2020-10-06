@@ -1,28 +1,30 @@
 <template>
-<div class="EditProfile">
-  <form class="account-form">
-    <div class="inputbox">
-      <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update" />
-    </div>
-    <div class="inputbox">
-      <input type="text" v-model="username" required="" />
-      <label>Username: </label>
-    </div>
-    <div class="inputbox">
-      <input type="text" v-model="major" required="" />
-      <label>major: </label>
-    </div>
-    <div class="inputbox">
-      <input type="text" v-model="grade" required="" />
-      <label>grade: </label>
-    </div>
-    <div class="inputbox">
-      <input type="text" v-model="bio" required="" />
-      <label>bio: </label>
-    </div>
-    <button class="submit" @click="save">submit</button>
-  </form>
-</div>
+  <div class="EditProfile">
+    <form class="account-form">
+      <div class="inputbox">
+        <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update" />
+      </div>
+      <div class="inputbox">
+        <input type="text" v-model="username" required="" />
+        <label>Username: </label>
+      </div>
+      <div class="inputbox">
+        <input type="text" v-model="major" required="" />
+        <label>major: </label>
+      </div>
+      <div class="inputbox">
+        <input type="text" v-model="grade" required="" />
+        <label>grade: </label>
+      </div>
+      <div class="inputbox">
+        <input type="text" v-model="bio" required="" />
+        <label>bio: </label>
+      </div>
+      <button class="submit" @click="save">submit</button>
+      <router-view :_user=profile_owner>
+      </router-view>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -33,6 +35,7 @@ export default {
   components: {},
   data() {
     return {
+      profile_owner: '',
       id: this._user.pk,
       username: '',
       email :'',
@@ -66,11 +69,14 @@ export default {
     save() {
       let user = this._getuser()
       user.update().then(() => {
-        this.$router.push({
-          name: "ProfileInformation",
-          params: {
-            id: this.$route.params.id
-          }
+        User.get(this.$route.params.id).then(user =>{
+          this.profile_owner = user
+          this.$router.push({
+            name: "ProfileInformation",
+            params: {
+              id: this.$route.params.id
+            }
+          })
         })
       })
     },

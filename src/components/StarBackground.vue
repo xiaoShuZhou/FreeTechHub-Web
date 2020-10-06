@@ -10,7 +10,7 @@ export default {
   mounted(){
     let _this = this
     _this.$refs.StarBackground.width = document.documentElement.scrollWidth
-    _this.$refs.StarBackground.height =  document.documentElement.scrollHeight 
+    _this.$refs.StarBackground.height =  document.documentElement.scrollHeight
     function Star(id, x, y){
       this.id = id
       this.x = x

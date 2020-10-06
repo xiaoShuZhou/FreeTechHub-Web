@@ -1,43 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
-// blog
-// import ShowBlogs from '@/views/blog/ShowBlogs.vue'
-// import ShowBlog from '@/views/blog/ShowBlog.vue'
-// import EditBlog from '@/views/blog/EditBlog.vue'
-// series
-// import ShowSeries from "@/views/series/ShowSeries.vue"
-// import ShowOneSeries from "@/views/series/ShowOneSeries.vue"
-// import EditSeries from "@/views/series/EditSeries.vue"
-// questions
-// import EditQuestion from '@/views/question/EditQuestion.vue'
-// import ShowQuestions from '@/views/question/ShowQuestions.vue'
-// import ShowQuestion from '@/views/question/ShowQuestion.vue'
 
-// import Login from '@/views/Login.vue'
-//import Search from '@/views/Search.vue'
-//import Register from '@/views/Register.vue'
-//import Activate from '@/views/Activate.vue'
-// import ChangeActivate from '@/views/ChangeActivate.vue'
-//import ResetPassword from '@/views/ResetPassword.vue'
-
-//Profile
-// import Profile from '@/views/Profile'
-// import ProfileInformation from '@/views/Profile/ProfileInformation'
-// import ProfileBlogs from '@/views/Profile/ProfileBlogs'
-// import ProfileFollow from '@/views/Profile/ProfileFollow'
-// import ProfileFriends from '@/components/Profile/MessageCenter/ProfileFriends'
-// import ProfileQuestions from '@/views/Profile/ProfileQuestions'
-// import ChangeMail from '@/components/Profile/Settings/ChangeMail'
-// import ChangePassword from '@/components/Profile/Settings/ChangePassword'
-// import ProfileSettings from '@/views/Profile/ProfileSettings'
-// import ProfileSkillTrees from '@/views/Profile/ProfileSkillTrees'
-// import ProfileMessageCenter from '@/views/Profile/ProfileMessageCenter'
-// import ProfileReply from '@/components/Profile/MessageCenter/ProfileReply'
-// import RequestFriend from '@/components/Profile/MessageCenter/RequestFriend'
-// import TransactionRecord from '@/views/Profile/TransactionRecord'
-//
-// import EditProfile from '@/views/Profile/EditProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -90,7 +53,7 @@ const routes = [
   // profile
   { path: '/profile/:id',            name: 'Profile',      
     component: () => import(/* webpackChunkName: "Profile" */ '@/views/Profile') ,
-    children:[
+    children: [
       { path: 'information/',        name: 'ProfileInformation',   
         component: () => import(/* webpackChunkName: "ProfileInformation" */ '@/views/Profile/ProfileInformation.vue') },
       { path: 'blogs/',              name: 'ProfileBlog',          
