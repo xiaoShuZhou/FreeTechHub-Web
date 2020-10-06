@@ -32,6 +32,7 @@
 
 <script>
 import {is_authenticated, logout} from '@/assets/utils/auth'
+
 export default {
   name: "Navbar",
   props:['_user'],
@@ -44,6 +45,10 @@ export default {
     }
   },
   methods: {
+    logout() {
+      logout()
+      this.is_login = false
+    },
     search() {
       if (this.keywords != this.$route.query.keywords) {
         this.$router.push({

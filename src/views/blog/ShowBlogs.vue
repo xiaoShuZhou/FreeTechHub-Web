@@ -1,6 +1,5 @@
 <template>
   <div class="ShowBlogs">
-    <StarBackground/>
     <Navbar :_user="user"/>
     <h1>Blogs</h1>
     <ul class="cardlist">
@@ -43,21 +42,19 @@ import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
     Footer,
-    StarBackground,
     Pagination
   },
   data() {
     return {
       blogs: '',
       totalPages:'',
-      pageSize: 3,
+      pageSize: 5,
       currentPage: 1,
       blogshow: '',
       user: '',

@@ -1,6 +1,5 @@
 <template>
   <div class="ShowQuestions">
-    <StarBackground />
     <Navbar/>
     <h1>Questions</h1>
     <ul class="cardlist">
@@ -34,14 +33,12 @@ import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: 'ShowQuestions',
   components: {
     Navbar,
     Footer,
-    StarBackground,
     Pagination
   },
   data() {

@@ -1,6 +1,5 @@
 <template>
   <div class="ShowSeries">
-    <StarBackground />
     <Navbar/>
     <h1>Series</h1>
     <ul class="cardlist">
@@ -37,14 +36,12 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowSeries",
   components: {
     Navbar,
     Footer,
-    StarBackground
   },
   data() {
     return {
