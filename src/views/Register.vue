@@ -1,34 +1,29 @@
 <template>
-<!-- <div class="Register">
-  <Navbar />
-  <div class="box"> -->
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
-      <div class="inputbox">
-        <el-form-item label="Username" prop="username">
-          <el-input v-model="ruleForm.username" maxlength="10" show-word-limit></el-input>
-        </el-form-item>
-      </div>
-      <div class="inputbox">
-        <el-form-item label="Email" prop="email">
-          <el-input v-model="ruleForm.email"></el-input>
-        </el-form-item>
-      </div>
-      <div class="inputbox">
-        <el-form-item label="Password" prop="pass">
-          <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-        </el-form-item>
-      </div>
-      <div class="inputbox">
-        <el-form-item label="Confirm" prop="checkPass">
-          <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-      </div>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">submit</el-button>
+  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
+    <div class="inputbox">
+      <el-form-item label="Username" prop="username">
+        <el-input v-model="ruleForm.username" maxlength="10" show-word-limit></el-input>
       </el-form-item>
-    </el-form>
-  <!-- </div>
-</div> -->
+    </div>
+    <div class="inputbox">
+      <el-form-item label="Email" prop="email">
+        <el-input v-model="ruleForm.email"></el-input>
+      </el-form-item>
+    </div>
+    <div class="inputbox">
+      <el-form-item label="Password" prop="pass">
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+      </el-form-item>
+    </div>
+    <div class="inputbox">
+      <el-form-item label="Confirm" prop="checkPass">
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+      </el-form-item>
+    </div>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('ruleForm')">submit</el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
