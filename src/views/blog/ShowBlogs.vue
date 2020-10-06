@@ -57,7 +57,7 @@ export default {
     return {
       blogs: '',
       totalPages:'',
-      pageSize: 3,
+      pageSize: 5,
       currentPage: 1,
       blogshow: '',
       user: '',

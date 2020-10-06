@@ -120,6 +120,27 @@ class SkillTree extends Model {
         this.tree_structure = res.data
     }
 
+    draw_sub_tree(ctx, x, width, height, sub_tree) {
+        console.log(sub_tree.node.name)
+        for (let sub_tree of sub_tree.sub_trees) {
+            this.draw_sub_tree(ctx, x, width, height, sub_tree)
+        }
+    }
+    
+    draw(ctx) {
+        const canvas = document.getElementById("SkillTree")
+        let width = 0.1*canvas.width
+        let height = 0.5*canvas.height
+        let radius = 0.04*canvas.height
+        let c = new Node(this.tree_structure.node.name, width, height, radius)
+        c.draw(ctx)
+        let interval = height/this.tree_structure.sub_trees.length
+        for (let i = 0; i < this.tree_structure.sub_trees.length; i++) {
+            this.draw_sub_tree(
+                ctx, x, interval*i, interval, this.tree_structure.sub_trees[i])
+        }
+    }
+
     // get model by id
     static async get(id) {
         let res = await axios.get(BASE_URL+`${this.app_name}/skilltree_handler/${id}/`)
@@ -128,3 +149,76 @@ class SkillTree extends Model {
 }
 
 export default SkillTree
+
+export function getCanvas(id) {
+    const VIEW_WIDTH = 0.5
+    const VIEW_HEIGHT = 1
+    const BG_COLOR = 'white'
+    const BOARDER = 'black'
+    const canvas = document.getElementById(id)
+    
+    let ctx
+    if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+    }
+    canvas.fresh = function () {
+        this.width = window.innerWidth * VIEW_WIDTH
+        this.height = window.innerHeight * VIEW_HEIGHT
+        ctx.fillStyle = BG_COLOR
+        ctx.fillRect(0, 0, this.width, this.height)
+        if (BOARDER) {
+            ctx.strokStyle = BOARDER
+            ctx.strokeRect(0, 0, this.width, this.height)
+        }
+        this.register.forEach(el => el.draw(ctx))
+    }
+
+    window.addEventListener('resize', () => canvas.fresh())
+
+    // canvas
+    canvas.register = []
+    canvas.broadcast = function broadcast(evt) {
+        let el
+        for (let i = this.register.length - 1; i >= 0; i--) {
+            if (this.register[i].notice(evt)) {
+                el = this.register[i]
+            }
+        }
+        return el
+    }
+
+    return canvas
+}
+
+
+/*----------- Shapes -----------*/
+
+export class Node {
+    constructor(name ,x, y, r, style = {}) {
+        this.name = name
+        this.x = x
+        this.y = y
+        this.r = r
+        let {fillStyle, strokeStyle} = style
+        this.fillStyle   = fillStyle    || "black"
+        this.strokeStyle = strokeStyle  || "black"
+    }
+    beginPath(ctx) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI*2, true); 
+    }
+
+    draw(ctx) {
+        ctx.strokeStyle = this.strokeStyle
+        ctx.fillStyle = this.fillStyle
+        this.beginPath(ctx)
+        ctx.stroke()
+        let font_size = window.innerHeight * 0.03
+        ctx.font = `${font_size}px Georgia`;
+        let metrics = ctx.measureText(this.name)
+        let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+        let text_offset_X = metrics.width/2
+        let text_offset_Y = actualHeight/2
+        ctx.fillText(this.name, this.x-text_offset_X, this.y+text_offset_Y)
+    }
+}
