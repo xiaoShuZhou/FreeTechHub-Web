@@ -4,8 +4,8 @@
       <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''"/>
       <div class="list">
         <ul ref="friends">
-          <li class="flex" 
-              @click="chatWith(friend)" 
+          <li class="flex"
+              @click="chatWith(friend)"
               v-for="friend in friends" :key='friend.pk'
               :ref="'friend-'+friend.pk">
               <img :src="friend.avatar" class="avatar">
@@ -26,7 +26,7 @@
               <p>{{self.username}}</p>
               <span>{{message.content}}</span>
             </div>
-          
+
             <div v-else class="left">
               <p>{{chattingWith.username}}</p>
               <span>{{message.content}}</span>
@@ -41,7 +41,7 @@
           <img src="@/assets/img/img.svg" alt="">
           <a class="history-message" href="#">消息记录</a>
         </div>
-        <textarea v-model="message" 
+        <textarea v-model="message"
           @keydown.enter.exact="sendMessage()"
           @keydown.enter.alt="newLine()"></textarea>
         <button type="button" class="send" @click="sendMessage()">发送</button>
@@ -123,7 +123,7 @@ export default {
         if (msg.sender == this.chattingWith.pk ||
             msg.receiver == this.chattingWith.pk) {
           this.messages.push(msg)
-        } 
+        }
         // else, add a notification
         else {
           for (let friend of this.friends) {
@@ -159,7 +159,7 @@ export default {
 *{
   margin: 0;
   padding: 0;
-  
+
 }
 #name{
   background-color: none;
@@ -298,7 +298,6 @@ img{
   margin: 20px;
   width: 100px;
   height: 100px;
-  /* border-radius: 50%; */
   overflow: hidden;
 }
 .flex{
@@ -306,7 +305,6 @@ img{
   flex-direction: row;
   justify-items: baseline;
   background-color: none;
-  /* justify-content: center; */
   align-items: center;
 }
 li a div div{

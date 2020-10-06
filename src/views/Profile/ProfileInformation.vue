@@ -257,7 +257,6 @@ export default {
 #total{
   font-weight:400;
   font-size: 250%;
-  /* color:#8188d5; */
   color: black;
   font-family:Cursive;
 }
