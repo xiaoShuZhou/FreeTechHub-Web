@@ -302,6 +302,22 @@ li a div div{
   background-position: right;
   background-repeat: no-repeat;
   float: right;
+  transition: 0.5s;
+  cursor: pointer;
+  outline: none;
+}
+.send:hover{
+  background: #ff7f27;
+  text-align: center;
+}
+.send:focus{
+  box-shadow: 0 0 0 1px rgb(58, 57, 118);
+  animation: btn;
+}
+@keyframes btn {
+  100%{
+    box-shadow: 0 0 50px 20px rgba(121, 121, 126, 0);
+  }
 }
 .add{
   background: url(~@/assets/img/添加好友.svg);

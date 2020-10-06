@@ -17,8 +17,8 @@
               <h4 class="status">Unaccepted</h4>
             </div>
           </div>
-          <button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</button>
-          <button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</button>
+          <el-button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</el-button>
+          <el-button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</el-button>
           <show-comments @updatedTree="updatedTree" v-if="fold == false && wrapped_tree != ''"
             :node_id="answer.root_comment"
             :root_id="answer.root_comment"
@@ -39,10 +39,10 @@
             <h2 class="card-title">{{ answer.time }}</h2>
             <p class="card-content" v-html="answer.html_content" v-highlight></p>
             <h4 class="status">Unaccepted</h4>
-            <button @click="acceptAnswer(answer)">Accept</button>
+            <el-button @click="acceptAnswer(answer)">Accept</el-button>
           </div>
-          <button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</button>
-          <button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</button>
+          <el-button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</el-button>
+          <el-button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</el-button>
           <show-comments @updatedTree="updatedTree" v-if="fold == false && wrapped_tree != ''"
             :node_id="answer.root_comment"
             :root_id="answer.root_comment"
@@ -64,6 +64,7 @@ import Comment from '@/assets/utils/models/Comment';
 import Answer from "@/assets/utils/models/Answer";
 import Transaction from '@/assets/utils/models/Transaction';
 import ShowComments from '@/components/ShowComments.vue';
+import renderMath from "@/assets/utils/renderMath"
 
 export default {
 	name:"ShowAnswers",
@@ -120,12 +121,20 @@ export default {
 
     updatedTree(wrapped_comment_tree){
       this.wrapped_tree = wrapped_comment_tree
-    }
+    },
   },
   watch: {
     answer(val) {
-      this.answer = val
-    }
+      this.$nextTick().then(() => {
+        this.answer = val
+        renderMath()
+      })
+    },
   }
 }
 </script>
+<style scoped>
+*{
+  list-style: none;
+}
+</style>

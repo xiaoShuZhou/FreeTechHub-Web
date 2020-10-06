@@ -13,7 +13,7 @@
             </router-link>
           </h3>
           <div class="user">
-            <img class="avatar" src="@/assets/img/头像 女孩.svg">
+            <img class="avatar" :src="blog.owner_instance.avatar">
             <router-link :to="{name: 'ProfileInformation', params: {id: blog.owner_instance.pk}}">
               {{blog.owner_instance.username}}
             </router-link>
@@ -31,7 +31,7 @@
       :_curPage="currentPage"
       :total="totalPages">
     </pagination>
-    <button @click="newBlog">create new blog</button>
+    <el-button @click="newBlog">create new blog</el-button>
     <Footer/>
   </div>  
 </template>
@@ -39,6 +39,7 @@
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import { is_authenticated, login_required } from '@/assets/utils/auth'
+import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -66,6 +67,7 @@ export default {
     newBlog() {
       login_required(this, () => this.$router.push({name: 'NewBlog'}))
     },
+
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         var {blogs, count} = res
@@ -73,17 +75,27 @@ export default {
         this.blogs = blogs
       })
     },
+
     setPage(new_page) {
       this.currentPage = new_page
       this.getBlogs(new_page)
-    }
+    },
   },
+
   created() {
     is_authenticated(this).then(() => {
       this.user = this.$store.state.user
       this.getBlogs(this.currentPage)
     })
   },
+  
+  watch: {
+    blogs() {
+      this.$nextTick().then(() => {
+        renderMath()
+      })
+    }
+  }
 }
 </script>
 
@@ -92,6 +104,9 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+h1{
+  color: rgb(215, 180, 219);
 }
 button {
   border: 0;
@@ -110,6 +125,7 @@ button {
   width: 100%;
   height: 100%;
   padding: 0 10vw;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,12 +136,12 @@ button {
   display: grid;
   width: 100%;
   height: 100%;
-  margin-top: 5%;
+  padding-top: 5%;
   grid-template-columns: 33.3% 33.3% 33.3%;
   transition: all 0.5s ease;
 }
 .cardlist li{
-  margin: 2vh 2vw;
+  margin: 0 2vw;
 }
 
 .card {
@@ -137,6 +153,8 @@ button {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
+  background: rgba(221, 218, 218, 0.1);
+  word-break: break-all;
 }
 .card > h4 {
   margin: 20px;
@@ -147,22 +165,29 @@ button {
 }
 .readmore{
   margin: 0;
+  justify-content: flex-end;
+  opacity: 0;
+  max-height: 20px;
 }
-.card:hover {
+.card:hover{
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
+  margin-top: 30px;
 }
 .card:hover  a{
   color: blue;
   transition: all 0.5s ease;
 }
+.icon{
+  display: none;
+}
 .card:hover .icon{
   width: 5%;
   transition: all 0.5s ease;
 }
-.card:hover p:nth-last-child(1){
+.card:hover .readmore{
   width: 100%;
-  display: block;
-  text-align: right;
+  opacity: 1;
+  text-align: center;
   color: rgb(0, 0, 255);
   transition: all 0.5s ease;
 }
@@ -178,9 +203,6 @@ a:-webkit-any-link{
   color:blue;
   transition: all 0.5s ease;
 }
-.card p:nth-last-child(1){
-  display: none;
-}
 .tag-list {
   margin: 0 3vw;
 }
@@ -189,7 +211,6 @@ a {
 }
 .card-img{
   width: 100%;
-  height: 50%;
 }
 .user{
   display: flex;
@@ -200,12 +221,14 @@ a {
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 @media screen and (max-width: 1280px){
   .ShowBlogs{
     width: 100%;
     height: 100%;
     padding: 0 10vw;
+    margin-top: 6vh;
   }
   .cardlist {
     list-style: none;
@@ -216,7 +239,8 @@ a {
     grid-template-columns: 50% 50%;
   }
   .cardlist li{
-    max-height: 60vh;
+    height: 100%;
+    margin: 3vh 0;
   }
   .card:hover .icon{
     width: 5%;

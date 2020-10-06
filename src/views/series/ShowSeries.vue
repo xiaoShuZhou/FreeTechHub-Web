@@ -2,6 +2,7 @@
   <div class="ShowSeries">
     <StarBackground />
     <Navbar/>
+    <h1>Series</h1>
     <ul class="cardlist">
       <li v-for="series in all_series" :key="series.pk">
         <div class="card">
@@ -12,8 +13,8 @@
             </router-link>
           </h1>
           <div class="user">
-            <img class="avatar" src="@/assets/img/头像 女孩.svg">
-            <a href="">用户名</a>
+            <img class="avatar" :src="series.blogs[0].owner_instance.avatar">
+            <a href="">{{series.blogs[0].owner_instance.username}}</a>
           </div>
           <h3>Tags: </h3>
           <ul>
@@ -22,10 +23,11 @@
             </li>
           </ul>
           <p class="seriescontent">{{ series.description | stringfilter}}</p>
+          <p class="readmore">CONTINUE READING<img class="icon" src="@/assets/img/向右.svg" alt=""></p>
         </div>
       </li>
     </ul>
-    <button @click="newSeries">create new series</button>
+    <el-button @click="newSeries">create new series</el-button>
     <Footer/>
   </div>
 </template>
@@ -76,11 +78,14 @@ export default {
 .ShowSeries {
   width: 100%;
   height: 100%;
-  margin: 10vh 0;
+  margin-top: 10vh;
   padding: 0 10vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+h1{
+  color: rgb(215, 180, 219);
 }
 .cardlist {
   list-style: none;
@@ -101,17 +106,45 @@ export default {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
+  background: rgba(221, 218, 218, 0.1);
 }
 .card-img{
   width: 100%;
   margin: 0;
   padding: 0;
 }
+.card:hover  a{
+  color: blue;
+  transition: all 0.5s ease;
+}
+.icon{
+  display: none;
+}
+.card:hover .icon{
+  display: inline-block;
+  width: 5%;
+  transition: all 0.5s ease;
+}
+.readmore{
+  margin: 0;
+}
+.card p:nth-last-child(1){
+  opacity: 0;
+  max-height: 20px;
+  margin-bottom: 15px;
+}
+.card:hover p:nth-last-child(1){
+  width: 100%;
+  opacity: 1;
+  text-align: center;
+  color: rgb(0, 0, 255);
+  transition: all 0.5s ease;
+}
 h1{
   text-align: center;
 }
 h3{
-  margin: 20px 20px;
+  margin: 20px;
 }
 .card:hover {
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
@@ -147,11 +180,13 @@ button {
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 @media screen and (max-width: 1025px){
   .ShowSeries {
     width: 100%;
     height: 100%;
+    margin-top: 6vh;
     padding: 0;
   }
   .cardlist {
@@ -171,6 +206,7 @@ button {
   .ShowSeries {
     width: 100%;
     height: 100%;
+    margin-top: 6vh;
     padding: 0;
   }
   .cardlist {

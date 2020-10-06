@@ -5,7 +5,7 @@
       <div class="FollowingList">
         <ul>
           <li v-for="following in followings" :key='following.following_id'>
-              <img :src="url+following.avatar" />
+              <img :src="following.avatar" alt />
               <div>
                 <router-link :to="{name: 'ProfileInformation', params: {id: following.pk}}">
                   {{following.username}}
@@ -26,7 +26,7 @@
       <div class="FollowerList">
         <ul>
           <li v-for="follower in followers" :key='follower.following_id'>
-            <img :src="url+follower.avatar" />
+            <img :src="follower.avatar" alt />
             <div>
               <router-link :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
                 {{follower.username}}

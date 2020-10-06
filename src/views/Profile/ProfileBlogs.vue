@@ -50,6 +50,7 @@ export default {
   background: #fafbff;
   overflow: scroll;
 }
+.BlogList::-webkit-scrollbar {display:none}
 .BlogDetail{
   height: 100vh;
 }
