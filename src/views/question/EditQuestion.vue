@@ -1,10 +1,10 @@
 <template>
-<div  class="EditBlog">
+<div  class="EditQuestion">
   <Navbar />
   <el-row type="flex" justify="center">
     <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
       <div class="fel-upload">
-        <el-upload :class="{hide:hideUpload}" :file-list="fileList" action="#" :auto-upload="false" list-type="picture-card" :on-remove="handleRemove" :on-change="handleEditChange" :limit="1">
+        <el-upload class="fel-upload" :class="{hide:hideUpload}" :file-list="fileList" action="#" :auto-upload="false" list-type="picture-card" :on-remove="handleRemove" :on-change="handleEditChange" :limit="1">
           <el-row type="flex" justify="center">
             <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
               <div style="word-break: break-all;">
@@ -42,8 +42,8 @@
       </div>
     </el-col>
   </el-row>
-    <div class="button1">
-      <el-button @click="saveQuestion">submit</el-button>
+    <div class="button11">
+      <el-button class="button1" @click="saveQuestion">submit</el-button>
     </div>
 </div>
 </template>
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style>
-.EditBlog {
+.EditQuestion {
   margin-top: 11vh;
   height: 90vh;
   display: grid;
@@ -189,7 +189,7 @@ export default {
   word-break: break-all;
 }
 
-.button1 {
+.button11 {
   width: 100%;
   height: 100%;
   display: flex;
@@ -197,7 +197,7 @@ export default {
   align-items: center;
 }
 
-.button1 /deep/ .el-button {
+.button1{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,9 +216,9 @@ export default {
 }
 
 #tip {
-  font-size: 30px;
+  font-size: 120%;
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 5px;
+  line-height: 19px;
   word-break: break-all;
 }
 .editor1{

@@ -32,7 +32,7 @@
     </pagination>
     <el-button @click="newBlog">create new blog</el-button>
     <Footer/>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
     return {
       blogs: '',
       totalPages:'',
-      pageSize: 5,
+      pageSize: 3,
       currentPage: 1,
       blogshow: '',
       user: '',
@@ -85,7 +85,7 @@ export default {
       this.getBlogs(this.currentPage)
     })
   },
-  
+
   watch: {
     blogs() {
       this.$nextTick().then(() => {

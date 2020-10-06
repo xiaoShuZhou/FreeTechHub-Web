@@ -22,8 +22,8 @@
         <el-button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></el-button>
       </el-menu-item>
       <el-menu-item index="7">
-        <a  v-if="is_login" @click="logout"><el-button>Logout</el-button></a>
-        <router-link round  v-else to="/login"><el-button>Login</el-button></router-link>
+        <router-link v-if="is_login" to="/login"><el-button @click="logout()">Logout</el-button></router-link>
+        <router-link round v-else to="/login"><el-button >Login</el-button></router-link>
       </el-menu-item>
     </el-menu>
     <div @click="shownavbar"><img class="expand" src="@/assets/img/Expand.svg" alt=""></div>
@@ -32,7 +32,6 @@
 
 <script>
 import {is_authenticated, logout} from '@/assets/utils/auth'
-
 export default {
   name: "Navbar",
   props:['_user'],
@@ -59,12 +58,7 @@ export default {
     },
     shownavbar(){
       this.show = ! this.show
-    },
-    logout: function() {
-      logout()
-      this.$store.commit("removeSocketHandle")
-      this.$router.push({name: "Login"})
-    },
+    }
   },
   created() {
     is_authenticated(this).then(res => {
@@ -159,7 +153,6 @@ li:hover{
 a:-webkit-any-link{
   color: black;
 }
-
 .expand{
   width: 100%;
   float: right;
@@ -177,7 +170,6 @@ img{
   .expand{
     display: inline;
   }
-
   .logo{
     display: inline;
     color: rgb(32, 78, 207) !important;
