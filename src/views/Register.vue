@@ -30,14 +30,10 @@
 import {login } from '@/assets/utils/auth'
 import WebSocketHandle from '@/assets/utils/WebSocketHandle'
 import User from '@/assets/utils/models/User'
-// import Navbar from "@/components/Navbar.vue"
 import {IP, PORT} from '@/assets/utils/consts'
 
 export default {
   Name: "Register",
-  components: {
-    // Navbar,
-  },
   data() {
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
