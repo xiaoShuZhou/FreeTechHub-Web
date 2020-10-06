@@ -1,44 +1,75 @@
 <template>
-  <div v-if="_is_owner" class="TransactionRecord">
-    <h1>交易记录</h1>
-    <h3>当前余额：{{ user.balance }}</h3>
-    <ul>
-      <div v-for="transaction in transactions" :key="transaction.pk">
-        <li>
-          <div v-if="transaction.transaction_type == 'B'">
-            <p>{{ transaction.user }}采纳了你的答案，获得赏金~</p>
-            <small>时间：{{ transaction.time }}</small>
-            <p>赏金:{{ transaction.amount }}</p>
-            <p>问题:{{ transaction.description }}</p>
-          </div>
-          <div v-else-if="transaction.transaction_type == 'PBQ'">
-            <p>你发布一条金额为{{ transaction.amount }}的悬赏问题</p>
-            <small>时间：{{transaction.time}}</small>
-            <p>赏金:{{ transaction.amount }}</p>
-          </div>
-          <div v-else-if="transaction.transaction_type == 'DL'">
+  <div class="TransactionRecord" v-if="_is_owner">
+    <h1>TRANSACTION RECORD</h1>
+    <h3><img src="@/assets/img/coins-solid.svg">Your PY-coins：{{ user.balance }}</h3>
+
+  <el-timeline v-for="transaction in transactions" :key="transaction.pk">
+    <el-timeline-item placement="top"
+                      v-if="transaction.transaction_type == 'B'"
+                      :timestamp= transaction.time
+                      class="el-timeline-item">
+      <el-card class="card">
+            <p>USER [{{ transaction.user }}] adopt your answer so you get PY-coins~</p>
+            <p>Amount:{{ transaction.amount }}</p>
+            <p>Question:{{ transaction.description }}</p>
+      </el-card>
+    </el-timeline-item>
+    <el-timeline-item placement="top"
+                      v-else-if="transaction.transaction_type == 'PBQ'"
+                      :timestamp=transaction.time
+                      class="el-timeline-item">
+      <el-card class="card">
+            <p>You post a question with {{transaction.amount}} PY-coins</p>
+            <p>Amount:{{ transaction.amount }}</p>
+      </el-card>
+    </el-timeline-item>
+
+    <el-timeline-item placement="top"
+                      v-else-if="transaction.transaction_type == 'DL'"
+                      :timestamp=transaction.time
+                      class="el-timeline-item">
+      <el-card class="card">
             <p>每日登陆</p>
             <small>时间：{{transaction.time}}</small>
             <p>奖励:{{ transaction.amount }}</p>
-          </div>
-          <div v-else-if="transaction.transaction_type == 'LT'">
+      </el-card>
+    </el-timeline-item>
+
+    <el-timeline-item placement="top"
+                      v-else-if="transaction.transaction_type == 'LT'"
+                      :timestamp=transaction.time
+                      class="el-timeline-item">
+      <el-card class="card">
             <p>你点亮了一个技能树</p>
             <small>时间：{{transaction.time}}</small>
             <p>奖励:{{ transaction.amount }}</p>
-          </div>
-          <div v-else-if="transaction.transaction_type == 'L10%'">
+      </el-card>
+    </el-timeline-item>
+
+    <el-timeline-item placement="top"
+                      v-else-if="transaction.transaction_type == 'L10%'"
+                      :timestamp=transaction.time
+                      class="el-timeline-item">
+      <el-card class="card">
             <p>你博客点赞用户的数量超过用户总数的10%</p>
             <small>时间：{{transaction.time}}</small>
             <p>奖励:{{ transaction.amount }}</p>
-          </div><div v-else-if="transaction.transaction_type == 'L25%'">
+      </el-card>
+    </el-timeline-item>
+
+    <el-timeline-item placement="top"
+                      v-else-if="transaction.transaction_type == 'L25%'"
+                      :timestamp=transaction.time
+                      class="el-timeline-item">
+      <el-card class="card">
             <p>你博客点赞用户的数量超过用户总数的25%</p>
             <small>时间：{{transaction.time}}</small>
             <p>奖励:{{ transaction.amount }}</p>
-          </div>
-        </li>
-      </div>
-    </ul>
-  </div>
+      </el-card>
+    </el-timeline-item>
+
+  </el-timeline>
+</div>
 </template>
 
 <script>
@@ -85,17 +116,26 @@ ul{
   align-items: center;
 }
 .TransactionRecord::-webkit-scrollbar {display:none}
-li{
+
+.el-timeline-item{
+  font-size: 20px;
   width: 80%;
   height: 100%;
   min-height: 100px;
   margin: 20px 0;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  background: #f6f7ff;
-  border-radius: 20px;
-  padding: 5px 0 5px 20px;
   transition: all 0.3s ease;
+}
+.el-timeline-item .card{
+  background: #f6f7ff;
   color: #7075af;
   font-size: 26px;
+  border-radius: 20px;
+  }
+
+img{
+  padding-right: 10px;
+  padding-top: 5px;
+  width: 20px;
+  height: 20px;
 }
 </style>

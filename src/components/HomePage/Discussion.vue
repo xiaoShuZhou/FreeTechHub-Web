@@ -4,9 +4,11 @@
       <h1>PUT OUR HEADS TOGETHER</h1>
       <p>We are easily fulling into our own logic trap and often not worthwhile spending our entire wonderful sunday
         afternoon tp spot it.Having a fresh point of view can make a big difference.</p>
-      <router-link tag="button" :to="{name:'ShowQuestions'}">Join the discussion</router-link>
+      <router-link :to="{name:'ShowQuestions'}">
+        <el-button type="warning" round class="button">Join the discussion</el-button>
+      </router-link>
     </div>
-    <div><img src="@/assets/img/undraw_true_love_cy8x.svg"></div>
+    <div><img src="@/assets/img/DiscussionRight.svg"></div>
   </div>
 </template>
 
@@ -29,14 +31,6 @@
   .container > div:nth-child(2) {
     padding-left: 100px;
     flex: 1;
-  }
-
-  button {
-    background: #FFF4E8;
-    border-radius: 12px;
-    font-size: 2em;
-    padding: 20px 20px;
-    border: none;
   }
 
   h1 {
@@ -69,9 +63,18 @@
       grid-area: content;
       margin-bottom: 20px;
     }
-    button{
-      padding: 20px;
-      margin: 20px;
-    }
+
   }
+</style>
+<style>
+  .button {
+    background: #FFF4E8;
+    border-radius: 12px;
+    font-size: 2em;
+    padding: 20px 20px;
+    border: none;
+    margin: 20px;
+    color: #585858;
+  }
+
 </style>

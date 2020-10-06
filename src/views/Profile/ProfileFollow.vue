@@ -5,7 +5,7 @@
       <div class="FollowingList">
         <ul>
           <li v-for="following in followings" :key='following.following_id'>
-              <img :src="profile_owner.avatar" alt />
+              <img :src="url+following.avatar" />
               <div>
                 <router-link :to="{name: 'ProfileInformation', params: {id: following.pk}}">
                   {{following.username}}
@@ -26,7 +26,7 @@
       <div class="FollowerList">
         <ul>
           <li v-for="follower in followers" :key='follower.following_id'>
-            <img src="@/assets/img/头像 女孩.svg" alt />
+            <img :src="url+follower.avatar" />
             <div>
               <router-link :to="{name: 'ProfileInformation', params: {id: follower.pk}}">
                 {{follower.username}}
@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       user: this._user,
+      url:'http://127.0.0.1:8000',
       followings: '',
       followers: '',
       totalfollower: '',
@@ -61,6 +62,7 @@ export default {
   created() {
     this.user.getFollowershipList()
     .then(res => {
+      console.log(res.followings)
       this.followings = res.followings
       this.followers = res.followers
       this.totalfollower = this.followers.length

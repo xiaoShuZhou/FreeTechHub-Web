@@ -8,9 +8,9 @@
         make your creative changes! If you don't have any programming experience, don't worry, we have complete
         programming and git tutorials to help you easily get there.</p>
     </div>
-    <div class="buttons">
-      <button>Tutorial</button>
-      <button>FTH Project</button>
+    <div>
+    <el-button type="warning" round class="contact-buttons">Tutorial</el-button>
+    <el-button type="warning" round class="contact-buttons">FTH Project</el-button>
     </div>
   </div>
 </template>
@@ -55,13 +55,6 @@
     font-size: 1.5em;
   }
 
-  button {
-    background: #D6C4BE;
-    border-radius: 12px;
-    font-size: 1em;
-    padding: 20px 20px;
-    border: none;
-  }
   @media screen and (max-width: 750px){
     .container {
       width: 100%;
@@ -71,4 +64,16 @@
       margin-bottom: 20px;
     }
   }
+</style>
+<style>
+  .contact-buttons {
+    background: #D6C4BE;
+    border-radius: 12px;
+    font-size: 1em;
+    color: #736359;
+    font-weight:bold;
+    padding: 20px 20px;
+    border: none;
+  }
+
 </style>

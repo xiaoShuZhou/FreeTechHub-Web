@@ -26,6 +26,9 @@
     background: #D6C1B4;
     padding: 0 100px 100px 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .center {
@@ -46,10 +49,10 @@
   }
 
   .about-under {
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 500px 500px;
     grid-template-rows: 300px 300px;
-    padding: 0 100px 0 100px;
   }
 
   .about-under > div:nth-child(1) {

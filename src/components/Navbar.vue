@@ -1,62 +1,42 @@
 <template>
-  <div class="navbar" id="navbar">
-    <router-link class="logo" to="/">FreeTechHub</router-link>
-    <ul class="navbar-list" :class="{shownavbar: show}">
-      <li>
-        <router-link class="list-logo" to="/">FreeTechHub</router-link>
-      </li>
-      <li>
-        <router-link class="list" to="/show/blogs">blogs</router-link>
-      </li>
-      <li>
-        <router-link class="list" to="/show/series">series</router-link>
-      </li>
-      <li>
-        <router-link class="list" to="/show/questions">questions</router-link>
-      </li>
-      <li v-if="is_login">
-        <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
-      </li>
-      <li v-else>
-        <router-link :to="{name:'Login'}">Login</router-link>
-      </li>
-      <li class="search">
-        <input type="text" name="search" v-model="keywords" placeholder="Search"/>
-        <button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></button>
-      </li>
-      <li>
-        <router-link v-if="is_login" to="/login">Logout</router-link>
-        <router-link v-else to="/login">Login</router-link>
-      </li>
-    </ul>
-    <div @click="shownavbar"><img class="expand" src="@/assets/img/Expand.svg" alt=""></div>
-  </div>
+  <nav class="nav">
+    <div class="loge"><router-link class="logo" to="/">FreeTechHub</router-link></div>
+    <div>
+      <el-menu
+              :default-active="activeIndex2"
+              class="el-menu-demo menu el-menu--horizontal"
+              mode="horizontal"
+              background-color="#c99774"
+              text-color="#f3f3f3"
+              active-text-color="#ffd04b"
+              v-bind:class="{shownavbar:show}">
+        <el-menu-item index="1" class="el-menu-item"><a href="#about">About</a></el-menu-item>
+        <el-menu-item index="2"><a href="#series">Blog Series</a></el-menu-item>
+        <el-menu-item index="3"><a href="#discussion">Questions</a></el-menu-item>
+        <el-menu-item index="4" v-if="is_login">
+          <router-link :to="{name:'ProfileInformation', params:{id: user_id}}">Profile</router-link>
+        </el-menu-item>
+      </el-menu>
+      <div class="menu-btn" @click="shownavbar"><img class="iconfont" src="@/assets/img/菜单.svg" alt=""></div>
+    </div>
+  </nav>
 </template>
 
 <script>
-import {is_authenticated} from '@/assets/utils/auth'
+import {is_authenticated} from "@/assets/utils/auth"
 export default {
   name: "Navbar",
-  props:['_user'],
   data() {
     return {
-      keywords: '',
       is_login: false,
-      user: this._user,
       show: false
     }
-  },
+  }
+  ,
   methods: {
-    search() {
-      if (this.keywords != this.$route.query.keywords) {
-        this.$router.push({
-          name: "Search",
-          query: { keywords: this.keywords }
-        })
-      }
-    },
     shownavbar(){
-      this.show = ! this.show
+      this.show = !this.show
+
     }
   },
   created() {
@@ -71,196 +51,146 @@ export default {
       return this.$store.state.user.pk
     }
   }
-}
+};
 </script>
 
-<style  scoped>
-#profile{
-  color:#fff
-}
-*{
+<style scoped>
+* {
   margin: 0;
   padding: 0;
-  text-decoration: none;
+  font-family: Tahoma, Arial, "Hiragino Sans GB", simsun, sans-serif;
+  font-size: 20px;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
 }
-.navbar{
-  margin: 0;
-  padding: 0;
-  background-color: #ffdcc9;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  height: 10vh;
-  z-index: 5;
-  left: 0;
+/*nav {*/
+/*  background: #c99774;*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  padding: 0 3em 1em 3em;*/
+/*  position: relative;*/
+/*  z-index: 10;*/
+/*}*/
+.el-menu-demo {
+    border-bottom:none!important;
 }
-.logo{
-  display: none;
+/*nav a {*/
+/*  text-decoration: none;*/
+/*  display: inline-block;*/
+/*  color: aliceblue;*/
+/*  padding: 10px;*/
+/*}*/
+.loge{
+  margin-top: 15px;
 }
-.navbar-list{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 24px;
+.el-menu--horizontal{
+  border-bottom: none;
 }
-input{
-  border-radius: 10px;
-  outline: none;
-  font-size: 24px;
+/*.nav .menu{*/
+/*  float: right;*/
+/*	flex: 7;*/
+/*	height: 100%;*/
+/*	color: #f3f3f3;*/
+/*	display: flex;*/
+/*	align-items: center;*/
+/*	justify-content: space-between;*/
+/*	font-size: 20px;*/
+/*	padding-left: 200px;*/
+/*}*/
+.menu-logo ,.menu-btn{
+	display: none;
 }
-input::-webkit-input-placeholder{
-	color: #000000;
-	text-align: center;
-}
-input::-moz-placeholder{
-	color: #000000;
-	text-align: center;
-}
-input:focus::-webkit-input-placeholder{
-  color: transparent;
-}
-button{
-  background: transparent;
-  border: none;
-  outline: none;
-  border-radius: 20%;
-}
-button:hover{
-  background: aqua;
-}
-img{
-  width: 30px;
-  height: 30px;
-}
-#login{
-  border-right: 0px !important;
-  color: #000;
-}
-li {
-	margin: 0 10px 0;
-}
-.list{
-  width: 200px;
-}
-.list-logo {
-  color: rgb(32, 78, 207) !important;
-  font-size: 32px;
-}
-li:nth-last-child(1){
-  background-color: rgb(0, 204, 131);
-  width: 100px;
-  height: 40px;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  padding-top: 10px;
-  font-size: 18px;
-  margin-left: 10%;
-}
-li:hover{
-  width: 100%;
-  max-width: 200px;
-  height: 40px;
-  cursor: pointer;
-  text-align: center;
-  border-radius: 5px;
-  background: #fe6b40;
-  transition: all 0.5s ease;
-}
-
-li:-webkit-any-link{
-  color: white;
-}
-.router-link-exact-active{
-  width: 100px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 5px;
-	background: #fe6b40;
-}
-.expand{
-  width: 100%;
-  float: right;
-  display: none;
-  cursor: pointer;
-}
-.search{
-  display: flex;
-}
-@media screen and (max-width: 1280px){
-  .expand{
-    display: inline;
-  }
-  .logo{
-    display: inline;
-    color: rgb(32, 78, 207) !important;
-    font-size: 32px;
-  }
-  li:nth-child(1){
-    display: none;
-  }
-  .navbar{
+@media screen and (max-width: 850px) {
+	.nav{
+		box-shadow: unset;
+		transition: all 0.5s;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 6vh;
-    word-break: break-all;
-  }
-  .navbar-list{
-    position: absolute;
-    left: -50vw;
-    top: 6vh;
-    width: 40vw;
-    height: 84vh;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    background-color: #ffdcc9;
-    transition: all 0.5s ease-in-out;
-  }
-  .shownavbar{
-    left: 0 !important;
-    width: 30vw !important;
-  }
-  .navbar-list li{
-    width: 50%;
-    height: 100px;
-    margin: 20px auto;
-    padding: 0;
-  }
-  li:nth-last-child(1){
-    width: 100px;
-    height: 60px;
+    height: 100%;
+	}
+	.nav.active{
+		background: #000;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	}
+	.nav .logo{
+		text-align: center;
+	}
+	.menu-btn{
+		color: #eeeeee;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+    min-width: 100px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
+	}
+	.menu-btn .iconfont{
+		width: 18%;
+	}
+	.menu .menu-logo{
+		width: 100%;
+		height: 80px;
+		line-height: 80px;
+		display: block;
+		font-size: 35px;
+		color: #FFFFFF;
+		background-color: #1f1f1f;
+		text-align: center;
+	}
+	.nav .menu{
+		position: absolute;
+		left: -101vw;
+		top: 0;
+		width: 80vw;
+		height: 100vh;
+		padding: 0;
+		font-size: 22px;
+		color: #fff;
+		background: #1F1F1F;
+		display: flex;
+		justify-content: unset;
+		align-items: center;
+		flex-direction: column;
+		transition: all 0.5s ease-in-out;
+	}
+  .shownavbar{
+		left: -10vw !important;
+		width: 40vw !important;
   }
-  li:nth-last-child(1):hover{
-    background: rgb(3, 224, 147);
-  }
-  li:hover{
-    width: 100%;
-    height: 40px;
-  }
-  li:nth-child(7):hover{
-    background: none;
-  }
-  input{
-    width: 100%;
-    height: 50%;
-  }
-  .search{
-    display: flex!important;
-    width: 100%;
-    margin: 0;
-    justify-content: space-around;
-    align-items: baseline;
-  }
+	.menu li{
+		display: block;
+		width: 50%;
+		height: 30px;
+		margin: 0 auto;
+		text-align: center;
+		margin-bottom: 35px;
+	}
+}
+</style>
+
+<style>
+  nav {
+  background: #c99774;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3em 1em 3em;
+  position: relative;
+  z-index: 10;
+}
+  nav a {
+  text-decoration: none;
+  display: inline-block;
+  color: aliceblue;
+  padding: 10px;
+}
+  .nav .menu{
+  float: right;
+	flex: 7;
+	height: 100%;
+	color: #f3f3f3;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 20px;
+	padding-left: 200px;
 }
 </style>

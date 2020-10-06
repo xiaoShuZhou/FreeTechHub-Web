@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1275.59 1729.13" style="enable-background:new 0 0 1275.59 1729.13;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#D6C1B4;}
+	.st1{fill:#D6C1B4;stroke:#C56B47;stroke-width:20;stroke-miterlimit:10;}
+	.st2{fill:#D6C1B4;stroke:#0ED145;stroke-width:20;stroke-miterlimit:10;}
+	.st3{fill:#F2F2F2;}
+	.st4{font-family:'STXingkai';}
+	.st5{font-size:74.423px;}
+</style>
+<rect y="0" class="st0" width="1275.59" height="1729.13"/>
+<path class="st1" d="M906,395.18"/>
+<path class="st1" d="M1275.59,261.41"/>
+<path class="st1" d="M1275.59,1594.06l-917.99,1.79c-70.05,0.14-126.9-56.61-126.9-126.66V293.94
+	c0-69.85,56.56-126.52,126.41-126.66l918.49-1.79"/>
+<line class="st1" x1="231.5" y1="279.66" x2="1275.59" y2="279.66"/>
+<polyline class="st1" points="1275.59,1240.55 753.54,1240.55 753.54,1025.12 1275.59,1025.12 "/>
+<path class="st1" d="M1150.89,746.39c1.26,0,2.27-1.02,2.27-2.27V574.4c0-35.18-28.27-63.7-63.15-63.7H664.84
+	c-34.87,0-63.15,28.52-63.15,63.7v169.72c0,1.26,1.02,2.27,2.27,2.27H719.4c1.26,0,2.27,1.02,2.27,2.27v100.5
+	c0,2.03,2.46,3.04,3.89,1.6l102.79-103.7c0.43-0.43,1.01-0.67,1.61-0.67H1150.89z"/>
+<polygon class="st1" points="497.39,945.53 412.4,1039.41 582.39,1039.41 "/>
+<polygon class="st1" points="500.6,1303.14 585.59,1209.26 415.6,1209.26 "/>
+<polyline class="st2" points="446.82,1097.58 473.35,1158.8 575.39,1085.33 "/>
+<text transform="matrix(0.8662 0 0 1 414.1636 414.2962)" class="st3 st4 st5">FreeTechHub</text>
+</svg>

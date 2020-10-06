@@ -2,9 +2,9 @@
   <div class="philosophy">
     <div class="left"><img src="@/assets/img/warm.jpg"></div>
     <div class="right"><h1>Our philosophy</h1>
-      <p><span></span><strong>LESS IS MORE</strong></p>
-      <p><span></span><strong>HIGH BAND WIDTH BEATS LOW BAND WIDTH</strong></p>
-      <p><span></span><strong>SHARING IS CARING</strong></p>
+      <p><img src="@/assets/img/天平.svg"><strong>  LESS IS MORE</strong></p>
+      <p><img src="@/assets/img/book.svg"><strong>  HIGH BAND WIDTH BEATS LOW BAND WIDTH</strong></p>
+      <p><img src="@/assets/img/心.svg"><strong>  SHARING IS CARING</strong></p>
     </div>
   </div>
 </template>
@@ -35,6 +35,12 @@
   .philosophy img {
     max-width: 100%;
     height: auto;
+  }
+
+  .right img{
+    width: 40px;
+    height: 40px;
+    vertical-align:middle
   }
 
   h1 {

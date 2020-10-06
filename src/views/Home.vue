@@ -44,11 +44,14 @@ export default {
 *{
   scroll-behavior: smooth;
 	text-decoration: none;
-}
-.home{
   margin: 0;
   padding: 0;
+}
+.home{
   box-sizing: border-box;
-  width: 100%;
+  width: 100vw;
+  height: 100vw;
+  margin: 0;
+  padding: 0;
 }
 </style>

@@ -4,12 +4,16 @@
       <h1 class="title1">SEARCH</h1>
       <div class="search-box">
         <input class="search-text" type="text" placeholder="Search what you want">
-        <a class="search-btn" href=""><i class="fas fa-search"></i></a>
+        <a class="search-btn" href=""><img class="search-logo" src="@/assets/img/search-solid.svg"></a>
       </div>
       <h1 class="title2">WHAT'S IN YOUR MIND</h1>
       <div class="buttons">
-        <router-link tag="button" :to="{name: 'ShowBlogs'}">START A BLOG</router-link>
-        <router-link tag="button" :to="{name: 'ShowSeries'}">START A SERIES</router-link>
+         <router-link tag="div" :to="{name: 'ShowBlogs'}">
+          <el-button type="warning" round class="series-button">START A BLOG</el-button>
+        </router-link>
+        <router-link :to="{name: 'ShowSeries'}">
+          <el-button type="warning" round class="series-button">START A SERIES</el-button>
+        </router-link>
       </div>
     </div>
     <div class="series">
@@ -118,16 +122,10 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  button {
-    background: #D6C4BE;
-    border-radius: 12px;
-    font-size: 1em;
-    font-weight: bold;
-    margin: 20px 0;
-    padding: 20px 20px;
-    border: none;
-    outline: none;
-    min-width: 200px;
+
+  .search-logo{
+    width: 20px;
+    height: 20px;
   }
 
   .search-box {
@@ -253,5 +251,19 @@
       justify-content: center;
       align-items: center;
     }
+  }
+</style>
+<style>
+  .series-button {
+    background: #D6C4BE;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #585858;
+    margin: 20px 0;
+    padding: 20px 20px;
+    border: none;
+    outline: none;
+    min-width: 200px;
   }
 </style>

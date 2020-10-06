@@ -17,7 +17,7 @@
     padding: 0;
     background: #C99774;
     width: 100%;
-    height: 400px;
+    height: 80vh;
     text-align: center;
   }
 
