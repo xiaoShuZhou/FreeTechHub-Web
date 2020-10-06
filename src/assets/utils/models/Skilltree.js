@@ -120,25 +120,25 @@ class SkillTree extends Model {
         this.tree_structure = res.data
     }
 
-    draw_sub_tree(ctx, x, width, height, sub_tree) {
-        console.log(sub_tree.node.name)
-        for (let sub_tree of sub_tree.sub_trees) {
-            this.draw_sub_tree(ctx, x, width, height, sub_tree)
-        }
-    }
+    // draw_sub_tree(ctx, x, width, height, sub_tree) {
+    //     console.log(sub_tree.node.name)
+    //     for (let sub_tree of sub_tree.sub_trees) {
+    //         this.draw_sub_tree(ctx, x, width, height, sub_tree)
+    //     }
+    // }
     
-    draw(ctx) {
-        const canvas = document.getElementById("SkillTree")
-        let width = 0.1*canvas.width
-        let height = 0.5*canvas.height
-        let radius = 0.04*canvas.height
-        let c = new Node(this.tree_structure.node.name, width, height, radius)
-        c.draw(ctx)
-        let interval = height/this.tree_structure.sub_trees.length
-        for (let i = 0; i < this.tree_structure.sub_trees.length; i++) {
-            this.draw_sub_tree(
-                ctx, x, interval*i, interval, this.tree_structure.sub_trees[i])
-        }
+    draw() {
+        // const canvas = document.getElementById("SkillTree")
+        // let width = 0.1*canvas.width
+        // let height = 0.5*canvas.height
+        // let radius = 0.04*canvas.height
+        // let c = new Node(this.tree_structure.node.name, width, height, radius)
+        // c.draw(ctx)
+        // let interval = height/this.tree_structure.sub_trees.length
+        // for (let i = 0; i < this.tree_structure.sub_trees.length; i++) {
+        //     this.draw_sub_tree(
+        //         ctx, x, interval*i, interval, this.tree_structure.sub_trees[i])
+        // }
     }
 
     // get model by id

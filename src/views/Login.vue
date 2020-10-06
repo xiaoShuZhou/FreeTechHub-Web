@@ -17,7 +17,7 @@
           </form>
         </div>
         <div class="form-container sign-in-container">
-          <form action="#">
+          <form @submit.prevent="login">
             <h1>Login</h1>
             <div class="social-container">
               <a @click="githubLogin" class="social"><i class="iconfont icon-github" /></a>
@@ -25,7 +25,7 @@
             <input type="text" v-model="username" required="" placeholder="username" autocomplete />
             <input type="password" v-model="password" required="" placeholder="password" autocomplete />
             <el-link type="primary" id="forgetpassword" tag="button" @click="forgetpassword">Forget Password</el-link>
-            <button @click="login">Login</button>
+            <button >Login</button>
           </form>
         </div>
         <div class="overlay-container">
