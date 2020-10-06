@@ -56,16 +56,17 @@
         </router-link>
       </li>
       <li v-if="_is_owner">
-        <router-link :to="{name:'Login'}">
+        <a @click="logout">
           <img src="@/assets/img/登出.svg"/>
           <span>Logout</span>
-        </router-link>
+        </a>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import {logout} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
   props: ['_is_owner', '_user'],
@@ -74,6 +75,13 @@ export default {
       user: this._user,
       is_owner: this._is_owner
     }
+  },
+  methods:{
+    logout: function() {
+      logout()
+      this.$store.commit("removeSocketHandle")
+      this.$router.push({name: "ShowBlogs"})
+    },
   },
 }
 </script>

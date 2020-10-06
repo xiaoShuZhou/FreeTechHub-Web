@@ -68,6 +68,20 @@ class Blog extends Model {
         return res.data
     }
 
+    static async getOwnerBlog(request_user_id) {
+        let results= await axios.get(BASE_URL + `blog/query-related-content/`,{ 
+            params: { request_user: request_user_id }
+        }
+        )
+        let result_list = []
+        for (let result of results.data) {
+            result_list.push(new Blog(result))
+        }
+        
+         return result_list 
+    }    
+    
+
     //get blogs by page_id
     static async getOnePage(page_id){
         let response = await axios.get(BASE_URL + 'blog/blog', {

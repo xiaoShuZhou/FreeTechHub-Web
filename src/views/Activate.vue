@@ -1,6 +1,6 @@
 <template>
-<div class="Activate">
-</div>
+  <div class="Activate">
+  </div>
 </template>
 
 <script>

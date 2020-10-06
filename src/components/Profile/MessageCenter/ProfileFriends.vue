@@ -1,16 +1,15 @@
 <template>
   <div class="ProfileFriends">
-
     <div class="friendlist">
       <input type="text" value="" placeholder="Search" οnfοcus="this.placeholder=''"/>
       <div class="list">
         <ul ref="friends">
-          <li class="flex" 
-              @click="chatWith(friend)" 
+          <li class="flex"
+              @click="chatWith(friend)"
               v-for="friend in friends" :key='friend.pk'
               :ref="'friend-'+friend.pk">
-            <img src="@/assets/img/landing.jpg" class="avatar">
-            <p>{{friend.username}}</p>
+              <img :src="friend.avatar" class="avatar">
+              <i id="name">{{friend.username}}</i>
             <NewMessage v-if="friend.newMessageNum != 0" :num=friend.newMessageNum />
           </li>
         </ul>
@@ -22,13 +21,16 @@
       <div class="message" ref='message'>
         <ul>
           <li class="one-message" v-for="message in messages" :key="message.pk">
+            <div class="pp2">
             <div v-if="message.sender == self.pk" class="right">
-              <span>{{self.username}}</span>
-              <p>{{message.content}}</p>
+              <p>{{self.username}}</p>
+              <span>{{message.content}}</span>
             </div>
+
             <div v-else class="left">
-              <span>{{chattingWith.username}}</span>
-              <p>{{message.content}}</p>
+              <p>{{chattingWith.username}}</p>
+              <span>{{message.content}}</span>
+            </div>
             </div>
           </li>
         </ul>
@@ -39,7 +41,7 @@
           <img src="@/assets/img/img.svg" alt="">
           <a class="history-message" href="#">消息记录</a>
         </div>
-        <textarea v-model="message" 
+        <textarea v-model="message"
           @keydown.enter.exact="sendMessage()"
           @keydown.enter.alt="newLine()"></textarea>
         <button type="button" class="send" @click="sendMessage()">发送</button>
@@ -121,7 +123,7 @@ export default {
         if (msg.sender == this.chattingWith.pk ||
             msg.receiver == this.chattingWith.pk) {
           this.messages.push(msg)
-        } 
+        }
         // else, add a notification
         else {
           for (let friend of this.friends) {
@@ -157,7 +159,28 @@ export default {
 *{
   margin: 0;
   padding: 0;
-  background-color: #f5d772;
+
+}
+#name{
+  background-color: none;
+}
+.pp2 p{
+  position: relative;
+  margin: 0;
+  font-family:STFQLBYTJW;
+  color:#b4aeae ;
+}
+.pp2 span{
+	background-color: #eeeeee;
+	padding:2px 5px 8px;
+	display: inline-block;
+	border-radius: 4px;
+	margin-left:7px;
+  border:none;
+  font-family: FZZJ-ZSXKJW;
+	}
+#name{
+  background-color: none;
 }
 .ProfileFriends{
   display: grid;
@@ -165,16 +188,19 @@ export default {
                        'list edit';
   grid-template-columns: 25% 75%;
   grid-template-rows: 100%;
+  background-color: #fafbff;
 }
 .friendlist{
   height: 100vh;
   width: 100%;
   border: 2px solid black;
+  background-color: none;
 
 }
 ul{
   overflow: scroll;
   height: 85vh;
+  background-color: none;
 }
 ul::-webkit-scrollbar {display:none}
 .friendlist button{
@@ -183,22 +209,27 @@ ul::-webkit-scrollbar {display:none}
   border: 2px solid black;
   border-radius: 20px;
   outline: none;
+  background-color: none;
 }
 .list{
   list-style: none;
   grid-area: list;
   padding: 20px 10px 20px 10px;
+  background-color: none;
 }
 li{
   text-align: center;
+  background-color: none;
 }
 li:nth-last-child(1) {
   border-bottom: 2px solid #c3c3c3;
   padding-bottom: 30px;
+  background-color: none;
 }
 li:nth-child(1) {
   border-top: 2px solid #c3c3c3;
   padding-top: 30px;
+  background-color: none;
 }
 .message {
   grid-area: message;
@@ -264,20 +295,21 @@ img{
   height: 100%;
 }
 .avatar{
+  margin: 20px;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
   overflow: hidden;
 }
 .flex{
   display: flex;
   flex-direction: row;
   justify-items: baseline;
-  justify-content: center;
+  background-color: none;
   align-items: center;
 }
 li a div div{
   margin-left: 30px;
+  background-color: none;
 }
 .history-message{
   width: 80px;
@@ -333,7 +365,7 @@ li a div div{
 }
 
 .selected {
-  background-color: aquamarine;
+  background-color:rgb(231, 231, 231);
 }
 
 .one-message {
