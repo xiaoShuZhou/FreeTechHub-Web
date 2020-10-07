@@ -5,7 +5,7 @@
     <ul class="cardlist">
       <li v-for="blog in blogs" :key="blog.pk">
         <div class="card">
-          <img src="@/assets/img/landing.jpg" class="card-img">
+          <img :src="blog.background_image" class="card-img">
           <h3 class="title">
             <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
               {{ blog.title }}
