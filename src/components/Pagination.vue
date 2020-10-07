@@ -32,10 +32,10 @@ export default {
   },
   methods:{
     nextPage() {//下一页            
-      this.$emit('setPage', this.curPage+ 1 ) //调用父组件方法
+      this.$emit('setPage', this.curPage + 1 ) //调用父组件方法
     },
     prevPage() {//上一页
-      this.$emit('setPage', this.curPage- 1 ) //调用父组件方法
+      this.$emit('setPage', this.curPage - 1 ) //调用父组件方法
     },
     gotoNextPage() {//跳转页面
       if(this.gotoPage && /[1-9][0-9]*/.test(this.gotoPage)) {             

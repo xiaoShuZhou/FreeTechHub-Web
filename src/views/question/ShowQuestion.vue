@@ -55,7 +55,7 @@
           </show-answers>
         </li>
       </div>
-      </div>  
+      </div>
       <div class="editor" v-if="this.accepted_answer == ''">
       <mavon-editor
         :ishljs="true"
@@ -65,8 +65,7 @@
       />
       <el-button @click="saveAnswer()">Post</el-button>
       </div>
-    </div> 
-    <Footer/>
+    </div>
   </div>
 </template>
 
@@ -76,14 +75,12 @@ import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth';
 import renderMath from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
-import Footer from '@/components/Footer.vue'
 import ShowAnswers from '@/components/ShowAnswers.vue';
 
 export default {
   name: "ShowQuestion",
   components: {
     Navbar,
-    Footer,
     ShowAnswers,
   },
   data() {
@@ -154,7 +151,7 @@ export default {
       })
     })
   },
-  
+
   watch: {
     question() {
       this.$nextTick().then(() => {

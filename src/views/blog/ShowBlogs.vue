@@ -1,12 +1,11 @@
 <template>
   <div class="ShowBlogs">
-    <StarBackground/>
     <Navbar :_user="user"/>
     <h1>Blogs</h1>
     <ul class="cardlist">
       <li v-for="blog in blogs" :key="blog.pk">
         <div class="card">
-          <img src="@/assets/img/landing.jpg" class="card-img">
+          <img :src="blog.background_image" class="card-img">
           <h3 class="title">
             <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
               {{ blog.title }}
@@ -33,7 +32,7 @@
     </pagination>
     <el-button @click="newBlog">create new blog</el-button>
     <Footer/>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -43,14 +42,12 @@ import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowBlog",
   components: {
     Navbar,
     Footer,
-    StarBackground,
     Pagination
   },
   data() {
@@ -70,7 +67,8 @@ export default {
 
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
-        var {blogs, count} = res
+        let {blogs, count} = res
+
         this.totalPages = Math.ceil(count/this.pageSize)
         this.blogs = blogs
       })
@@ -88,7 +86,7 @@ export default {
       this.getBlogs(this.currentPage)
     })
   },
-  
+
   watch: {
     blogs() {
       this.$nextTick().then(() => {

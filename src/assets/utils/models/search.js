@@ -26,7 +26,7 @@ export async function blog_recommend(blog) {
     if (blog.tags.length == 0) {
         return ''
     }
-    blog.tags.forEach(tag => keywords += tag.tag_name)
+    blog.tags.forEach(tag => keywords += ` ${tag.tag_name}`)
     let URI = getURIKeywords(keywords)
     let results = await axios.get(
         BASE_URL + "search/?keywords=" + URI 

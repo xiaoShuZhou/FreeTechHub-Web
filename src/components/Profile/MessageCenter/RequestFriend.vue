@@ -4,11 +4,17 @@
       <h2>Your requests</h2>
       <ul>
         <li v-for="request in sent_requests" :key='request.pk'>
-          <img src="@/assets/img/头像 女孩.svg" alt="avatar"/>
-          {{ request.receiver_instance.username }} {{ request.datetime }}
-          <p>Note: {{ request.note }}</p>
-          <p>State: {{ request.getState() }}</p>
-          <button class="btn" @click="request.cancel()">cancel</button>
+          <el-card class="box-card">
+            <img :src="url+request.receiver_instance.avatar" alt="avatar"/>
+             <el-breadcrumb id="format" separator="|">
+               <el-breadcrumb-item>Author：{{ request.receiver_instance.username }}</el-breadcrumb-item>
+               <el-breadcrumb-item><i class="el-icon-date"></i> {{ request.datetime }}</el-breadcrumb-item>
+             </el-breadcrumb>
+            <el-divider></el-divider>
+            <p>Note: {{ request.note }}</p>
+            <p>State: {{ request.getState() }}</p>
+            <el-button icon="el-icon-error" round @click="request.cancel()" >cancel</el-button>
+          </el-card>
         </li>
       </ul>
     </div>
@@ -16,12 +22,18 @@
       <h2>Received requests</h2>
       <ul>
         <li v-for="request in received_requests" :key='request.pk'>
-          <img src="@/assets/img/头像 女孩.svg" alt="avatar"/>
-          {{ request.sender_instance.username }} {{ request.datetime }}
-          <p>Note: {{ request.note }}</p>
-          <p>State: {{ request.getState() }}</p>
-          <button class="btn" @click="request.accept()">Accept</button>
-          <button class="btn" @click="request.deny()">Deny</button>
+          <el-card class="box-card">
+            <img :src="url+ request.sender_instance.avatar" alt="avatar"/>
+            <el-breadcrumb id="format" separator="|">
+              <el-breadcrumb-item>Author：{{ request.sender_instance.username }}</el-breadcrumb-item>
+              <el-breadcrumb-item><i class="el-icon-date"></i>{{ request.datetime }}</el-breadcrumb-item>
+            </el-breadcrumb>     
+            <el-divider></el-divider>
+            <p>Note: {{ request.note }}</p>
+            <p>State: {{ request.getState() }}</p>
+            <el-button round type="success" @click="request.accept()">Accept</el-button>
+            <el-button round type="danger" @click="request.deny()">Deny</el-button>
+          </el-card>
         </li>
       </ul>
     </div>
@@ -36,6 +48,7 @@ export default {
   data() {
     return {
       user: this._user,
+      url:'http://127.0.0.1:8000',
       sent_requests: '',
       received_requests: ''
     }
@@ -61,6 +74,10 @@ export default {
 }
 .list {
   width: 47.5%;
+}
+#format{
+  font-family:FZSJ-RYTJW;
+  font-size: 20px;
 }
 ul{
   display: flex;

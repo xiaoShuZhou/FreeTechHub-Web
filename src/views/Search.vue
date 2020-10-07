@@ -1,6 +1,5 @@
 <template>
   <div class="Search">
-    <StarBackground />
     <Navbar/>
     <div class="results" v-if="results.length != 0">
       <ul class="cardlist">
@@ -37,13 +36,11 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import search from '@/assets/utils/models/search'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "Search",
   components: {
     Navbar,
-    StarBackground
   },
   data() {
     return {

@@ -246,7 +246,7 @@ export default {
     login_required(this, user => {
       this.user = user
       this.load()
-      this.renderMath()
+      renderMath()
     })
   },
   watch: {
