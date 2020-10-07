@@ -57,7 +57,7 @@ export default {
     return {
       blogs: '',
       totalPages:'',
-      pageSize: 3,
+      pageSize: 13,
       currentPage: 1,
       blogshow: '',
       user: '',
@@ -104,6 +104,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 h1{
   color: rgb(215, 180, 219);
@@ -124,32 +125,36 @@ button {
 .ShowBlogs {
   width: 100%;
   height: 100%;
-  padding: 0 10vw;
+  /* padding: 0 10vw; */
   margin-top: 10vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
-
+h1{
+  text-align: center;
+}
 .cardlist {
   list-style: none;
-  display: grid;
-  width: 100%;
-  height: 100%;
-  padding-top: 5%;
-  grid-template-columns: 33.3% 33.3% 33.3%;
-  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 2500px;
 }
 .cardlist li{
-  margin: 0 2vw;
+  position: relative;
+  width: 25%;
+  padding: 2px;
+  margin: 10px;
+  box-sizing: border-box;
 }
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 100%;
-  height: 100%;
-  border-radius: 5px;
+  height: auto;
+  max-width: 400px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
@@ -171,7 +176,6 @@ button {
 }
 .card:hover{
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
-  margin-top: 30px;
 }
 .card:hover  a{
   color: blue;

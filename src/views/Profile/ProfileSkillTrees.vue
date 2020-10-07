@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SkillTree from '@/assets/utils/models/SkillTree.js'
+import SkillTree from '@/assets/utils/models/Skilltree.js'
 SkillTree.get(4).then(tree => window.tree = tree)
 export default {
 
