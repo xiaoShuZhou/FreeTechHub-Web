@@ -110,13 +110,16 @@ export default {
       if (this.$route.name == "NewQuestion") {
         if (this.user.balance >= this.bounty) {
           question.save().then(res => {
-            let transaction = this._getTransaction()
             this.tags = this.$refs.NewTag.tags
 
             let promises = [
-              transaction.save(),
               Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
             ]
+
+            if(this.bounty) {
+              let transaction = this._getTransaction()
+              promises.push(transaction.save())
+            }
 
             Promise.all(promises).then(() => {
               this.$router.push({
@@ -130,14 +133,17 @@ export default {
       } else {
         if (this.user.balance >= this.bounty) {
           question.update(this.file.raw).then(res => {
-            let transaction = this._getTransaction()
             this.tags = this.$refs.NewTag.tags
 
             let promises = [
-              transaction.save(),
               Tag.saveTags(this.tags, res.data.id, res.data.content_type_id)
             ]
 
+            if(this.bounty) {
+              let transaction = this._getTransaction()
+              promises.push(transaction.save())
+            }
+            
             Promise.all(promises).then(() => {
               this.$router.push({
                 name: 'ShowQuestion',

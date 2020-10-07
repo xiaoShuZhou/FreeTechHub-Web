@@ -54,34 +54,44 @@ class Question extends Model {
     async save() {
         let config = {
             headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
-          };
+        };
         let param = new FormData();
         param.append('id', this._getData().id);
         param.append('title', this._getData().title);
         param.append('content', this._getData().content);
-        param.append('bounty', this._getData().bounty);
+
+        // allow blank bounty
+        if(this._getData().bounty)
+            param.append('bounty', this._getData().bounty);
+
         param.append('owner', this._getData().owner);
-        param.append('background_image', this._getData().background_image);
+
+        // allow blank background image
+        if(this._getData().background_image != undefined)
+            param.append('background_image', this._getData().background_image);
         let response = await axios.post(this._getModelURL(), param,config)
         this.pk = response.data.id
         return response
     }
 
     async update(picture) {
-      if(picture == undefined||picture == "")
-        {
-          return await axios.put(this._getInstanceURL(), this._getData())
+        if(picture == undefined || picture == "") {
+            let data = this._getData()
+            if(!data.bounty) delete data.bounty
+            return await axios.put(this._getInstanceURL(), data)
         }
-      else
-      {
-        let config = {
-            headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
-          };
+        else {
+            let config = {
+                headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
+            };
         let param = new FormData();
         param.append('id', this._getData().id);
         param.append('title', this._getData().title);
         param.append('content', this._getData().content);
-        param.append('bounty', this._getData().bounty);
+        // allow blank bounty
+        if(this._getData().bounty)
+            param.append('bounty', this._getData().bounty);
+        
         param.append('owner', this._getData().owner);
         param.append('background_image', this._getData().background_image);
         return await axios.put(this._getInstanceURL(), param,config)
