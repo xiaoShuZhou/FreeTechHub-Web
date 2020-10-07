@@ -16,13 +16,14 @@ export default {
     },
     mounted() {
         const canvas = getCanvas("SkillTree")
-        SkillTree.get(4).then(tree => {
+        SkillTree.get(4)
+        .then(tree => {
             window.tree = tree
             this.tree = tree
             canvas.register.push(tree)
             canvas.fresh()
-            //tree.draw(canvas.getContext('2d'), canvas.width, canvas.height)
         })
+        .catch(() => {})
     }
 }
 </script>
