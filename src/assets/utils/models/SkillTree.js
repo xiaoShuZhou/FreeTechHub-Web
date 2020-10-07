@@ -27,7 +27,7 @@ class SkillTree extends Model {
 
     // custom methods
 
-    // recursively find a sub tree which has 
+    // recursively find a sub tree which has
     // node name equal to the input root name
     _find_sub_tree(tree, root_name) {
         if (tree.node.name == root_name) {
@@ -126,7 +126,7 @@ class SkillTree extends Model {
     //         this.draw_sub_tree(ctx, x, width, height, sub_tree)
     //     }
     // }
-    
+
     draw() {
         // const canvas = document.getElementById("SkillTree")
         // let width = 0.1*canvas.width
@@ -156,7 +156,7 @@ export function getCanvas(id) {
     const BG_COLOR = 'white'
     const BOARDER = 'black'
     const canvas = document.getElementById(id)
-    
+
     let ctx
     if (canvas.getContext) {
         ctx = canvas.getContext('2d');
@@ -205,7 +205,7 @@ export class Node {
     }
     beginPath(ctx) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI*2, true); 
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI*2, true);
     }
 
     draw(ctx) {
