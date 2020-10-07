@@ -1,6 +1,6 @@
 <template>
   <div class="EditProfile">
-    <form class="account-form">
+    <form class="account-form" @submit.prevent="save">
       <div class="inputbox">
         <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update" />
       </div>
@@ -20,7 +20,7 @@
         <input type="text" v-model="bio" required="" />
         <label>bio: </label>
       </div>
-      <button class="submit" @click="save">submit</button>
+      <button class="submit">submit</button>
       <router-view :_user=profile_owner>
       </router-view>
     </form>

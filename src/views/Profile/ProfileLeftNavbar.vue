@@ -95,7 +95,8 @@ export default {
 }
 .ProfileLeftNavbar{
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  padding: 5vh 0;
 }
 .list {
   display: flex;
