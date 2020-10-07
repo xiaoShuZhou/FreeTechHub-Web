@@ -54,7 +54,7 @@ export default {
     return {
       blogs: '',
       totalPages:'',
-      pageSize: 3,
+      pageSize: 5,
       currentPage: 1,
       blogshow: '',
       user: '',
@@ -67,7 +67,8 @@ export default {
 
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
-        var {blogs, count} = res
+        let {blogs, count} = res
+
         this.totalPages = Math.ceil(count/this.pageSize)
         this.blogs = blogs
       })
