@@ -1,7 +1,7 @@
 <template>
   <div class="TransactionRecord" v-if="_is_owner">
     <h1><i class="el-icon-s-order"></i>TRANSACTION RECORD</h1>
-    <h3><el-tag effect="dark" class="medi" type="warning"><i class="el-icon-coin"></i>My Coins：{{ user.balance+1000000000000 }}</el-tag></h3>
+    <h3><el-tag effect="dark" class="medi" type="warning"><i class="el-icon-coin"></i>My Coins：{{ user.balance }}</el-tag></h3>
 
     <el-timeline v-for="transaction in transactions" :key="transaction.pk">
       <el-timeline-item placement="top" v-if="transaction.transaction_type == 'B'" :timestamp=transaction.time class="el-timeline-item">
