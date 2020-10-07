@@ -6,41 +6,55 @@
       @closealert="closealert"
       :_user=_user
       :_visitor=_visitor />
-    <div class="box1">
-      <div id="image">
-        <img :src="profile_owner.avatar" />
+    <div class="profile">
+      <div class="head">
+        <img id="image" :src="profile_owner.avatar" />
+        <span id='username'>{{profile_owner.username}}</span>
       </div>
-        <p id='username'>{{profile_owner.username}}</p>
-        <el-button v-if="profile_owner && _is_owner" @click="editProfile" icon="el-icon-edit" circle></el-button>
-      <div>
-        <p id='info' style="color:#8188d5;">major:</p><p id='info' style="color:#878fef;">{{profile_owner.major}}</p>
-        <p id='info' style="color:#8188d5;">Balance:</p><p id='info' style="color:#878fef;">{{profile_owner.blance}}</p>
-        <p id='info' style="color:#8188d5;">grade:</p><p id='info' style="color:#878fef;">{{profile_owner.grade}}</p>
-        <p id='info' style="color:#8188d5;">bio:</p><p id='info' style="color:#878fef;">{{profile_owner.bio}}</p>
-        <FollowButton
-         :_content_owner=_user
-         :_visitor=_visitor />
-        <button
-          @click="showalert"
-          id="addfriend-btn"
-          v-if="!_is_owner">Add Friend</button>
+      <el-button v-if="profile_owner && _is_owner" @click="editProfile" icon="el-icon-edit" circle></el-button>
+      <div class="info">
+        <div>
+          <div class="data">
+            <span class="data-name">major: </span>
+            <span class="data-value">{{profile_owner.major}}</span>
+          </div>
+          <div class="data">
+            <span class="data-name">Balance: </span>
+            <span class="data-value">{{profile_owner.blance}}</span>
+          </div>
+          <div class="data">
+            <span class="data-name">grade: </span>
+            <span class="data-value">{{profile_owner.grade}}</span>
+          </div>
+        </div>
+        <p class="data">bio: {{profile_owner.bio}}</p>
+        <div class="buttons">
+          <FollowButton
+          :_content_owner=_user
+          :_visitor=_visitor />
+          <button
+            @click="showalert"
+            id="addfriend-btn"
+            v-show="!_is_owner">Add Friend
+          </button>
+        </div>
       </div>
     </div>
-    <div class="box2">
-      <div>
-        <p id='total'><i class="el-icon-view"></i>Total views:{{profile_owner.totalviews}}</p>
-        <p id='total'><i class="el-icon-thumb"></i>Follows: {{totalfollowing}}</p>
+    <div class="stats">
+      <div class="totals">
+        <p class='total'><i class="el-icon-view"></i>Total views:{{profile_owner.totalviews}}</p>
+        <p class='total'><i class="el-icon-star-on"></i>Follows: {{totalfollowing}}</p>
         <br>
-        <p id='total'><i class="el-icon-star-on"></i>Total likes:{{profile_owner.totallikes}}</p>
-        <p id='total'><i class="el-icon-finished"></i>Accept rate: {{acceptance_rate}}</p>
+        <p class='total'><i class="el-icon-thumb"></i>Total likes:{{profile_owner.totallikes}}</p>
+        <p class='total'><i class="el-icon-finished"></i>Accept rate: {{acceptance_rate}}</p>
       </div>
       <div>
         <div id="chart_example">
         </div>
       </div>
     </div>
-    <div class="box3">
-      <p id="total">Your activity in this year:</p>
+    <div class="activity">
+      <p>Your activity in this year:</p>
       <canvas id="canvas"></canvas>
     </div>
   </div>
@@ -89,19 +103,17 @@ export default {
   created() {
     User.get(this.$route.params.id).then(user => {
       this.profile_owner = user
-      this.profile_owner.getFollowershipList()
-      .then(res => {
-        this.totalfollowing = res.followings.length
-        User.gettags(this.$route.params.id).then(res => {
-          this.acceptance_rate = res.acceptance_rate
-        })
+      Promise.all([
+        this.profile_owner.getFollowershipList(),
+        User.gettags(this.$route.params.id),
+        Activity.getActivity(this.profile_owner.pk)
+      ]).then(values => {
+        this.totalfollowing = values[0].followings.length
+        this.acceptance_rate = values[1].acceptance_rate
+        this.table = values[2]
+        this.activity = new Activity("canvas", this.table)
+        this.activity.draw()
       })
-    })
-    Activity.getActivity(this.profile_owner.pk)
-    .then(table => {
-      this.table = table
-      this.activity = new Activity("canvas", table)
-      this.activity.draw()
     })
   },
   mounted() {
@@ -127,7 +139,7 @@ export default {
         series: [{
             name: 'Blog type',
             type: 'pie',
-            radius: ['40%', '55%'],
+            radius: ['40%', '75%'],
             center: ['25%', '50%'],
             avoidLabelOverlap: true,
             itemStyle: {
@@ -173,8 +185,8 @@ export default {
           {
             name: 'Answer type',
             type: 'pie',
-            radius: ['40%', '55%'],
-            center: ['75%', '50%'],
+            radius: ['40%', '75%'],
+            center: ['70%', '50%'],
             avoidLabelOverlap: true,
             itemStyle: {
               normal: {
@@ -248,25 +260,11 @@ export default {
 
 <style scoped>
 @import url("//unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css");
-#username{
-  font-weight:900;
-  font-size: 550%;
-  color:#8188d5;
-  font-family:STFQLBYTJW;
-}
-#total{
-  font-weight:400;
-  font-size: 250%;
-  color: black;
-  font-family:Cursive;
-}
-#info{
-  font-weight:400;
-  font-size: 150%;
-  font-family:Cursive;
-}
+
+
+
 #chart_example{
-  width: 400px;
+  width: 30vw;
   height: 190px;
 }
 .ProfileInformation {
@@ -285,30 +283,91 @@ img {
   border-radius: 50%;
   overflow: hidden;
 }
-.box1 {
+.profile {
   display: flex;
-  justify-content: space-around;
   flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   flex-grow: unset;
 }
-.box1 div p {
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 5%;
+}
+
+.info{
+  font-weight: 400;
+  font-size: 250%;
+  color: #8188d5;
+  font-family: Cursive;
+  padding: 0;
+  justify-items: center;
+}
+.info div {
+  display: flex;
+}
+.data {
+  width: 25%;
+  align-items: center;
+  margin: 0 5%;
+}
+.data-name {
+  font-size: 100%;
+  padding: 0%;
+}
+
+.data-value {
+  font-size: 70%;
+  margin: 2%;
+}
+
+.buttons {
+  height: 6vh;
+}
+
+.buttons button {
+  margin: 1vh 3vw;
+}
+
+
+#username{
+  font-weight:900;
+  font-size: 300%;
+  color:#8188d5;
+  font-family:STFQLBYTJW;
+}
+.profile div p {
   display: inline;
   padding-left: 30px;
 }
-.box1 div:nth-child(2) {
+.profile div:nth-child(2) {
   bottom: 100px;
 }
-.box2 {
+.stats {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
 }
-.box2 div p {
+
+.total{
+  font-weight:500;
+  font-size: 250%;
+  color: #8188d5;
+  font-family:Cursive;
+  margin: 0%;
+}
+
+.totals {
+  margin-left: 5vw;
+}
+
+.stats div p {
   display: inline;
   padding-right: 30px;
 }
-.box2 div img {
+.stats div img {
   display: inline-block;
   width: 60px;
   height: 60px;
@@ -316,10 +375,25 @@ img {
   right: 5px;
   bottom: 20px;
 }
-.box3 img {
+
+.activity {
+  margin-bottom: 5%;
+}
+
+.activity p {
+  font-weight:900;
+  font-size: 200%;
+  color:#8188d5;
+  margin: 0%;
+  margin-left: 7%;
+  margin-bottom: 1%;
+}
+
+#canvas {
   border: none;
   border-radius: 0;
-  width: 100%;
-  height: 100%;
+  width: 87%;
+  height: 90%;
+  margin-left: 7%;
 }
 </style>

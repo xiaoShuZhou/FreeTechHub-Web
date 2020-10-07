@@ -11,6 +11,7 @@
     </div>
     <div class="NewTag">
       <el-input class="text" type="text" v-model="tag"></el-input>
+      <p v-show="warning" style="color: red;">you can't add a tag without giving a name!</p>
       <el-button class="tag-btn" @click="addTag()">add tag</el-button>
     </div>
   </div>
@@ -24,20 +25,23 @@ export default {
   data() {
     return {
       tag: '',
-      tags: []
+      tags: [],
+      warning: false
     }
   },
   methods: {
     addTag() {
-      this.tags.forEach((tag) => {
+      if (this.tag == '') { this.warning = true; return }
+      for (let tag of this.tags) {
         if (tag == this.tag) {
           alert("you can't add same tag twice!")
           this.tag = ''
           return
         }
-      })
+      }
       this.tags.push(this.tag)
       this.tag = ''
+      this.warning = false
     },
     remove(tag) {
       removeItem(this.tags, tag)

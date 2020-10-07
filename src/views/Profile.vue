@@ -92,6 +92,7 @@ a{
   transition: all 0.5s ease;
 }
 .content{
+  height: 100vh;
   grid-area: content;
   transition: all 0.5s ease;
 }

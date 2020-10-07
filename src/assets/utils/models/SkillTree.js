@@ -27,7 +27,7 @@ class SkillTree extends Model {
 
     // custom methods
 
-    // recursively find a sub tree which has
+    // recursively find a sub tree which has 
     // node name equal to the input root name
     _find_sub_tree(tree, root_name) {
         if (tree.node.name == root_name) {
@@ -120,25 +120,54 @@ class SkillTree extends Model {
         this.tree_structure = res.data
     }
 
-    // draw_sub_tree(ctx, x, width, height, sub_tree) {
-    //     console.log(sub_tree.node.name)
-    //     for (let sub_tree of sub_tree.sub_trees) {
-    //         this.draw_sub_tree(ctx, x, width, height, sub_tree)
-    //     }
-    // }
-
-    draw() {
-        // const canvas = document.getElementById("SkillTree")
-        // let width = 0.1*canvas.width
-        // let height = 0.5*canvas.height
-        // let radius = 0.04*canvas.height
-        // let c = new Node(this.tree_structure.node.name, width, height, radius)
-        // c.draw(ctx)
-        // let interval = height/this.tree_structure.sub_trees.length
-        // for (let i = 0; i < this.tree_structure.sub_trees.length; i++) {
-        //     this.draw_sub_tree(
-        //         ctx, x, interval*i, interval, this.tree_structure.sub_trees[i])
-        // }
+    draw_sub_tree(ctx, x, y, radius, intervalX, intervalY,
+                  sub_tree, parent_x, parent_y) {
+        let cordinateX = x
+        let cordinateY = y + intervalY/2
+        let n = new Node(sub_tree.node.name, cordinateX, cordinateY, radius)
+        
+        let dx = cordinateX - parent_x
+        let dy = cordinateY - parent_y
+        let ratio = Math.sqrt(
+            (Math.pow(dx, 2) +
+             Math.pow(dy, 2)) / Math.pow(radius, 2)
+        )
+        let rx = dx / ratio
+        let ry = dy / ratio
+        
+        ctx.beginPath()
+        ctx.moveTo(cordinateX-rx, cordinateY-ry)
+        ctx.lineTo(parent_x+rx, parent_y+ry)
+        ctx.stroke()
+        n.draw(ctx)
+        
+        intervalY = intervalY/sub_tree.sub_trees.length
+        if (this.tree_structure.sub_trees.length != 0) {
+            for (let i = 0; i < sub_tree.sub_trees.length; i++) {
+                
+                this.draw_sub_tree(
+                    ctx, x+intervalX, y+i*intervalY, radius, intervalX,
+                    intervalY, sub_tree.sub_trees[i], cordinateX, cordinateY)
+            }
+        }
+    }
+    
+    draw(ctx) {
+        const canvas = document.getElementById("SkillTree")
+        let width = 0.05*canvas.width
+        let height = 0.5*canvas.height
+        let radius = 0.07*canvas.height
+        let n = new Node(this.tree_structure.node.name, width, height, radius)
+        n.draw(ctx)
+        let intervalY = canvas.height/this.tree_structure.sub_trees.length
+        let intervalX = 450
+        if (this.tree_structure.sub_trees.length != 0) {
+            for (let i = 0; i < this.tree_structure.sub_trees.length; i++) {
+                this.draw_sub_tree(
+                    ctx, intervalX, intervalY*i, radius,
+                    intervalX, intervalY, this.tree_structure.sub_trees[i],width, height)
+            }
+        }
     }
 
     // get model by id
@@ -151,12 +180,12 @@ class SkillTree extends Model {
 export default SkillTree
 
 export function getCanvas(id) {
-    const VIEW_WIDTH = 0.5
+    const VIEW_WIDTH = 1
     const VIEW_HEIGHT = 1
     const BG_COLOR = 'white'
     const BOARDER = 'black'
     const canvas = document.getElementById(id)
-
+    
     let ctx
     if (canvas.getContext) {
         ctx = canvas.getContext('2d');
@@ -205,7 +234,7 @@ export class Node {
     }
     beginPath(ctx) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI*2, true);
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI*2, true); 
     }
 
     draw(ctx) {
