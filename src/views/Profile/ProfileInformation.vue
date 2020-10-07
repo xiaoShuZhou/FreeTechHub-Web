@@ -312,6 +312,7 @@ img {
 .data {
   width: 25%;
   align-items: center;
+  margin: 0 5%;
 }
 .data-name {
   font-size: 100%;
@@ -320,7 +321,7 @@ img {
 
 .data-value {
   font-size: 70%;
-  margin: 3vw;
+  margin: 2%;
 }
 
 .buttons {

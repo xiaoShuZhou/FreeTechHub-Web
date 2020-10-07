@@ -3,6 +3,7 @@
     <form class="account-form" @submit.prevent="save">
       <div class="inputbox">
         <input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="update" />
+        <label>Avatar: </label>
       </div>
       <div class="inputbox">
         <input type="text" v-model="username" required="" />
