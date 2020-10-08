@@ -18,7 +18,13 @@
         <router-link :to="{name:'ProfileInformation', params:{id: user_id}}"><el-link target="_blank">Profile</el-link></router-link>
       </el-menu-item>
       <el-menu-item index="6" class="search">
-        <el-input type="text" name="search" v-model="keywords" placeholder="Search" @enter="search"/>
+        <el-input 
+          v-model="keywords" 
+          type="text" 
+          @keyup.native.space="keywords= keywords+ ' '"
+          clearable
+          autofocus>
+        </el-input>
         <el-button @click="search"><img src="@/assets/img/放大镜.svg" alt=""></el-button>
       </el-menu-item>
       <el-menu-item index="7">

@@ -24,6 +24,14 @@
               </router-link>
             </h2>
           </div>
+          <div class="card user-card" v-else-if="result.model == 'user'">
+            <span>[User]</span>
+            <img class="avatar" :src="result.avatar">
+            <router-link 
+            :to="{name:'ProfileInformation', params:{id: result.pk}}">
+            {{ result.username }}
+            </router-link>
+          </div>
           <div v-else>
             <h1>No related content</h1>
           </div>
@@ -153,6 +161,20 @@ export default {
     width: 5%;
   }
 }
+
+.avatar {
+  width: 20%;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.user-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 5%;
+}
+
 @media screen and (max-width: 650px) {
   .ShowOneSeries {
     width: 100%;
