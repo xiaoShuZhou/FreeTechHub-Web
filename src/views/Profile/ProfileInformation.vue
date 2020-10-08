@@ -396,4 +396,36 @@ img {
   height: 90%;
   margin-left: 7%;
 }
+@media screen and (max-width: 1280px){
+  .info div{
+    display: flex;
+    flex-direction: column;
+  }
+  .data{
+    display: flex;
+    flex-direction: column;
+  }
+  .data-name {
+    font-size: 50%;
+    padding: 0%;
+  }
+  .data-value {
+    font-size: 70%;
+    margin: 2%;
+  }
+  .totals{
+    display: flex;
+    flex-direction: column;
+  }
+  .total{
+    font-weight:500;
+    font-size: 150%;
+    color: #8188d5;
+    font-family:Cursive;
+    margin: 0%;
+  }
+  br{
+    display: none;
+  }
+}
 </style>

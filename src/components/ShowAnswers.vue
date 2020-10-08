@@ -4,18 +4,20 @@
       <li>
         <div v-if="is_accepted ==  true">
           <div class="card">
-            <div class="card-img">
-              <img src="@/assets/img/头像 女孩.svg" />
-              <h4>{{ answer.owner_instance.username }}</h4>
+            <div class="card-header">
+              <div class="left">
+                <img :src="answer.owner_instance.avatar" />
+                <h4 class="card-title">{{ answer.owner_instance.username }}</h4>
+                <span class="card-title">{{ answer.time }}</span>
+              </div>
+              <div class="right" v-if="answer.status == true">
+                <h4 class="badge badge-success ">Accepted</h4>
+              </div>
+              <div class="right" v-else>
+                <h4 class="badge badge-danger status">Unaccepted</h4>
+              </div>
             </div>
-            <h2 class="card-title">{{ answer.time }}</h2>
-            <p class="card-content" v-html="answer.html_content" v-highlight></p>
-            <div v-if="answer.status == true">
-              <h4 class="status">Accepted</h4>
-            </div>
-            <div v-else>
-              <h4 class="status">Unaccepted</h4>
-            </div>
+            <p class="card-text" v-html="answer.html_content" v-highlight></p>
           </div>
           <el-button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</el-button>
           <el-button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</el-button>
@@ -32,9 +34,10 @@
         </div>
         <div v-else>
           <div class="card">
-            <div class="card-img">
-              <img src="@/assets/img/头像 女孩.svg" />
-              <h4>{{ answer.owner_instance.username }}</h4>
+            <div class="card-header">
+              <img :src="answer.owner_instance.avatar" />
+              <h4 class="card-title">{{ answer.owner_instance.username }}</h4>
+              <span class="card-title">{{ answer.time }}</span>
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
             <div v-if="is_editing == false">
@@ -186,5 +189,32 @@ export default {
 <style scoped>
 *{
   list-style: none;
+  margin: 0;
+}
+img{
+  width: 5%;
+  border-radius: 50%;
+}
+.card-header{
+  display: grid;
+  grid-template-areas: "left right";
+}
+.left{
+  grid-area: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.left h4{
+  margin: 0 2vw;
+}
+.right{
+  grid-area: right;
+}
+.card-text{
+  padding: 20px;
+}
+.status{
+  text-align: right;
 }
 </style>

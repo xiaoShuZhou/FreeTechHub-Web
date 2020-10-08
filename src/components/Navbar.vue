@@ -1,7 +1,7 @@
 <template>
-  <div class="navbar" id="navbar">
+  <div class="Navbar" id="Navbar">
     <router-link class="logo" to="/"><el-link type="primary">FreeTechHub</el-link></router-link>
-    <el-menu class="el-menu-demo navbar-list" mode="horizontal" :class="{shownavbar: show}">
+    <el-menu class="el-menu-demo Navbar-list" mode="horizontal" :class="{showNavbar: show}">
       <el-menu-item index="1">
         <router-link to="/"><el-link class="list-logo" type="primary">FreeTechHub</el-link></router-link>
       </el-menu-item>
@@ -32,7 +32,7 @@
         <router-link round v-else to="/login"><el-button >Login</el-button></router-link>
       </el-menu-item>
     </el-menu>
-    <div @click="shownavbar"><img class="expand" src="@/assets/img/Expand.svg" alt=""></div>
+    <div @click="showNavbar"><img class="expand" src="@/assets/img/Expand.svg" alt=""></div>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
         })
       }
     },
-    shownavbar(){
+    showNavbar(){
       this.show = ! this.show
     }
   },
@@ -90,7 +90,7 @@ export default {
   padding: 0;
   text-decoration: none;
 }
-.navbar{
+.Navbar{
   margin: 0;
   padding: 0;
   width: 100%;
@@ -103,7 +103,7 @@ export default {
 .logo{
   display: none;
 }
-.navbar-list{
+.Navbar-list{
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -184,7 +184,7 @@ img{
   li:nth-child(1){
     display: none !important;
   }
-  .navbar{
+  .Navbar{
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -192,7 +192,7 @@ img{
     text-align: center;
     z-index: 3;
   }
-  .navbar-list{
+  .Navbar-list{
     position: absolute;
     left: -50vw;
     top: 6vh;
@@ -204,11 +204,11 @@ img{
     align-items: center;
     transition: all 0.5s ease-in-out;
   }
-  .shownavbar{
+  .showNavbar{
     left: 0 !important;
     width: 30vw !important;
   }
-  .navbar-list li{
+  .Navbar-list li{
     width: 100%;
     padding: 0;
   }

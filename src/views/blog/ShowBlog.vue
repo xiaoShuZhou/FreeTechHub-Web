@@ -11,9 +11,8 @@
       <div class="title">
         <h1>{{ blog.title }}</h1>
         <div class="taggroup" v-if="blog.tags.length != 0">
-          <a href class="tag" v-for="tag in blog.tags" :key="tag.pk">
-            <img class="tag-img" src="@/assets/img/标签.svg" alt />
-            <span>{{ tag.tag_name }}</span>
+          <a href v-for="tag in blog.tags" :key="tag.pk">
+            <span class="badge badge-primary">{{ tag.tag_name }}</span>
           </a>
         </div>
       </div>
@@ -288,7 +287,7 @@ export default {
     "left  title  title"
     "left  blogcontent sidebar"
     "left  buttons sidebar"
-    "left  comment sidebar";
+    "left  comment comment";
   grid-template-columns: 25% 52% 20%;
   grid-row-gap: 10px;
   justify-items: stretch;
@@ -469,7 +468,8 @@ button:hover{
 .taggroup{
   display: flex;
   justify-content: baseline;
-  flex-wrap: wrap;
+  padding: 0 5vw;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .comment {
   grid-area: comment;
