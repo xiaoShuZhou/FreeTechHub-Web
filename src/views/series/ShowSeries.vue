@@ -12,8 +12,8 @@
             </router-link>
           </h1>
           <div class="user">
-            <img class="avatar" :src="series.blogs[0].owner_instance.avatar">
-            <a href="">{{series.blogs[0].owner_instance.username}}</a>
+            <img class="avatar" :src="series.owner_instance.avatar">
+            <a href="">{{series.owner_instance.username}}</a>
           </div>
           <h3>Tags: </h3>
           <ul>
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      all_series: null
+      all_series: ''
     }
   },
   methods: {

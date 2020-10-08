@@ -3,6 +3,7 @@
     <Navbar/>
     <img class="landing" src="@/assets/img/landing.jpg" alt="">
     <h1>{{series.name}}</h1>
+    <p>{{series.description}}</p>
     <h2>Sub series:</h2>
     <ul class="cardlist">
       <li v-for="series in sub_series" :key="series.pk">
@@ -226,6 +227,7 @@ button:hover{
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 h3{
   margin: 20px 10px;

@@ -101,7 +101,7 @@ export default {
         })
       } else {
         this.series.name = this.name
-        this.series.name = this.description
+        this.series.description = this.description
       }
     },
 
@@ -145,8 +145,8 @@ export default {
 
   },
   created() {
-    login_required(this, () => {
-      Series.get_related_content().then(related_content => {
+    login_required(this, (user) => {
+      Series.get_related_content(user.pk).then(related_content => {
         this.make_choice_list(related_content)
 
         // if the page is edit old series, preload data

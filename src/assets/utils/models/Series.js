@@ -8,7 +8,7 @@ class Series extends Model {
     static model_name = 'series'
 
     constructor({id, name, description, date, viewTimes,
-                 owner, sub_series_of, sub_series, blogs}) {
+                 owner, sub_series_of, sub_series, blogs, owner_instance}) {
         super({name, description, viewTimes,
                owner, sub_series_of,})
 
@@ -30,6 +30,7 @@ class Series extends Model {
         this.blogs.forEach(blog => {
             this.tags = this.tags.concat(blog.tags)
         })
+        this.owner_instance = owner_instance
     }
 
     // custom methods
@@ -52,11 +53,12 @@ class Series extends Model {
         return res.data
     }
 
-    static async get_related_content() {
-        let related_date = {}
+    static async get_related_content(user_id) {
+        let related_data = {}
         let res = await axios.get(
-            BASE_URL + `${this.app_name}/query-related-content/`)
-
+            BASE_URL + `${this.app_name}/query-related-blogAndSeries/`,
+            {params: { user_id: user_id }})
+        
         let constructors = {
             blog: Blog,
             series: Series
@@ -68,10 +70,10 @@ class Series extends Model {
             for (let item of res.data[type]) {
                 list.push(new constructors[type](item))
             }
-            related_date[type] = list
+            related_data[type] = list
         }
 
-        return related_date
+        return related_data
     }
 
     // get model by id

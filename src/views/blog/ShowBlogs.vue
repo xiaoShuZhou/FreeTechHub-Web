@@ -42,6 +42,7 @@ import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
+import { PAGE_SIZE } from '@/assets/utils/consts.js'
 
 export default {
   name: "ShowBlog",
@@ -68,14 +69,13 @@ export default {
     getBlogs(page_id){
       Blog.getOnePage(page_id).then(res => {
         let {blogs, count} = res
-
-        this.totalPages = Math.ceil(count/this.pageSize)
+        this.totalPages = Math.ceil(count/PAGE_SIZE)
         this.blogs = blogs
+        this.currentPage = page_id
       })
     },
 
     setPage(new_page) {
-      this.currentPage = new_page
       this.getBlogs(new_page)
     },
   },
