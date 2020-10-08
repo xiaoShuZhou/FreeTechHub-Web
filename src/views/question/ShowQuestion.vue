@@ -28,7 +28,7 @@
       <div class="answer">
         <h2>Answers:</h2>
         <div v-if="answers == ''">
-          <h3>Sorry, no one has answered this question.</h3>
+          <h3>Sorry, no one has answered this question yet.</h3>
           <img src="@/assets/img/awkward.jpg">
         </div>
         <div v-else>
