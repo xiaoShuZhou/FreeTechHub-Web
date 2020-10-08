@@ -37,9 +37,25 @@
               <h4>{{ answer.owner_instance.username }}</h4>
             </div>
             <h2 class="card-title">{{ answer.time }}</h2>
-            <p class="card-content" v-html="answer.html_content" v-highlight></p>
+            <div v-if="is_editing == false">
+              <div v-if="user.pk == answer.owner">
+                <el-button @click="editing()">Edit</el-button>
+              </div>
+              <p class="card-content" v-html="answer.html_content" v-highlight></p>
+            </div>
+            <div v-else>
+              <mavon-editor
+                :ishljs="true"
+                :preview="true"
+                v-model="answer.content"
+              />
+              <el-button @click="saveAnswer(answer)">Save</el-button>
+              <el-button @click="cancel(answer)">Cancel</el-button>
+            </div>
             <h4 class="status">Unaccepted</h4>
-            <el-button @click="acceptAnswer(answer)">Accept</el-button>
+            <div v-if="user.pk == question.owner">
+              <el-button @click="acceptAnswer(answer)">Accept</el-button>
+            </div>
           </div>
           <el-button v-if="fold == true" @click="toggleChildren(answer)">Check out reply</el-button>
           <el-button v-if="fold == false" @click="toggleChildren(answer)">Stow reply</el-button>
@@ -74,11 +90,13 @@ export default {
   },
 	data(){
 		return {
+      user: this._user,
       wrapped_tree:'',
       comment_content:'',
       answer:this._answer,
       fold: true,
       is_accepted: this._is_accepted,
+      is_editing:false,
 		}
 	},
 	methods: {
@@ -88,6 +106,15 @@ export default {
         amount: this.question.bounty,
         transaction_type: 'B',
         description:this.question.title,
+      })
+    },
+
+    _getAnswer(answer) {
+      return new Answer({
+        id: this.id,
+        content: answer.content,
+        owner: this.user.pk,
+        question: answer.question.pk,
       })
     },
 
@@ -101,7 +128,7 @@ export default {
             Answer.get(answer.pk)
             .then(new_answer => {
               // this.answer = new_answer
-              this.$emit("updatedAnswer", new_answer)
+              this.$emit("acceptAnswer", new_answer)
               // this.is_accepted = true
             })
           })
@@ -109,7 +136,30 @@ export default {
       })
     },
 
+    editing(){
+      this.is_editing = true
+    },
+
+    refreshAnswer(answer) {
+      Answer.get(answer.pk).then(answer => {
+          this.answer = answer
+      })
+    },
+
+    saveAnswer(answer){
+      answer.update().then(() => {
+        this.refreshAnswer(answer)
+        this.is_editing = false
+      })
+    },
+
+    cancel(answer){
+      this.refreshAnswer(answer)
+      this.is_editing = false
+    },
+
     toggleChildren(answer){
+      console.log(answer)
       if (this.fold == true) {
         Comment.query_sub_comments(answer.root_comment)
         .then(comment_tree => {

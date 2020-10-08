@@ -33,6 +33,7 @@ import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
+import { PAGE_SIZE } from '@/assets/utils/consts.js'
 
 export default {
   name: 'ShowQuestions',
@@ -45,7 +46,6 @@ export default {
     return {
       questions:'',
       totalPages:'',
-      pageSize: 3,
       currentPage: 1,
     }
   },
@@ -59,7 +59,7 @@ export default {
     getQuestions(page_id){
       Question.getOnePage(page_id).then(res => {
         var{questions, count} = res
-        this.totalPages = Math.ceil(count/this.pageSize)
+        this.totalPages = Math.ceil(count/PAGE_SIZE)
         this.questions = questions
       })
     },
