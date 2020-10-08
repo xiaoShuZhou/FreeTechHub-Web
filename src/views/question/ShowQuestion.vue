@@ -15,9 +15,8 @@
         </div>
       </div>
       <div class="taggroup" v-if="question.tags.length != 0">
-        <a href class="tag" v-for="tag in question.tags" :key="tag.pk">
-          <img class="tag-img" src="@/assets/img/标签.svg" alt />
-          <span>{{ tag.tag_name }}</span>
+        <a href v-for="tag in question.tags" :key="tag.pk">
+          <span class="badge badge-success">{{ tag.tag_name }}</span>
         </a>
       </div>
       <div class="content" v-html="question.content" v-highlight></div>
@@ -291,10 +290,10 @@ export default {
   grid-area: card-content;
   word-break: break-all;
 }
-.tag {
-  display: flex;
-  flex-direction: row;
-  justify-content: baseline;
+.badge {
+  font-size: 22px;
+  font-weight: 400;
+  height: 26px;
 }
 .tag-img{
   width: 20%;
@@ -312,7 +311,6 @@ export default {
   grid-area: taggroup;
   display: flex;
   justify-content: baseline;
-  flex-wrap: wrap;
 }
 .status {
   grid-area: status;

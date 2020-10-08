@@ -40,13 +40,13 @@
       <li v-if="is_owner">
         <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
           <img src="@/assets/img/好友.svg"/>
-          <span>MessageCenter</span>
+          <span>Message</span>
         </router-link>
       </li>
       <li v-if="is_owner">
         <router-link v-if="user != ''" :to="{name:'TransactionRecord', params:{id: this.user.pk}}">
           <img src="@/assets/img/交易提醒.svg"/>
-          <span>TransactionRecord</span>
+          <span>Transaction</span>
         </router-link>
       </li>
       <li v-if="is_owner">
@@ -102,7 +102,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   list-style: none;
   padding: 20px 10% 0 10%;
 }

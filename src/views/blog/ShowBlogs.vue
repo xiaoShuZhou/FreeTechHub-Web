@@ -2,10 +2,10 @@
   <div class="ShowBlogs">
     <Navbar :_user="user"/>
     <h1>Blogs</h1>
-    <ul class="cardlist">
+    <ul class="Cardlist">
       <li v-for="blog in blogs" :key="blog.pk">
-        <div class="card">
-          <img :src="blog.background_image" class="card-img">
+        <div class="Card">
+          <img :src="blog.background_image" class="Card-img">
           <h3 class="title">
             <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
               {{ blog.title }}
@@ -30,7 +30,7 @@
       :_curPage="currentPage"
       :total="totalPages">
     </pagination>
-    <el-button @click="newBlog">create new blog</el-button>
+    <el-button class="create" @click="newBlog">create new blog</el-button>
     <Footer/>
   </div>
 </template>
@@ -121,9 +121,8 @@ button {
 }
 
 .ShowBlogs {
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  /* padding: 0 10vw; */
   margin-top: 10vh;
   display: flex;
   flex-direction: column;
@@ -131,14 +130,14 @@ button {
 h1{
   text-align: center;
 }
-.cardlist {
+.Cardlist {
   list-style: none;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: 2500px;
 }
-.cardlist li{
+.Cardlist li{
   position: relative;
   width: 25%;
   padding: 2px;
@@ -146,7 +145,7 @@ h1{
   box-sizing: border-box;
 }
 
-.card {
+.Card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 100%;
@@ -159,10 +158,10 @@ h1{
   background: rgba(221, 218, 218, 0.1);
   word-break: break-all;
 }
-.card > h4 {
+.Card > h4 {
   margin: 20px;
 }
-.card p {
+.Card p {
   margin: 20px;
   font-weight: 300;
 }
@@ -172,21 +171,21 @@ h1{
   opacity: 0;
   max-height: 20px;
 }
-.card:hover{
+.Card:hover{
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
 }
-.card:hover  a{
+.Card:hover  a{
   color: blue;
   transition: all 0.5s ease;
 }
 .icon{
   display: none;
 }
-.card:hover .icon{
+.Card:hover .icon{
   width: 5%;
   transition: all 0.5s ease;
 }
-.card:hover .readmore{
+.Card:hover .readmore{
   width: 100%;
   opacity: 1;
   text-align: center;
@@ -201,7 +200,7 @@ h1{
 a:-webkit-any-link{
   color: #000;
 }
-.card:hover ~ a{
+.Card:hover ~ a{
   color:blue;
   transition: all 0.5s ease;
 }
@@ -211,7 +210,7 @@ a:-webkit-any-link{
 a {
   text-decoration: none;
 }
-.card-img{
+.Card-img{
   width: 100%;
 }
 .user{
@@ -225,26 +224,33 @@ a {
   margin: 10px;
   border-radius: 50%;
 }
+.create{
+  text-align: center;
+}
 @media screen and (max-width: 1280px){
   .ShowBlogs{
     width: 100%;
     height: 100%;
-    padding: 0 10vw;
     margin-top: 6vh;
   }
-  .cardlist {
+  .Cardlist {
     list-style: none;
-    display: grid;
+    display: flex;
     width: 100%;
     height: 100%;
     margin-top: 5%;
-    grid-template-columns: 50% 50%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 2500px;
   }
-  .cardlist li{
-    height: 100%;
-    margin: 3vh 0;
+  .Cardlist li{
+    position: relative;
+    width: 30%;
+    padding: 2px;
+    margin: 10px;
+    box-sizing: border-box;
   }
-  .card:hover .icon{
+  .Card:hover .icon{
     width: 5%;
   }
 }
@@ -252,9 +258,8 @@ a {
   .ShowBlogs {
     width: 100%;
     height: 100%;
-    padding: 0 10vw;
   }
-  .cardlist {
+  .Cardlist {
     list-style: none;
     display: flex;
     width: 100%;
@@ -263,15 +268,16 @@ a {
     flex-direction: column;
     justify-content: center;
   }
-  .cardlist li{
+  .Cardlist li{
+    width: 100%;
     height: 120%;
   }
-  .card:hover .icon{
+  .Card:hover .icon{
     width: 5%;
   }
   img{
-  width: 100%;
-  height: 40%;
+    width: 100%;
+    height: 40%;
   }
 }
 </style>
