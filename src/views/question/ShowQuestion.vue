@@ -21,49 +21,55 @@
         </a>
       </div>
       <div class="content" v-html="question.content" v-highlight></div>
-      <div class="buttons">
-        <el-button @click="editQuestion">Edit</el-button>
-        <el-button @click="deleteQuestion">Delete</el-button>
-      </div>
-      <div class="answear">
-      <h2>Answers:</h2>
-      <div v-if="accepted_answer != ''">
-      <show-answers @updatedAnswer="updatedAnswer"
-        :_answer="accepted_answer"
-        :question="question"
-        :_is_accepted="true"
-        :_user="user">
-      </show-answers>
-      <li v-for="answer in answers" :key="answer.pk">
-        <div v-if="answer.status == false">
-          <show-answers @updatedAnswer="updatedAnswer"
-            :_answer="answer"
-            :question="question"
-            :_is_accepted="true"
-            :_user="user">
-          </show-answers>
+        <div class="buttons">
+          <el-button @click="editQuestion">Edit</el-button>
+          <el-button @click="deleteQuestion">Delete</el-button>
         </div>
-      </li>
+      <div class="answer">
+        <h2>Answers:</h2>
+        <div v-if="answers == ''">
+          <h3>Sorry, no one has answered this question.</h3>
+          <img src="@/assets/img/awkward.jpg">
+        </div>
+        <div v-else>
+          <div v-if="accepted_answer != ''">
+            <show-answers @updatedAnswer="updatedAnswer"
+              :_answer="accepted_answer"
+              :question="question"
+              :_is_accepted="true"
+              :_user="user">
+            </show-answers>
+            <li v-for="answer in answers" :key="answer.pk">
+              <div v-if="answer.status == false">
+                <show-answers @updatedAnswer="updatedAnswer"
+                  :_answer="answer"
+                  :question="question"
+                  :_is_accepted="true"
+                  :_user="user">
+                </show-answers>
+              </div>
+            </li>
+          </div>
+          <div v-else>
+            <li v-for="answer in answers" :key="answer.pk">
+              <show-answers @acceptAnswer="acceptAnswer"
+                :_answer="answer"
+                :question="question"
+                :_is_accepted="false"
+                :_user="user">
+              </show-answers>
+            </li>
+          </div>
+        </div>
       </div>
-      <div v-else>
-        <li v-for="answer in answers" :key="answer.pk">
-          <show-answers @updatedAnswer="updatedAnswer"
-            :_answer="answer"
-            :question="question"
-            :_is_accepted="false"
-            :_user="user">
-          </show-answers>
-        </li>
-      </div>
-      </div>
-      <div class="editor" v-if="this.accepted_answer == ''">
-      <mavon-editor
-        :ishljs="true"
-        :preview="true"
-        v-model="content"
-        placeholder="Post your answer"
-      />
-      <el-button @click="saveAnswer()">Post</el-button>
+      <div class="editor" v-if="this.accepted_answer == '' && user.pk != question.owner && is_answerable == true">
+        <mavon-editor
+          :ishljs="true"
+          :preview="true"
+          v-model="content"
+          placeholder="Post your answer"
+        />
+        <el-button @click="saveAnswer()">Post</el-button>
       </div>
     </div>
   </div>
@@ -91,6 +97,7 @@ export default {
       answers:'',
       accepted_answer:'',
       content: '',
+      is_answerable:true
     }
   },
   methods: {
@@ -132,7 +139,7 @@ export default {
       })
     },
 
-    updatedAnswer(updated_answer) {
+    acceptAnswer(updated_answer) {
       this.accepted_answer = updated_answer
     },
   },
@@ -146,6 +153,10 @@ export default {
         for (let answer of this.answers) {
           if (answer.status == true) {
             this.accepted_answer = answer
+          }
+          if (answer.owner == user.pk) {
+            this.is_answerable = false
+            break
           }
         }
       })
@@ -240,13 +251,13 @@ export default {
                        "left content"
                        "left taggroup"
                        "left buttons"
-                       "left answear"
+                       "left answer"
                        "left editor";
   grid-template-columns: 25% 75%;
   grid-column-gap: 20px;
 }
-.answear{
-  grid-area: answear;
+.answer{
+  grid-area: answer;
 }
 .editor{
   grid-area: editor;

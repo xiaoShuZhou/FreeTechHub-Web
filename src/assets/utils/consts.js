@@ -10,3 +10,4 @@ if (PRODUCTION) {
 }
 export default BASE_URL
 export let DOMAIN = BASE_URL.substr(7, 19)
+export const PAGE_SIZE = 6
