@@ -1,12 +1,11 @@
 <template>
   <div class="ShowQuestions">
-    <StarBackground />
     <Navbar/>
     <h1>Questions</h1>
     <ul class="cardlist">
       <li v-for="question in questions" :key="question.pk">
         <div class="card">
-          <img src="@/assets/img/landing.jpg" class="card-img">
+          <img :src="question.background_image" class="card-img">
           <h2 class="title"><router-link :to="{name: 'ShowQuestion', params: {id: question.pk}}">{{question.title}}</router-link></h2>
           <div class="user">
             <img class="avatar" :src="question.owner_instance.avatar">
@@ -34,21 +33,19 @@ import renderMath from "@/assets/utils/renderMath"
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Pagination from '@/components/Pagination.vue'
-import StarBackground from '@/components/StarBackground'
+import { PAGE_SIZE } from '@/assets/utils/consts.js'
 
 export default {
   name: 'ShowQuestions',
   components: {
     Navbar,
     Footer,
-    StarBackground,
     Pagination
   },
   data() {
     return {
       questions:'',
       totalPages:'',
-      pageSize: 3,
       currentPage: 1,
     }
   },
@@ -62,7 +59,7 @@ export default {
     getQuestions(page_id){
       Question.getOnePage(page_id).then(res => {
         var{questions, count} = res
-        this.totalPages = Math.ceil(count/this.pageSize)
+        this.totalPages = Math.ceil(count/PAGE_SIZE)
         this.questions = questions
       })
     },

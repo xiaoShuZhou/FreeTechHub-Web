@@ -1,14 +1,19 @@
 <template>
-  <div class="NewTag">
-    <h3 class="title">Tags</h3>
-    <ul class="list">
-      <li v-for="tag in tags" :key="tag">
-        {{tag}}
-        <el-button @click="remove(tag)">remove</el-button>
-      </li>
-    </ul>
-    <el-input class="text" type="text" v-model="tag"></el-input>
-    <el-button class="tag-btn" @click="addTag()">add tag</el-button>
+  <div class="allgrid">
+    <div>
+      <p>Tags</p>
+      <ul class="list">
+        <li v-for="tag in tags" :key="tag">
+          {{tag}}
+          <el-button @click="remove(tag)">remove</el-button>
+        </li>
+      </ul>
+    </div>
+    <div class="NewTag">
+      <el-input class="text" type="text" v-model="tag"></el-input>
+      <p v-show="warning" style="color: red;">you can't add a tag without giving a name!</p>
+      <el-button class="tag-btn" @click="addTag()">add tag</el-button>
+    </div>
   </div>
 </template>
 
@@ -20,20 +25,23 @@ export default {
   data() {
     return {
       tag: '',
-      tags: []
+      tags: [],
+      warning: false
     }
   },
   methods: {
     addTag() {
-      this.tags.forEach((tag) => {
+      if (this.tag == '') { this.warning = true; return }
+      for (let tag of this.tags) {
         if (tag == this.tag) {
           alert("you can't add same tag twice!")
           this.tag = ''
           return
         }
-      })
+      }
       this.tags.push(this.tag)
       this.tag = ''
+      this.warning = false
     },
     remove(tag) {
       removeItem(this.tags, tag)
@@ -42,19 +50,17 @@ export default {
 }
 </script>
 
-<style scoped>
+ <style scoped>
+.allgrid{
+  line-height: 2px;
+}
 .NewTag{
   display: grid;
   flex-direction: row;
-  grid-template-areas: "title text btn"
-                       "list list list";
-  grid-template-columns: 10% 70% 20%;
-  grid-column-gap: 20px;
-  justify-items: center;
+  grid-template-areas: "text btn";
+  grid-template-columns: 81% 18%;
 }
-.title{
-  grid-area: title;
-}
+
 .list{
   grid-area: list;
 }
@@ -65,20 +71,11 @@ export default {
 }
 .tag-btn{
   grid-area: btn;
-  width: 100%;
-  height: 80%;
 }
 ul{
   list-style: none;
   display: flex;
   flex-direction: row;
 }
-li{
-  margin: 0 10px;
-}
-</style>
-<style>
-.text .el-input__inner{
-  height: 80%;
-}
+
 </style>

@@ -40,13 +40,13 @@
       <li v-if="is_owner">
         <router-link v-if="user != ''" :to="{name:'Friends', params:{id: this.user.pk}}">
           <img src="@/assets/img/好友.svg"/>
-          <span>MessageCenter</span>
+          <span>Message</span>
         </router-link>
       </li>
       <li v-if="is_owner">
         <router-link v-if="user != ''" :to="{name:'TransactionRecord', params:{id: this.user.pk}}">
           <img src="@/assets/img/交易提醒.svg"/>
-          <span>TransactionRecord</span>
+          <span>Transaction</span>
         </router-link>
       </li>
       <li v-if="is_owner">
@@ -56,16 +56,17 @@
         </router-link>
       </li>
       <li v-if="_is_owner">
-        <router-link :to="{name:'Login'}">
+        <a @click="logout">
           <img src="@/assets/img/登出.svg"/>
           <span>Logout</span>
-        </router-link>
+        </a>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import {logout} from '@/assets/utils/auth'
 export default {
   name: "ProfileLeftNavbar",
   props: ['_is_owner', '_user'],
@@ -74,6 +75,13 @@ export default {
       user: this._user,
       is_owner: this._is_owner
     }
+  },
+  methods:{
+    logout: function() {
+      logout()
+      this.$store.commit("removeSocketHandle")
+      this.$router.push({name: "ShowBlogs"})
+    },
   },
 }
 </script>
@@ -87,13 +95,14 @@ export default {
 }
 .ProfileLeftNavbar{
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  padding: 5vh 0;
 }
 .list {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   list-style: none;
   padding: 20px 10% 0 10%;
 }

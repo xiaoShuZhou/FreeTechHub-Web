@@ -1,6 +1,7 @@
 import getURIKeywords from '@/assets/utils/getURIKeywords'
 import Question from "@/assets/utils/models/Question"
 import Blog from "@/assets/utils/models/Blog"
+import User from "@/assets/utils/models/User"
 import BASE_URL from "@/assets/utils/consts"
 import axios from "axios"
 
@@ -10,7 +11,8 @@ async function search(keywords) {
         BASE_URL + "search/?keywords=" + URI)
     let constructorMap = {
         "Blog": Blog,
-        "Question": Question
+        "Question": Question,
+        "User": User
     }
 
     let result_list = []
@@ -26,7 +28,7 @@ export async function blog_recommend(blog) {
     if (blog.tags.length == 0) {
         return ''
     }
-    blog.tags.forEach(tag => keywords += tag.tag_name)
+    blog.tags.forEach(tag => keywords += ` ${tag.tag_name}`)
     let URI = getURIKeywords(keywords)
     let results = await axios.get(
         BASE_URL + "search/?keywords=" + URI 

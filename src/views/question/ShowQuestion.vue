@@ -15,58 +15,62 @@
         </div>
       </div>
       <div class="taggroup" v-if="question.tags.length != 0">
-        <a href class="tag" v-for="tag in question.tags" :key="tag.pk">
-          <img class="tag-img" src="@/assets/img/标签.svg" alt />
-          <span>{{ tag.tag_name }}</span>
+        <a href v-for="tag in question.tags" :key="tag.pk">
+          <span class="badge badge-success">{{ tag.tag_name }}</span>
         </a>
       </div>
       <div class="content" v-html="question.content" v-highlight></div>
-      <div class="buttons">
-        <el-button @click="editQuestion">Edit</el-button>
-        <el-button @click="deleteQuestion">Delete</el-button>
-      </div>
-      <div class="answear">
-      <h2>Answers:</h2>
-      <div v-if="accepted_answer != ''">
-      <show-answers @updatedAnswer="updatedAnswer"
-        :_answer="accepted_answer"
-        :question="question"
-        :_is_accepted="true"
-        :_user="user">
-      </show-answers>
-      <li v-for="answer in answers" :key="answer.pk">
-        <div v-if="answer.status == false">
-          <show-answers @updatedAnswer="updatedAnswer"
-            :_answer="answer"
-            :question="question"
-            :_is_accepted="true"
-            :_user="user">
-          </show-answers>
+        <div class="buttons">
+          <el-button @click="editQuestion">Edit</el-button>
+          <el-button @click="deleteQuestion">Delete</el-button>
         </div>
-      </li>
+      <div class="answer">
+        <h2>Answers:</h2>
+        <div v-if="answers == ''">
+          <h3>Sorry, no one has answered this question yet.</h3>
+          <img src="@/assets/img/awkward.jpg">
+        </div>
+        <div v-else>
+          <div v-if="accepted_answer != ''">
+            <show-answers @updatedAnswer="updatedAnswer"
+              :_answer="accepted_answer"
+              :question="question"
+              :_is_accepted="true"
+              :_user="user">
+            </show-answers>
+            <li v-for="answer in answers" :key="answer.pk">
+              <div v-if="answer.status == false">
+                <show-answers @updatedAnswer="updatedAnswer"
+                  :_answer="answer"
+                  :question="question"
+                  :_is_accepted="true"
+                  :_user="user">
+                </show-answers>
+              </div>
+            </li>
+          </div>
+          <div v-else>
+            <li v-for="answer in answers" :key="answer.pk">
+              <show-answers @acceptAnswer="acceptAnswer"
+                :_answer="answer"
+                :question="question"
+                :_is_accepted="false"
+                :_user="user">
+              </show-answers>
+            </li>
+          </div>
+        </div>
       </div>
-      <div v-else>
-        <li v-for="answer in answers" :key="answer.pk">
-          <show-answers @updatedAnswer="updatedAnswer"
-            :_answer="answer"
-            :question="question"
-            :_is_accepted="false"
-            :_user="user">
-          </show-answers>
-        </li>
+      <div class="editor" v-if="this.accepted_answer == '' && user.pk != question.owner && is_answerable == true">
+        <mavon-editor
+          :ishljs="true"
+          :preview="true"
+          v-model="content"
+          placeholder="Post your answer"
+        />
+        <el-button @click="saveAnswer()">Post</el-button>
       </div>
-      </div>  
-      <div class="editor" v-if="this.accepted_answer == ''">
-      <mavon-editor
-        :ishljs="true"
-        :preview="true"
-        v-model="content"
-        placeholder="Post your answer"
-      />
-      <el-button @click="saveAnswer()">Post</el-button>
-      </div>
-    </div> 
-    <Footer/>
+    </div>
   </div>
 </template>
 
@@ -76,14 +80,12 @@ import Answer from "@/assets/utils/models/Answer";
 import { login_required } from '@/assets/utils/auth';
 import renderMath from "@/assets/utils/renderMath"
 import Navbar from "@/components/Navbar.vue";
-import Footer from '@/components/Footer.vue'
 import ShowAnswers from '@/components/ShowAnswers.vue';
 
 export default {
   name: "ShowQuestion",
   components: {
     Navbar,
-    Footer,
     ShowAnswers,
   },
   data() {
@@ -94,6 +96,7 @@ export default {
       answers:'',
       accepted_answer:'',
       content: '',
+      is_answerable:true
     }
   },
   methods: {
@@ -135,7 +138,7 @@ export default {
       })
     },
 
-    updatedAnswer(updated_answer) {
+    acceptAnswer(updated_answer) {
       this.accepted_answer = updated_answer
     },
   },
@@ -150,11 +153,15 @@ export default {
           if (answer.status == true) {
             this.accepted_answer = answer
           }
+          if (answer.owner == user.pk) {
+            this.is_answerable = false
+            break
+          }
         }
       })
     })
   },
-  
+
   watch: {
     question() {
       this.$nextTick().then(() => {
@@ -243,13 +250,13 @@ export default {
                        "left content"
                        "left taggroup"
                        "left buttons"
-                       "left answear"
+                       "left answer"
                        "left editor";
   grid-template-columns: 25% 75%;
   grid-column-gap: 20px;
 }
-.answear{
-  grid-area: answear;
+.answer{
+  grid-area: answer;
 }
 .editor{
   grid-area: editor;
@@ -294,10 +301,10 @@ export default {
   grid-area: card-content;
   word-break: break-all;
 }
-.tag {
-  display: flex;
-  flex-direction: row;
-  justify-content: baseline;
+.badge {
+  font-size: 22px;
+  font-weight: 400;
+  height: 26px;
 }
 .tag-img{
   width: 20%;
@@ -315,7 +322,6 @@ export default {
   grid-area: taggroup;
   display: flex;
   justify-content: baseline;
-  flex-wrap: wrap;
 }
 .status {
   grid-area: status;

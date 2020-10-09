@@ -98,7 +98,7 @@ export default {
   margin: 0;
   padding: 0;
   text-decoration: none;
-  background: #f5d772;
+  background: #fafbff;
 }
 .MessageCeter{
   display: grid;

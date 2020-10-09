@@ -1,9 +1,9 @@
 <template>
   <div class="ShowOneSeries">
-    <StarBackground />
     <Navbar/>
     <img class="landing" src="@/assets/img/landing.jpg" alt="">
     <h1>{{series.name}}</h1>
+    <p>{{series.description}}</p>
     <h2>Sub series:</h2>
     <ul class="cardlist">
       <li v-for="series in sub_series" :key="series.pk">
@@ -65,14 +65,12 @@ import Navbar from '@/components/Navbar.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
 import Footer from '@/components/Footer.vue'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowOneSeries",
   components: {
     Navbar,
     Footer,
-    StarBackground
   },
   data() {
     return {
@@ -229,6 +227,7 @@ button:hover{
 .avatar{
   width: 20%;
   margin: 10px;
+  border-radius: 50%;
 }
 h3{
   margin: 20px 10px;

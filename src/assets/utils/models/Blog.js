@@ -12,9 +12,9 @@ class Blog extends Model {
     // the input argument must be something like:
     constructor({id, title, content, date, view_num, owner,
                  tags, series, like_num, dislike_num, content_type_id,
-                 root_comment, owner_instance}) {
-        
-        super({title, content, owner, series, root_comment})  // data fields that is requried when save
+                 root_comment, owner_instance, background_image}) {
+
+        super({title, content, owner, series, root_comment, background_image})  // data fields that is requried when save
         // required data fields
         this.app_name = 'blog'
         this.model = "blog"
@@ -28,7 +28,8 @@ class Blog extends Model {
         this.dislike_num = dislike_num
         this.content_type_id = content_type_id
         this.html_content = marked(this.content)
-        
+        this.background_image = background_image
+
         if (owner_instance != undefined) {
             this.owner_instance = new User(owner_instance)
         }
@@ -68,6 +69,20 @@ class Blog extends Model {
         return res.data
     }
 
+    static async getOwnerBlog(request_user_id) {
+        let results= await axios.get(BASE_URL + `blog/query-related-content/`,{
+            params: { request_user: request_user_id }
+        }
+        )
+        let result_list = []
+        for (let result of results.data) {
+            result_list.push(new Blog(result))
+        }
+
+         return result_list
+    }
+
+
     //get blogs by page_id
     static async getOnePage(page_id){
         let response = await axios.get(BASE_URL + 'blog/blog', {
@@ -100,6 +115,40 @@ class Blog extends Model {
     // get all the model
     static async all() {
         return await this._raw_all(this.app_name, this.model_name, this)
+    }
+
+    async save() {
+        let config = {
+            headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
+          };
+        let param = new FormData();
+        param.append('id', this._getData().id);
+        param.append('title', this._getData().title);
+        param.append('content', this._getData().content);
+        param.append('owner', this._getData().owner);
+        if(this._getData().background_image != undefined)
+            param.append('background_image', this._getData().background_image);
+        let response = await axios.post(this._getModelURL(), param, config)
+        this.pk = response.data.id
+        return response
+    }
+
+    async update(picture) {
+        if(picture == undefined||picture == "")
+            return await axios.put(this._getInstanceURL(), this._getData())
+        else {
+            let config = {
+                headers:{'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}
+            };
+            let param = new FormData();
+            param.append('id', this._getData().id);
+            param.append('title', this._getData().title);
+            param.append('content', this._getData().content);
+            param.append('owner', this._getData().owner);
+            if(this._getData().background_image != undefined)
+                param.append('background_image', this._getData().background_image);
+            return await axios.put(this._getInstanceURL(), param,config)
+        }
     }
 }
 

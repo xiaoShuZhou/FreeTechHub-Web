@@ -21,7 +21,8 @@ export default {
 .Footer {
   display: flex;
   flex-direction: row;
-  background: #ffdcc9;
+  background: black;
+  color: white;
   width: 100vw;
   height: 10vh;
   justify-content: space-evenly;

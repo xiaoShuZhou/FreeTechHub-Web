@@ -1,6 +1,5 @@
 <template>
   <div class="Search">
-    <StarBackground />
     <Navbar/>
     <div class="results" v-if="results.length != 0">
       <ul class="cardlist">
@@ -25,6 +24,14 @@
               </router-link>
             </h2>
           </div>
+          <div class="card user-card" v-else-if="result.model == 'user'">
+            <span>[User]</span>
+            <img class="avatar" :src="result.avatar">
+            <router-link 
+            :to="{name:'ProfileInformation', params:{id: result.pk}}">
+            {{ result.username }}
+            </router-link>
+          </div>
           <div v-else>
             <h1>No related content</h1>
           </div>
@@ -37,13 +44,11 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import search from '@/assets/utils/models/search'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "Search",
   components: {
     Navbar,
-    StarBackground
   },
   data() {
     return {
@@ -156,6 +161,20 @@ export default {
     width: 5%;
   }
 }
+
+.avatar {
+  width: 20%;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.user-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 5%;
+}
+
 @media screen and (max-width: 650px) {
   .ShowOneSeries {
     width: 100%;

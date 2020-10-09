@@ -1,6 +1,5 @@
 <template>
   <div class="ShowSeries">
-    <StarBackground />
     <Navbar/>
     <h1>Series</h1>
     <ul class="cardlist">
@@ -13,8 +12,8 @@
             </router-link>
           </h1>
           <div class="user">
-            <img class="avatar" :src="series.blogs[0].owner_instance.avatar">
-            <a href="">{{series.blogs[0].owner_instance.username}}</a>
+            <img class="avatar" :src="series.owner_instance.avatar">
+            <a href="">{{series.owner_instance.username}}</a>
           </div>
           <h3>Tags: </h3>
           <ul>
@@ -37,18 +36,16 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Series from '@/assets/utils/models/Series'
 import { login_required } from '@/assets/utils/auth'
-import StarBackground from '@/components/StarBackground'
 
 export default {
   name: "ShowSeries",
   components: {
     Navbar,
     Footer,
-    StarBackground
   },
   data() {
     return {
-      all_series: null
+      all_series: ''
     }
   },
   methods: {

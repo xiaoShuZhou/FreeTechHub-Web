@@ -3,23 +3,23 @@
     <ul>
       <div v-if="answer == true">
         <div v-if="is_root == true ">
-            <div v-if="is_reply == true">
-              <mavon-editor :ishljs = "true" :preview="true" v-model="comment_content"  placeholder="What do you want to post" />
-              <el-button @click="saveComment(comment_tree.comment)">Post a comment</el-button>
-              <el-button @click="is_reply = false">Cancel</el-button>
-            </div>
-            <div v-else>
-              <el-button @click="is_reply = true">replyToAnswer</el-button>
-            </div>
+          <div v-if="is_reply == true">
+            <mavon-editor :ishljs = "true" :preview="true" v-model="comment_content"  placeholder="What do you want to post" />
+            <el-button @click="saveComment(comment_tree.comment)">Post a comment</el-button>
+            <el-button @click="is_reply = false">Cancel</el-button>
+          </div>
+          <div v-else>
+            <el-button @click="is_reply = true">replyToAnswer</el-button>
+          </div>
         </div>
       </div>
       <div class="card">
         <div v-if="is_root == false"> 
-          <h2 class="card-title">By {{ comment_tree.comment.owner_instance.username }} at {{ comment_tree.comment.time }}</h2>
+          <h2 class="card-header">By {{ comment_tree.comment.owner_instance.username }} at {{ comment_tree.comment.time }}</h2>
           <div v-if="comment_tree.comment.owner_instance.pk == _user.pk">
             <el-button @click="deleteComment(comment_tree.comment)">Delete</el-button>
           </div>
-          <p class="content" v-html='comment_tree.comment.html_content' v-highlight></p>
+          <p class="card-text content" v-html='comment_tree.comment.html_content' v-highlight></p>
           <div v-if="comment_tree.comment.status == false">
             <el-button @click="replyTo(comment_tree.comment)">Reply To</el-button>
           </div>
@@ -34,7 +34,6 @@
               <el-button v-if="fold == false" @click="toggleChildren">Stow reply</el-button>
             </div>
           </div>
-          <hr>
         </div>
         <div v-if="comment_tree.sub_comment_ids.length != 0">
           <li v-for="comment_id in comment_tree.sub_comment_ids" :key="comment_id">
@@ -145,3 +144,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+.ShowComments{
+  margin: 10px;
+}
+li{
+  list-style: none;
+}
+</style>

@@ -1,32 +1,65 @@
 <template>
   <div class="ProfileBlogs">
-    <div class="BlogList">
-      <input type="text" placeholder="Search"/>
-      <h2>BlogList</h2>
-      <li v-for="blog in blogs" :key="blog.pk">
-        <router-link :to="{name: 'ShowBlog', params: {id: blog.pk}}" >
-          {{ blog.title }}
-        </router-link>
-      </li>
-    </div>
-    <BlogDetail class="BlogDetail"/>
+      <div class="BlogList">
+        <el-row :gutter="20">
+          <el-col :span="24">
+            <li id="type" v-for="blog in blogs" :key="blog.id" @click="change(blog)">
+              <ul>
+                <el-row>
+                  <el-col :span="24">
+                    <p id="title" @click="show_blog(blog.pk)"> {{ blog.title }}</p>
+                    <p id="date"><i class="el-icon-date"></i>{{ blog.date }}</p>
+                    <p id="content">{{ blog.content | ellipsis}}</p>
+                    <el-link type="primary" @click="show_blog(blog.pk)">Continue reading</el-link>
+                    <el-divider></el-divider>
+                  </el-col>
+                </el-row>
+              </ul>
+            </li>
+          </el-col>
+        </el-row>
+      </div>
+    <BlogDetail :ownerblog_id="ownerblog_id" class="BlogDetail"/>
   </div>
 </template>
 
 <script>
 import Blog from '@/assets/utils/models/Blog'
 import BlogDetail from '@/views/Profile/ProfileBlogDetail.vue'
+
 export default {
   components:{
     BlogDetail
   },
-  data() {
-    return {
-      blogs:''
+  filters: {
+    ellipsis (value) {
+      if (!value) return ''
+      if (value.length > 15) {
+        return value.slice(0,15) + '...'
+      }
+      return value
     }
   },
+  data() {
+    return {
+      blogs:'',
+      ownerblog_id:'',
+      selected:-1
+    }
+  },
+  methods: {
+    change(item){
+      this.selected=item.id;
+    },
+    show_blog(id) {
+      this.ownerblog_id = id
+    },
+  } ,
   created() {
-    Blog.all().then(blogs => this.blogs = blogs)
+    Blog.getOwnerBlog(this.$route.params.id).then(blogs => {
+      this.blogs = blogs
+      this.ownerblog_id = blogs[0].pk
+    })
   },
 };
 </script>
@@ -36,12 +69,15 @@ export default {
   width: auto;
   text-decoration: none;
 }
-.ProfileBlogs{
+
+.ProfileBlogs {
   display: grid;
   grid-template-areas: 'BlogList BlogDetail';
   grid-template-columns: 30% 70%;
+  background: #fafbff;
 }
-.BlogList{
+
+.BlogList {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -50,47 +86,106 @@ export default {
   background: #fafbff;
   overflow: scroll;
 }
-.BlogList::-webkit-scrollbar {display:none}
-.BlogDetail{
-  height: 100vh;
+
+.box {
+  height: 80%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
-li{
-  display: block;
-  list-style: none;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 25px;
-  text-align: center;
-  line-height: 120px;
+
+.el-card {
+  margin-bottom: 10px;
+}
+
+#tilt {
+  font-size: 50px;
+  color: dimgray;
+  font-family: STFQLBYTJW;
+  margin: 0px;
+}
+
+#sum {
+  font-size: 20px;
+  /* margin:10px */
+}
+
+#star {
+  /* margin:10px; */
+  font-size: 30px;
+  color: dimgray;
+  font-family: STFQLBYTJW;
+}
+
+#title {
+  font-family: STFQLBYTJW;
+  font-size: 40px;
+  color: black;
+  line-height: 0px
+}
+
+#date {
+  color: #c3c3c3;
+  font-size: smaller;
 
 }
-input{
-  width: 180px;
+
+#content {
+  color: #585858;
+  font-family: STFQLBYTJW;
+  font-size: 35px;
+}
+
+.search {
+  flex: 1;
+  padding: 100px 50px 0 0;
+}
+
+.search-box {
+  background: #2f3640;
   height: 40px;
-  border-radius: 10px;
-  background-color: #fafbff;
-  background: url(~@/assets/img/放大镜.svg);
-  background-size: 20%;
-	background-position: right;
-	background-repeat: no-repeat;
-  line-height: normal;
-	text-align:center;
-	vertical-align:middle;
-	font-size: 30px;
+  width: 40px;
+  border-radius: 40px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-btn {
+  color: #C56B47;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2f3640;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-text {
+  padding: 0;
+  background: none;
   outline: none;
+  border: none;
+  color: white;
+  transition: 0.4s;
+  font-size: 16px;
+  width: 0;
+  border-bottom: #C56B47 2px solid;
+  line-height: 40px;
 }
-input::-webkit-input-placeholder{
-	color: #000000;
-	font-size: 30px;
-	text-align: center;
-	height: 40px;
-	line-height: 40px;
+
+.search-box:hover {
+  width: 240px;
 }
-input::-moz-placeholder{
-	color: #000000;
-	font-size: 30px;
-	text-align: center;
+
+.search-box:hover>.search-text {
+  width: 170px;
+  padding: 0 6px;
 }
-input:focus::-webkit-input-placeholder{
-  color: transparent;
+
+.search-box:hover>.search-btn {
+  background: white;
 }
 </style>
